@@ -80,6 +80,8 @@ class RealAITrendAnalyzerAgent(BaseAgent):
             "reddit_ml_rss": "reddit_ml_rss" in sources_config,
             "reddit_ai_rss": "reddit_ai_rss" in sources_config,
             "towards_data_science": "towards_data_science" in sources_config,
+            # ========== 新增科技新闻聚合器 (v12.0) ==========
+            "techmeme": "techmeme" in sources_config,
         }
 
         # 获取配置
@@ -910,6 +912,22 @@ class RealAITrendAnalyzerAgent(BaseAgent):
                 "message": "未启用"
             }
 
+        # 43. TechMeme（科技新闻聚合器，高质量精选，免费RSS）
+        if self.sources["techmeme"]:
+            techmeme_trends = self._get_techmeme_trends()
+            all_trends.extend(techmeme_trends)
+            self.source_status["TechMeme"] = {
+                "success": len(techmeme_trends) > 0,
+                "count": len(techmeme_trends),
+                "message": "正常" if len(techmeme_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["TechMeme"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
         # 不再排序、去重、过滤，保留所有数据源的完整内容
         # 按数据源组织返回
         trends_by_source = {
@@ -955,7 +973,8 @@ class RealAITrendAnalyzerAgent(BaseAgent):
             "arXiv ML": [],
             "Reddit ML": [],
             "Reddit AI": [],
-            "Towards Data Science": []
+            "Towards Data Science": [],
+            "TechMeme": []
         }
 
         # 将热点按数据源分类
@@ -1046,6 +1065,8 @@ class RealAITrendAnalyzerAgent(BaseAgent):
                 trends_by_source["Reddit AI"].append(trend)
             elif "Towards Data Science" in source:
                 trends_by_source["Towards Data Science"].append(trend)
+            elif "TechMeme" in source:
+                trends_by_source["TechMeme"].append(trend)
 
         total_count = sum(len(trends) for trends in trends_by_source.values())
 
@@ -2149,6 +2170,167 @@ class RealAITrendAnalyzerAgent(BaseAgent):
             )
         except Exception as e:
             self.log(f"Towards Data Science RSS解析失败: {e}", "ERROR")
+            return []
+
+    # ==================== v12.0: TechMeme 科技新闻聚合器 ====================
+
+    def _get_techmeme_trends(self) -> List[Dict[str, Any]]:
+        """
+        从TechMeme获取科技新闻聚合（高质量精选，免费RSS）
+
+        TechMeme是一个科技新闻聚合器，通过算法+人工编辑筛选出最重要的科技新闻。
+        独特价值：
+        1. 多源聚合 - 汇集各大科技媒体的报道
+        2. 编辑精选 - 人工+算法双重筛选
+        3. 实时更新 - 5-30分钟更新一次
+        4. 观点聚合 - 每条新闻附带多方评论链接
+        """
+        try:
+            return self._get_techmeme_rss_trends(
+                rss_url="https://www.techmeme.com/feed.xml",
+                source_name="TechMeme",
+                max_items=20
+            )
+        except Exception as e:
+            self.log(f"TechMeme RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_techmeme_rss_trends(self, rss_url: str, source_name: str, max_items: int = 20) -> List[Dict[str, Any]]:
+        """
+        TechMeme专用RSS解析方法（增强版HTML解析）
+
+        TechMeme的RSS描述包含HTML格式，需要特殊处理：
+        1. 提取原始新闻标题
+        2. 提取新闻来源
+        3. 清理HTML标签
+        4. 提取原始来源URL（非TechMeme链接）
+        """
+        import re
+
+        try:
+            from bs4 import BeautifulSoup
+        except ImportError:
+            self.log("BeautifulSoup未安装，使用通用RSS解析", "WARNING")
+            return self._get_rss_trends(
+                rss_url=rss_url,
+                source_name=source_name,
+                item_type="news",
+                max_items=max_items
+            )
+
+        try:
+            feed = feedparser.parse(rss_url)
+
+            if feed.bozo:
+                self.log(f"{source_name} RSS解析警告: {feed.bozo}", "WARNING")
+
+            trends = []
+
+            for entry in feed.entries[:max_items]:
+                try:
+                    # TechMeme标题格式: "原标题 (作者/来源)"
+                    full_title = entry.get("title", "")
+
+                    # 解析标题：分离原标题和来源
+                    title_match = re.match(r'^(.+?)\s*\(([^/]+)/([^)]+)\)$', full_title)
+                    if title_match:
+                        original_title = title_match.group(1).strip()
+                        author = title_match.group(2).strip()
+                        original_source = title_match.group(3).strip()
+                    else:
+                        original_title = full_title
+                        author = ""
+                        original_source = ""
+
+                    # 解析描述中的原始链接
+                    description_html = entry.get("description", "")
+                    original_url = ""
+
+                    if description_html:
+                        # 使用BeautifulSoup解析HTML
+                        soup = BeautifulSoup(description_html, 'html.parser')
+
+                        # 提取第一个真实新闻链接
+                        for a_tag in soup.find_all('a', href=True):
+                            href = a_tag['href']
+                            # 跳过TechMeme内部链接
+                            if 'techmeme.com' not in href and not href.startswith('/'):
+                                original_url = href
+                                break
+
+                        # 清理HTML获取纯文本描述
+                        description = soup.get_text(separator=' ', strip=True)
+                        # 清理多余空白
+                        description = re.sub(r'\s+', ' ', description)[:300]
+                    else:
+                        description = original_title[:200]
+
+                    # 如果没有提取到原始URL，使用TechMeme链接
+                    techmeme_url = entry.get("link", "")
+                    final_url = original_url if original_url else techmeme_url
+
+                    # 发布时间
+                    published = entry.get("published", "")
+                    timestamp_iso = self._parse_published_date(published)
+
+                    # 计算热度评分
+                    # TechMeme基础分较高（因为已经是精选内容）
+                    heat_score = 70
+
+                    # AI相关关键词加分
+                    ai_keywords = [
+                        "ai", "artificial intelligence", "machine learning", "deep learning",
+                        "gpt", "chatgpt", "claude", "gemini", "llm", "openai", "anthropic",
+                        "neural", "transformer", "nlp", "computer vision", "robotics"
+                    ]
+                    title_lower = original_title.lower()
+                    if any(kw in title_lower for kw in ai_keywords):
+                        heat_score += 15
+
+                    # 知名公司加分
+                    companies = ["OpenAI", "Google", "Meta", "Microsoft", "Apple", "Amazon",
+                                "Nvidia", "Anthropic", "Tesla", "xAI"]
+                    if any(company.lower() in title_lower for company in companies):
+                        heat_score += 10
+
+                    # 时效性加分（通过发布时间）
+                    try:
+                        from datetime import datetime, timezone
+                        pub_time = datetime.strptime(published, "%a, %d %b %Y %H:%M:%S %z")
+                        hours_ago = (datetime.now(timezone.utc) - pub_time).total_seconds() / 3600
+                        if hours_ago < 2:
+                            heat_score += 10  # 2小时内新闻加分
+                        elif hours_ago < 6:
+                            heat_score += 5   # 6小时内新闻加分
+                    except Exception:
+                        pass
+
+                    trends.append({
+                        "title": original_title,
+                        "description": description,
+                        "url": final_url,
+                        "source": f"TechMeme ({original_source})" if original_source else "TechMeme",
+                        "timestamp": timestamp_iso,
+                        "metrics": {
+                            "published": published,
+                            "author": author,
+                            "original_source": original_source,
+                            "techmeme_url": techmeme_url,
+                            "type": "aggregated_news"
+                        },
+                        "heat_score": min(heat_score, 100),
+                        "tags": ["科技新闻", "精选", "聚合"]
+                    })
+
+                except Exception as e:
+                    self.log(f"处理{source_name}条目失败: {e}", "WARNING")
+                    continue
+
+            self.log(f"TechMeme: 获取 {len(trends)} 条精选科技新闻")
+            return trends
+
+        except Exception as e:
+            self.log(f"{source_name} RSS获取失败: {e}", "ERROR")
             return []
 
     # ==================== 辅助方法 ====================

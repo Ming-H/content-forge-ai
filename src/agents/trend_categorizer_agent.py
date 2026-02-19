@@ -1,5 +1,5 @@
 """
-热点分类Agent v9.2 - 将按数据源组织的热点按6大分类重新组织
+热点分类Agent v9.3 - 将按数据源组织的热点按6大分类重新组织
 
 v9.0 更新:
 - 5分类 → 6分类重构
@@ -17,25 +17,32 @@ v9.2 更新:
 - 优先最新数据（按时间戳排序，最新的在前）
 - 确保每个分类Top5填满（6×5=30条）
 - 只过滤掉没有时间戳的内容
+
+v9.3 更新:
+- 新增全局去重逻辑，确保30条新闻内部不重复
+- 基于URL和标题相似度去重
+- 相似度阈值60%（同一事件的报道视为重复）
 """
 
 from typing import Dict, Any, List
+from difflib import SequenceMatcher
 from src.agents.base import BaseAgent
 from src.utils.time_filter import TimeFilter
 
 
 class TrendCategorizerAgent(BaseAgent):
-    """热点分类Agent v9.2 - 按6大分类组织热点，优先最新数据，Top5截取"""
+    """热点分类Agent v9.3 - 按6大分类组织热点，优先最新数据，Top5截取，全局去重"""
 
     def __init__(self, config: Dict[str, Any], prompts: Dict[str, Any]):
         super().__init__(config, prompts)
         # 获取配置
         agent_config = config.get("agents", {}).get("trend_categorizer", {})
         self.max_per_category = agent_config.get("max_per_category", 5)  # Top5截取
+        self.similarity_threshold = agent_config.get("similarity_threshold", 0.6)  # 相似度阈值60%
 
     def execute(self, state: Dict[str, Any]) -> Dict[str, Any]:
         """
-        执行热点分类 (v9.2: 6分类 + 优先最新 + Top5截取)
+        执行热点分类 (v9.3: 6分类 + 优先最新 + Top5截取 + 全局去重)
 
         Args:
             state: 包含 trends_by_source 的状态
@@ -43,7 +50,7 @@ class TrendCategorizerAgent(BaseAgent):
         Returns:
             Dict[str, Any]: 更新后的状态，包含 categorized_trends
         """
-        self.log("开始按6大分类组织热点 (v9.2: 优先最新，确保30条满)...")
+        self.log("开始按6大分类组织热点 (v9.3: 全局去重，优先最新，确保30条不重复)...")
 
         try:
             trends_by_source = state.get("trends_by_source", {})
@@ -165,30 +172,41 @@ class TrendCategorizerAgent(BaseAgent):
 
             total_items = 0
 
-            # 遍历所有数据源
+            # ========== v9.3: 第一步 - 收集所有新闻并格式化 ==========
+            all_formatted_items = []
             for source_name, trends in trends_by_source.items():
                 if not trends:
                     continue
+                for trend in trends:
+                    formatted_item = self._format_trend_item(trend, source_name)
+                    # 记录原始数据源，用于后续分类
+                    formatted_item["_source_name"] = source_name
+                    all_formatted_items.append(formatted_item)
+                    total_items += 1
 
+            self.log(f"收集到 {total_items} 条原始新闻")
+
+            # ========== v9.3: 第二步 - 全局去重 ==========
+            unique_items = self._deduplicate_all_items(all_formatted_items)
+            self.log(f"全局去重: {total_items}条 → {len(unique_items)}条 (移除{total_items - len(unique_items)}条重复)")
+
+            # ========== v9.3: 第三步 - 分类去重后的新闻 ==========
+            for item in unique_items:
+                source_name = item.pop("_source_name", "")
                 # 获取该数据源的默认分类
                 default_category = source_category_map.get(source_name)
 
-                for trend in trends:
-                    # 格式化热点条目
-                    formatted_item = self._format_trend_item(trend, source_name)
+                # 确定分类
+                category = self._determine_category(
+                    item,
+                    default_category,
+                    categories
+                )
 
-                    # 确定分类
-                    category = self._determine_category(
-                        formatted_item,
-                        default_category,
-                        categories
-                    )
+                # 添加到对应分类
+                categories[category]["items"].append(item)
 
-                    # 添加到对应分类
-                    categories[category]["items"].append(formatted_item)
-                    total_items += 1
-
-            # ========== v9.2: 优先最新数据 + Top5截取 + 确保30条满 ==========
+            # ========== v9.2/v9.3: 优先最新数据 + Top5截取 + 确保30条满 ==========
             categorized_trends = {}
             total_after_top5 = 0
             total_no_timestamp = 0
@@ -319,3 +337,57 @@ class TrendCategorizerAgent(BaseAgent):
 
         # v9.0: 兜底分类 - 行业资讯（最通用）
         return "📰 行业资讯"
+
+    def _deduplicate_all_items(self, items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        全局去重 - 基于URL和标题相似度 (v9.3新增)
+
+        去重策略:
+        1. URL完全相同 → 必然重复
+        2. 标题相似度 > 60% → 视为同一事件的报道
+
+        Args:
+            items: 所有格式化后的新闻条目
+
+        Returns:
+            去重后的新闻列表
+        """
+        if not items:
+            return []
+
+        unique_items = []
+        seen_urls = set()
+        seen_titles = []  # 保存已见过的标题，用于相似度比较
+
+        # 按热度排序，优先保留高分新闻
+        sorted_items = sorted(items, key=lambda x: x.get("heat_score", 0), reverse=True)
+
+        for item in sorted_items:
+            url = item.get("url", "")
+            title = item.get("title", "")
+
+            # 1. URL去重（最准确）
+            if url and url in seen_urls:
+                continue
+
+            # 2. 标题相似度去重
+            is_duplicate = False
+            title_lower = title.lower()
+
+            for seen_title in seen_titles:
+                # 计算标题相似度
+                similarity = SequenceMatcher(None, title_lower, seen_title.lower()).ratio()
+                if similarity >= self.similarity_threshold:
+                    is_duplicate = True
+                    break
+
+            if is_duplicate:
+                continue
+
+            # 通过去重检查，添加到结果
+            unique_items.append(item)
+            if url:
+                seen_urls.add(url)
+            seen_titles.append(title)
+
+        return unique_items
