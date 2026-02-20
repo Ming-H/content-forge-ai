@@ -127,9 +127,11 @@ class NewsScoringAgent(BaseAgent):
 
         # 获取配置
         agent_config = config.get("agents", {}).get("news_scoring", {})
-        self.max_items = agent_config.get("max_items", 30)
-        self.min_per_category = agent_config.get("min_per_category", 2)
-        self.max_per_category = agent_config.get("max_per_category", 8)
+        self.max_items = agent_config.get("max_items", 35)  # v12.1: 35条（5条编辑精选 + 30条分类热点）
+        self.category_items = agent_config.get("category_items", 30)  # 分类热点数量
+        self.min_per_category = agent_config.get("min_per_category", 5)  # v12.1: 每个分类至少5条
+        self.max_per_category = agent_config.get("max_per_category", 5)  # v12.1: 每个分类最多5条
+        self.editors_pick_count = agent_config.get("editors_pick_count", 5)  # 编辑精选数量
 
         # 评分权重
         weights = agent_config.get("scoring_weights", {})
@@ -144,11 +146,13 @@ class NewsScoringAgent(BaseAgent):
         """
         执行新闻评分和筛选
 
+        v12.1: 编辑精选5条 + 分类热点30条 = 35条不重复
+
         Args:
             state: 包含 categorized_trends 的状态
 
         Returns:
-            Dict[str, Any]: 更新后的状态，包含 scored_trends
+            Dict[str, Any]: 更新后的状态，包含 scored_trends 和 editors_pick
         """
         self.log("开始对新闻进行重要性评分和筛选...")
 
@@ -162,16 +166,22 @@ class NewsScoringAgent(BaseAgent):
             scored_items = self._score_all_items(categorized_trends)
             self.log(f"完成 {len(scored_items)} 条新闻的评分")
 
-            # 第二步: 按分类筛选，确保每个分类至少有 min_per_category 条
-            balanced_selection = self._balance_categories(
-                scored_items,
-                categorized_trends
-            )
+            # v12.1: 第二步 - 先提取编辑精选（Top 5），从所有评分后的新闻中选
+            editors_pick = self._extract_editors_pick_from_all(scored_items)
+            editors_pick_urls = set(item.get("url", "") for item in editors_pick)
+            self.log(f"编辑精选: {len(editors_pick)} 条")
 
-            # 第三步: 按评分排序，取 Top N
-            final_selection = self._select_top_items(balanced_selection)
+            # v12.1: 第三步 - 从剩余候选中选30条用于分类热点（排除编辑精选）
+            remaining_items = [
+                item for item in scored_items
+                if item.get("url", "") not in editors_pick_urls
+            ]
+            self.log(f"排除编辑精选后剩余候选: {len(remaining_items)} 条")
 
-            # 第四步: 构建新的分类结构
+            # 第四步：每个分类选5条
+            final_selection = self._select_top_items(remaining_items)
+
+            # 第五步: 构建新的分类结构
             scored_trends = self._build_scored_structure(
                 final_selection,
                 categorized_trends
@@ -179,21 +189,19 @@ class NewsScoringAgent(BaseAgent):
 
             # 统计信息
             total_selected = sum(len(cat["items"]) for cat in scored_trends.values())
-            self.log(f"评分完成: 从原始 {len(scored_items)} 条筛选至 {total_selected} 条")
+            total_unique = total_selected + len(editors_pick)
+            self.log(f"评分完成: 编辑精选{len(editors_pick)}条 + 分类热点{total_selected}条 = {total_unique}条")
 
             # 统计每个分类的数量
             for cat_name, cat_data in scored_trends.items():
                 if cat_data["count"] > 0:
                     self.log(f"  {cat_name}: {cat_data['count']}条")
 
-            # 提取编辑精选 (Top 5)
-            editors_pick = self._extract_editors_pick(final_selection)
-
             return {
                 **state,
                 "scored_trends": scored_trends,
                 "editors_pick": editors_pick,
-                "total_selected_count": total_selected,
+                "total_selected_count": total_unique,
                 "current_step": "news_scored"
             }
 
@@ -407,45 +415,30 @@ class NewsScoringAgent(BaseAgent):
 
         return balanced_items
 
-    def _select_top_items(self, scored_items: List[Dict]) -> List[Dict]:
-        """选择评分最高的 N 条新闻，同时确保每个分类至少有 min_per_category 条"""
+    def _select_top_items(self, scored_items: List[Dict], exclude_count: int = 0) -> List[Dict]:
+        """
+        选择评分最高的 N 条新闻，用于分类热点
+
+        v12.1: 选择30条（6分类 × 5条），确保每个分类恰好5条
+        """
+        # v12.1: 目标是30条分类热点
+        target_count = self.category_items  # 30条
+
         # 按分类分组
         items_by_category = defaultdict(list)
         for item in scored_items:
             cat = item.get("category", "")
             items_by_category[cat].append(item)
 
-        # 第一步：先确保每个分类至少有 min_per_category 条
-        guaranteed_items = []
+        # v12.1: 每个分类恰好选5条（如果有的话）
+        selected_items = []
         for cat_name, items in items_by_category.items():
             sorted_items = sorted(items, key=lambda x: x.get("importance_score", 0), reverse=True)
-            guaranteed_items.extend(sorted_items[:self.min_per_category])
+            # 每个分类最多5条
+            cat_items = sorted_items[:self.max_per_category]
+            selected_items.extend(cat_items)
 
-        # 从已选的集合中移除
-        selected_ids = set(item.get("url", "") for item in guaranteed_items)
-        remaining_items = [item for item in scored_items if item.get("url", "") not in selected_ids]
-
-        # 第二步：按评分排序剩余项，选择剩余名额
-        remaining_quota = self.max_items - len(guaranteed_items)
-        if remaining_quota > 0:
-            sorted_remaining = sorted(
-                remaining_items,
-                key=lambda x: x.get("importance_score", 0),
-                reverse=True
-            )
-
-            # 但要限制每个分类总数不超过 max_per_category
-            category_counts = defaultdict(int)
-            for item in guaranteed_items:
-                category_counts[item.get("category", "")] += 1
-
-            for item in sorted_remaining:
-                cat = item.get("category", "")
-                if category_counts[cat] < self.max_per_category and len(guaranteed_items) < self.max_items:
-                    guaranteed_items.append(item)
-                    category_counts[cat] += 1
-
-        return guaranteed_items
+        return selected_items
 
     def _build_scored_structure(
         self,
@@ -471,8 +464,31 @@ class NewsScoringAgent(BaseAgent):
 
         return scored_trends
 
+    def _extract_editors_pick_from_all(self, scored_items: List[Dict]) -> List[Dict]:
+        """
+        v12.1: 从所有候选中提取编辑精选 (Top 5)
+        编辑精选独立于分类热点，从全局最高分中选取
+        """
+        # 按评分排序，选取最高的N条
+        sorted_items = sorted(
+            scored_items,
+            key=lambda x: x.get("importance_score", 0),
+            reverse=True
+        )[:self.editors_pick_count]
+
+        # 为编辑精选添加序号
+        editors_pick = []
+        for i, item in enumerate(sorted_items, 1):
+            editors_pick.append({
+                **item,
+                "pick_rank": i,
+                "id": f"ep_{i:03d}"
+            })
+
+        return editors_pick
+
     def _extract_editors_pick(self, scored_items: List[Dict]) -> List[Dict]:
-        """提取编辑精选 (Top 5)"""
+        """提取编辑精选 (Top 5) - 保留用于兼容性"""
         top_items = sorted(
             scored_items,
             key=lambda x: x.get("importance_score", 0),

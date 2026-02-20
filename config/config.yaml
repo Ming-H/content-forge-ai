@@ -122,9 +122,11 @@ agents:
   # 新闻评分Agent（v7.0新增，v11.0优化权重）
   news_scoring:
     enabled: true
-    max_items: 30  # 最终筛选的新闻数量
-    min_per_category: 2  # 每个分类至少保留2条
-    max_per_category: 8  # 每个分类最多保留8条
+    max_items: 35  # v12.1: 35条（5条编辑精选 + 30条分类热点）
+    category_items: 30  # v12.1: 分类热点数量
+    min_per_category: 5  # v12.1: 每个分类至少5条
+    max_per_category: 5  # v12.1: 每个分类最多5条
+    editors_pick_count: 5  # v12.1: 编辑精选数量
 
     # 评分权重（总和100）- v11.0优化：提升时效性和质量权重
     scoring_weights:

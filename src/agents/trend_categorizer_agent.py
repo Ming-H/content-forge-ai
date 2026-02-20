@@ -1,5 +1,5 @@
 """
-热点分类Agent v9.3 - 将按数据源组织的热点按6大分类重新组织
+热点分类Agent v9.4 - 将按数据源组织的热点按6大分类重新组织
 
 v9.0 更新:
 - 5分类 → 6分类重构
@@ -22,27 +22,94 @@ v9.3 更新:
 - 新增全局去重逻辑，确保30条新闻内部不重复
 - 基于URL和标题相似度去重
 - 相似度阈值60%（同一事件的报道视为重复）
+
+v9.4 更新:
+- 新增AI相关性过滤，确保30条新闻都与AI相关
+- 通用数据源（如Hacker News）改为基于内容关键词分类
+- 修复数据源映射冲突问题
 """
 
 from typing import Dict, Any, List
 from difflib import SequenceMatcher
+import re
 from src.agents.base import BaseAgent
 from src.utils.time_filter import TimeFilter
 
 
+# v9.4: AI相关性关键词 - 用于判断新闻是否与AI相关
+AI_RELEVANCE_KEYWORDS = [
+    # 核心AI技术
+    "artificial intelligence", "machine learning", "deep learning",
+    "neural network", "LLM", "GPT", "ChatGPT", "Claude", "Gemini",
+    "Transformer", "NLP", "computer vision", "speech recognition",
+    "reinforcement learning", "RLHF", "fine-tuning",
+
+    # AI公司/产品
+    "OpenAI", "Anthropic", "DeepMind", "Meta AI", "Microsoft AI",
+    "Hugging Face", "Stability AI", "Midjourney", "DALL-E", "Sora",
+    "LangChain", "Llama", "Mistral", "Qwen", "GLM", "通义千问", "文心一言",
+    "AlphaFold", "AlphaGo", "AlphaCode", "Copilot",
+
+    # AI应用/概念
+    "autonomous agent", "RAG", "embedding", "inference",
+    "benchmark", "AGI", "alignment", "multimodal", "generative",
+    "diffusion model", "vector database", "chatbot", "language model",
+    "text generation", "image generation", "AI agent", "AI model",
+
+    # AI中文关键词
+    "人工智能", "机器学习", "深度学习", "大模型", "智能体", "自然语言处理",
+    "计算机视觉", "强化学习", "神经网络", "推理", "训练", "微调"
+]
+
+# 需要精确匹配的AI关键词（使用单词边界）
+AI_EXACT_KEYWORDS = ["AI", "RL", "CV", "agent", "model", "token", "prompt"]
+
+# v9.4: 需要基于内容分类的通用数据源（不固定到特定分类）
+CONTENT_BASED_SOURCES = {
+    "Hacker News", "Reddit", "Product Hunt", "NewsAPI"
+}
+
+
 class TrendCategorizerAgent(BaseAgent):
-    """热点分类Agent v9.3 - 按6大分类组织热点，优先最新数据，Top5截取，全局去重"""
+    """热点分类Agent v9.5 - 按6大分类组织热点，AI相关性过滤，优先最新数据，为NewsScoringAgent提供足够候选"""
 
     def __init__(self, config: Dict[str, Any], prompts: Dict[str, Any]):
         super().__init__(config, prompts)
         # 获取配置
         agent_config = config.get("agents", {}).get("trend_categorizer", {})
-        self.max_per_category = agent_config.get("max_per_category", 5)  # Top5截取
+        self.max_per_category = agent_config.get("max_per_category", 10)  # v12.1: 每个分类10条候选
+        self.final_per_category = agent_config.get("final_per_category", 5)  # 最终每个分类5条
         self.similarity_threshold = agent_config.get("similarity_threshold", 0.6)  # 相似度阈值60%
+
+    def _is_ai_relevant(self, item: Dict[str, Any]) -> bool:
+        """
+        v9.4: 判断新闻是否与AI相关
+
+        基于标题和描述中的AI关键词判断相关性
+        使用精确匹配检测短关键词（如AI），子字符串匹配长关键词
+        """
+        title = item.get("title", "")
+        description = item.get("description", "")
+        text = f"{title} {description}"
+
+        # 检查需要精确匹配的关键词（使用单词边界）
+        text_lower = text.lower()
+        for keyword in AI_EXACT_KEYWORDS:
+            # 使用正则表达式进行单词边界匹配
+            pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
+            if re.search(pattern, text_lower):
+                return True
+
+        # 检查普通关键词（子字符串匹配）
+        for keyword in AI_RELEVANCE_KEYWORDS:
+            if keyword.lower() in text_lower:
+                return True
+
+        return False
 
     def execute(self, state: Dict[str, Any]) -> Dict[str, Any]:
         """
-        执行热点分类 (v9.3: 6分类 + 优先最新 + Top5截取 + 全局去重)
+        执行热点分类 (v9.4: 6分类 + AI相关性过滤 + 优先最新 + Top5截取 + 全局去重)
 
         Args:
             state: 包含 trends_by_source 的状态
@@ -50,7 +117,7 @@ class TrendCategorizerAgent(BaseAgent):
         Returns:
             Dict[str, Any]: 更新后的状态，包含 categorized_trends
         """
-        self.log("开始按6大分类组织热点 (v9.3: 全局去重，优先最新，确保30条不重复)...")
+        self.log("开始按6大分类组织热点 (v9.4: AI相关性过滤，全局去重，优先最新)...")
 
         try:
             trends_by_source = state.get("trends_by_source", {})
@@ -124,7 +191,9 @@ class TrendCategorizerAgent(BaseAgent):
                 }
             }
 
-            # ========== v9.0: 数据源到分类的映射（30个数据源） ==========
+            # ========== v9.4: 数据源到分类的映射（30个数据源） ==========
+            # 注意: Hacker News, Reddit, Product Hunt, NewsAPI 等通用数据源不固定分类
+            # 它们会基于内容关键词自动分类
             source_category_map = {
                 # 学术前沿
                 "arXiv": "📚 学术前沿",
@@ -142,11 +211,8 @@ class TrendCategorizerAgent(BaseAgent):
                 "PyTorch": "🛠️ 开发工具",
                 "TensorFlow": "🛠️ 开发工具",
 
-                # AI Agent
+                # AI Agent (专用AI Agent数据源)
                 "GitHub Trending": "🦾 AI Agent",
-                "Product Hunt": "🦾 AI Agent",
-                "Reddit": "🦾 AI Agent",
-                "Hacker News": "🦾 AI Agent",
 
                 # 企业应用
                 "TechCrunch AI": "💼 企业应用",
@@ -155,24 +221,25 @@ class TrendCategorizerAgent(BaseAgent):
                 "InfoQ AI": "💼 企业应用",
 
                 # 消费产品
-                "Product Hunt": "🌐 消费产品",
-                "Hacker News": "🌐 消费产品",
                 "a16z": "🌐 消费产品",
                 "App Store": "🌐 消费产品",
                 "Google Play": "🌐 消费产品",
 
                 # 行业资讯
-                "NewsAPI": "📰 行业资讯",
                 "MIT Tech Review": "📰 行业资讯",
                 "The Gradient": "📰 行业资讯",
                 "MarkTechPost": "📰 行业资讯",
                 "Stanford HAI": "📰 行业资讯",
                 "Accenture": "📰 行业资讯",
+
+                # v9.4: 通用数据源 - 不固定分类，基于内容自动分类
+                # Hacker News, Reddit, Product Hunt, NewsAPI 将基于关键词匹配
             }
 
             total_items = 0
+            non_ai_count = 0
 
-            # ========== v9.3: 第一步 - 收集所有新闻并格式化 ==========
+            # ========== v9.4: 第一步 - 收集所有新闻并格式化 + AI相关性过滤 ==========
             all_formatted_items = []
             for source_name, trends in trends_by_source.items():
                 if not trends:
@@ -181,10 +248,17 @@ class TrendCategorizerAgent(BaseAgent):
                     formatted_item = self._format_trend_item(trend, source_name)
                     # 记录原始数据源，用于后续分类
                     formatted_item["_source_name"] = source_name
+
+                    # v9.4: AI相关性过滤 - 通用数据源必须检查AI相关性
+                    if source_name in CONTENT_BASED_SOURCES:
+                        if not self._is_ai_relevant(formatted_item):
+                            non_ai_count += 1
+                            continue  # 跳过非AI相关内容
+
                     all_formatted_items.append(formatted_item)
                     total_items += 1
 
-            self.log(f"收集到 {total_items} 条原始新闻")
+            self.log(f"收集到 {total_items} 条AI相关新闻 (过滤掉 {non_ai_count} 条非AI内容)")
 
             # ========== v9.3: 第二步 - 全局去重 ==========
             unique_items = self._deduplicate_all_items(all_formatted_items)
@@ -206,9 +280,10 @@ class TrendCategorizerAgent(BaseAgent):
                 # 添加到对应分类
                 categories[category]["items"].append(item)
 
-            # ========== v9.2/v9.3: 优先最新数据 + Top5截取 + 确保30条满 ==========
+            # ========== v9.5: 优先最新数据 + 保留更多候选（每分类10条） ==========
+            # NewsScoringAgent 将从中选出 5条编辑精选 + 30条分类热点 = 35条
             categorized_trends = {}
-            total_after_top5 = 0
+            total_candidates = 0
             total_no_timestamp = 0
 
             for cat_name, cat_data in categories.items():
@@ -237,7 +312,8 @@ class TrendCategorizerAgent(BaseAgent):
                     reverse=True
                 )
 
-                # ========== 第三步: 截取Top5（确保有数据） ==========
+                # ========== v9.5: 截取更多候选（每分类10条）供 NewsScoringAgent 选择 ==========
+                # NewsScoringAgent 将从中选出 5条编辑精选 + 30条分类热点
                 top_items = sorted_items[:self.max_per_category]
 
                 categorized_trends[cat_name] = {
@@ -245,10 +321,10 @@ class TrendCategorizerAgent(BaseAgent):
                     "items": top_items,
                     "count": len(top_items)
                 }
-                total_after_top5 += len(top_items)
+                total_candidates += len(top_items)
                 total_no_timestamp += no_ts_count
 
-            self.log(f"分类完成(优先最新): 原始{total_items}条 -> 无时间戳{total_no_timestamp}条 -> 保留{total_after_top5}条")
+            self.log(f"分类完成(优先最新): 原始{total_items}条 -> 无时间戳{total_no_timestamp}条 -> 保留{total_candidates}条候选")
 
             # 统计每个分类的数量
             for cat_name, cat_data in categorized_trends.items():
@@ -258,7 +334,7 @@ class TrendCategorizerAgent(BaseAgent):
             return {
                 **state,
                 "categorized_trends": categorized_trends,
-                "total_trends_count": total_after_top5,
+                "total_trends_count": total_candidates,
                 "current_step": "trend_categorized"
             }
 

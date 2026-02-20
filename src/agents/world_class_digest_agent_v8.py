@@ -598,7 +598,7 @@ PLACEHOLDER_NEWS_CONTENT
         total_count: int,
         subtitle: str = ""
     ) -> str:
-        """生成Markdown格式简报 v8.0"""
+        """生成Markdown格式简报 v12.1 - 编辑精选5条 + 分类热点30条 = 35条不重复"""
 
         parts = []
 
@@ -609,7 +609,7 @@ PLACEHOLDER_NEWS_CONTENT
         if subtitle:
             parts.append(f"> 💡 {subtitle}\n\n")
 
-        parts.append(f"> **期号**: #{issue_number}  |  **阅读时间**: ~{max(5, total_count * 12 // 60)}分钟  |  **精选**: {total_count}条\n\n")
+        parts.append(f"> **期号**: #{issue_number}  |  **阅读时间**: ~{max(5, total_count * 12 // 60)}分钟  |  **精选**: {total_count}条（5条编辑精选 + {total_count - 5}条分类热点）\n\n")
         parts.append("---\n\n")
 
         # ========== 核心洞察 ==========
@@ -684,6 +684,7 @@ PLACEHOLDER_NEWS_CONTENT
             parts.append("\n---\n\n")
 
         # ========== 分类热点 ==========
+        # v12.1: 分类热点显示所有30条（编辑精选是额外的5条，不重复）
         parts.append("## 🔍 分类热点\n\n")
 
         for cat_name, cat_data in scored_trends.items():
@@ -760,7 +761,7 @@ PLACEHOLDER_NEWS_CONTENT
         markdown_content: str,
         subtitle: str = ""
     ) -> Dict[str, Any]:
-        """生成JSON格式数据 v8.0"""
+        """生成JSON格式数据 v12.1 - 编辑精选5条 + 分类热点30条 = 35条不重复"""
 
         # 构建分类数据 (v9.0: 6分类系统)
         categories = []
@@ -785,6 +786,7 @@ PLACEHOLDER_NEWS_CONTENT
             cat_id, name, icon = category_id_map.get(cat_name, (cat_name, cat_name, "📌"))
             items = []
             for item in cat_data.get("items", []):
+                # v12.1: 不再排除编辑精选，因为它们是独立的35条
                 url_hash = hash(item.get("url", "")) & 0xffffff
                 items.append({
                     "id": f"{cat_id}_{url_hash:06x}",
@@ -802,6 +804,7 @@ PLACEHOLDER_NEWS_CONTENT
                     "impact": item.get("impact", "")
                 })
 
+            # 添加分类（即使为空也添加，保持结构一致）
             categories.append({
                 "id": cat_id,
                 "name": name,
