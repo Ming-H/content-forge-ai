@@ -127,13 +127,15 @@ class WorldClassDigestAgentV9:
         today = datetime.now()
         issue_number = today.strftime("%Y%m%d")
 
-        # 计算总数
-        total_count = sum(
+        # v12.1: 计算总数 = 编辑精选5条 + 分类热点30条 = 35条
+        category_count = sum(
             cat_data.get("count", 0)
             for cat_data in scored_trends.values()
         )
+        editors_pick_count = len(editors_pick)
+        total_count = editors_pick_count + category_count  # 35条
 
-        self.log(f"生成简报: {total_count}条精选热点")
+        self.log(f"生成简报: 编辑精选{editors_pick_count}条 + 分类热点{category_count}条 = {total_count}条")
 
         # 第1步：翻译和增强新闻（应用 copywriting 原则）
         enhanced_editors_pick = self._enhance_news_items_v8(editors_pick)
@@ -169,7 +171,9 @@ class WorldClassDigestAgentV9:
             today,
             issue_number,
             total_count,
-            subtitle
+            subtitle,
+            editors_pick_count,
+            category_count
         )
 
         # 第6步：生成JSON数据
@@ -596,7 +600,9 @@ PLACEHOLDER_NEWS_CONTENT
         today: datetime,
         issue_number: str,
         total_count: int,
-        subtitle: str = ""
+        subtitle: str = "",
+        editors_pick_count: int = 5,
+        category_count: int = 30
     ) -> str:
         """生成Markdown格式简报 v12.1 - 编辑精选5条 + 分类热点30条 = 35条不重复"""
 
@@ -609,7 +615,7 @@ PLACEHOLDER_NEWS_CONTENT
         if subtitle:
             parts.append(f"> 💡 {subtitle}\n\n")
 
-        parts.append(f"> **期号**: #{issue_number}  |  **阅读时间**: ~{max(5, total_count * 12 // 60)}分钟  |  **精选**: {total_count}条（5条编辑精选 + {total_count - 5}条分类热点）\n\n")
+        parts.append(f"> **期号**: #{issue_number}  |  **阅读时间**: ~{max(5, total_count * 12 // 60)}分钟  |  **精选**: {total_count}条（{editors_pick_count}条编辑精选 + {category_count}条分类热点）\n\n")
         parts.append("---\n\n")
 
         # ========== 核心洞察 ==========
