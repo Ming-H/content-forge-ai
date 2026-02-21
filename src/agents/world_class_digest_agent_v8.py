@@ -127,15 +127,8 @@ class WorldClassDigestAgentV9:
         today = datetime.now()
         issue_number = today.strftime("%Y%m%d")
 
-        # v12.1: 计算总数 = 编辑精选5条 + 分类热点30条 = 35条
-        category_count = sum(
-            cat_data.get("count", 0)
-            for cat_data in scored_trends.values()
-        )
+        # v12.2: 计数统一基于实际items长度，避免count字段与展示不一致
         editors_pick_count = len(editors_pick)
-        total_count = editors_pick_count + category_count  # 35条
-
-        self.log(f"生成简报: 编辑精选{editors_pick_count}条 + 分类热点{category_count}条 = {total_count}条")
 
         # 第1步：翻译和增强新闻（应用 copywriting 原则）
         enhanced_editors_pick = self._enhance_news_items_v8(editors_pick)
@@ -143,6 +136,12 @@ class WorldClassDigestAgentV9:
             items = cat_data.get("items", [])
             enhanced_items = self._enhance_news_items_v8(items)
             cat_data["items"] = enhanced_items
+
+        # v12.2: 同步分类计数，确保头部统计与正文条目一致
+        category_count = self._recount_category_items(scored_trends)
+        total_count = editors_pick_count + category_count
+
+        self.log(f"生成简报: 编辑精选{editors_pick_count}条 + 分类热点{category_count}条 = {total_count}条")
 
         # 第2步：提取核心洞察（应用 content-research-writer 原则）
         all_items = []
@@ -900,3 +899,13 @@ PLACEHOLDER_NEWS_CONTENT
             "💼 AI应用": "行业应用"
         }
         return mapping.get(key, key)
+
+    def _recount_category_items(self, scored_trends: Dict[str, Dict]) -> int:
+        """按实际items长度重算分类计数，避免count字段陈旧"""
+        total = 0
+        for cat_data in scored_trends.values():
+            items = cat_data.get("items", [])
+            current_count = len(items)
+            cat_data["count"] = current_count
+            total += current_count
+        return total

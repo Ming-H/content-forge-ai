@@ -17,7 +17,7 @@ v9.0 更新:
 """
 
 from typing import Dict, Any, List
-from datetime import datetime, timedelta
+from datetime import datetime
 from collections import defaultdict
 from src.agents.base import BaseAgent
 import re
@@ -166,15 +166,19 @@ class NewsScoringAgent(BaseAgent):
             scored_items = self._score_all_items(categorized_trends)
             self.log(f"完成 {len(scored_items)} 条新闻的评分")
 
+            # v12.2: 全局去重（避免编辑精选和分类热点出现标题/URL重复）
+            scored_items = self._deduplicate_items_by_key(scored_items)
+            self.log(f"评分后去重: 保留 {len(scored_items)} 条唯一新闻")
+
             # v12.1: 第二步 - 先提取编辑精选（Top 5），从所有评分后的新闻中选
             editors_pick = self._extract_editors_pick_from_all(scored_items)
-            editors_pick_urls = set(item.get("url", "") for item in editors_pick)
+            editors_pick_keys = {self._build_item_key(item) for item in editors_pick}
             self.log(f"编辑精选: {len(editors_pick)} 条")
 
             # v12.1: 第三步 - 从剩余候选中选30条用于分类热点（排除编辑精选）
             remaining_items = [
                 item for item in scored_items
-                if item.get("url", "") not in editors_pick_urls
+                if self._build_item_key(item) not in editors_pick_keys
             ]
             self.log(f"排除编辑精选后剩余候选: {len(remaining_items)} 条")
 
@@ -191,6 +195,11 @@ class NewsScoringAgent(BaseAgent):
             total_selected = sum(len(cat["items"]) for cat in scored_trends.values())
             total_unique = total_selected + len(editors_pick)
             self.log(f"评分完成: 编辑精选{len(editors_pick)}条 + 分类热点{total_selected}条 = {total_unique}条")
+            if total_selected < self.category_items:
+                self.log(
+                    f"分类热点未达到目标{self.category_items}条，实际{total_selected}条（候选不足）",
+                    "WARNING"
+                )
 
             # 统计每个分类的数量
             for cat_name, cat_data in scored_trends.items():
@@ -430,13 +439,42 @@ class NewsScoringAgent(BaseAgent):
             cat = item.get("category", "")
             items_by_category[cat].append(item)
 
-        # v12.1: 每个分类恰好选5条（如果有的话）
+        # v12.2: 先按分类选（每分类最多5条），再全局补齐到30条
         selected_items = []
+        selected_keys = set()
+        overflow_candidates = []
+
         for cat_name, items in items_by_category.items():
             sorted_items = sorted(items, key=lambda x: x.get("importance_score", 0), reverse=True)
-            # 每个分类最多5条
-            cat_items = sorted_items[:self.max_per_category]
-            selected_items.extend(cat_items)
+            # 每个分类最多5条，且做唯一性保护
+            cat_selected = 0
+            for item in sorted_items:
+                item_key = self._build_item_key(item)
+                if item_key in selected_keys:
+                    continue
+
+                if cat_selected < self.max_per_category and len(selected_items) < target_count:
+                    selected_items.append(item)
+                    selected_keys.add(item_key)
+                    cat_selected += 1
+                else:
+                    overflow_candidates.append(item)
+
+        # 如果不足30条，从剩余高分候选中补齐（不再限制单分类上限）
+        if len(selected_items) < target_count and overflow_candidates:
+            overflow_candidates = sorted(
+                overflow_candidates,
+                key=lambda x: x.get("importance_score", 0),
+                reverse=True
+            )
+            for item in overflow_candidates:
+                if len(selected_items) >= target_count:
+                    break
+                item_key = self._build_item_key(item)
+                if item_key in selected_keys:
+                    continue
+                selected_items.append(item)
+                selected_keys.add(item_key)
 
         return selected_items
 
@@ -469,39 +507,68 @@ class NewsScoringAgent(BaseAgent):
         v12.1: 从所有候选中提取编辑精选 (Top 5)
         编辑精选独立于分类热点，从全局最高分中选取
         """
-        # 按评分排序，选取最高的N条
-        sorted_items = sorted(
-            scored_items,
-            key=lambda x: x.get("importance_score", 0),
-            reverse=True
-        )[:self.editors_pick_count]
+        # 按评分排序，选取最高的N条（带去重）
+        sorted_items = sorted(scored_items, key=lambda x: x.get("importance_score", 0), reverse=True)
 
         # 为编辑精选添加序号
         editors_pick = []
-        for i, item in enumerate(sorted_items, 1):
+        seen_keys = set()
+        for item in sorted_items:
+            item_key = self._build_item_key(item)
+            if item_key in seen_keys:
+                continue
+            seen_keys.add(item_key)
             editors_pick.append({
                 **item,
-                "pick_rank": i,
-                "id": f"ep_{i:03d}"
+                "pick_rank": len(editors_pick) + 1,
+                "id": f"ep_{len(editors_pick) + 1:03d}"
             })
+            if len(editors_pick) >= self.editors_pick_count:
+                break
 
         return editors_pick
 
     def _extract_editors_pick(self, scored_items: List[Dict]) -> List[Dict]:
         """提取编辑精选 (Top 5) - 保留用于兼容性"""
-        top_items = sorted(
-            scored_items,
-            key=lambda x: x.get("importance_score", 0),
-            reverse=True
-        )[:5]
+        return self._extract_editors_pick_from_all(scored_items)
 
-        # 为编辑精选添加序号
-        editors_pick = []
-        for i, item in enumerate(top_items, 1):
-            editors_pick.append({
-                **item,
-                "pick_rank": i,
-                "id": f"ep_{i:03d}"
-            })
+    def _normalize_title(self, title: str) -> str:
+        """规范化标题，用于重复检测"""
+        if not title:
+            return ""
 
-        return editors_pick
+        normalized = title.lower().strip()
+        normalized = re.sub(r"\s+", " ", normalized)
+        # 仅保留中英文和数字，降低标点差异对去重的影响
+        normalized = re.sub(r"[^\w\u4e00-\u9fff]+", "", normalized)
+        return normalized
+
+    def _build_item_key(self, item: Dict[str, Any]) -> str:
+        """构建新闻唯一键（优先URL，回退标题）"""
+        url = (item.get("url", "") or "").strip().lower()
+        if url:
+            return f"url::{url}"
+
+        title = self._normalize_title(item.get("title", ""))
+        if title:
+            return f"title::{title}"
+
+        # 极端兜底：避免空URL空标题导致键冲突
+        source = (item.get("source", "") or "").strip().lower()
+        timestamp = (item.get("timestamp", "") or "").strip().lower()
+        return f"fallback::{source}::{timestamp}"
+
+    def _deduplicate_items_by_key(self, items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """按唯一键去重，保留重要性更高的条目"""
+        if not items:
+            return []
+
+        deduped_items = {}
+        sorted_items = sorted(items, key=lambda x: x.get("importance_score", 0), reverse=True)
+
+        for item in sorted_items:
+            item_key = self._build_item_key(item)
+            if item_key not in deduped_items:
+                deduped_items[item_key] = item
+
+        return list(deduped_items.values())

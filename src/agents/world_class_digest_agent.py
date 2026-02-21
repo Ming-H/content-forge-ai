@@ -121,13 +121,17 @@ class WorldClassDigestAgent:
         today = datetime.now()
         issue_number = today.strftime("%Y%m%d")
 
-        # 计算总数
-        total_count = sum(
-            cat_data.get("count", 0)
+        # 计数统一基于实际items长度，且包含编辑精选
+        category_count = sum(
+            len(cat_data.get("items", []))
             for cat_data in scored_trends.values()
         )
+        editors_pick_count = len(editors_pick)
+        total_count = category_count + editors_pick_count
 
-        self.log(f"生成简报: {total_count}条精选热点")
+        self.log(
+            f"生成简报: 编辑精选{editors_pick_count}条 + 分类热点{category_count}条 = {total_count}条"
+        )
 
         # 为新闻增强信息（翻译、背景、影响、标签）
         enhanced_editors_pick = self._enhance_news_items(editors_pick)
