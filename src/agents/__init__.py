@@ -46,6 +46,8 @@ from src.agents.news_digest_agent_v3 import NewsDigestAgent  # v3 implementation
 # 内容生成
 from src.agents.longform_generator import LongFormGeneratorAgent
 from src.agents.research_agent import ResearchAgent
+from src.agents.deep_research_agent import DeepResearchAgent
+from src.agents.notebooklm_agent import NotebookLMAgent
 
 # 质量保证
 from src.agents.code_review_agent import CodeReviewAgent
@@ -135,6 +137,8 @@ AGENT_REGISTRY = {
 
     # Series Mode
     "research": ResearchAgent,
+    "deep_research_agent": DeepResearchAgent,
+    "notebooklm_agent": NotebookLMAgent,
     "longform_generator": LongFormGeneratorAgent,
     "code_review": CodeReviewAgent,
     "fact_check": FactCheckAgent,

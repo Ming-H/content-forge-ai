@@ -57,9 +57,10 @@ class SeriesOrchestrator:
         logger.info(f"SeriesOrchestrator initialized with {config_path}")
 
     def _init_agents(self) -> Dict[str, BaseAgent]:
-        """初始化Agent（优化版Series模式：只保留 Research + LongForm）"""
+        """初始化Agent（4阶段流水线：DeepResearch → NotebookLM → LongForm → 保存）"""
+        from src.agents.deep_research_agent import DeepResearchAgent
+        from src.agents.notebooklm_agent import NotebookLMAgent
         from src.agents.longform_generator import LongFormGeneratorAgent
-        from src.agents.research_agent import ResearchAgent
 
         agents = {}
 
@@ -69,24 +70,33 @@ class SeriesOrchestrator:
         # 确保配置中包含 mode: "series"
         full_config = {**self.config, "mode": "series"}
 
-        # 初始化研究Agent（优先于长文本生成）
-        if agents_config.get("research_agent", {}).get("enabled", True):
+        # 阶段1：深度调研 Agent
+        if agents_config.get("deep_research_agent", {}).get("enabled", True):
             try:
-                agents["research_agent"] = ResearchAgent(
-                    config={**agents_config.get("research_agent", {}), "mode": "series"},
+                agents["deep_research_agent"] = DeepResearchAgent(
+                    config=full_config,
                     prompts=self.prompts
                 )
-                logger.info("Initialized agent: research_agent")
+                logger.info("Initialized agent: deep_research_agent")
             except Exception as e:
-                logger.warning(f"Failed to initialize research_agent: {e}")
+                logger.warning(f"Failed to initialize deep_research_agent: {e}")
 
-        # 初始化长文本生成Agent（必需）
+        # 阶段2：NotebookLM 知识提取 Agent
+        if agents_config.get("notebooklm_agent", {}).get("enabled", True):
+            try:
+                agents["notebooklm_agent"] = NotebookLMAgent(
+                    config=full_config,
+                    prompts=self.prompts
+                )
+                logger.info("Initialized agent: notebooklm_agent")
+            except Exception as e:
+                logger.warning(f"Failed to initialize notebooklm_agent: {e}")
+
+        # 阶段3：长文本生成 Agent（必需）
         if agents_config.get("longform_generator", {}).get("enabled", True):
             try:
-                # 传递完整配置（包含mode: "series"）
-                longform_config = {**agents_config.get("longform_generator", {}), "mode": "series"}
                 agents["longform_generator"] = LongFormGeneratorAgent(
-                    config=full_config,  # 传递完整配置，包含 mode: "series"
+                    config=full_config,
                     prompts=self.prompts
                 )
                 logger.info("Initialized agent: longform_generator")
@@ -250,7 +260,7 @@ class SeriesOrchestrator:
         state: Dict[str, Any],
         storage: SeriesStorage
     ) -> Dict[str, Any]:
-        """执行内容生成工作流（优化版：只有 Research + LongForm）"""
+        """执行4阶段内容生成工作流（DeepResearch → NotebookLM → LongForm → 保存）"""
         import time
 
         def _call_agent_safely(agent_name: str, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -266,22 +276,71 @@ class SeriesOrchestrator:
                 time.sleep(2)
                 return state
 
-        # 第一步：网络搜索研究（如果启用了research_agent）
-        if "research_agent" in self.agents:
-            state = _call_agent_safely("research_agent", state)
-            sources_count = len(state.get('research_data', {}).get('sources', []))
-            logger.info(f"✅ 研究完成，获取到 {sources_count} 个资料来源")
+        # ========== 阶段1：深度调研（失败重试，不降级） ==========
+        max_retries = 3
+        for retry in range(1, max_retries + 1):
+            if "deep_research_agent" in self.agents:
+                logger.info(f"===== 阶段1：深度调研（第 {retry}/{max_retries} 次）=====")
+                state = _call_agent_safely("deep_research_agent", state)
+                urls = state.get('collected_urls') or []
+                research_data = state.get('research_data') or {}
 
-        # 第二步：长文本生成（必需）
+                # 检查调研是否有效：至少有 URL 或维度数据
+                has_urls = len(urls) > 0
+                has_dimensions = bool(research_data.get('dimensions'))
+                is_mock = research_data.get('mock', False)
+
+                if (has_urls or has_dimensions) and not is_mock:
+                    logger.info(f"✅ 调研完成，收集到 {len(urls)} 个 URL")
+                    # 保存调研结果
+                    if research_data:
+                        storage.save_json("research", "sources.json", research_data)
+                        if research_data.get('summary'):
+                            storage.save_markdown("research", "research_report.md",
+                                                f"# 调研报告\n\n{research_data.get('summary', '')}")
+                    break
+                else:
+                    logger.warning(f"⚠️ 调研结果无效（mock={is_mock}, urls={len(urls)}, dims={has_dimensions}），重试...")
+                    if retry < max_retries:
+                        time.sleep(5 * retry)
+            else:
+                logger.error("deep_research_agent 未初始化，无法执行调研")
+                break
+        else:
+            raise RuntimeError(f"深度调研失败，已重试 {max_retries} 次")
+
+        # ========== 阶段2：NotebookLM 知识提取（必须成功） ==========
+        if "notebooklm_agent" in self.agents:
+            logger.info("===== 阶段2：NotebookLM 知识提取 =====")
+            state = _call_agent_safely("notebooklm_agent", state)
+            kb = state.get('knowledge_base', '')
+            nb_meta = state.get('notebooklm_metadata', {})
+            is_mock = nb_meta.get('mock', False) if nb_meta else True
+
+            if not kb or is_mock:
+                logger.warning("NotebookLM 知识提取失败，跳过 NotebookLM 阶段，使用纯 LLM 模式")
+                kb = ""
+
+            logger.info(f"✅ 知识库已生成，长度: {len(kb)} 字符")
+
+            # 保存知识库和元数据
+            storage.save_markdown("notebooklm", "knowledge_base.md", kb)
+            if nb_meta:
+                storage.save_json("notebooklm", "notebooklm.json", nb_meta)
+        else:
+            logger.warning("notebooklm_agent 未初始化，跳过 NotebookLM 阶段")
+            kb = state.get('knowledge_base', '')
+
+        # ========== 阶段3：长文本生成 ==========
         if "longform_generator" in self.agents:
+            logger.info("===== 阶段3：长文本生成 =====")
             state = _call_agent_safely("longform_generator", state)
 
-        # 保存文章到episode目录（文件名格式：epXXX_标题_article.md）
+        # ========== 保存最终文章 ==========
         if "longform_article" in state:
             topic = state["current_topic"]
             article = state["longform_article"]
 
-            # 构建Markdown内容
             md_content = f"""# {article['title']}
 
 {article.get('full_content', '')}
@@ -292,9 +351,9 @@ class SeriesOrchestrator:
 - 阅读时间: {article.get('reading_time', 'N/A')}
 - 标签: {', '.join(article.get('tags', []))}
 - 生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+- 知识库来源: {'NotebookLM' if state.get('knowledge_base') else 'LLM only'}
 """
 
-            # 使用标题生成文件名（格式：epXXX_标题_article.md）
             saved_path = storage.save_article(md_content, title=article['title'])
             logger.info(f"✅ 文章已保存: {saved_path.name}")
 

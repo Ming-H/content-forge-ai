@@ -176,13 +176,25 @@ class SeriesPathManager:
         "ml_series_8": "traditional_ml",
         "ml_series_9": "feature_engineering",
         "ml_series_10": "advanced_ml_topics",
+        # 语音助手系列
+        "va_series": "voice_assistant",
+        # Agent Engineering系列
+        "ae_series_1": "agent_foundation",
+        "ae_series_2": "agent_architecture",
+        "ae_series_3": "multi_agent_systems",
+        "ae_series_4": "agent_safety_eval",
+        "ae_series_5": "agent_production",
     }
 
     @classmethod
     def get_series_category(cls, series_id: str) -> str:
-        """获取系列分类：LLM 或 ML"""
+        """获取系列分类：LLM、ML 或 VA"""
         if series_id.startswith("ml_series_"):
             return "ML_series"
+        if series_id.startswith("va_series"):
+            return "VA_series"
+        if series_id.startswith("ae_series"):
+            return "AE_series"
         return "LLM_series"
 
     @classmethod
@@ -237,7 +249,7 @@ class TopicFormatter:
         # 移除特殊字符，替换为下划线
         slug = title.lower()
         # 替换空格和特殊字符
-        for char in [' ', ':', '、', '（', '）', '：', '·', '？', '！', '，']:
+        for char in [' ', ':', '、', '（', '）', '：', '·', '？', '！', '，', '/', '\\']:
             slug = slug.replace(char, '_')
         # 移除多余的下划线
         while '__' in slug:

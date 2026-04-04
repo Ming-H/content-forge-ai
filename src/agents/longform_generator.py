@@ -118,9 +118,14 @@ class LongFormGeneratorAgent(BaseAgent):
         research_data = state.get("research_data", {})
         research_summary = state.get("research_summary", "")
 
+        # 获取 NotebookLM 知识库（如果存在）
+        knowledge_base = state.get("knowledge_base", "")
+        if knowledge_base:
+            self.log(f"发现知识库，长度: {len(knowledge_base)} 字符")
+
         # 第一阶段：生成大纲
         self.log("第一阶段：生成文章大纲...")
-        outline = self._generate_outline(state, topic_data, research_data)
+        outline = self._generate_outline(state, topic_data, research_data, knowledge_base)
 
         # 第二阶段：逐节展开
         self.log(f"第二阶段：展开 {len(outline.get('sections', []))} 个章节...")
@@ -138,9 +143,9 @@ class LongFormGeneratorAgent(BaseAgent):
 
             # 使用研究数据和上下文展开章节
             if enable_context:
-                section_content = self._expand_section(section, research_data, topic_data, previous_sections)
+                section_content = self._expand_section(section, research_data, topic_data, previous_sections, knowledge_base)
             else:
-                section_content = self._expand_section(section, research_data, topic_data)
+                section_content = self._expand_section(section, research_data, topic_data, previous_sections=None, knowledge_base=knowledge_base)
 
             # 规范化章节标题，避免重复
             section_content = self._normalize_section_headers(section_content, section.get('title'))
@@ -184,7 +189,7 @@ class LongFormGeneratorAgent(BaseAgent):
             "outline": outline
         }
 
-    def _generate_outline(self, state: Dict[str, Any], topic_data: Dict[str, Any], research_data: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_outline(self, state: Dict[str, Any], topic_data: Dict[str, Any], research_data: Dict[str, Any], knowledge_base: str = "") -> Dict[str, Any]:
         """
         生成文章大纲
 
@@ -210,12 +215,28 @@ class LongFormGeneratorAgent(BaseAgent):
 **发展趋势**：{details.get('trends', '')}
 """
 
+        # 构建 NotebookLM 知识库部分
+        knowledge_base_section = ""
+        if knowledge_base:
+            # 截取知识库关键部分（避免过长）
+            kb_preview = knowledge_base[:3000] if len(knowledge_base) > 3000 else knowledge_base
+            knowledge_base_section = f"""
+以下是基于真实资料提取的结构化知识，请在规划大纲时优先参考：
+
+{kb_preview}
+"""
+        else:
+            knowledge_base_section = "（暂无 NotebookLM 知识库素材）"
+
         prompt = f"""请为以下技术主题生成详细的文章大纲。
 
 **主题**：{topic_data['title']}
 **描述**：{topic_data.get('description', '')}
 
 {research_info}
+
+**知识库素材（来自 NotebookLM 提取，优先使用）**：
+{knowledge_base_section}
 
 **要求**：
 1. 大纲应包含 10-12 个主要章节（确保总字数达到1.5万字）
@@ -284,7 +305,8 @@ class LongFormGeneratorAgent(BaseAgent):
         }
 
     def _expand_section(self, section: Dict[str, Any], research_data: Dict[str, Any],
-                       topic_data: Dict[str, Any], previous_sections: list = None) -> str:
+                       topic_data: Dict[str, Any], previous_sections: list = None,
+                       knowledge_base: str = "") -> str:
         """
         展开单个章节内容（增强版，包含上下文）
 
@@ -306,6 +328,13 @@ class LongFormGeneratorAgent(BaseAgent):
 
         # 构建上下文信息
         context = self._build_section_context(section_title, previous_sections, topic_data)
+
+        # 注入 NotebookLM 知识库到上下文
+        if knowledge_base:
+            # 按关键词匹配最相关的知识库片段
+            kb_relevant = self._extract_relevant_kb(knowledge_base, section_title, section_points)
+            if kb_relevant:
+                context += f"\n\n**知识库素材（优先参考，引用具体数据和案例）**：\n{kb_relevant}"
 
         # 根据章节类型选择不同的展开策略（注意：更具体的条件要放在前面）
         if '引言' in section_title:
@@ -1208,3 +1237,41 @@ class LongFormGeneratorAgent(BaseAgent):
             "tags": topic_data.get('tags', ['AI', '技术']),
             "reading_time": f"{word_count // 400}-{word_count // 300}分钟"
         }
+
+    def _extract_relevant_kb(self, knowledge_base: str, section_title: str, section_points: str = "") -> str:
+        """
+        从知识库中提取与当前章节最相关的内容片段
+
+        按 ## 分块，关键词匹配评分，取 top 2 块，限制 2000 字符。
+        """
+        if not knowledge_base:
+            return ""
+
+        blocks = re.split(r'\n## ', knowledge_base)
+        if len(blocks) <= 1:
+            return knowledge_base[:2000]
+
+        title_kw = set(re.findall(r'[\u4e00-\u9fff\w]+', section_title.lower()))
+        points_kw = set(re.findall(r'[\u4e00-\u9fff\w]+', str(section_points).lower()))
+        all_kw = title_kw | points_kw
+
+        scored = []
+        for block in blocks:
+            head_kw = set(re.findall(r'[\u4e00-\u9fff\w]+', block[:200].lower()))
+            overlap = len(all_kw & head_kw)
+            scored.append((overlap, block))
+
+        scored.sort(key=lambda x: x[0], reverse=True)
+
+        parts, total = [], 0
+        for score, block in scored[:2]:
+            if score > 0 or total == 0:
+                text = ("## " + block) if not block.startswith("#") else block
+                if total + len(text) > 2000:
+                    text = text[:2000 - total]
+                parts.append(text)
+                total += len(text)
+                if total >= 2000:
+                    break
+
+        return "\n\n".join(parts) if parts else knowledge_base[:2000]

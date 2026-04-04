@@ -1,0 +1,1064 @@
+{
+  "batch_info": {
+    "name": "agent_engineering_50_complete",
+    "description": "Agent Engineering 50期完整规划 - 从基础概念到生产部署的Agent工程全栈指南",
+    "version": "1.0",
+    "author": "ContentForge AI",
+    "created_at": "2026-04-03",
+    "total_topics": 50,
+    "series_count": 5
+  },
+  "batch_config": {
+    "target_audience": "混合受众（从入门到专家）",
+    "content_type": "技术干货",
+    "stop_on_error": false,
+    "enabled_agents": [
+      "all"
+    ],
+    "disabled_agents": []
+  },
+  "series": [
+    {
+      "id": "ae_series_1",
+      "name": "Agent 工程基础",
+      "description": "从Chatbot到自主智能体的范式转变，掌握Anthropic定义的6大工作流模式",
+      "topic_count": 10,
+      "difficulty": "入门→进阶",
+      "priority": 1
+    },
+    {
+      "id": "ae_series_2",
+      "name": "Agent 架构与工具链",
+      "description": "从单工具到MCP生态，从无状态到持久化Agent的架构进阶",
+      "topic_count": 10,
+      "difficulty": "进阶",
+      "priority": 2
+    },
+    {
+      "id": "ae_series_3",
+      "name": "多 Agent 系统",
+      "description": "从单Agent到多Agent编排，六大主流框架深度实战",
+      "topic_count": 10,
+      "difficulty": "进阶→高级",
+      "priority": 3
+    },
+    {
+      "id": "ae_series_4",
+      "name": "评估、安全与可观测",
+      "description": "让Agent从能跑到可靠，评估基准、安全防护与可观测性体系",
+      "topic_count": 10,
+      "difficulty": "高级",
+      "priority": 4
+    },
+    {
+      "id": "ae_series_5",
+      "name": "生产化与前沿",
+      "description": "从设计到部署的完整工程链路，框架对比与毕业项目",
+      "topic_count": 10,
+      "difficulty": "高级→前沿",
+      "priority": 5
+    }
+  ],
+  "topics": [
+    {
+      "id": "ae_topic_001",
+      "series_id": "ae_series_1",
+      "episode": 1,
+      "title": "Agent Engineering 全景：从 Chatbot 到自主智能体的范式转变",
+      "description": "Agent Engineering是2025-2026年最热门的技术方向。本文从Agent vs Chatbot vs Pipeline的区别出发，详解感知-推理-行动(Perception-Reasoning-Action)循环的核心理念，梳理Agent自主性等级(L0手动-L5全自主)，解读Anthropic\"Building Effective Agents\"的核心观点：何时用Agent、何时用Workflow、何时只需优化单次LLM调用。帮助读者建立Agent Engineering的全局认知地图。",
+      "keywords": [
+        "Agent Engineering",
+        "AI Agent",
+        "Chatbot vs Agent",
+        "感知推理行动",
+        "自主性等级",
+        "Anthropic Building Effective Agents"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_002",
+      "series_id": "ae_series_1",
+      "episode": 2,
+      "title": "LLM 作为 Agent 大脑：模型能力边界与选型策略",
+      "description": "Agent的能力上限由底层LLM决定。本文对比GPT-4o、Claude 4 Sonnet、Gemini 2.5 Pro、GLM-5等主流模型在Agent场景下的表现差异，重点评估Function Calling准确率、长上下文理解、多轮对话一致性、推理深度等关键维度。构建模型选型决策树，帮助开发者在能力、成本、延迟之间做出最优权衡。",
+      "keywords": [
+        "GPT-4o",
+        "Claude",
+        "Gemini",
+        "GLM-5",
+        "Function Calling",
+        "模型选型",
+        "推理能力",
+        "成本优化"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_003",
+      "series_id": "ae_series_1",
+      "episode": 3,
+      "title": "第一个 Agent：用纯 Python + API 从零构建",
+      "description": "不依赖任何框架，用纯Python+API调用构建一个能真正工作的Agent。详解Agent Loop的本质：while循环检测tool_use → 执行工具 → 将结果喂回LLM → 继续循环。通过完整的代码示例（使用OpenAI或Anthropic API），让读者理解Agent运行机制的底层原理，为后续学习框架打下坚实基础。",
+      "keywords": [
+        "Python",
+        "OpenAI API",
+        "Anthropic API",
+        "Agent Loop",
+        "tool_use",
+        "工具循环",
+        "从零构建"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_004",
+      "series_id": "ae_series_1",
+      "episode": 4,
+      "title": "Function Calling 深度解析：让 LLM 连接外部世界",
+      "description": "Function Calling是Agent连接外部世界的桥梁。本文深入解析JSON Schema工具定义的最佳实践、并行工具调用(parallel tool calls)的实现、tool_choice(auto/required/none)的精确控制，以及工具调用失败时的错误处理策略。对比OpenAI和Anthropic在工具调用API上的差异，帮助开发者构建可靠的工具调用层。",
+      "keywords": [
+        "Function Calling",
+        "JSON Schema",
+        "parallel tool calls",
+        "tool_choice",
+        "错误处理",
+        "工具定义"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_005",
+      "series_id": "ae_series_1",
+      "episode": 5,
+      "title": "Agent-Computer Interface 设计：工具即提示工程",
+      "description": "Anthropic在\"Building Effective Agents\"附录2中提出：设计Agent-Computer Interface(ACI)应该和设计Human-Computer Interface(HCI)投入同样多的精力。本文详解ACI设计原则：Poka-yoke防错设计（如强制绝对路径避免相对路径错误）、工具描述优化技巧、工具评估方法论。以SWE-bench实际案例说明：Anthropic团队花在优化工具上的时间远超优化prompt。",
+      "keywords": [
+        "ACI",
+        "Agent-Computer Interface",
+        "Poka-yoke",
+        "工具设计",
+        "Anthropic",
+        "SWE-bench"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_006",
+      "series_id": "ae_series_1",
+      "episode": 6,
+      "title": "ReAct 模式：思考-行动-观察的 Agent 循环",
+      "description": "ReAct（Reasoning and Acting）是Agent最核心的架构模式之一。本文解读Yao等人发表在ICLR 2023的经典论文，详解Thought-Action-Observation循环的工作机制，对比纯推理(Chain-of-Thought)、纯行动(Action-only)和ReAct三种模式的效果差异。通过HotPotQA和ALFWorld基准测试结果，分析ReAct在什么场景下优于其他模式。",
+      "keywords": [
+        "ReAct",
+        "Reasoning Acting",
+        "Thought Action Observation",
+        "CoT",
+        "Yao et al",
+        "ICLR 2023"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_007",
+      "series_id": "ae_series_1",
+      "episode": 7,
+      "title": "Prompt Chaining 与 Routing：可预测的工作流",
+      "description": "不是所有任务都需要自主Agent。Anthropic定义的前两种工作流模式——Prompt Chaining和Routing——为可预测的任务提供了更可靠的方案。本文详解Prompt Chaining的串联+门控检查(gate check)机制，以及Routing如何将不同类型请求分派给专门处理流程（如简单查询用Haiku、复杂推理用Sonnet）。结合客服系统路由案例说明实战应用。",
+      "keywords": [
+        "Prompt Chaining",
+        "Routing",
+        "门控检查",
+        "工作流模式",
+        "Anthropic",
+        "路由分类",
+        "小模型"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_008",
+      "series_id": "ae_series_1",
+      "episode": 8,
+      "title": "Parallelization 与 Orchestrator-Workers：并行与动态分工",
+      "description": "当任务可以分解时，并行化能显著提升效率。本文详解Anthropic定义的两种并行模式：Sectioning（分段并行处理不同子任务）和Voting（多次执行投票取最优）。进一步解析Orchestrator-Workers模式——中央LLM动态分解任务、分派给Worker LLM、综合结果。对比两者的适用场景：固定子任务用Parallelization，不可预测子任务用Orchestrator-Workers。",
+      "keywords": [
+        "Parallelization",
+        "Orchestrator-Workers",
+        "Sectioning",
+        "Voting",
+        "动态子任务",
+        "Anthropic"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_009",
+      "series_id": "ae_series_1",
+      "episode": 9,
+      "title": "Evaluator-Optimizer 与 Reflection：自我纠错的 Agent",
+      "description": "让Agent学会自我纠错是提升输出质量的关键。本文详解Anthropic的Evaluator-Optimizer工作流模式——一个LLM生成、另一个LLM评估反馈的迭代循环。结合Reflexion论文(Shinn et al., NeurIPS 2023)的verbal reinforcement learning方法，分析Agent如何通过文本反思从失败中学习。讨论何时适合使用此模式：当LLM的响应在有明确反馈时可显著改善时。",
+      "keywords": [
+        "Evaluator-Optimizer",
+        "Reflection",
+        "Reflexion",
+        "自我纠错",
+        "迭代评估",
+        "Shinn et al"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_010",
+      "series_id": "ae_series_1",
+      "episode": 10,
+      "title": "基础综合实战：构建一个多模式研究助手",
+      "description": "将前9期学到的6种工作流模式融会贯通，构建一个智能研究助手。该助手能根据任务复杂度自动选择最优策略：简单查询走Prompt Chaining，中等任务走ReAct循环，复杂研究任务走Orchestrator-Workers分解。通过完整的Python实现（不用框架），巩固Agent Loop、工具调用、工作流选择等核心概念，为后续框架学习做好准备。",
+      "keywords": [
+        "综合实战",
+        "研究助手",
+        "工作流选择",
+        "Chaining",
+        "ReAct",
+        "Orchestrator",
+        "Python"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_011",
+      "series_id": "ae_series_2",
+      "episode": 11,
+      "title": "Plan-and-Execute 架构：规划与执行的分离设计",
+      "description": "Plan-and-Execute将Agent分为规划器和执行器两个独立组件，是处理复杂多步任务的有效架构。本文解读Plan-and-Solve Prompting论文，详解分层规划(hierarchical planning)策略，分析动态重规划(re-planning)机制如何应对执行中的意外情况。结合LangGraph的PlanAndExecute实现，展示这一架构的代码实践。",
+      "keywords": [
+        "Plan-and-Execute",
+        "任务分解",
+        "hierarchical planning",
+        "重规划",
+        "Plan-and-Solve",
+        "LangGraph"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_012",
+      "series_id": "ae_series_2",
+      "episode": 12,
+      "title": "Agent 记忆系统（上）：短期记忆与上下文管理",
+      "description": "记忆是Agent区分于无状态API调用的关键。本文聚焦短期记忆管理：详解上下文窗口策略（滑动窗口、优先级保留）、自动压缩(summarization)技术，以及Stanford Generative Agents论文(Park et al., UIST 2023)中的Memory Stream架构——时间戳+重要性+相关性三维度检索。分析LangGraph Checkpoint如何实现短期记忆持久化。",
+      "keywords": [
+        "记忆系统",
+        "短期记忆",
+        "上下文窗口",
+        "滑动窗口",
+        "Memory Stream",
+        "Generative Agents",
+        "压缩"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_013",
+      "series_id": "ae_series_2",
+      "episode": 13,
+      "title": "Agent 记忆系统（下）：长期记忆与向量检索",
+      "description": "长期记忆让Agent跨会话保留知识。本文详解向量数据库选型（ChromaDB轻量本地、Pinecone全托管、Qdrant高性能、Milvus大规模），嵌入模型选择（OpenAI text-embedding-3、BGE、Cohere），以及Agentic RAG与传统RAG的关键区别——Agent自主决定何时检索、检索什么、如何整合。介绍Mem0、Zep等Agent记忆工具。",
+      "keywords": [
+        "长期记忆",
+        "向量数据库",
+        "ChromaDB",
+        "Pinecone",
+        "Qdrant",
+        "RAG for Agents",
+        "嵌入模型",
+        "Mem0"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_014",
+      "series_id": "ae_series_2",
+      "episode": 14,
+      "title": "MCP 协议深度解析：AI 工具的 USB-C 标准",
+      "description": "MCP（Model Context Protocol）是Anthropic推出的开放标准，被称为\"AI工具的USB-C\"。本文深度解析MCP架构：Host-Client-Server三层模型、三大服务端原语（Tools可执行函数/Resources数据源/Prompts模板）、两大客户端原语（Sampling请求LLM完成/Elicitation请求用户输入），以及传输层（Stdio本地通信/Streamable HTTP远程通信）和JSON-RPC 2.0生命周期管理。",
+      "keywords": [
+        "MCP",
+        "Model Context Protocol",
+        "Host Client Server",
+        "Tools Resources Prompts",
+        "Stdio HTTP",
+        "JSON-RPC",
+        "Anthropic"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_015",
+      "series_id": "ae_series_2",
+      "episode": 15,
+      "title": "MCP Server 开发实战：构建自己的工具服务",
+      "description": "动手构建MCP Server。本文使用FastMCP和官方Python SDK，从零开发一个完整的MCP工具服务：注册Tools（带JSON Schema类型安全）、暴露Resources（提供上下文数据）、定义Prompts（可复用模板）。详解错误处理、部署选项（Stdio模式本地使用/HTTP模式远程访问），以及如何在Claude Desktop或Claude Code中集成自建MCP Server。",
+      "keywords": [
+        "MCP Server",
+        "FastMCP",
+        "工具注册",
+        "类型安全",
+        "部署",
+        "Python SDK",
+        "Resources",
+        "Prompts"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_016",
+      "series_id": "ae_series_2",
+      "episode": 16,
+      "title": "Agent 状态管理与持久化",
+      "description": "生产级Agent需要状态持久化能力。本文详解LangGraph的Checkpointer机制（SqliteSaver/PostgresSaver/MemorySaver），通过thread_id实现多会话管理，支持中断恢复和时间旅行(Time-travel)调试。对比OpenAI Agents SDK的Session方案（SQLite/Redis/SQLAlchemy/Dapr），分析不同场景下的选型建议。",
+      "keywords": [
+        "状态管理",
+        "持久化",
+        "Checkpoint",
+        "Session",
+        "中断恢复",
+        "Time-travel",
+        "LangGraph",
+        "OpenAI"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_017",
+      "series_id": "ae_series_2",
+      "episode": 17,
+      "title": "代码 Agent：让 AI 读、写、执行代码",
+      "description": "代码Agent是Agent Engineering最成功的应用领域之一。本文深入解析SWE-agent论文(Yang et al., NeurIPS 2024)的Agent-Computer Interface设计——如何让Agent像人类开发者一样浏览代码、编辑文件、运行测试。详解代码沙箱执行的安全设计，以及OpenAI CodeInterpreter、ShellTool的实现原理。分析SWE-bench上的最新评测结果。",
+      "keywords": [
+        "Code Agent",
+        "SWE-agent",
+        "Code Interpreter",
+        "沙箱执行",
+        "Agent-Computer Interface",
+        "编程Agent"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_018",
+      "series_id": "ae_series_2",
+      "episode": 18,
+      "title": "浏览器 Agent：Web 自动化的架构设计",
+      "description": "浏览器Agent让AI像人类一样操作网页。本文详解Playwright MCP Server和Browser Use等方案的架构设计，分析DOM理解（Accessibility Tree vs 原始HTML）、元素定位（CSS选择器 vs 视觉定位）、多标签管理等核心技术。结合WebArena基准（812个真实Web任务），评估当前浏览器Agent的能力边界。",
+      "keywords": [
+        "Browser Agent",
+        "Playwright",
+        "Browser Use",
+        "WebArena",
+        "DOM理解",
+        "Web自动化",
+        "多标签"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_019",
+      "series_id": "ae_series_2",
+      "episode": 19,
+      "title": "Human-in-the-Loop：人机协作 Agent 架构",
+      "description": "关键决策点引入人工审批是Agent安全落地的重要策略。本文详解OpenAI Agents SDK的needs_approval工具审批机制和RunState序列化，LangGraph的interrupt断点恢复机制，以及AG2的UserProxyAgent(human_input_mode=TERMINAL/ALWAYS/NEVER)。分析何时需要HITL（高风险操作、大额交易、数据删除）以及如何设计优雅的审批UX。",
+      "keywords": [
+        "Human-in-the-Loop",
+        "HITL",
+        "审批流程",
+        "interrupt",
+        "needs_approval",
+        "UserProxyAgent",
+        "RunState"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_020",
+      "series_id": "ae_series_2",
+      "episode": 20,
+      "title": "架构综合实战：构建带记忆和工具的个人助理",
+      "description": "将Ep 11-19的架构知识融会贯通，构建一个完整的个人助理Agent。该助理具备：持久化长期记忆（向量数据库存储用户偏好和历史对话）、多工具能力（通过MCP集成搜索、日历、文件操作）、人机协作（关键操作需人工确认）。从架构设计到完整Python实现，展示Ep 11-19所有技术在真实系统中的协同工作。",
+      "keywords": [
+        "综合实战",
+        "个人助理",
+        "记忆系统",
+        "MCP工具",
+        "人机协作",
+        "持久化",
+        "向量检索"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_021",
+      "series_id": "ae_series_3",
+      "episode": 21,
+      "title": "多 Agent 系统导论：从单体到群体智能",
+      "description": "从单个Agent扩展到多个Agent协作是AI工程的下一跃。本文建立多Agent系统的认知框架：详解Agent间通信协议（消息传递vs共享状态），分析四种编排拓扑（星型集中控制/网状对等通信/分层逐级委派/环型轮流执行），讨论协作vs竞争的不同模式。以软件研发团队为案例，说明不同拓扑的适用场景。",
+      "keywords": [
+        "Multi-Agent",
+        "群体智能",
+        "通信协议",
+        "编排拓扑",
+        "协作竞争",
+        "星型网状分层",
+        "Swarm"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_022",
+      "series_id": "ae_series_3",
+      "episode": 22,
+      "title": "Handoff 模式：OpenAI Agents SDK 的交接机制",
+      "description": "OpenAI Agents SDK以三个原语构建整个多Agent系统。本文深度解析Agents、Handoffs、Guardrails的设计理念：Agents-as-Tools模式（管理者调用专家）vs Handoffs模式（路由给专家接管）的本质区别，Input Filter如何控制交接时的历史记录过滤，动态Instructions如何根据上下文调整Agent行为，以及Session管理（SQLite/Redis/Dapr）。",
+      "keywords": [
+        "OpenAI Agents SDK",
+        "Handoff",
+        "Guardrails",
+        "Agents-as-Tools",
+        "Input Filter",
+        "Session",
+        "动态Instructions"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_023",
+      "series_id": "ae_series_3",
+      "episode": 23,
+      "title": "LangGraph 多 Agent 编排：基于图的工作流",
+      "description": "LangGraph用图论抽象Agent编排，是处理复杂工作流的利器。本文详解StateGraph中的多Agent模式：条件边(conditional edges)实现动态路由、子图(subgraph)封装可复用Agent模块、嵌套图实现层级化编排。深入分析Supervisor模式（中央管理Agent委派任务给Worker Agent），以及LangGraph Studio的可视化调试能力。",
+      "keywords": [
+        "LangGraph",
+        "StateGraph",
+        "条件边",
+        "子图",
+        "嵌套图",
+        "Supervisor模式",
+        "LangGraph Studio"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_024",
+      "series_id": "ae_series_3",
+      "episode": 24,
+      "title": "CrewAI 角色团队：基于角色的多 Agent 协作",
+      "description": "CrewAI用\"公司团队\"的隐喻组织多Agent。本文详解Agent-Task-Crew三层模型：Agent定义角色(role/goal/backstory)，Task定义任务，Crew编排执行。对比Sequential（顺序传递上下文）和Hierarchical（Manager动态委派）两种进程。深入分析Flows——CrewAI的事件驱动生产工作流（@start/@listen/@router装饰器），以及YAML配置驱动的CLI脚手架。",
+      "keywords": [
+        "CrewAI",
+        "角色团队",
+        "Sequential",
+        "Hierarchical",
+        "Flows",
+        "事件驱动",
+        "YAML配置",
+        "CLI"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_025",
+      "series_id": "ae_series_3",
+      "episode": 25,
+      "title": "AutoGen 对话式多 Agent：群聊与 Swarm 模式",
+      "description": "AG2(AutoGen)将多Agent交互建模为结构化对话。本文详解ConversableAgent基础和四种编排模式：Auto（LLM选择下一个发言者）、RoundRobin（轮流发言）、Manual（开发者指定）、Swarm（动态交接）。分析GroupChatManager的角色，嵌套对话(Nested Chat)如何实现Agent内部的子对话。讨论AG2 v1.0路线图和当前API过渡。",
+      "keywords": [
+        "AutoGen",
+        "AG2",
+        "ConversableAgent",
+        "GroupChat",
+        "Swarm模式",
+        "Auto RoundRobin",
+        "嵌套对话"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_026",
+      "series_id": "ae_series_3",
+      "episode": 26,
+      "title": "Google ADK：组合式 Agent 与 A2A 协议",
+      "description": "Google ADK用软件工程原则构建Agent，提供最丰富的组合原语。本文详解SequentialAgent（顺序执行）、ParallelAgent（并行执行）、LoopAgent（循环执行至满足条件）的组合模式，以及丰富的工具生态（Google Search/BigQuery/Cloud SQL等）。深入分析A2A(Agent-to-Agent)协议——Google推出的跨平台Agent通信标准，以及Cloud Run和Vertex AI Agent Engine的部署方案。",
+      "keywords": [
+        "Google ADK",
+        "SequentialAgent",
+        "ParallelAgent",
+        "LoopAgent",
+        "A2A",
+        "Agent-to-Agent",
+        "Cloud Run"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_027",
+      "series_id": "ae_series_3",
+      "episode": 27,
+      "title": "Claude Agent SDK：安全优先的 Agent 开发",
+      "description": "Claude Agent SDK将Claude Code的Agent能力封装为Python SDK。本文详解两个核心接口：query()一次性查询和ClaudeSDKClient双向交互。重点分析In-process MCP Server（在Python进程内运行自定义工具，无需子进程）和Hooks机制（PreToolUse钩子实现合规控制和审计追踪）。结合Anthropic Cookbook的6个教程（研究助手、SRE Agent、可观测性Agent），展示实战应用。",
+      "keywords": [
+        "Claude Agent SDK",
+        "query",
+        "ClaudeSDKClient",
+        "MCP Server",
+        "Hooks",
+        "PreToolUse",
+        "Subagent",
+        "Anthropic"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_028",
+      "series_id": "ae_series_3",
+      "episode": 28,
+      "title": "分层 Agent 架构：管理者-执行者模式",
+      "description": "分层架构是最常用的多Agent模式。本文深入分析管理者-执行者模式：Manager Agent负责任务分解和委派，Worker Agent负责专业执行，结果汇总后由Manager综合输出。对比OpenAI Agents-as-Tools、CrewAI Hierarchical、LangGraph Supervisor三种实现方式的异同，讨论层级深度控制（何时需要2层vs3层）和任务粒度划分。",
+      "keywords": [
+        "分层架构",
+        "Manager Agent",
+        "Worker Agent",
+        "任务委派",
+        "结果汇总",
+        "Agents-as-Tools",
+        "Supervisor"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_029",
+      "series_id": "ae_series_3",
+      "episode": 29,
+      "title": "Agent 间通信与共享状态",
+      "description": "Agent间如何交换信息是多Agent系统的核心问题。本文对比两种通信范式：消息传递（点对点、松耦合）vs共享状态（黑板模式、紧耦合但一致性好）。详解黑板模式(Blackboard Architecture)的实现，事件总线在Agent间广播中的应用，以及Google A2A协议如何实现跨平台Agent通信。分析Google ADK的SessionService状态管理方案。",
+      "keywords": [
+        "Agent通信",
+        "共享状态",
+        "黑板模式",
+        "事件总线",
+        "A2A协议",
+        "消息传递",
+        "Google ADK"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_030",
+      "series_id": "ae_series_3",
+      "episode": 30,
+      "title": "多 Agent 综合实战：构建一个软件研发团队",
+      "description": "构建一个完整的AI软件研发团队：需求分析师（理解用户需求、拆解任务）、架构师（设计技术方案）、程序员（生成代码）、Code Reviewer（审查质量）。使用LangGraph编排四个Agent的协作流程，展示代码生成→自动审查→修订迭代的全链路。分析各Agent的角色设定、工具配置和交接策略。",
+      "keywords": [
+        "综合实战",
+        "软件研发",
+        "需求分析",
+        "架构设计",
+        "代码生成",
+        "Code Review",
+        "多Agent协作"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_031",
+      "series_id": "ae_series_4",
+      "episode": 31,
+      "title": "Agent 评估基准：AgentBench、SWE-bench、WebArena",
+      "description": "如何科学评估Agent能力？本文详解三大评估基准：AgentBench（多维度Agent能力评估）、SWE-bench（从GitHub Issue到PR的软件工程能力，含SWE-bench Verified和SWE-smith数据生成工具）、WebArena（812个真实Web任务的交互评估）。分析各基准的评分方法、覆盖范围，以及如何在自有任务上构建评估框架。",
+      "keywords": [
+        "AgentBench",
+        "SWE-bench",
+        "WebArena",
+        "评估基准",
+        "Agent评估",
+        "benchmark",
+        "mini-swe-agent",
+        "SWE-smith"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_032",
+      "series_id": "ae_series_4",
+      "episode": 32,
+      "title": "LLM-as-Judge：用大模型评测 Agent 产出",
+      "description": "用LLM评估LLM的输出质量已成为主流评测方法。本文详解LLM-as-Judge的实践：评估提示设计（明确的评分标准+参考答案+输出格式），一致性校验（多次评估取多数投票），多维度打分（准确性/完整性/可读性/安全性），以及局限性分析（位置偏差、冗余偏差、自我偏好）。提供可直接使用的评估提示模板。",
+      "keywords": [
+        "LLM-as-Judge",
+        "评估提示",
+        "一致性校验",
+        "多维度打分",
+        "自动评测",
+        "评分标准"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_033",
+      "series_id": "ae_series_4",
+      "episode": 33,
+      "title": "Agent 测试策略：单元测试与回归测试",
+      "description": "Agent系统的测试比传统软件更复杂。本文详解Agent测试策略：黄金数据集构建（标注输入-期望输出的配对），工具mock策略（模拟API响应避免外部依赖），端到端测试（完整Agent流程验证），以及Google ADK的eval命令——通过evalset文件定义测试用例并自动评分。讨论CI/CD中的Agent回归测试方案。",
+      "keywords": [
+        "Agent测试",
+        "单元测试",
+        "回归测试",
+        "黄金数据集",
+        "工具mock",
+        "端到端测试",
+        "Google ADK eval"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_034",
+      "series_id": "ae_series_4",
+      "episode": 34,
+      "title": "Prompt Injection 防御：对抗攻击与安全边界",
+      "description": "Agent使用工具后攻击面急剧扩大。本文详解直接注入（用户输入中的恶意指令）和间接注入（被Agent检索到的恶意内容），工具污染(tool poisoning)——当Agent使用的第三方工具返回恶意数据时的风险。全面解读OWASP LLM Top 10(2025版)的全部10个风险项及其Agent场景下的具体表现。分析输入验证、指令层级分离等防御策略。",
+      "keywords": [
+        "Prompt Injection",
+        "对抗攻击",
+        "工具污染",
+        "数据泄露",
+        "OWASP LLM Top 10",
+        "越狱",
+        "安全防御"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_035",
+      "series_id": "ae_series_4",
+      "episode": 35,
+      "title": "Guardrails 实战：输入输出防护栏",
+      "description": "防护栏是Agent安全的第一道防线。本文实战三种Guardrails方案：NVIDIA NeMo Guardrails（Colang语言定义对话边界）、Guardrails AI（Pydantic schema验证输入输出）、OpenAI Agents SDK内置Guardrails（Input/Output/Tool三种类型，parallel和blocking两种执行模式）。通过客服Agent案例，展示如何组合使用多层防护栏。",
+      "keywords": [
+        "Guardrails",
+        "NeMo Guardrails",
+        "Guardrails AI",
+        "输入防护",
+        "输出防护",
+        "工具防护",
+        "OpenAI Guardrails"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_036",
+      "series_id": "ae_series_4",
+      "episode": 36,
+      "title": "Agent 可观测性（上）：追踪与日志",
+      "description": "无法观测就无法优化。本文建立Agent可观测性的基础框架：详解Tracing和Span概念（借鉴OpenTelemetry），Agent执行路径追踪（每一步推理、工具调用、决策节点的完整记录），结构化日志（JSON格式、关联trace_id）。讨论Agent决策可视化——如何将Agent的推理链路呈树状/图状展示，帮助开发者快速定位问题。",
+      "keywords": [
+        "可观测性",
+        "Observability",
+        "Tracing",
+        "Span",
+        "OpenTelemetry",
+        "执行路径",
+        "结构化日志"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_037",
+      "series_id": "ae_series_4",
+      "episode": 37,
+      "title": "Agent 可观测性（下）：LangSmith 与 Langfuse",
+      "description": "选择合适的可观测性平台是Agent生产化的关键。本文对比LangSmith（LangChain官方、深度集成LangGraph、付费SaaS）和Langfuse（开源、框架无关、自托管选项）：Dashboard设计、执行追踪可视化、延迟分析、Token消耗追踪、反馈标注、A/B测试支持。覆盖20+集成伙伴（Weights & Biases、MLflow、Arize Phoenix等）。",
+      "keywords": [
+        "LangSmith",
+        "Langfuse",
+        "可观测性平台",
+        "Dashboard",
+        "延迟分析",
+        "成本追踪",
+        "tracing"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_038",
+      "series_id": "ae_series_4",
+      "episode": 38,
+      "title": "成本优化：Token 管理与模型路由策略",
+      "description": "Agent的Token消耗远超简单API调用，成本控制是生产化的必修课。本文详解Prompt Caching策略（Anthropic cache_control和OpenAI cached_response），大小模型路由（用Haiku处理简单分类、Sonnet处理复杂推理），Token预算管理（设置单次运行上限），以及模型量化部署（4-bit量化减少推理成本）。",
+      "keywords": [
+        "成本优化",
+        "Token管理",
+        "模型路由",
+        "Prompt Caching",
+        "缓存策略",
+        "量化部署",
+        "Haiku Sonnet"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_039",
+      "series_id": "ae_series_4",
+      "episode": 39,
+      "title": "安全合规：OWASP LLM Top 10 与 EU AI Act",
+      "description": "Agent系统面临严格的合规要求。本文全面解读OWASP LLM Top 10(2025)的每个风险项在Agent场景下的具体表现和缓解措施，EU AI Act对AI系统的分级（unacceptable/high/limited/minimal risk）和对应义务，NIST AI Risk Management Framework的核心原则。详解审计日志设计（记录所有Agent决策和操作），数据隐私保护策略。",
+      "keywords": [
+        "OWASP LLM",
+        "EU AI Act",
+        "NIST AI RMF",
+        "合规框架",
+        "审计日志",
+        "数据隐私",
+        "风险评估"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_040",
+      "series_id": "ae_series_4",
+      "episode": 40,
+      "title": "安全综合实战：构建有防护栏的客服 Agent",
+      "description": "将Ep 31-39的评估与安全技术融会贯通，构建一个生产级安全的客服Agent。实现：多层Guardrails（输入检查+输出过滤+工具审批），可观测性（Langfuse追踪每次交互），审计日志（记录所有操作用于合规），成本控制（大小模型路由）。从威胁建模到安全架构设计再到代码实现，展示Ep 31-39所有安全技术的协同。",
+      "keywords": [
+        "综合实战",
+        "客服Agent",
+        "Guardrails",
+        "审批流程",
+        "可观测性",
+        "审计日志",
+        "安全体系"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_041",
+      "series_id": "ae_series_5",
+      "episode": 41,
+      "title": "Agent 部署架构：从原型到生产",
+      "description": "从Jupyter Notebook到生产服务是Agent工程的最大跨越。本文详解Agent部署架构：Docker容器化封装，弹性伸缩（K8s HPA/KEDA基于请求量自动扩缩），灰度发布（Canary/Blue-Green策略平滑升级），Serverless vs长驻服务的权衡。覆盖Google Cloud Run、Vertex AI Agent Engine、AWS Lambda等部署方案。",
+      "keywords": [
+        "Agent部署",
+        "容器化",
+        "Docker",
+        "弹性伸缩",
+        "灰度发布",
+        "Serverless",
+        "Cloud Run",
+        "Vertex AI"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_042",
+      "series_id": "ae_series_5",
+      "episode": 42,
+      "title": "专用 Agent：SWE-agent 与 Data Agent",
+      "description": "专用Agent在垂直领域展现出超越通用Agent的表现。本文深入两个方向：SWE-agent的最新进展（mini-swe-agent仅100行代码在SWE-bench Verified上达65%），Data Analysis Agent的架构设计（Text-to-SQL转换+自动可视化+洞察提取）。总结垂类Agent的设计方法论——如何将领域知识注入Agent的工具和提示中。",
+      "keywords": [
+        "SWE-agent",
+        "Data Agent",
+        "Text-to-SQL",
+        "代码Agent",
+        "数据分析",
+        "垂类Agent",
+        "mini-swe-agent"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_043",
+      "series_id": "ae_series_5",
+      "episode": 43,
+      "title": "实时 Agent：语音 Agent 与流式处理",
+      "description": "实时交互是Agent体验的下一个前沿。本文详解流式Agent架构：SSE(Server-Sent Events)推送中间结果，流式工具调用(streaming tool calls)实时显示执行进度，OpenAI Realtime Agents（基于gpt-realtime-1.5的语音Agent）的实现。分析端到端延迟优化：如何将语音Agent的总延迟控制在300ms以内。",
+      "keywords": [
+        "实时Agent",
+        "语音Agent",
+        "流式处理",
+        "SSE",
+        "OpenAI Realtime Agents",
+        "低延迟",
+        "streaming"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_044",
+      "series_id": "ae_series_5",
+      "episode": 44,
+      "title": "六大 Agent 框架全面对比评测",
+      "description": "六大主流Agent框架正面对决。本文从设计哲学、核心抽象、学习曲线、生产就绪度四个维度全面对比LangGraph（图论抽象、最高灵活性）、OpenAI Agents SDK（3原语、最简洁）、CrewAI（角色团队、最直觉）、AG2（对话范式、最适合研究）、Google ADK（组合式、最丰富工具生态）、Claude Agent SDK（安全优先、MCP原生）。给出不同场景下的选型推荐和迁移成本分析。",
+      "keywords": [
+        "框架对比",
+        "LangGraph",
+        "OpenAI SDK",
+        "CrewAI",
+        "AG2",
+        "Google ADK",
+        "Claude SDK",
+        "选型指南"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_045",
+      "series_id": "ae_series_5",
+      "episode": 45,
+      "title": "Agent 工程方法论：从需求到架构",
+      "description": "优秀的Agent从清晰的需求分析开始。本文建立Agent工程方法论：Agent需求分析框架（明确任务边界、失败模式、人工干预点），架构选型决策树（单次LLM调用→工作流→自主Agent的递进路径），Anthropic核心建议\"从最简单的方案开始，只在确实需要时增加复杂性\"。提供Agent设计文档模板和架构评审清单。",
+      "keywords": [
+        "Agent方法论",
+        "需求分析",
+        "架构选型",
+        "决策树",
+        "工作流vs自主Agent",
+        "Anthropic建议"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_046",
+      "series_id": "ae_series_5",
+      "episode": 46,
+      "title": "自适应 Agent：动态路由与自我改进",
+      "description": "让Agent自己学会如何更高效地工作。本文探索自适应Agent的前沿方向：动态路由（Agent根据任务特征自动选择处理策略），动态工具发现（Agent自主搜索和集成新工具），元学习在Agent中的应用（从历史执行中学习最优策略）。分析AutoGPT和BabyAGI式全自主Agent的能力边界和实际局限性。",
+      "keywords": [
+        "自适应Agent",
+        "动态路由",
+        "元学习",
+        "动态工具发现",
+        "AutoGPT",
+        "BabyAGI",
+        "自我改进"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_047",
+      "series_id": "ae_series_5",
+      "episode": 47,
+      "title": "Agent CI/CD：提示词版本管理与自动化",
+      "description": "Agent系统的提示词和工具定义需要像代码一样管理。本文详解Agent CI/CD实践：Prompt版本控制（git-based管理提示词变更历史），A/B测试框架（对比不同提示词版本的Agent表现），回归测试流水线（确保提示词修改不破坏已有功能），蓝绿部署（新旧版本Agent并行运行逐步切换）。覆盖LangSmith的prompt管理和eval集成。",
+      "keywords": [
+        "Agent CI/CD",
+        "Prompt版本控制",
+        "A/B测试",
+        "回归测试",
+        "蓝绿部署",
+        "LangSmith",
+        "自动化"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_048",
+      "series_id": "ae_series_5",
+      "episode": 48,
+      "title": "毕业项目（上）：需求分析与架构设计",
+      "description": "Agent Engineering系列的毕业项目开始。本文选择一个真实场景（如智能客服/代码开发助手/数据分析系统），完成完整的需求分析：明确功能需求和非功能需求（延迟<5s、准确率>90%、成本<$0.1/次），拆解为Agent子任务，进行技术选型决策（框架、模型、工具、部署方案），输出完整的架构设计文档（系统架构图、Agent拓扑、工具清单、安全方案）。",
+      "keywords": [
+        "毕业项目",
+        "需求分析",
+        "架构设计",
+        "技术选型",
+        "设计文档",
+        "真实场景"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_049",
+      "series_id": "ae_series_5",
+      "episode": 49,
+      "title": "毕业项目（下）：实现、测试与部署",
+      "description": "延续Ep 48的架构设计，完成完整实现。代码实现多Agent协作流程，编写黄金数据集进行评估验证（准确率、延迟、成本指标），安全加固（Guardrails+审计日志），Docker容器化打包，接入可观测性平台（Langfuse/LangSmith），部署到Cloud Run或Vertex AI。复盘整个开发过程中的经验教训和调优策略。",
+      "keywords": [
+        "毕业项目",
+        "实现",
+        "测试",
+        "部署",
+        "评估验证",
+        "安全加固",
+        "Docker",
+        "可观测性"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_050",
+      "series_id": "ae_series_5",
+      "episode": 50,
+      "title": "Agent Engineering 展望：从工程实践到 AGI 之路",
+      "description": "回顾50期Agent Engineering之旅，展望未来方向。分析2026-2027年趋势：通用Agent（一个Agent处理所有任务）、Agent OS（Agent作为操作系统层）、物理Agent（机器人+AI的融合）。讨论开放问题：长期记忆的持续性、安全对齐的可验证性、Agent决策的可解释性。梳理Agent生态系统和职业发展路径。",
+      "keywords": [
+        "Agent展望",
+        "AGI",
+        "通用Agent",
+        "Agent OS",
+        "物理Agent",
+        "开放问题",
+        "Agent生态系统",
+        "趋势分析"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    }
+  ]
+}

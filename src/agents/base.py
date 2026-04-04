@@ -190,7 +190,7 @@ class BaseAgent(ABC):
             llm_kwargs = {
                 "openai_api_base": base_url,
                 "openai_api_key": api_key,
-                "model": zhipuai_config.get("model", "glm-4.7"),
+                "model": zhipuai_config.get("model", "glm-5.1"),
                 "temperature": zhipuai_config.get("temperature", 0.7),
                 "max_tokens": zhipuai_config.get("max_tokens", 8000),
                 "timeout": zhipuai_config.get("timeout", 600)  # 默认10分钟超时
