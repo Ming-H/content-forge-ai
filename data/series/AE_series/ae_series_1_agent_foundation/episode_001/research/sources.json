@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "范式定义转变：Chatbot（单轮/多轮对话） -> Workflow/Pipeline（确定性DAG工作流） -> Agent（动态感知-推理-行动的闭环，具有自主决策和工具调用能力）。",
+      "核心架构模型：感知-推理-行动循环成为Agent工程基石，即从环境获取输入，大模型作为大脑进行逻辑推理与规划，最后通过工具调用执行动作并观察结果。",
+      "自主性等级划分：L0(无AI) -> L1(纯聊天Chatbot) -> L2(RAG/简单Workflow) -> L3(路由与工具调用Agent) -> L4(多智能体协作) -> L5(全自主AGI)。",
+      "Anthropic发布《Building Effective Agents》指南，核心观点指出：应优先考虑最简单的解决方案，能优化单次Prompt解决的就不要用Workflow，能用Workflow编排解决的就不要用自主Agent。",
+      "2024-2025年标志性事件：OpenAI发布o1/o3系列强化“慢思考”推理模型，Claude 3.5 Sonnet推出Computer Use能力，大模型从“系统1(快)”向“系统2(慢)”演进，为Agent提供了底层逻辑推理保障。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain团队推出的专门用于构建复杂、状态ful多参与者Agent的框架，是目前实现Workflow和Agent控制流的主流选择。"
+      },
+      {
+        "name": "Microsoft AutoGen",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软开源的下一代多智能体对话框架，支持多个LLM Agent相互协作解决复杂任务。"
+      },
+      {
+        "name": "CrewAI",
+        "url": "https://github.com/joaomdmoura/crewAI",
+        "description": "基于角色的多智能体协作框架，允许开发者定义具有特定角色、目标和工具的Agent来协同完成工作。"
+      },
+      {
+        "name": "Awesome AI Agents",
+        "url": "https://github.com/e2b-dev/awesome-ai-agents",
+        "description": "GitHub上最全面的AI Agent相关资源、框架、项目和研究的Awesome列表。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic: Building Effective Agents",
+        "url": "https://www.anthropic.com/research/building-effective-agents",
+        "description": "Anthropic官方发布的重磅指南，详细对比了Workflow与Agent的区别，并给出了何时使用何种架构的权威商业建议。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI官方推出的Agent构建API，内置代码解释器、知识检索和文件处理等工具能力。"
+      },
+      {
+        "name": "Anthropic Computer Use (Claude 3.5)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+        "description": "业界首个官方提供GUI级别操作能力的API，Agent可以像人类一样看着屏幕移动光标、点击按钮，是Agent感知与行动维度的重大商业突破。"
+      },
+      {
+        "name": "Google Vertex AI Agent Builder",
+        "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-builder",
+        "description": "谷歌云基于Gemini模型提供的企业级Agent构建平台，支持无缝接入企业数据和私有知识库。"
+      }
+    ],
+    "community": [
+      "“能用Workflow解决的，千万别上Agent”：开发者社区普遍认为Agent的黑盒性和高Token消耗容易导致项目失控，应遵循Anthropic的极简原则。",
+      "“提示词工程正在演进为智能体工程”：Prompt工程师逐渐向系统架构师转型，需要掌握状态机管理、沙盒环境配置和API编排。",
+      "“可靠性与评估是最大的痛点”：Agent在测试环境表现惊艳，但在生产环境中极易陷入死循环或产生幻觉，如何定义Agent的评测指标是目前社区热议焦点。",
+      "“代码编写是Agent目前最成功的落地场景”：像Cursor、Devin等编码Agent的成功，证明了代码执行环境（具有明确报错机制和验证标准）是当前最适合Agent发挥的土壤。"
+    ],
+    "practice": [
+      {
+        "title": "Anthropic Agent Cookbook",
+        "url": "https://github.com/anthropics/anthropic-cookbook",
+        "description": "包含官方提供的工具调用、RAG与Agent构建的最佳实践代码示例和部署指南。"
+      },
+      {
+        "title": "LangChain Academy",
+        "url": "https://academy.langchain.com/",
+        "description": "提供从基础到进阶的免费互动课程，详细教授如何使用LangGraph构建稳定可控的Agent工作流。"
+      },
+      {
+        "title": "E2B Code Interpreter Sandbox",
+        "url": "https://github.com/e2b-dev/E2B",
+        "description": "为AI Agent提供安全的云沙盒环境，用于执行代码、运行bash命令，是构建Agent行动层的实战最佳实践工具。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+        "url": "https://arxiv.org/abs/2405.15793",
+        "description": "普林斯顿大学的前沿研究，展示了如何让Agent自主导航代码库、编辑代码并修复GitHub Issue，在SWE-bench上达到SOTA水平。"
+      },
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures",
+        "url": "https://arxiv.org/abs/2404.11501",
+        "description": "全面梳理了基础模型时代AI Agent的架构演进，探讨了感知、规划、记忆与行动模块的前沿结合方式。"
+      },
+      {
+        "title": "Agentic Design Patterns (Andrew Ng)",
+        "url": "https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/",
+        "description": "吴恩达总结的四大Agent设计模式（反思、工具使用、规划、多智能体协作），这是2025年Agent系统设计的理论前沿基石。"
+      }
+    ]
+  },
+  "summary": "Agent Engineering正引领2025-2026年AI技术的核心范式转变，其本质是从静态的Chatbot和Workflow向动态的感知-推理-行动(PDA)循环演进。调研发现，业界对Agent的自主性(L0-L5)有了更清晰的界定，同时Anthropic等巨头正在确立务实的工程法则：即在追求L5全自主的同时，必须遵循“能简则简”的原则。随着多智能体框架（如LangGraph、AutoGen）的成熟和底层推理模型（如o1、Claude 3.5）的突破，开发者正从单纯的Prompt工程转向系统化的Agent架构设计，但如何提升可控性与评估体系仍是落地的关键挑战。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "Microsoft AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/joaomdmoura/crewAI",
+      "title": "CrewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/e2b-dev/awesome-ai-agents",
+      "title": "Awesome AI Agents",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "title": "Anthropic: Building Effective Agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+      "title": "Anthropic Computer Use (Claude 3.5)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-builder",
+      "title": "Google Vertex AI Agent Builder",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "title": "Anthropic Agent Cookbook",
+      "type": "practice"
+    },
+    {
+      "url": "https://academy.langchain.com/",
+      "title": "LangChain Academy",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/e2b-dev/E2B",
+      "title": "E2B Code Interpreter Sandbox",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11501",
+      "title": "The Landscape of Emerging AI Agent Architectures",
+      "type": "frontier"
+    },
+    {
+      "url": "https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/",
+      "title": "Agentic Design Patterns (Andrew Ng)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent Engineering 全景：从 Chatbot 到自主智能体的范式转变 Agent Engineering是2025-2026年最热门的技术方向。本文从Agent vs Chatbot vs Pipeline的区别出发，详解感知-推理-行动(Perception-Reasoning-Action)循环的核心理念，梳理Agent自主性等级(L0手动-L5全自主)，解读Anthropic\"Building Effective Agents\"的核心观点：何时用Agent、何时用Workflow、何时只需优化单次LLM调用。帮助读者建立Agent Engineering的全局认知地图。",
+  "researched_at": "2026-04-03T08:50:06.630804"
+}

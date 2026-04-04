@@ -1,0 +1,160 @@
+{
+  "dimensions": {
+    "facts": [
+      "传统软件可观测性基于“三支柱”（指标 Metrics、日志 Logs、追踪 Traces），而 LLM Agent 将其升维，重点转向对非确定性推理过程的记录与调试。",
+      "借鉴 OpenTelemetry 标准，Agent 追踪被定义为一条完整的业务执行过程，包含多个 Span。每一次 LLM 推理、工具调用或反思节点都是一个独立的 Span。",
+      "结构化日志要求强制使用 JSON 格式，并注入全局唯一的 trace_id 和 span_id，以此实现将零散的日志精确挂载到 Agent 的具体推理分支上，实现上下文关联。",
+      "Agent 的决策可视化正从线性展示演进为树状或图状展示，这对于定位 Agent 死循环、工具调用失败或上下文丢失等复杂问题至关重要。",
+      "2023-2024年是 Agent 可观测性基建的爆发期，LangChain 等核心框架原生引入了 Callback/Tracing 机制，催生了一批专为 LLM 设计的观测平台。"
+    ],
+    "opensource": [
+      {
+        "name": "Langfuse",
+        "url": "https://github.com/langfuse/langfuse",
+        "description": "目前最流行的开源 LLM 可观测性平台，原生支持 Tracing 和 Span 概念，可完美可视化 Agent 的复杂推理链路和树状结构。"
+      },
+      {
+        "name": "OpenLIT",
+        "url": "https://github.com/openlit/openlit",
+        "description": "基于 OpenTelemetry 构建的开源 AI 可观测性框架，强调将传统微服务的追踪标准无缝引入 LLM Agent 应用中。"
+      },
+      {
+        "name": "Arize Phoenix",
+        "url": "https://github.com/Arize-ai/phoenix",
+        "description": "专为 LLM 应用设计的可观测性库，支持在本地 Jupyter 环境或独立服务器中可视化展示 Trace 图状结构和 Span 详情。"
+      },
+      {
+        "name": "Opik (by Comet)",
+        "url": "https://github.com/comet-ml/opik",
+        "description": "开源的 Agent 评估与追踪平台，支持复杂 Agent 框架（如 CrewAI、LangGraph）的深度执行路径记录。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangSmith 文档",
+        "url": "https://docs.smith.langchain.com/",
+        "description": "LangChain 官方推出的云服务可观测性平台，提供业界标杆级的 Agent 执行路径树状可视化及结构化日志查询界面。"
+      },
+      {
+        "name": "Datadog LLM Observability",
+        "url": "https://docs.datadoghq.com/llm_observability/",
+        "description": "传统云监控巨头 Datadog 推出的 LLM 专属可观测方案，将 Agent 的 Tracing 深度融入现有的微服务 APM 体系中。"
+      },
+      {
+        "name": "OpenTelemetry 官方语义约定文档",
+        "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+        "description": "定义了 Generative AI 领域追踪和日志的标准化属性规范，指导开发者如何统一 Agent 链路的日志格式。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：由于 Agent 具备自我反思和循环调用的能力，缺乏图状可视化的 Tracing 工具几乎是‘盲人摸象’，根本无法定位 Agent 陷入死循环的原因。",
+      "社区痛点集中在‘上下文丢失’：传统的文本日志无法还原多轮 Tool 使用时的参数变化，必须依赖附带 input/output 的 Span 结构化记录。",
+      "关于 OpenTelemetry 的讨论：社区正努力推动将 LLM Token 消耗、Prompt 模板等特有属性纳入 OTel 标准，以实现传统网关监控与 AI 内部推理监控的统一。",
+      "在日志选型上，开发者越来越倾向于将日志直接输出为包含 trace_id 的 JSON 数组，并发送给 ElasticSearch 或 ClickHouse，以便后续通过脚本批量分析 Agent 的决策成功率。"
+    ],
+    "practice": [
+      {
+        "title": "LangChain Tracing 集成指南",
+        "url": "https://python.langchain.com/v0.2/docs/how_to/debugging/",
+        "description": "官方教程：详解如何在 Agent 执行的每一步注入 trace_id，并将 Callbacks 转化为结构化日志进行输出。"
+      },
+      {
+        "title": "OpenLIT 快速接入与 OTel 实践",
+        "url": "https://docs.openlit.io/latest/quickstart",
+        "description": "实战指南：展示如何用两行代码为 OpenAI/Anthropic API 调用注入基于 OpenTelemetry 的 Span 追踪。"
+      },
+      {
+        "title": "Langfuse 快速开始",
+        "url": "https://langfuse.com/docs/tracing",
+        "description": "最佳实践演示：如何通过装饰器或 SDK 将复杂 Agent 的多步执行路径转化为可视化的树状 Trace 图。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "LLM Agents: Observability, Traceability and Controllability (arXiv 相关论述)",
+        "url": "https://arxiv.org/abs/2405.06682",
+        "description": "前沿论文探讨：如何通过对 Agent 行为的细粒度追踪，不仅实现可观测性，更实现系统的可追溯性与可控性。"
+      },
+      {
+        "title": "Agentic AI Tracing 技术白皮书动向",
+        "url": "https://arxiv.org/search/?query=LLM+Observability&searchtype=all",
+        "description": "2024-2025 趋势：研究焦点正从‘单次调用追踪’转向‘多智能体协同交互图谱’的动态记录与可视化回放机制。"
+      },
+      {
+        "title": "基于 Trace 数据的自动化红队测试",
+        "url": "https://arxiv.org/abs/2402.06632",
+        "description": "研究趋势：利用 Agent 执行产生的海量 Span 与日志数据，自动反推并发现 Agent 逻辑漏洞或安全越狱风险。"
+      }
+    ]
+  },
+  "summary": "本次调研深入解析了Agent可观测性基础框架，明确了从传统日志向基于OpenTelemetry的Tracing与Span机制演进的必然性。调研发现，Agent的非确定性使其必须依赖带有trace_id的结构化日志与树状可视化面板来排查死循环与决策失误。在生态方面，以Langfuse、OpenLIT为代表的开源项目正迅速普及，而LangSmith与Datadog等商业方案也在加速落地，2025年该领域正向多智能体交互图谱追踪及自动化漏洞挖掘的深层前沿方向迈进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langfuse/langfuse",
+      "title": "Langfuse",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openlit/openlit",
+      "title": "OpenLIT",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/Arize-ai/phoenix",
+      "title": "Arize Phoenix",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/comet-ml/opik",
+      "title": "Opik (by Comet)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/",
+      "title": "LangSmith 文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.datadoghq.com/llm_observability/",
+      "title": "Datadog LLM Observability",
+      "type": "commercial"
+    },
+    {
+      "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+      "title": "OpenTelemetry 官方语义约定文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://python.langchain.com/v0.2/docs/how_to/debugging/",
+      "title": "LangChain Tracing 集成指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.openlit.io/latest/quickstart",
+      "title": "OpenLIT 快速接入与 OTel 实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://langfuse.com/docs/tracing",
+      "title": "Langfuse 快速开始",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.06682",
+      "title": "LLM Agents: Observability, Traceability and Controllability (arXiv 相关论述)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/search/?query=LLM+Observability&searchtype=all",
+      "title": "Agentic AI Tracing 技术白皮书动向",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.06632",
+      "title": "基于 Trace 数据的自动化红队测试",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 可观测性（上）：追踪与日志 无法观测就无法优化。本文建立Agent可观测性的基础框架：详解Tracing和Span概念（借鉴OpenTelemetry），Agent执行路径追踪（每一步推理、工具调用、决策节点的完整记录），结构化日志（JSON格式、关联trace_id）。讨论Agent决策可视化——如何将Agent的推理链路呈树状/图状展示，帮助开发者快速定位问题。",
+  "researched_at": "2026-04-04T08:43:53.413631"
+}

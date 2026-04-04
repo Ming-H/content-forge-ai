@@ -1,0 +1,152 @@
+{
+  "dimensions": {
+    "facts": [
+      "AutoGen 最初由微软研究院 (MSR) 开发，并于 2023 年底开源，随后在 2024 年演变为社区主导的项目 AG2，并规划了 v1.0 路线图以重构底层架构。",
+      "ConversableAgent 是框架的基类，融合了 LLM、工具函数和人类输入的能力，支持高度自定义的对话行为。",
+      "四种核心编排模式：Auto（由 LLM 或选择器模型自动决定下一个发言者）、RoundRobin（智能体轮流依次发言）、Manual（开发者通过代码硬编码指定发言顺序）、Swarm（基于 Handoff 机制实现智能体间的动态交接）。",
+      "GroupChatManager 是群聊模式的核心组件，负责维护全局的对话上下文、管理发言轮次、防止死循环，并执行上述编排策略。",
+      "嵌套对话 允许一个智能体在执行主任务时，在内部初始化并运行一个完全独立的子对话系统，从而实现工作流的模块化和分层设计。",
+      "Swarm 模式借鉴了 OpenAI 提出的 Swarm 概念，引入了 `Handoff` 和 `Context Variables`，使智能体能够像微服务一样在不同状态间无缝交接控制权。"
+    ],
+    "opensource": [
+      {
+        "name": "AG2 (AutoGen)",
+        "url": "https://github.com/ag2ai/ag2",
+        "description": "AG2 的官方开源仓库，包含 ConversableAgent、GroupChat、Swarm 等核心模块的最新实现及丰富示例。"
+      },
+      {
+        "name": "OpenAI Swarm",
+        "url": "https://github.com/openai/swarm",
+        "description": "OpenAI 官方推出的多智能体编排实验性框架，AutoGen/AG2 的 Swarm 模式在概念上与此对齐，并进行了深度集成。"
+      },
+      {
+        "name": "Awesome-AG2/AutoGen",
+        "url": "https://github.com/ag2ai/awesome-ag2",
+        "description": "精选的 AutoGen/AG2 资源列表，包含各类实战项目、教程和社区插件的汇总。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "AG2 官方文档",
+        "url": "https://docs.ag2.ai/",
+        "description": "最新的 AG2 API 文档，详细说明了 Swarm 编排、嵌套对话的配置参数及向 v1.0 迁移的指南。"
+      },
+      {
+        "name": "AutoGen Studio",
+        "url": "https://microsoft.github.io/autogen/",
+        "description": "基于 Web UI 的低代码多智能体构建工具，允许开发者拖拽创建智能体群聊，并直观测试 Swarm 交互。"
+      },
+      {
+        "name": "Azure AI Agent Service",
+        "url": "https://azure.microsoft.com/en-us/products/ai-services/ai-agent-service",
+        "description": "微软 Azure 提供的企业级智能体云服务，深度整合了 AutoGen 的设计理念，支持闭源模型的商业化部署。"
+      }
+    ],
+    "community": [
+      "群聊的 Auto 模式在选择下一个发言者时常常出现死循环或角色混淆，需要精心设计 System Prompt 和定制 Selecter 函数。",
+      "Swarm 模式比传统的 GroupChat 更符合真实业务流，因为它支持状态转移（Handoffs），大大降低了无意义的 LLM 调用，节省了 Token。",
+      "嵌套对话 虽然能优雅地解决复杂任务拆解，但上下文管理极具挑战，容易导致 Token 消耗指数级增长和记忆错乱。",
+      "社区对 AG2 v0.4+ 的重构（向事件驱动和 Graph 架构过渡）表示期待，但也反映了新 API 的学习曲线变陡，文档更新存在滞后。",
+      "相比 LangGraph，AutoGen 在对话式交互上更具优势，但在强状态机和非 LLM 节点编排上略显吃力。"
+    ],
+    "practice": [
+      {
+        "title": "AutoGen Swarm 编排实战指南",
+        "url": "https://docs.ag2.ai/docs/tutorial/swarm",
+        "description": "官方提供的 Swarm 模式入门教程，演示如何配置 context_variables 和 handoff 实现智能体间的无缝交接。"
+      },
+      {
+        "title": "构建高效的嵌套对话系统",
+        "url": "https://microsoft.github.io/autogen/docs/topics/nested-chats",
+        "description": "详细介绍如何使用 `register_nested_chats` 为智能体添加子对话逻辑，适用于代码审查等复杂场景。"
+      },
+      {
+        "title": "AutoGen 性能优化与最佳实践",
+        "url": "https://microsoft.github.io/autogen/docs/FAQ",
+        "description": "总结了控制 GroupChat 上下文长度、使用压缩 Prompt、防止智能体无限对话的业界最佳实践。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "url": "https://arxiv.org/abs/2308.08155",
+        "description": "奠定 AutoGen 核心理论基础的初始论文，详细阐述了 ConversableAgent 的数学模型。"
+      },
+      {
+        "title": "AG2 v1.0 架构演进",
+        "url": "https://docs.ag2.ai/docs/roadmap",
+        "description": "AG2 2025 年的最新路线图，重点展示了从纯对话驱动向 DAG (有向无环图) 与状态机混合编排的前沿演进。"
+      },
+      {
+        "title": "去中心化多智能体系统的涌现行为研究",
+        "url": "https://arxiv.org/abs/2402.05120",
+        "description": "探讨类似于 Swarm 模式的去中心化多智能体在解决复杂推理时产生的前沿学术现象及 2025 年突破趋势。"
+      }
+    ]
+  },
+  "summary": "本次针对 AutoGen/AG2 多智能体模式的调研显示，框架正经历从微软主导的「ConversableAgent + GroupChatManager」经典群聊模式，向社区驱动、基于事件驱动与 Handoff 的 Swarm 模式演进。虽然 Auto 和 RoundRobin 编排在原型阶段极快，但 Swarm 和 Nested Chat 因其动态状态交接和任务解耦能力，正成为 2025 年企业级多智能体落地的最佳实践。开发者在享受多智能体涌现能力的同时，需重点关注 AG2 v1.0 架构升级带来的 API 变动，以及 Token 消耗优化等工程痛点。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/ag2ai/ag2",
+      "title": "AG2 (AutoGen)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/swarm",
+      "title": "OpenAI Swarm",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ag2ai/awesome-ag2",
+      "title": "Awesome-AG2/AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.ag2.ai/",
+      "title": "AG2 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://microsoft.github.io/autogen/",
+      "title": "AutoGen Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/ai-services/ai-agent-service",
+      "title": "Azure AI Agent Service",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.ag2.ai/docs/tutorial/swarm",
+      "title": "AutoGen Swarm 编排实战指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://microsoft.github.io/autogen/docs/topics/nested-chats",
+      "title": "构建高效的嵌套对话系统",
+      "type": "practice"
+    },
+    {
+      "url": "https://microsoft.github.io/autogen/docs/FAQ",
+      "title": "AutoGen 性能优化与最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "type": "frontier"
+    },
+    {
+      "url": "https://docs.ag2.ai/docs/roadmap",
+      "title": "AG2 v1.0 架构演进",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.05120",
+      "title": "去中心化多智能体系统的涌现行为研究",
+      "type": "frontier"
+    }
+  ],
+  "query": "AutoGen 对话式多 Agent：群聊与 Swarm 模式 AG2(AutoGen)将多Agent交互建模为结构化对话。本文详解ConversableAgent基础和四种编排模式：Auto（LLM选择下一个发言者）、RoundRobin（轮流发言）、Manual（开发者指定）、Swarm（动态交接）。分析GroupChatManager的角色，嵌套对话(Nested Chat)如何实现Agent内部的子对话。讨论AG2 v1.0路线图和当前API过渡。",
+  "researched_at": "2026-04-04T03:05:30.195167"
+}

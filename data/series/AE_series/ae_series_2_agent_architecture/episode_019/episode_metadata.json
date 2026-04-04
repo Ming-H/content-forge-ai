@@ -1,0 +1,20 @@
+{
+  "id": "ae_topic_019",
+  "series_id": "ae_series_2",
+  "episode": 19,
+  "title": "Human-in-the-Loop：人机协作 Agent 架构",
+  "description": "关键决策点引入人工审批是Agent安全落地的重要策略。本文详解OpenAI Agents SDK的needs_approval工具审批机制和RunState序列化，LangGraph的interrupt断点恢复机制，以及AG2的UserProxyAgent(human_input_mode=TERMINAL/ALWAYS/NEVER)。分析何时需要HITL（高风险操作、大额交易、数据删除）以及如何设计优雅的审批UX。",
+  "keywords": [
+    "Human-in-the-Loop",
+    "HITL",
+    "审批流程",
+    "interrupt",
+    "needs_approval",
+    "UserProxyAgent",
+    "RunState"
+  ],
+  "difficulty": "高级",
+  "estimated_words": 10000,
+  "status": "pending",
+  "completed_at": null
+}

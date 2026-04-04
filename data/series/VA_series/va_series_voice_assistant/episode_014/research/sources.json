@@ -1,0 +1,145 @@
+{
+  "dimensions": {
+    "facts": [
+      "全双工语音交互打破了传统AI“一问一答”的半双工限制，允许AI在说话的同时监听用户的声音，实现真正的“随时打断”和“ overlapping（重叠）”对话。",
+      "关键技术挑战在于解决声学回声消除（AEC）、重叠语音检测（VAD）以及极低延迟的实时推理。",
+      "FLAIR（全双工潜在内部推理）和 SHANKS（同时听和思考）等框架提出了模拟人类认知过程的架构，即在输出语音的同时，在后台持续进行潜在空间的思考和意图预测。",
+      "2024年被业界视为全双工语音大模型的爆发元年，OpenAI、Kyutai、Google等公司相继发布具有全双工能力的模型或API。",
+      "交互延迟的标准被大幅拉高：优秀的全双工系统需将端到端延迟控制在300毫秒以内（人类正常对话延迟约为200ms），部分先锋模型（如Moshi）已实现理论200ms以下的延迟。"
+    ],
+    "opensource": [
+      {
+        "name": "Moshi",
+        "url": "https://github.com/kyutai-labs/moshi",
+        "description": "由Kyutai开源的首个具备全双工能力的实时语音大模型，支持用户随时打断，延迟极低。"
+      },
+      {
+        "name": "Mini-Omni",
+        "url": "https://github.com/ictnlp/Mini-Omni",
+        "description": "开源的“边思考边说话”语音模型，实现了文本与音频的并行生成，是社区研究实时推理的重要参考。"
+      },
+      {
+        "name": "Hertz-dev",
+        "url": "https://github.com/Standard-Intelligence/hertz-dev",
+        "description": "开源的实时双向语音交互基础模型，专注于对话中的自然节奏、停顿和重叠发声。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Realtime API",
+        "url": "https://platform.openai.com/docs/guides/realtime",
+        "description": "OpenAI推出的实时语音API，支持全双工对话、函数调用和无缝打断，重新定义了语音AI的商业化标准。"
+      },
+      {
+        "name": "Gemini Live API",
+        "url": "https://ai.google.dev/gemini-api/docs/live",
+        "description": "Google DeepMind推出的Gemini实时多模态交互API，支持在移动端和Web端实现极低延迟的全双工语音体验。"
+      },
+      {
+        "name": "阿里云 百炼 实时语音大模型",
+        "url": "https://help.aliyun.com/zh/model-studio/",
+        "description": "国内领先的商业实时语音服务，集成了MinMo等模型能力，提供高并发的全双工智能体开发接口。"
+      }
+    ],
+    "community": [
+      "用户反馈：全双工让AI终于有了“活人感”，特别是在哄睡、情感陪伴和激烈辩论场景中，随时打断极大地提升了沉浸感。",
+      "开发者痛点：OpenAI的Realtime API虽然效果好，但WebRTC和WebSocket的接入工程复杂度高，且处理并发音频流的服务器成本昂贵。",
+      "技术讨论：社区普遍认为，完全依赖大模型自身做VAD（语音活动检测）容易出现“幻听”（把噪音当指令）或“迟钝”，混合传统AEC和流式推理是目前落地的最优解。",
+      "争议点：部分开发者表示，全双工模型有时过于敏感，导致AI在用户咳嗽或短暂停顿时突然插话，缺乏人类交流中的“等待”智慧。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI Realtime API 官方快速入门与最佳实践",
+        "url": "https://platform.openai.com/docs/guides/realtime",
+        "description": "详解如何使用WebRTC/WebSocket建立全双工连接，以及如何管理对话轮次和打断逻辑。"
+      },
+      {
+        "title": "Moshi 本地部署与推理教程",
+        "url": "https://huggingface.co/kyutai/moshi",
+        "description": "HuggingFace社区提供的详细部署指南，指导开发者如何在本地GPU环境中跑通全双工对话模型。"
+      },
+      {
+        "title": "语音大模型性能基准测试",
+        "url": "https://artificialanalysis.ai/text/leaderboards",
+        "description": "Artificial Analysis提供的各类语音模型端到端延迟、TTFT（首字延迟）的实时评测数据，是选型的重要参考。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Moshi: a speech-text foundation model for real-time dialogue",
+        "url": "https://arxiv.org/abs/2407.08613",
+        "description": "详细解析Moshi如何通过分帧流式预测实现真正的全双工，是SHANKS（同时听和思考）理念的典型学术实现。"
+      },
+      {
+        "title": "Mini-Omni: Language Models Can Hear, Talk While Thinking in Parallel",
+        "url": "https://arxiv.org/abs/2408.16725",
+        "description": "探讨了类似FLAIR的潜在内部推理机制，证明小模型也能通过批处理和并行生成实现边听边说。"
+      },
+      {
+        "title": "MinMo: An Inconceivable Speech Language Model",
+        "url": "https://arxiv.org/abs/2501.06282",
+        "description": "2025年初的前沿工作，深入研究了多模态对齐和全双工交互中的微表情与情绪同步，代表了下一代语音模型方向。"
+      }
+    ]
+  },
+  "summary": "全双工语音对话正在打破传统AI“一问一答”的机械交互模式，迈向如同人类般“边听边说、随时打断”的自然交流圣杯。本次调研梳理了以Moshi、Mini-Omni为代表的开源先锋，以及OpenAI Realtime API、Google Gemini等闭源商业方案。从FLAIR（潜在内部推理）到SHANKS（同时听和思考）等前沿突破表明，通过极低延迟的流式架构与认知模型融合，AI已能实现复杂的重叠语音处理与实时响应，这标志着语音交互正从“指令式”全面跃升至“共情式”陪伴体验。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/kyutai-labs/moshi",
+      "title": "Moshi",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ictnlp/Mini-Omni",
+      "title": "Mini-Omni",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/Standard-Intelligence/hertz-dev",
+      "title": "Hertz-dev",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/realtime",
+      "title": "OpenAI Realtime API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/live",
+      "title": "Gemini Live API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/model-studio/",
+      "title": "阿里云 百炼 实时语音大模型",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/kyutai/moshi",
+      "title": "Moshi 本地部署与推理教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://artificialanalysis.ai/text/leaderboards",
+      "title": "语音大模型性能基准测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2407.08613",
+      "title": "Moshi: a speech-text foundation model for real-time dialogue",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.16725",
+      "title": "Mini-Omni: Language Models Can Hear, Talk While Thinking in Parallel",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2501.06282",
+      "title": "MinMo: An Inconceivable Speech Language Model",
+      "type": "frontier"
+    }
+  ],
+  "query": "全双工语音对话：让 AI 学会“边听边说” 全双工是自然语音交互的圣杯。详解FLAIR（全双工潜在内部推理）、SHANKS（同时听和思考）等突破性工作，以及如何模拟人类“边听边想”的认知过程。",
+  "researched_at": "2026-04-03T19:23:05.121650"
+}

@@ -1,0 +1,160 @@
+{
+  "dimensions": {
+    "facts": [
+      "Human-in-the-Loop (HITL) 是 AI Agent 安全落地的核心架构模式，通过在关键决策节点引入人工干预，防止 LLM 产生不可逆的破坏性操作（如数据删除、财务损失）。",
+      "OpenAI Agents SDK（及 Swarm 架构）通过 `needs_approval` 工具属性和 `RunState` 状态序列化机制，允许将执行状态保存为 JSON，等待人类审批后通过恢复状态继续执行。",
+      "LangGraph 引入了基于 Checkpointer 的 `interrupt` 断点和 `Command(resume=...)` 恢复机制，支持长时间运行的异步审批流，状态可持久化至 Postgres/SQLite 等数据库。",
+      "AG2 (原 AutoGen) 的 `UserProxyAgent` 提供了三种人机交互模式：`ALWAYS`（每步确认）、`TERMINATE`（仅在终止或满足条件时确认）、`NEVER`（全自动执行）。",
+      "HITL 触发标准正向动态化发展：从静态规则拦截（如特定 API 拦截）演进为基于模型置信度评分或潜在风险评估的动态拦截。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的多Agent编排框架，内置强大的断点恢复和 HITL 状态管理能力，是构建复杂审批流的行业标杆。"
+      },
+      {
+        "name": "AG2 (AutoGen)",
+        "url": "https://github.com/ag2ai/ag2",
+        "description": "微软旗下的多智能体框架，通过 UserProxyAgent 原生支持控制台的人机对话交互和代码执行审批。"
+      },
+      {
+        "name": "OpenAI Swarm (Experimental)",
+        "url": "https://github.com/openai/swarm",
+        "description": "OpenAI 探索性的轻量级多Agent编排框架，其状态转移和工具调用机制是现代 Agents SDK 中 needs_approval 的设计雏形。"
+      },
+      {
+        "name": "Dify",
+        "url": "https://github.com/langgenius/dify",
+        "description": "开源的 LLM 应用开发平台，其可视化 Workflow 原生内置了 HITL 人工审批节点，适合非代码背景的用户设计审批流。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangGraph Cloud / Studio",
+        "url": "https://langchain-ai.github.io/langgraph/how-tos/human_in_the_loop/",
+        "description": "LangGraph 官方提供的云服务和可视化画布，支持实时查看 Agent 状态、在线进行人工审批操作和状态恢复。"
+      },
+      {
+        "name": "OpenAI Assistants API (Streamlining)",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "官方托管式 Agent API，通过 `requires_action` 状态暂停执行，将控制权交回给客户端系统以实现业务级审批。"
+      },
+      {
+        "name": "Coze (扣子)",
+        "url": "https://www.coze.com/",
+        "description": "字节跳动推出的 Bot 开发平台，工作流中支持直接接入“人工审批”节点，无缝对接飞书、钉钉等办公软件。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：异步断点恢复是生产级 HITL 的痛点，如果应用是无状态的 Serverless 架构，实现 LangGraph 的 interrupt 恢复机制难度较大。",
+      "关于 Agent 交互设计（UX）：社区认为必须避免“审批疲劳”，如果 Agent 频繁征求确认，用户最终会盲目点击同意，导致 HITL 形同虚设。",
+      "架构选型争议：AG2 的终端输入模式适合内部研发和 DEMO 演示，但若要面向外部 C 端用户，需要结合 Webhook 自建 UI，此时 LangGraph 的异步 API 设计更为合适。",
+      "安全防御观点：HITL 不仅是防错机制，更是防御 Prompt 注入攻击的最后一道防线，即使被诱导，只要底层 API 开启了 `needs_approval`，黑客也无法执行转账等高危操作。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph Human-in-the-Loop 官方指南",
+        "url": "https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/",
+        "description": "详解如何使用 `interrupt` 函数在节点执行前/后暂停，以及使用 `Command` 恢复并提供人工输入。"
+      },
+      {
+        "title": "AutoGen UserProxyAgent 配置最佳实践",
+        "url": "https://microsoft.github.io/autogen/docs/topics/human_in_the_loop",
+        "description": "官方文档关于如何根据业务场景配置 human_input_mode、max_consecutive_auto_reply 等参数的指南。"
+      },
+      {
+        "title": "如何设计优雅的 AI 审批 UX (UX Patterns for HITL)",
+        "url": "https://www.nngroup.com/articles/ai-human-in-the-loop/",
+        "description": "尼尔森诺曼集团关于人机协作界面设计的最佳实践，包括解释性 UI、一键修正等模式。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Adaptive Human-in-the-Loop: 基于风险的动态干预",
+        "url": "https://arxiv.org/abs/2405.17670",
+        "description": "探索利用第二个 LLM 充当风险审计员，当评估风险值高于阈值时自动触发人工审批，取代硬编码的静态规则。"
+      },
+      {
+        "title": "Agent Security: 防御 Prompt 注入的 HITL 架构设计",
+        "url": "https://arxiv.org/abs/2404.08824",
+        "description": "研究如何在不可信环境下，确保人类审批者收到的上下文和意图解释未被恶意 Prompt 篡改（如上下文欺骗防御）。"
+      },
+      {
+        "title": "隐式 HITL (Implicit Human-in-the-Loop)",
+        "url": "https://arxiv.org/abs/2306.12922",
+        "description": "结合强化学习（RLHF），未来趋势是 Agent 通过用户的日常行为反馈（如点击、修改代码、撤回操作）自动学习边界，减少显式的弹窗审批中断。"
+      }
+    ]
+  },
+  "summary": "Human-in-the-Loop (HITL) 是确保 AI Agent 安全、合规落地的核心技术基石。当前业界主要有三大流派：OpenAI 系代表的工具级属性审批、LangGraph 代表的图状态中断恢复机制，以及 AG2 代表的多角色对话接管模式。实战中，开发者的痛点正从“如何实现中断”转向“如何设计低摩擦的审批 UX 与异步持久化”。未来，随着风险动态评估模型的发展，HITL 将从静态的硬编码拦截走向智能的自适应动态介入，在保障安全的同时最大化自动化效能。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ag2ai/ag2",
+      "title": "AG2 (AutoGen)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/swarm",
+      "title": "OpenAI Swarm (Experimental)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langgenius/dify",
+      "title": "Dify",
+      "type": "opensource"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/how-tos/human_in_the_loop/",
+      "title": "LangGraph Cloud / Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API (Streamlining)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.coze.com/",
+      "title": "Coze (扣子)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/",
+      "title": "LangGraph Human-in-the-Loop 官方指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://microsoft.github.io/autogen/docs/topics/human_in_the_loop",
+      "title": "AutoGen UserProxyAgent 配置最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.nngroup.com/articles/ai-human-in-the-loop/",
+      "title": "如何设计优雅的 AI 审批 UX (UX Patterns for HITL)",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.17670",
+      "title": "Adaptive Human-in-the-Loop: 基于风险的动态干预",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.08824",
+      "title": "Agent Security: 防御 Prompt 注入的 HITL 架构设计",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.12922",
+      "title": "隐式 HITL (Implicit Human-in-the-Loop)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Human-in-the-Loop：人机协作 Agent 架构 关键决策点引入人工审批是Agent安全落地的重要策略。本文详解OpenAI Agents SDK的needs_approval工具审批机制和RunState序列化，LangGraph的interrupt断点恢复机制，以及AG2的UserProxyAgent(human_input_mode=TERMINAL/ALWAYS/NEVER)。分析何时需要HITL（高风险操作、大额交易、数据删除）以及如何设计优雅的审批UX。",
+  "researched_at": "2026-04-03T23:53:10.522101"
+}

@@ -1,0 +1,180 @@
+{
+  "dimensions": {
+    "facts": [
+      "AI Agent 的 Token 消耗通常是简单 API 调用的 10-100 倍，Agent 工作流中 70% 以上的消耗集中在上下文（系统提示词和工具定义）的重复加载上。",
+      "Anthropic 推出的 Prompt Caching（cache_control）允许开发者标记特定的静态前缀，长文本和大量工具设定的输入成本最高可降低 90%，延迟降低 85%。",
+      "OpenAI 跟进推出了 Automatic Prompt Caching（自动缓存），对长度超过 1024 tokens 的重复前缀自动提供 50% 的成本折扣，但不可手动控制缓存块。",
+      "大小模型路由已成为行业标准架构，通常利用 GPT-4o-mini / Claude 3 Haiku 处理意图分类、格式化提取等 80% 的简单任务，仅将 20% 复杂推理交给 GPT-4o / Claude 3.5 Sonnet，可降低整体成本 60%-80%。",
+      "4-bit 模型量化（如 AWQ、GPTQ、GGUF）技术已成熟，能在几乎不损失模型推理能力（MMLU等基准测试下降不到 1%）的前提下，将显存占用减少 70% 以上，极大降低硬件部署成本。"
+    ],
+    "opensource": [
+      {
+        "name": "RouteLLM",
+        "url": "https://github.com/lm-sys/RouteLLM",
+        "description": "由 LMSYS 推出的开源模型路由框架，支持以极低成本训练路由器，在保持 GPT-4 级别性能的同时大幅降低成本。"
+      },
+      {
+        "name": "LiteLLM",
+        "url": "https://github.com/BerriAI/litellm",
+        "description": "统一的大模型 API 代理网关，内置强大的跨模型路由、Fallback 机制以及精细化的单次调用 Token 预算限制功能。"
+      },
+      {
+        "name": "AutoAWQ",
+        "url": "https://github.com/casper-hansen/AutoAWQ",
+        "description": "业界最流行的 LLM 4-bit 量化库之一，基于激活感知权重量化技术，大幅降低显存需求，配合 vLLM 可实现高吞吐推理。"
+      },
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "主流 Agent 开发框架，内置了丰富的缓存机制（如 InMemoryCache, RedisCache）以及基于回调的 Token 消耗追踪与预算管理模块。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic Prompt Caching 官方文档",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "description": "详细阐述了 cache_control 的使用机制、适用场景（如包含大量工具定义的 Agent）及计费规则。"
+      },
+      {
+        "name": "OpenAI Prompt Caching 指南",
+        "url": "https://platform.openai.com/docs/guides/prompt-caching",
+        "description": "OpenAI 官方关于自动缓存的 API 文档，说明缓存触发的最小长度及 API 调用时的 discount 规则。"
+      },
+      {
+        "name": "Portkey AI Gateway",
+        "url": "https://portkey.ai/",
+        "description": "企业级 AI 网关商业方案，提供开箱即用的模型路由策略、成本限制、自动重试和全链路 Token 追踪。"
+      },
+      {
+        "name": "AWS Bedrock 模型评估与路由",
+        "url": "https://aws.amazon.com/bedrock/",
+        "description": "云服务端到端解决方案，支持跨不同基础模型的无服务器部署、自动缩放及智能响应路由。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈，Agent 生产化的最大痛点是成本失控，很多循环调用直到爆仓才被发现，因此设置单次运行上限是上线的第一步。",
+      "社区对 Anthropic 的显式缓存评价极高，认为它比 OpenAI 的自动缓存更具可控性，特别是在微调 Agent 长期记忆时效果显著。",
+      "关于大小模型路由，有开发者指出难点在于'路由器本身也会消耗延迟和成本'，如果分类模型不够聪明导致任务误判，来回重试反而会增加开销。",
+      "量化部署已成为社区共识，很多独立开发者表示：通过 Ollama 部署 4-bit 的 Llama 3 或 Qwen 本地模型处理内部 Agent 任务，实现了成本几乎为零的私有化运行。"
+    ],
+    "practice": [
+      {
+        "title": "Anthropic 官方：构建高效 Agent 的最佳实践",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+        "description": "介绍了如何组合使用 Haiku/Sonnet、如何精简系统提示词以及结合缓存机制降低 Agent 耗费的实操指南。"
+      },
+      {
+        "title": "使用 LiteLLM 配置 Token 预算与路由策略教程",
+        "url": "https://docs.litellm.ai/docs/tutorials/model_fallbacks_and_routing",
+        "description": "实战演示如何为 AI 应用设置跨大厂 API 的路由，并配置单次请求最大 Token 限制。"
+      },
+      {
+        "title": "vLLM 部署 AWQ 4-bit 量化模型性能基准测试",
+        "url": "https://docs.vllm.ai/en/latest/getting_started/installation/gpu.html",
+        "description": "vLLM 官方文档中的量化部署指南，展示了 A10G/L4 等中低端显卡上如何通过量化达到生产级吞吐量。"
+      },
+      {
+        "title": "LangSmith 监控与成本追踪指南",
+        "url": "https://docs.smith.langchain.com/user_guide/monitoring/token_usage",
+        "description": "利用 LangSmith 进行 Agent 工作流的 Token 级别可观测性追踪，实现预算耗尽前的警报机制。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "RouteLLM: Learning to Route LLMs with Preference Data",
+        "url": "https://arxiv.org/abs/2406.18665",
+        "description": "arXiv 热门论文，探讨如何使用极低成本训练轻量级路由器网络，在保持用户偏好体验的同时减少 2-4 倍的成本。"
+      },
+      {
+        "title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+        "url": "https://arxiv.org/abs/2306.00978",
+        "description": "LLM 量化领域的突破性论文，证明了通过保护 1% 的显著权重通道，即可在 4-bit 极低精度下保持模型涌现能力。"
+      },
+      {
+        "title": "2025 前沿趋势：自适应上下文压缩与 Token Budget",
+        "url": "https://arxiv.org/abs/2405.00816",
+        "description": "最新研究方向：Agent 能够根据当前剩余的 Token Budget 自适应地决定推理深度、上下文截断方式以及是否调用高阶模型。"
+      }
+    ]
+  },
+  "summary": "本次调研深入剖析了AI Agent生产化过程中的核心痛点——成本优化。通过事实数据、开源与商业项目的对比发现，当前最有效的降本提效方案是'组合拳'：底层采用 4-bit 量化技术（如AWQ）降低私有化部署的硬件门槛；云端调用全面接入 Prompt Caching 消除冗余的上下文开销；架构层引入大小模型路由（如 Haiku/Mini 与 Sonnet/GPT-4o 协同），并辅以严格的 Token Budget 预算熔断机制。掌握这一套从模型量化到 API 缓存、再到智能路由的技术栈，是目前实现LLM商业闭环的必修课。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/lm-sys/RouteLLM",
+      "title": "RouteLLM",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/BerriAI/litellm",
+      "title": "LiteLLM",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/casper-hansen/AutoAWQ",
+      "title": "AutoAWQ",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+      "title": "Anthropic Prompt Caching 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/prompt-caching",
+      "title": "OpenAI Prompt Caching 指南",
+      "type": "commercial"
+    },
+    {
+      "url": "https://portkey.ai/",
+      "title": "Portkey AI Gateway",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/bedrock/",
+      "title": "AWS Bedrock 模型评估与路由",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+      "title": "Anthropic 官方：构建高效 Agent 的最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.litellm.ai/docs/tutorials/model_fallbacks_and_routing",
+      "title": "使用 LiteLLM 配置 Token 预算与路由策略教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.vllm.ai/en/latest/getting_started/installation/gpu.html",
+      "title": "vLLM 部署 AWQ 4-bit 量化模型性能基准测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/user_guide/monitoring/token_usage",
+      "title": "LangSmith 监控与成本追踪指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.18665",
+      "title": "RouteLLM: Learning to Route LLMs with Preference Data",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.00978",
+      "title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.00816",
+      "title": "2025 前沿趋势：自适应上下文压缩与 Token Budget",
+      "type": "frontier"
+    }
+  ],
+  "query": "成本优化：Token 管理与模型路由策略 Agent的Token消耗远超简单API调用，成本控制是生产化的必修课。本文详解Prompt Caching策略（Anthropic cache_control和OpenAI cached_response），大小模型路由（用Haiku处理简单分类、Sonnet处理复杂推理），Token预算管理（设置单次运行上限），以及模型量化部署（4-bit量化减少推理成本）。",
+  "researched_at": "2026-04-04T09:35:03.864369"
+}

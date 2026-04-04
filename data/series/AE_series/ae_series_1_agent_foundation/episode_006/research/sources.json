@@ -1,0 +1,159 @@
+{
+  "dimensions": {
+    "facts": [
+      "ReAct（Reasoning and Acting）由普林斯顿大学 Shunyu Yao 等人于 2022 年 10 月提出，并被人工智能顶会 ICLR 2023 收录，成为大模型 Agent 领域的开山之作之一。",
+      "核心机制是构建了 '思考-> 行动-> 观察（Observation）' 的循环。LLM 不仅生成推理步骤，还能决定调用外部工具（如搜索、查表），并将工具返回的结果作为观察结果喂给模型，进行下一轮推理。",
+      "论文证明：纯推理（CoT）容易产生“幻觉”，因为模型只依赖内部知识；纯行动缺乏推理规划，容易迷失方向；而 ReAct 结合两者，在解决复杂问题时显著降低了幻觉。",
+      "在 HotPotQA（多跳问答）和 ALFWorld（具身智能文本游戏）基准测试中，ReAct 在克服幻觉、提升任务成功率方面优于Few-Shot和CoT方案。"
+    ],
+    "opensource": [
+      {
+        "name": "ReAct 官方论文代码",
+        "url": "https://github.com/ysymyth/ReAct",
+        "description": "论文作者 Shunyu Yao 的官方实现，包含了 HotPotQA 和 ALFWorld 的提示词模板和实验代码。"
+      },
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "目前最火的 LLM 应用开发框架，其核心的 Agent 架构默认且广泛地采用了 ReAct 模式进行工具调用和推理规划。"
+      },
+      {
+        "name": "LlamaIndex",
+        "url": "https://github.com/run-llama/llama_index",
+        "description": "领先的数据框架，其高级 Agent 推理引擎（如 ReActAgent）深度集成了 ReAct 范式，用于复杂的企业数据查询。"
+      },
+      {
+        "name": "ModelScope Agent Fabric",
+        "url": "https://github.com/modelscope/agentscope",
+        "description": "阿里云推出的多智能体框架，内部的基础 Agent 实现大量参考了 ReAct 的思考与行动分离机制。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI 官方的 Assistants API 在底层逻辑上实现了类似 ReAct 的循环，通过自动处理工具调用（代码解释器、检索、函数）和状态管理来执行复杂任务。"
+      },
+      {
+        "name": "Anthropic Tool Use (Function Calling)",
+        "url": "https://docs.anthropic.com/claude/docs/tool-use",
+        "description": "Claude 模型的官方工具调用文档，展示了如何通过让模型决定何时调用外部工具，实现 ReAct 范式的商业落地。"
+      },
+      {
+        "name": "Coze (扣子)",
+        "url": "https://www.coze.com/",
+        "description": "字节跳动推出的 AI Bot 开发平台，用户无需写代码即可配置插件和工作流，底层 Bot 执行机制深度依赖 ReAct 模式。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为 ReAct 是目前构建 AI Agent 的'Hello World'和事实标准，逻辑直观，易于上手。",
+      "社区反馈的痛点：ReAct 模式下的 LLM 经常出现“死循环”或在某一步卡住（例如反复搜索同一个词），容错机制需要重点开发。",
+      "性能与成本问题：由于每次循环都需要将长上下文（历史 Thought/Action/Observation）重新发给 LLM，导致 Token 消耗巨大，延迟较高。",
+      "随着 GPT-4o、Claude 3.5 等带有原生 Function Calling 能力的模型普及，社区开始探讨'隐式 ReAct'，即不再强制要求模型显式输出 'Thought: ...' 的文本，而是通过结构化 API 直接执行。"
+    ],
+    "practice": [
+      {
+        "title": "LangChain 官方 ReAct Agent 文档与指南",
+        "url": "https://python.langchain.com/docs/modules/agents/agent_types/react",
+        "description": "详细指导如何使用 LangChain 创建一个 ReAct Agent，包含具体的提示词配置和工具绑定方法。"
+      },
+      {
+        "title": "吴恩达 DeepLearning.AI 课程: Functions, Agents and LangChain",
+        "url": "https://www.deeplearning.ai/short-courses/functions-agents-and-langchain/",
+        "description": "系统学习如何从零构建 Agent，重点讲解了 ReAct 逻辑循环以及如何处理真实场景下的 LLM 输出解析错误。"
+      },
+      {
+        "title": "Best Practices for Building ReAct Agents",
+        "url": "https://microsoft.github.io/autogen/docs/Use-Cases/agent_chat",
+        "description": "基于 Microsoft AutoGen 的多智能体实践，展示了如何限制最大迭代次数、优化 ReAct 提示词以提升成功率。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "description": "Shunyu Yao 等人的后续研究，在 ReAct 的基础上增加了“评估”和“记忆反思”机制，让 Agent 能从错误中学习。"
+      },
+      {
+        "title": "LATS: Language Agent Tree Search",
+        "url": "https://arxiv.org/abs/2310.04444",
+        "description": "结合了蒙特卡洛树搜索（MCTS）与 ReAct，在执行前规划多条路径并评估最优解，大幅提升了 Agent 在复杂编程和推理任务的性能。"
+      },
+      {
+        "title": "Plan-and-Solve Prompting",
+        "url": "https://arxiv.org/abs/2305.04091",
+        "description": "针对 ReAct 步骤间缺乏全局观的优化方案，提出先让模型制定完整计划，再执行具体 Action，是 2024 年 Agent 架构演进的重要方向。"
+      }
+    ]
+  },
+  "summary": "ReAct（思考-行动-观察循环）是当前 AI Agent 领域最核心的骨架架构，通过结合内部推理与外部工具调用，极大地缓解了大模型的幻觉问题。虽然在实际落地中面临 Token 成本高和容易陷入死循环的挑战，但随着 LangChain 等开源框架的普及以及原生 Function Calling 能力的提升，ReAct 已成为开发智能助手的标准范式；同时，学界正通过引入反思、树搜索等机制，推动 ReAct 向更稳定、高阶的多模态多智能体系统演进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/ysymyth/ReAct",
+      "title": "ReAct 官方论文代码",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/run-llama/llama_index",
+      "title": "LlamaIndex",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/modelscope/agentscope",
+      "title": "ModelScope Agent Fabric",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/tool-use",
+      "title": "Anthropic Tool Use (Function Calling)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.coze.com/",
+      "title": "Coze (扣子)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://python.langchain.com/docs/modules/agents/agent_types/react",
+      "title": "LangChain 官方 ReAct Agent 文档与指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/functions-agents-and-langchain/",
+      "title": "吴恩达 DeepLearning.AI 课程: Functions, Agents and LangChain",
+      "type": "practice"
+    },
+    {
+      "url": "https://microsoft.github.io/autogen/docs/Use-Cases/agent_chat",
+      "title": "Best Practices for Building ReAct Agents",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.04444",
+      "title": "LATS: Language Agent Tree Search",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.04091",
+      "title": "Plan-and-Solve Prompting",
+      "type": "frontier"
+    }
+  ],
+  "query": "ReAct 模式：思考-行动-观察的 Agent 循环 ReAct（Reasoning and Acting）是Agent最核心的架构模式之一。本文解读Yao等人发表在ICLR 2023的经典论文，详解Thought-Action-Observation循环的工作机制，对比纯推理(Chain-of-Thought)、纯行动(Action-only)和ReAct三种模式的效果差异。通过HotPotQA和ALFWorld基准测试结果，分析ReAct在什么场景下优于其他模式。",
+  "researched_at": "2026-04-03T13:53:14.252638"
+}

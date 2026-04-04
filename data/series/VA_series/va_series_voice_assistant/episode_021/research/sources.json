@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "口语语言理解（SLU）是语音助手（如Siri, 小爱同学）的核心组件，主要由自动语音识别（ASR）和自然语言理解（NLU）两部分构成。",
+      "意图识别被定义为分类任务，用于判断用户的核心目的（如：查天气、订机票）；槽位填充被定义为序列标注任务（通常使用BIO标注法），用于提取关键实体（如：[日期]、[目的地]）。",
+      "传统 SLU 采用“ASR文本 -> NLU分析”的 Pipeline 架构；近年来正向“端到端”直接从语音提取意图和槽位演进。",
+      "2023年起，基于大语言模型（LLM）的生成式统一方法成为主流，通过 Prompt 模板（如指令微调）将两个任务统一为“文本到文本”的生成任务，消除了多任务联合学习的复杂架构。",
+      "SLU 领域最经典的基准数据集包括 ATIS（航空旅行信息系统）和 Snips，目前在这些数据集上基于预训练模型（如 BERT、RoBERTa）的 F1 分数已达到甚至超越人类水平。"
+    ],
+    "opensource": [
+      {
+        "name": "Rasa",
+        "url": "https://github.com/RasaHQ/rasa",
+        "description": "最知名的开源对话式AI框架，内置了极其成熟的 NLU 组件（基于 DIET 架构），支持意图识别、实体（槽位）提取和上下文状态管理。"
+      },
+      {
+        "name": "Hugging Face Transformers",
+        "url": "https://github.com/huggingface/transformers",
+        "description": "当前最主流的深度学习库，包含大量支持 Token Classification（槽位填充）和 Text Classification（意图识别）的预训练模型和代码示例。"
+      },
+      {
+        "name": "Awesome-SLU",
+        "url": "https://github.com/AnMaclau/Awesome-SLU",
+        "description": "GitHub 上持续更新的 SLU（口语语言理解）论文和资源汇总列表，涵盖了经典模型到最新的预训练语言模型应用。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI API (Function Calling / Structured Outputs)",
+        "url": "https://platform.openai.com/docs/guides/function-calling",
+        "description": "提供大模型原生能力，开发者可通过描述 JSON Schema，让 GPT-4 等模型精准实现意图识别与槽位提取，是当前零样本 SLU 的最佳商业实践。"
+      },
+      {
+        "name": "Google Cloud Dialogflow CX",
+        "url": "https://cloud.google.com/dialogflow",
+        "description": "Google 提供的企业级对话式 AI 平台，其核心 NLU 引擎支持复杂的意图匹配和基于系统/自定义实体的槽位填充（参数提取）。"
+      },
+      {
+        "name": "AWS Amazon Lex",
+        "url": "https://aws.amazon.com/lex/",
+        "description": "Amazon 基于 Alexa 同款技术的全托管服务，提供强大的 ASR 和 NLU 融合能力，支持高级意图路由和槽位 elicitation（引出）机制。"
+      }
+    ],
+    "community": [
+      "【大模型平替趋势】很多开发者反馈，在中小型垂直场景（如智能家居），直接用 ChatGPT/GLM 的 Few-shot 提示词代替传统的 BERT 意图识别模型，研发周期从几周缩短至几天。",
+      "【Pipeline痛点】传统串联架构存在错误放大问题，尤其是 ASR 识别错误（同音字）会导致 NLU 槽位填充彻底失败，社区强烈呼吁基于音频直接理解的 End-to-End 方案。",
+      "【延迟与成本争议】尽管 LLM 在零样本 SLU 上表现惊艳，但在高并发、低延迟要求（如车载语音）中，计算成本和响应时间仍是硬伤，轻量级小模型（如 DistilBERT）依然占据主导地位。"
+    ],
+    "practice": [
+      {
+        "title": "Hugging Face: Token Classification 任务教程",
+        "url": "https://huggingface.co/learn/nlp-course/chapter7/2",
+        "description": "详细实战指南，指导如何使用 Transformers 库微调 BERT 等模型进行 NER（命名实体识别），其原理和代码与“槽位填充”完全一致。"
+      },
+      {
+        "title": "Rasa 官方 NLU 训练指南",
+        "url": "https://rasa.com/docs/rasa/nlu/training-data-format/",
+        "description": "商业和开源结合的最佳实践，教你如何标注意图和实体数据，并配置 Rasa 的 NLU Pipeline 进行本地化训练和部署。"
+      },
+      {
+        "title": "OpenAI Structured Outputs 实现精准槽位提取",
+        "url": "https://platform.openai.com/docs/guides/structured-outputs",
+        "description": "利用最新的结构化输出技术，确保大模型生成的槽位键值对严格遵守预设的 JSON Schema 格式，解决生成式 SLU 的格式不可控问题。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AudioPaLM: 语音与大语言模型的融合",
+        "url": "https://arxiv.org/abs/2306.12925",
+        "description": "Google 提出的前沿架构，直接处理音频和文本，不再将语音先转成文本再进行理解，实现了真正的端到端零样本语音意图理解。"
+      },
+      {
+        "title": "InstructSLU: 基于指令微调的统一生成式 SLU",
+        "url": "https://arxiv.org/abs/2305.10965",
+        "description": "探讨如何将意图识别和槽位填充统一在生成式框架下，通过指令微调大幅提升跨领域和零样本 SLU 的泛化能力。"
+      },
+      {
+        "title": "2025-2026 趋势：原生多模态语音大模型 (Native Speech LLMs)",
+        "url": "https://arxiv.org/abs/2409.04460",
+        "description": "类似 GPT-4o 级别的端到端模型，不仅消灭了 ASR+NLU 的流水线，还能直接捕捉语音中的情绪、停顿等声学特征来辅助意图判断，彻底重塑 SLU 范式。"
+      }
+    ]
+  },
+  "summary": "本次调研揭示了语音 NLU（意图识别与槽位填充）正在经历的范式大跃迁。从技术事实上看，传统的分类+序列标注任务正全面转向基于 LLM 的生成式统一方法。在商业和实战层面，OpenAI 的 Function Calling 和 Hugging Face 的轻量级微调是目前的两大主流选择。开源社区的关注点在于如何平衡 LLM 强大的零样本泛化能力与端侧部署的低延迟需求。展望 2025-2026 前沿，以 AudioPaLM 为代表的端到端原生多模态语音大模型将有望彻底打破 ASR 与 NLU 的界限，让机器不仅能听懂“文字”，更能听懂“语音的情绪与细节”。对于小红书技术创作者而言，分享'如何用大模型 prompt 替代传统 NLU 模型'或'0基础接入语音助手槽位提取'将是极具流量的干货选题。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/RasaHQ/rasa",
+      "title": "Rasa",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/huggingface/transformers",
+      "title": "Hugging Face Transformers",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/AnMaclau/Awesome-SLU",
+      "title": "Awesome-SLU",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling",
+      "title": "OpenAI API (Function Calling / Structured Outputs)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/dialogflow",
+      "title": "Google Cloud Dialogflow CX",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/lex/",
+      "title": "AWS Amazon Lex",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/learn/nlp-course/chapter7/2",
+      "title": "Hugging Face: Token Classification 任务教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://rasa.com/docs/rasa/nlu/training-data-format/",
+      "title": "Rasa 官方 NLU 训练指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/structured-outputs",
+      "title": "OpenAI Structured Outputs 实现精准槽位提取",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.12925",
+      "title": "AudioPaLM: 语音与大语言模型的融合",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.10965",
+      "title": "InstructSLU: 基于指令微调的统一生成式 SLU",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2409.04460",
+      "title": "2025-2026 趋势：原生多模态语音大模型 (Native Speech LLMs)",
+      "type": "frontier"
+    }
+  ],
+  "query": "语音 NLU 基础：意图识别与槽位填充 NLU是语音助手的“大脑”。详解口语语言理解（SLU）的两大核心任务——意图识别和槽位填充，生成式统一方法，以及零样本SLU的最新进展。",
+  "researched_at": "2026-04-03T23:59:23.057074"
+}

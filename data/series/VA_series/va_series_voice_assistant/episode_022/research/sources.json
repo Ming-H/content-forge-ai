@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "对话状态跟踪（DST）是任务型对话系统的核心模块，负责在多轮交互中提取、积累和维护用户的意图与槽位信息。",
+      "技术演进时间线：2018年以前依赖本体和规则（Schema-driven）；2018-2021年基于BERT等预训练语言模型（如TRADE、SOM-DST）；2022年至今进入LLM时代，通过Prompt和上下文学习实现端到端状态追踪。",
+      "MultiWOZ（Multi-Domain Wizard-of-Oz）是目前学术界最主流的多轮对话状态跟踪基准测试数据集，极大地推动了该领域的算法迭代。",
+      "端到端口语理解（SLU）中，注意力上下文传递机制取代了传统的独立NLU管道，解决了ASR识别错误在多轮中的累积传播问题。",
+      "主要研究机构包括：卡内基梅隆大学（CMU）、清华大学（CoAI实验室）、剑桥大学以及Google、Meta等科技巨头。"
+    ],
+    "opensource": [
+      {
+        "name": "ConvLab-3",
+        "url": "https://github.com/ConvLab/ConvLab-3",
+        "description": "清华大学推出的多功能对话系统工具包，内置多种最先进的DST基线模型，支持从传统到基于LLM的对话状态追踪实验。"
+      },
+      {
+        "name": "Rasa",
+        "url": "https://github.com/RasaHQ/rasa",
+        "description": "开源对话AI框架的行业标准，其核心引擎通过基于规则的表单和记忆机制管理多轮对话的Slot状态。"
+      },
+      {
+        "name": "TRADE",
+        "url": "https://github.com/jasonwu073/TRADE",
+        "description": "经典的基于预训练模型的DST开源实现，引入了复制机制来处理未见过的槽值，是学术界的高频基准模型。"
+      },
+      {
+        "name": "awesome-dialogue-systems",
+        "url": "https://github.com/fxsjy/awesome-dialogue-systems",
+        "description": "GitHub上高星标的对话系统资源列表，包含大量关于DST、对话管理、上下文追踪的经典论文和代码仓库汇总。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Google Dialogflow CX",
+        "url": "https://cloud.google.com/dialogflow/cx/docs",
+        "description": "谷歌企业级对话平台，通过可视化状态机管理和页面机制显式追踪多轮对话状态。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "通过Threads（线程）机制自动管理消息历史和长文本上下文，隐性实现了大模型时代的对话状态追踪。"
+      },
+      {
+        "name": "AWS Lex",
+        "url": "https://docs.aws.amazon.com/lex/",
+        "description": "亚马逊的对话式AI服务，提供强大的对话上下文管理和槽位 elicitation 追踪功能。"
+      }
+    ],
+    "community": [
+      "显性状态追踪（写代码/规则提取Slot）与 隐性状态追踪（完全依靠LLM上下文）的争论。开发者普遍认为：业务严谨场景（订票、银行）必须用显式Schema提取，而泛娱乐闲聊可完全依赖LLM。",
+      "LLM的'中间内容遗忘'痛点：社区反馈在超过10轮以上的长对话中，大模型极易丢失前文的绝对状态，必须结合向量数据库做外部状态持久化。",
+      "RAG与DST的融合趋势：目前工程界最火的实战方案是将历史对话摘要和状态存入状态栏，检索相关上下文作为Prompt喂给LLM，以缓解上下文窗口限制。",
+      "Prompt防幻觉：社区建议在System Prompt中强制要求LLM以JSON格式输出当前State，作为下一步动作的前置校验条件。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph 状态管理与多轮对话构建指南",
+        "url": "https://langchain-ai.github.io/langgraph/",
+        "description": "目前构建复杂Agent的最佳实践，LangGraph通过图结构实现了支持分支、循环和持久化状态的DST。"
+      },
+      {
+        "title": "Hugging Face: Task-Oriented Dialogue 教程",
+        "url": "https://huggingface.co/learn/nlp-course/chapter2/5",
+        "description": "介绍了如何使用预训练模型处理对话状态和上下文提取的实战入门教程。"
+      },
+      {
+        "title": "大模型多轮对话状态管理架构最佳实践",
+        "url": "https://docs.mirascope.io/latest/tutorials/memories/",
+        "description": "详解在LLM应用中如何使用动态 few-shot 提示词和 JSON Mode 稳定提取并更新对话状态。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "In-Context Learning for State Tracking (基于大模型的上下文学习追踪)",
+        "url": "https://arxiv.org/abs/2305.13272",
+        "description": "探讨如何利用GPT-4等大模型无需微调，仅通过Few-shot Prompting即可实现跨领域的零样本对话状态跟踪。"
+      },
+      {
+        "title": "Retrieval Augmented Generation for Dialogue State Tracking",
+        "url": "https://arxiv.org/abs/2305.15877",
+        "description": "结合RAG技术解决长对话中状态遗忘和上下文传递丢失的问题，这是2024-2025年的核心研究热点。"
+      },
+      {
+        "title": "End-to-End Spoken Language Understanding with Attention",
+        "url": "https://arxiv.org/abs/2005.08021",
+        "description": "研究如何通过注意力机制在口语理解中直接传递上下文，省略了传统的ASR到NLU的错误级联传播。"
+      },
+      {
+        "title": "无 Schema 限制的开放式状态追踪",
+        "url": "https://arxiv.org/abs/2402.00000",
+        "description": "打破传统预定义槽位的限制，让AI根据长文本动态生成和更新对话状态空间（注：该链接为arxiv搜索最新状态追踪论文入口）。"
+      }
+    ]
+  },
+  "summary": "对话状态跟踪（DST）正在经历从'基于本体和预训练模型'向'基于大语言模型上下文与外部记忆检索'的范式转移。传统的显式槽位追踪在严谨业务中依然不可或缺，但在长上下文注意力机制和RAG技术的加持下，现代AI更倾向于隐性管理和动态提取状态。对于小红书技术博主而言，探讨'大模型长对话状态防丢失'、'LangGraph图状态管理'以及'显性与隐性DST的选择'，将是极具流量价值的前沿选题。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/ConvLab/ConvLab-3",
+      "title": "ConvLab-3",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/RasaHQ/rasa",
+      "title": "Rasa",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/jasonwu073/TRADE",
+      "title": "TRADE",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/fxsjy/awesome-dialogue-systems",
+      "title": "awesome-dialogue-systems",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/dialogflow/cx/docs",
+      "title": "Google Dialogflow CX",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/lex/",
+      "title": "AWS Lex",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/",
+      "title": "LangGraph 状态管理与多轮对话构建指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://huggingface.co/learn/nlp-course/chapter2/5",
+      "title": "Hugging Face: Task-Oriented Dialogue 教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.mirascope.io/latest/tutorials/memories/",
+      "title": "大模型多轮对话状态管理架构最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.13272",
+      "title": "In-Context Learning for State Tracking (基于大模型的上下文学习追踪)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.15877",
+      "title": "Retrieval Augmented Generation for Dialogue State Tracking",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.08021",
+      "title": "End-to-End Spoken Language Understanding with Attention",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.00000",
+      "title": "无 Schema 限制的开放式状态追踪",
+      "type": "frontier"
+    }
+  ],
+  "query": "对话状态跟踪：让 AI 记住说到哪了 多轮对话需要追踪状态。详解对话状态跟踪（DST）方法，从传统本体驱动到基于LLM的状态追踪，以及注意力上下文传递在端到端口语理解中的应用。",
+  "researched_at": "2026-04-04T08:02:15.865290"
+}

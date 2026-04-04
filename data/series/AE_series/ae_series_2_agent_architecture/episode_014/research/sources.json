@@ -1,0 +1,165 @@
+{
+  "dimensions": {
+    "facts": [
+      "MCP（Model Context Protocol）由 Anthropic 于 2024 年 11 月底正式开源发布，旨在解决 AI 模型与不同数据源和工具之间碎片化的集成问题。",
+      "架构采用 Host-Client-Server 三层模型：Host（宿主应用，如 Claude Desktop、IDE）发起连接，Client（客户端）在 Host 内部与 Server 保持 1:1 的连接，Server（服务端）提供具体的上下文和能力。",
+      "三大服务端原语构成了 AI 的能力矩阵：Tools（可执行函数，允许 LLM 与外部系统交互）、Resources（数据源，向 LLM 暴露文件、数据库等结构化/非结构化数据）、Prompts（提示词模板，预设的用户交互模板）。",
+      "客户端原语包含 Sampling（允许 Server 请求 LLM 完成补全任务，实现 Agent 的递归/嵌套调用）和 Roots（提供文件系统或 API 端点的根路径），以及用于请求人类反馈的交互机制。",
+      "传输层分为 Stdio（标准输入输出，适用于同一本机的本地进程通信）和 Streamable HTTP（基于 HTTP POST 的远程通信机制，取代了早期的 SSE 方案），底层统一采用 JSON-RPC 2.0 进行生命周期和状态管理。"
+    ],
+    "opensource": [
+      {
+        "name": "MCP TypeScript SDK",
+        "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+        "description": "官方提供的 TypeScript SDK，用于快速构建 MCP Server 和 Client，支持 Stdio 和 Streamable HTTP 传输。"
+      },
+      {
+        "name": "MCP Python SDK",
+        "url": "https://github.com/modelcontextprotocol/python-sdk",
+        "description": "官方提供的 Python SDK，包含完整的类型提示和异步支持，是 AI 工程师最常用的开发框架之一。"
+      },
+      {
+        "name": "Awesome MCP Servers",
+        "url": "https://github.com/punkpeye/awesome-mcp-servers",
+        "description": "社区维护的极全的 MCP 服务器列表，涵盖了数据库、Git、浏览器自动化、云服务等数百个现成的开源实现。"
+      },
+      {
+        "name": "MCP Official Servers",
+        "url": "https://github.com/modelcontextprotocol/servers",
+        "description": "Anthropic 官方维护的参考实现仓库，包含了文件系统、GitHub、Slack、Postgres 等基础服务的 MCP Server。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic MCP 官方文档",
+        "url": "https://modelcontextprotocol.io/",
+        "description": "MCP 协议的权威文档站，包含完整的架构说明、规范定义（Specification）和 SDK 使用指南。"
+      },
+      {
+        "name": "Claude Desktop Developer Guide",
+        "url": "https://docs.anthropic.com/en/docs/agents-and-tools/mcp",
+        "description": "Anthropic 官方的 Claude 桌面版 MCP 集成指南，指导如何配置商业客户端连接本地或远程 Server。"
+      },
+      {
+        "name": "Cloudflare Remote MCP Guides",
+        "url": "https://blog.cloudflare.com/remote-model-context-protocol-servers/",
+        "description": "Cloudflare 官方提供的 MCP 商业化部署指南，介绍如何使用 Workers 部署具备公网访问能力的远程 MCP 服务器。"
+      },
+      {
+        "name": "Block / Apollo / Replit Integrations",
+        "url": "https://www.anthropic.com/news/model-context-protocol",
+        "description": "Block、Apollo、Replit 等顶级商业公司作为早期采用者，已将 MCP 深度集成到其商业产品中以增强 AI Agent 能力。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为 MCP 是 'AI 工具的 USB-C'，它统一了过去千奇百怪的 Function Calling 接口标准，极大降低了集成成本。",
+      "社区早期对 SSE（Server-Sent Events）作为主要远程传输层存在争议，认为其存在连接状态复杂、扩展性差的问题，后官方响应社区反馈将其演进为 Streamable HTTP。",
+      "大量反馈指出，目前 MCP 缺乏统一的 'Marketplace'（服务发现机制），开发者很难在一个中心化的地方寻找和验证高质量的远程服务。",
+      "安全性是社区讨论的热点：由于 LLM 可以通过 Tool 执行代码或访问本地文件（通过 Stdio），如何防止提示词注入导致的本地越权攻击是目前开发者关注的痛点。"
+    ],
+    "practice": [
+      {
+        "title": "Building MCP with Claude Desktop",
+        "url": "https://modelcontextprotocol.io/quickstart/user",
+        "description": "面向终端用户的实战指南，介绍如何在 claude_desktop_config.json 中配置各种 MCP 服务器。"
+      },
+      {
+        "title": "Building Your First MCP Server (TypeScript/Python)",
+        "url": "https://modelcontextprotocol.io/quickstart/server",
+        "description": "针对开发者的 Hello World 教程，手把手教你实现一个具备 Tools 和 Resources 的 MCP Server。"
+      },
+      {
+        "title": "Debugging MCP Servers (Inspector Guide)",
+        "url": "https://modelcontextprotocol.io/tools/inspector",
+        "description": "官方提供的 MCP Inspector 工具使用指南，帮助开发者在浏览器中可视化和调试 JSON-RPC 通信。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Anthropic Blog: The Model Context Protocol",
+        "url": "https://www.anthropic.com/news/model-context-protocol",
+        "description": "Anthropic 官方发布的前沿声明，详细阐述了 MCP 如何重构 AI 生态的数据接入范式，以及消除信息孤岛的愿景。"
+      },
+      {
+        "title": "The Agentic Web: MCP and The Future of AI Architecture",
+        "url": "https://www.nelsontech.ca/insights/the-agentic-web-mcp-and-the-future-of-ai-architecture",
+        "description": "探讨 2025 年 AI 架构的前沿趋势，将 MCP 定义为 Agentic Web 的基石，预言未来 AI 的通信将从单次对话向工具链多智能体互联演进。"
+      },
+      {
+        "title": "Security and Sandbox Mechanisms in Tool-Using LLMs",
+        "url": "https://arxiv.org/abs/2310.05748",
+        "description": "相关前沿学术论文（LLM 工具使用的安全与沙盒机制），探讨了类似 MCP 执行环境下的最佳安全隔离实践，为 MCP 的未来发展提供安全理论支撑。"
+      }
+    ]
+  },
+  "summary": "MCP（Model Context Protocol）作为 Anthropic 推出的开放标准，正在成为 AI Agent 与外部世界交互的 'USB-C' 接口。它通过 Host-Client-Server 架构和统一的 JSON-RPC 2.0 规范，结合 Tools/Resources/Prompts 三大核心原语，成功实现了数据源与工具调用的标准化。随着传输层向 Streamable HTTP 演进及各大云厂商、开源社区的深度布局，MCP 正在解决 2025 年 AI 生态中最棘手的 '信息孤岛' 与 '孤立的工具链' 问题，是构建下一代复杂智能体不可或缺的底层基础设施。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+      "title": "MCP TypeScript SDK",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "title": "MCP Python SDK",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/punkpeye/awesome-mcp-servers",
+      "title": "Awesome MCP Servers",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "title": "MCP Official Servers",
+      "type": "opensource"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/",
+      "title": "Anthropic MCP 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/agents-and-tools/mcp",
+      "title": "Claude Desktop Developer Guide",
+      "type": "commercial"
+    },
+    {
+      "url": "https://blog.cloudflare.com/remote-model-context-protocol-servers/",
+      "title": "Cloudflare Remote MCP Guides",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.anthropic.com/news/model-context-protocol",
+      "title": "Block / Apollo / Replit Integrations",
+      "type": "commercial"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/quickstart/user",
+      "title": "Building MCP with Claude Desktop",
+      "type": "practice"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/quickstart/server",
+      "title": "Building Your First MCP Server (TypeScript/Python)",
+      "type": "practice"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/tools/inspector",
+      "title": "Debugging MCP Servers (Inspector Guide)",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.nelsontech.ca/insights/the-agentic-web-mcp-and-the-future-of-ai-architecture",
+      "title": "The Agentic Web: MCP and The Future of AI Architecture",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.05748",
+      "title": "Security and Sandbox Mechanisms in Tool-Using LLMs",
+      "type": "frontier"
+    }
+  ],
+  "query": "MCP 协议深度解析：AI 工具的 USB-C 标准 MCP（Model Context Protocol）是Anthropic推出的开放标准，被称为\"AI工具的USB-C\"。本文深度解析MCP架构：Host-Client-Server三层模型、三大服务端原语（Tools可执行函数/Resources数据源/Prompts模板）、两大客户端原语（Sampling请求LLM完成/Elicitation请求用户输入），以及传输层（Stdio本地通信/Streamable HTTP远程通信）和JSON-RPC 2.0生命周期管理。",
+  "researched_at": "2026-04-03T20:57:44.094458"
+}

@@ -1,0 +1,216 @@
+{
+  "series_info": {
+    "id": "ae_series_1_agent_foundation",
+    "name": "Agent 工程基础",
+    "description": "从Chatbot到自主智能体的范式转变，掌握Anthropic定义的6大工作流模式",
+    "topic_count": 10,
+    "difficulty": "入门→进阶",
+    "priority": 1,
+    "status": "in_progress"
+  },
+  "topics": [
+    {
+      "id": "ae_topic_001",
+      "series_id": "ae_series_1",
+      "episode": 1,
+      "title": "Agent Engineering 全景：从 Chatbot 到自主智能体的范式转变",
+      "description": "Agent Engineering是2025-2026年最热门的技术方向。本文从Agent vs Chatbot vs Pipeline的区别出发，详解感知-推理-行动(Perception-Reasoning-Action)循环的核心理念，梳理Agent自主性等级(L0手动-L5全自主)，解读Anthropic\"Building Effective Agents\"的核心观点：何时用Agent、何时用Workflow、何时只需优化单次LLM调用。帮助读者建立Agent Engineering的全局认知地图。",
+      "keywords": [
+        "Agent Engineering",
+        "AI Agent",
+        "Chatbot vs Agent",
+        "感知推理行动",
+        "自主性等级",
+        "Anthropic Building Effective Agents"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_002",
+      "series_id": "ae_series_1",
+      "episode": 2,
+      "title": "LLM 作为 Agent 大脑：模型能力边界与选型策略",
+      "description": "Agent的能力上限由底层LLM决定。本文对比GPT-4o、Claude 4 Sonnet、Gemini 2.5 Pro、GLM-5等主流模型在Agent场景下的表现差异，重点评估Function Calling准确率、长上下文理解、多轮对话一致性、推理深度等关键维度。构建模型选型决策树，帮助开发者在能力、成本、延迟之间做出最优权衡。",
+      "keywords": [
+        "GPT-4o",
+        "Claude",
+        "Gemini",
+        "GLM-5",
+        "Function Calling",
+        "模型选型",
+        "推理能力",
+        "成本优化"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_003",
+      "series_id": "ae_series_1",
+      "episode": 3,
+      "title": "第一个 Agent：用纯 Python + API 从零构建",
+      "description": "不依赖任何框架，用纯Python+API调用构建一个能真正工作的Agent。详解Agent Loop的本质：while循环检测tool_use → 执行工具 → 将结果喂回LLM → 继续循环。通过完整的代码示例（使用OpenAI或Anthropic API），让读者理解Agent运行机制的底层原理，为后续学习框架打下坚实基础。",
+      "keywords": [
+        "Python",
+        "OpenAI API",
+        "Anthropic API",
+        "Agent Loop",
+        "tool_use",
+        "工具循环",
+        "从零构建"
+      ],
+      "difficulty": "入门",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_004",
+      "series_id": "ae_series_1",
+      "episode": 4,
+      "title": "Function Calling 深度解析：让 LLM 连接外部世界",
+      "description": "Function Calling是Agent连接外部世界的桥梁。本文深入解析JSON Schema工具定义的最佳实践、并行工具调用(parallel tool calls)的实现、tool_choice(auto/required/none)的精确控制，以及工具调用失败时的错误处理策略。对比OpenAI和Anthropic在工具调用API上的差异，帮助开发者构建可靠的工具调用层。",
+      "keywords": [
+        "Function Calling",
+        "JSON Schema",
+        "parallel tool calls",
+        "tool_choice",
+        "错误处理",
+        "工具定义"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_005",
+      "series_id": "ae_series_1",
+      "episode": 5,
+      "title": "Agent-Computer Interface 设计：工具即提示工程",
+      "description": "Anthropic在\"Building Effective Agents\"附录2中提出：设计Agent-Computer Interface(ACI)应该和设计Human-Computer Interface(HCI)投入同样多的精力。本文详解ACI设计原则：Poka-yoke防错设计（如强制绝对路径避免相对路径错误）、工具描述优化技巧、工具评估方法论。以SWE-bench实际案例说明：Anthropic团队花在优化工具上的时间远超优化prompt。",
+      "keywords": [
+        "ACI",
+        "Agent-Computer Interface",
+        "Poka-yoke",
+        "工具设计",
+        "Anthropic",
+        "SWE-bench"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_006",
+      "series_id": "ae_series_1",
+      "episode": 6,
+      "title": "ReAct 模式：思考-行动-观察的 Agent 循环",
+      "description": "ReAct（Reasoning and Acting）是Agent最核心的架构模式之一。本文解读Yao等人发表在ICLR 2023的经典论文，详解Thought-Action-Observation循环的工作机制，对比纯推理(Chain-of-Thought)、纯行动(Action-only)和ReAct三种模式的效果差异。通过HotPotQA和ALFWorld基准测试结果，分析ReAct在什么场景下优于其他模式。",
+      "keywords": [
+        "ReAct",
+        "Reasoning Acting",
+        "Thought Action Observation",
+        "CoT",
+        "Yao et al",
+        "ICLR 2023"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_007",
+      "series_id": "ae_series_1",
+      "episode": 7,
+      "title": "Prompt Chaining 与 Routing：可预测的工作流",
+      "description": "不是所有任务都需要自主Agent。Anthropic定义的前两种工作流模式——Prompt Chaining和Routing——为可预测的任务提供了更可靠的方案。本文详解Prompt Chaining的串联+门控检查(gate check)机制，以及Routing如何将不同类型请求分派给专门处理流程（如简单查询用Haiku、复杂推理用Sonnet）。结合客服系统路由案例说明实战应用。",
+      "keywords": [
+        "Prompt Chaining",
+        "Routing",
+        "门控检查",
+        "工作流模式",
+        "Anthropic",
+        "路由分类",
+        "小模型"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_008",
+      "series_id": "ae_series_1",
+      "episode": 8,
+      "title": "Parallelization 与 Orchestrator-Workers：并行与动态分工",
+      "description": "当任务可以分解时，并行化能显著提升效率。本文详解Anthropic定义的两种并行模式：Sectioning（分段并行处理不同子任务）和Voting（多次执行投票取最优）。进一步解析Orchestrator-Workers模式——中央LLM动态分解任务、分派给Worker LLM、综合结果。对比两者的适用场景：固定子任务用Parallelization，不可预测子任务用Orchestrator-Workers。",
+      "keywords": [
+        "Parallelization",
+        "Orchestrator-Workers",
+        "Sectioning",
+        "Voting",
+        "动态子任务",
+        "Anthropic"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_009",
+      "series_id": "ae_series_1",
+      "episode": 9,
+      "title": "Evaluator-Optimizer 与 Reflection：自我纠错的 Agent",
+      "description": "让Agent学会自我纠错是提升输出质量的关键。本文详解Anthropic的Evaluator-Optimizer工作流模式——一个LLM生成、另一个LLM评估反馈的迭代循环。结合Reflexion论文(Shinn et al., NeurIPS 2023)的verbal reinforcement learning方法，分析Agent如何通过文本反思从失败中学习。讨论何时适合使用此模式：当LLM的响应在有明确反馈时可显著改善时。",
+      "keywords": [
+        "Evaluator-Optimizer",
+        "Reflection",
+        "Reflexion",
+        "自我纠错",
+        "迭代评估",
+        "Shinn et al"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_010",
+      "series_id": "ae_series_1",
+      "episode": 10,
+      "title": "基础综合实战：构建一个多模式研究助手",
+      "description": "将前9期学到的6种工作流模式融会贯通，构建一个智能研究助手。该助手能根据任务复杂度自动选择最优策略：简单查询走Prompt Chaining，中等任务走ReAct循环，复杂研究任务走Orchestrator-Workers分解。通过完整的Python实现（不用框架），巩固Agent Loop、工具调用、工作流选择等核心概念，为后续框架学习做好准备。",
+      "keywords": [
+        "综合实战",
+        "研究助手",
+        "工作流选择",
+        "Chaining",
+        "ReAct",
+        "Orchestrator",
+        "Python"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "pending",
+      "completed_at": null
+    }
+  ],
+  "statistics": {
+    "total_episodes": 10,
+    "completed_episodes": 9,
+    "total_estimated_words": 104000,
+    "completion_rate": 90.0,
+    "start_date": "2026-04-03",
+    "end_date": "2026-04-03"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "series_info": {
+    "id": "ae_series_3_multi_agent_systems",
+    "name": "多 Agent 系统",
+    "description": "从单Agent到多Agent编排，六大主流框架深度实战",
+    "topic_count": 10,
+    "difficulty": "进阶→高级",
+    "priority": 3,
+    "status": "in_progress"
+  },
+  "topics": [
+    {
+      "id": "ae_topic_021",
+      "series_id": "ae_series_3",
+      "episode": 21,
+      "title": "多 Agent 系统导论：从单体到群体智能",
+      "description": "从单个Agent扩展到多个Agent协作是AI工程的下一跃。本文建立多Agent系统的认知框架：详解Agent间通信协议（消息传递vs共享状态），分析四种编排拓扑（星型集中控制/网状对等通信/分层逐级委派/环型轮流执行），讨论协作vs竞争的不同模式。以软件研发团队为案例，说明不同拓扑的适用场景。",
+      "keywords": [
+        "Multi-Agent",
+        "群体智能",
+        "通信协议",
+        "编排拓扑",
+        "协作竞争",
+        "星型网状分层",
+        "Swarm"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_022",
+      "series_id": "ae_series_3",
+      "episode": 22,
+      "title": "Handoff 模式：OpenAI Agents SDK 的交接机制",
+      "description": "OpenAI Agents SDK以三个原语构建整个多Agent系统。本文深度解析Agents、Handoffs、Guardrails的设计理念：Agents-as-Tools模式（管理者调用专家）vs Handoffs模式（路由给专家接管）的本质区别，Input Filter如何控制交接时的历史记录过滤，动态Instructions如何根据上下文调整Agent行为，以及Session管理（SQLite/Redis/Dapr）。",
+      "keywords": [
+        "OpenAI Agents SDK",
+        "Handoff",
+        "Guardrails",
+        "Agents-as-Tools",
+        "Input Filter",
+        "Session",
+        "动态Instructions"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_023",
+      "series_id": "ae_series_3",
+      "episode": 23,
+      "title": "LangGraph 多 Agent 编排：基于图的工作流",
+      "description": "LangGraph用图论抽象Agent编排，是处理复杂工作流的利器。本文详解StateGraph中的多Agent模式：条件边(conditional edges)实现动态路由、子图(subgraph)封装可复用Agent模块、嵌套图实现层级化编排。深入分析Supervisor模式（中央管理Agent委派任务给Worker Agent），以及LangGraph Studio的可视化调试能力。",
+      "keywords": [
+        "LangGraph",
+        "StateGraph",
+        "条件边",
+        "子图",
+        "嵌套图",
+        "Supervisor模式",
+        "LangGraph Studio"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_024",
+      "series_id": "ae_series_3",
+      "episode": 24,
+      "title": "CrewAI 角色团队：基于角色的多 Agent 协作",
+      "description": "CrewAI用\"公司团队\"的隐喻组织多Agent。本文详解Agent-Task-Crew三层模型：Agent定义角色(role/goal/backstory)，Task定义任务，Crew编排执行。对比Sequential（顺序传递上下文）和Hierarchical（Manager动态委派）两种进程。深入分析Flows——CrewAI的事件驱动生产工作流（@start/@listen/@router装饰器），以及YAML配置驱动的CLI脚手架。",
+      "keywords": [
+        "CrewAI",
+        "角色团队",
+        "Sequential",
+        "Hierarchical",
+        "Flows",
+        "事件驱动",
+        "YAML配置",
+        "CLI"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_025",
+      "series_id": "ae_series_3",
+      "episode": 25,
+      "title": "AutoGen 对话式多 Agent：群聊与 Swarm 模式",
+      "description": "AG2(AutoGen)将多Agent交互建模为结构化对话。本文详解ConversableAgent基础和四种编排模式：Auto（LLM选择下一个发言者）、RoundRobin（轮流发言）、Manual（开发者指定）、Swarm（动态交接）。分析GroupChatManager的角色，嵌套对话(Nested Chat)如何实现Agent内部的子对话。讨论AG2 v1.0路线图和当前API过渡。",
+      "keywords": [
+        "AutoGen",
+        "AG2",
+        "ConversableAgent",
+        "GroupChat",
+        "Swarm模式",
+        "Auto RoundRobin",
+        "嵌套对话"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_026",
+      "series_id": "ae_series_3",
+      "episode": 26,
+      "title": "Google ADK：组合式 Agent 与 A2A 协议",
+      "description": "Google ADK用软件工程原则构建Agent，提供最丰富的组合原语。本文详解SequentialAgent（顺序执行）、ParallelAgent（并行执行）、LoopAgent（循环执行至满足条件）的组合模式，以及丰富的工具生态（Google Search/BigQuery/Cloud SQL等）。深入分析A2A(Agent-to-Agent)协议——Google推出的跨平台Agent通信标准，以及Cloud Run和Vertex AI Agent Engine的部署方案。",
+      "keywords": [
+        "Google ADK",
+        "SequentialAgent",
+        "ParallelAgent",
+        "LoopAgent",
+        "A2A",
+        "Agent-to-Agent",
+        "Cloud Run"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_027",
+      "series_id": "ae_series_3",
+      "episode": 27,
+      "title": "Claude Agent SDK：安全优先的 Agent 开发",
+      "description": "Claude Agent SDK将Claude Code的Agent能力封装为Python SDK。本文详解两个核心接口：query()一次性查询和ClaudeSDKClient双向交互。重点分析In-process MCP Server（在Python进程内运行自定义工具，无需子进程）和Hooks机制（PreToolUse钩子实现合规控制和审计追踪）。结合Anthropic Cookbook的6个教程（研究助手、SRE Agent、可观测性Agent），展示实战应用。",
+      "keywords": [
+        "Claude Agent SDK",
+        "query",
+        "ClaudeSDKClient",
+        "MCP Server",
+        "Hooks",
+        "PreToolUse",
+        "Subagent",
+        "Anthropic"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_028",
+      "series_id": "ae_series_3",
+      "episode": 28,
+      "title": "分层 Agent 架构：管理者-执行者模式",
+      "description": "分层架构是最常用的多Agent模式。本文深入分析管理者-执行者模式：Manager Agent负责任务分解和委派，Worker Agent负责专业执行，结果汇总后由Manager综合输出。对比OpenAI Agents-as-Tools、CrewAI Hierarchical、LangGraph Supervisor三种实现方式的异同，讨论层级深度控制（何时需要2层vs3层）和任务粒度划分。",
+      "keywords": [
+        "分层架构",
+        "Manager Agent",
+        "Worker Agent",
+        "任务委派",
+        "结果汇总",
+        "Agents-as-Tools",
+        "Supervisor"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_029",
+      "series_id": "ae_series_3",
+      "episode": 29,
+      "title": "Agent 间通信与共享状态",
+      "description": "Agent间如何交换信息是多Agent系统的核心问题。本文对比两种通信范式：消息传递（点对点、松耦合）vs共享状态（黑板模式、紧耦合但一致性好）。详解黑板模式(Blackboard Architecture)的实现，事件总线在Agent间广播中的应用，以及Google A2A协议如何实现跨平台Agent通信。分析Google ADK的SessionService状态管理方案。",
+      "keywords": [
+        "Agent通信",
+        "共享状态",
+        "黑板模式",
+        "事件总线",
+        "A2A协议",
+        "消息传递",
+        "Google ADK"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_030",
+      "series_id": "ae_series_3",
+      "episode": 30,
+      "title": "多 Agent 综合实战：构建一个软件研发团队",
+      "description": "构建一个完整的AI软件研发团队：需求分析师（理解用户需求、拆解任务）、架构师（设计技术方案）、程序员（生成代码）、Code Reviewer（审查质量）。使用LangGraph编排四个Agent的协作流程，展示代码生成→自动审查→修订迭代的全链路。分析各Agent的角色设定、工具配置和交接策略。",
+      "keywords": [
+        "综合实战",
+        "软件研发",
+        "需求分析",
+        "架构设计",
+        "代码生成",
+        "Code Review",
+        "多Agent协作"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "pending",
+      "completed_at": null
+    }
+  ],
+  "statistics": {
+    "total_episodes": 10,
+    "completed_episodes": 9,
+    "total_estimated_words": 102000,
+    "completion_rate": 90.0,
+    "start_date": "2026-04-04",
+    "end_date": "2026-04-04"
+  }
+}

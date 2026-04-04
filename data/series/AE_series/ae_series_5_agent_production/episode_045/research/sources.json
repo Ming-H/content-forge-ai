@@ -1,0 +1,159 @@
+{
+  "dimensions": {
+    "facts": [
+      "2023-2024年，行业经历了从“万物皆可Agent”的狂热到回归理性的转变，开发者意识到单次LLM调用和确定性工作流往往比完全自主的Agent更具性价比且稳定。",
+      "Anthropic 发布了经典的《Building effective agents》指南，明确提出构建Agent的黄金法则：“从最简单的方案开始，只有在确实需要时才增加复杂性”。",
+      "Agent架构演进呈现清晰的递进路径：单次LLM调用（Prompt + 输出提取） → 路由（分类后分发） → 工作流（DAG有向无环图编排） → 自主Agent（循环状态机）。",
+      "需求分析的核心三要素已达成行业共识：明确任务边界（不做什么）、预设失败模式（LLM幻觉/工具报错兜底）、设定人工干预点（Human-in-the-loop, HITL）。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain团队推出的专门用于构建多角色、有状态、复杂工作流和Agent的框架，完美支持循环决策和人工干预。"
+      },
+      {
+        "name": "AutoGen (微软)",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软开源的多Agent对话框架，极度适合需要多个Agent协作探讨、代码生成与执行的场景。"
+      },
+      {
+        "name": "CrewAI",
+        "url": "https://github.com/joaomdmoura/crewAI",
+        "description": "以角色扮演为核心理念的Agent框架，非常贴合需求分析中的“角色定义”，适合构建虚拟团队协作的自主Agent。"
+      },
+      {
+        "name": "Dify",
+        "url": "https://github.com/langgenius/dify",
+        "description": "开源的LLM应用开发平台，提供可视化的工作流编排（Workflow），是验证“工作流 vs 自主Agent”架构选型的极佳工具。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic: Building effective agents",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+        "description": "Anthropic官方关于Agent工程方法论的权威文档，详细介绍了从工作流到Agent的设计范式。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI官方提供的托管Agent解决方案，内置代码解释器、检索和函数调用工具，省去底层状态管理。"
+      },
+      {
+        "name": "Coze (扣子)",
+        "url": "https://www.coze.com/",
+        "description": "字节跳动推出的商业Bot/Agent开发平台，提供可视化的需求分析、插件绑定和工作流设计界面。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：80%的所谓“Agent需求”，其实用“RAG + 工作流”就能完美解决，强行上自主Agent只会带来不可控的延迟和Token消耗。",
+      "社区热议痛点：Agent的失败模式极难预测，尤其是无限循环（死胡同）和多步推理中的“幻觉雪崩”现象，导致企业级应用部署困难。",
+      "关于人工干预点（HITL）的讨论：高容错场景（如内容创作）可全自动化，但低容错场景（如金融交易、客服退款）必须在架构设计中强制加入人类审批节点。",
+      "架构评审共识：判断是否采用自主Agent的核指标是“对延迟的容忍度”和“流程的不确定性”。如果步骤是确定的，绝不用Agent。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph Human-in-the-loop Tutorial",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/human_in_the_loop/human_in_the_loop/",
+        "description": "最佳实践教程：教你在LangGraph中如何实现断点设置、人工审核批准和状态注入，解决Agent设计文档中的人工干预点落地问题。"
+      },
+      {
+        "title": "Anthropic Prompt Engineering Interactive Tutorial",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "description": "官方提示工程指南，包含如何设计系统提示词以约束Agent行为边界，是需求分析后的首步实操。"
+      },
+      {
+        "title": "How to design an AI Agent (Design Doc Template)",
+        "url": "https://www.promptingguide.ai/research/llm-agents",
+        "description": "DAIR.AI整理的智能体设计指南，涵盖架构选型与模块化拆解，被大量团队用作内部Agent设计文档模板。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "description": "奠定当前Agent“思考-行动-观察”循环架构的基础论文，是理解自主Agent工作原理必读的文献。"
+      },
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures for Reasoning",
+        "url": "https://arxiv.org/abs/2404.11584",
+        "description": "2024年最新关于AI Agent架构选型的综述，深入比较了单Agent、多Agent、工作流等范式的优缺点及适用场景。"
+      },
+      {
+        "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+        "url": "https://arxiv.org/abs/2303.17651",
+        "description": "前沿研究方向：Agent的自我进化与纠错，为解决Agent失败模式提供了“自我反思与重试”的理论基础。"
+      }
+    ]
+  },
+  "summary": "本次调研发现，Agent工程方法论正从“盲目追求全能自主”向“工程化、模块化、确定性优先”回归。以Anthropic为代表的行业头部建议开发者遵循“从简到繁”的决策树递进路径（单次LLM→工作流→自主Agent）。在落地实践中，明确任务边界、通过DAG工作流规避失败模式、以及在关键节点引入人工干预（HITL），已成为高质量Agent架构设计的标准共识。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "AutoGen (微软)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/joaomdmoura/crewAI",
+      "title": "CrewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langgenius/dify",
+      "title": "Dify",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+      "title": "Anthropic: Building effective agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.coze.com/",
+      "title": "Coze (扣子)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/tutorials/human_in_the_loop/human_in_the_loop/",
+      "title": "LangGraph Human-in-the-loop Tutorial",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+      "title": "Anthropic Prompt Engineering Interactive Tutorial",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.promptingguide.ai/research/llm-agents",
+      "title": "How to design an AI Agent (Design Doc Template)",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11584",
+      "title": "The Landscape of Emerging AI Agent Architectures for Reasoning",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.17651",
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 工程方法论：从需求到架构 优秀的Agent从清晰的需求分析开始。本文建立Agent工程方法论：Agent需求分析框架（明确任务边界、失败模式、人工干预点），架构选型决策树（单次LLM调用→工作流→自主Agent的递进路径），Anthropic核心建议\"从最简单的方案开始，只在确实需要时增加复杂性\"。提供Agent设计文档模板和架构评审清单。",
+  "researched_at": "2026-04-04T13:09:45.548017"
+}

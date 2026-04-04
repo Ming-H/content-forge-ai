@@ -1,0 +1,186 @@
+{
+  "dimensions": {
+    "facts": [
+      "Prompt-as-Code 代码化管理提示词已成为 LLMOps 和 Agent 开发的主流范式，开发者将提示词存储在 Git 仓库中，以实现变更追踪和多人协作。",
+      "Agent 系统的非确定性导致传统 CI/CD 无法直接适用，业界引入了基于 LLM-as-a-Judge 或黄金数据集比对的自动化回归测试机制。",
+      "LangChain 生态在 2023-2024 年间率先推出了 LangSmith 平台，填补了 AI Agent 追踪、Prompt 版本控制与 A/B 测试评估的基础设施空白。",
+      "A/B 测试在 Agent 领域演变为 '在线流量灰度' 与 '离线批量评估' 两种模式，通过对比不同 Prompt 版本在特定任务上的成功率、幻觉率和 Tool 调用准确率来决策。",
+      "蓝绿部署和金丝雀发布被引入 Agent 系统，以解决底层大模型 API 更新或提示词微调带来的不可预知的行为漂移问题。"
+    ],
+    "opensource": [
+      {
+        "name": "DSPy",
+        "url": "https://github.com/stanfordnlp/dspy",
+        "description": "斯坦福开源的框架，通过编程方式定义和优化提示词，内置强大的评估器，彻底将 Prompt 工程转化为代码编译与回归测试问题。"
+      },
+      {
+        "name": "Promptflow",
+        "url": "https://github.com/microsoft/promptflow",
+        "description": "微软开源的 LLM 应用开发工具，提供可视化和代码化的 Prompt 版本管理、批量评估（Eval）和强大的 CI/CD GitHub Actions 集成。"
+      },
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "Agent 开发的事实标准框架，其核心设计理念即围绕 Prompt 模板化和工具调用的模块化，配合其开源生态可快速搭建私有化 Eval 流水线。"
+      },
+      {
+        "name": "LangServe",
+        "url": "https://github.com/langchain-ai/langserve",
+        "description": "将 LangChain 应用一键部署为 REST API 的工具，常用于 Agent 的新旧版本蓝绿部署与灰度测试接入。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangSmith 官方文档",
+        "url": "https://docs.smith.langchain.com/",
+        "description": "LangChain 官方商业平台，提供最完善的 Prompt 版本管理、自动化回归测试评估和 A/B 测试数据看板，是 Agent CI/CD 领域的标杆。"
+      },
+      {
+        "name": "Weights & Biases (W&B) Weave",
+        "url": "https://weave-docs.wandb.ai/",
+        "description": "老牌 MLOps 巨头推出的 LLM 评估与版本控制方案，支持对 Agent 工作流进行精准追踪、版本比对和自动化回归测试。"
+      },
+      {
+        "name": "Promptlayer",
+        "url": "https://docs.promptlayer.com/introduction",
+        "description": "专为 Prompt 工程师设计的商业平台，提供提示词的历史版本回滚、请求路由（支持 A/B 测试分发）和性能监控。"
+      },
+      {
+        "name": "OpenAI Evals API",
+        "url": "https://platform.openai.com/docs/guides/evals",
+        "description": "OpenAI 官方推出的模型评估与测试服务，提供标准化测试集构建能力，辅助 Agent 开发者进行模型或提示词升级前后的回归对比。"
+      }
+    ],
+    "community": [
+      "社区普遍反映：AI Agent 的回归测试成本极高，构建覆盖 80% 边缘情况的 '黄金测试集' 往往需要耗费比写代码更多的时间。",
+      "开发者真实痛点：'提示词的薛定谔回归'——即使只改动一个标点，大模型也可能输出截然不同的结果，传统的单元测试在这里完全失效。",
+      "强烈呼声：不要在生产环境中对主提示词进行热更新！必须使用类似 Feature Flag（特性开关）的技术结合 CI/CD 进行 A/B 测试。",
+      "架构共识：成熟的 Agent 团队通常将系统提示词和工具定义写进独立的 YAML/JSON 文件中，交由 Git 管理，并在 CICD 流水线中拉起 Docker 环境跑 LLM 评估脚本。",
+      "对于蓝绿部署，社区建议通过 API Gateway 层进行流量比例分配（如 1% 流量进入新版本 Agent），并设置自动熔断机制：一旦报错率或幻觉指标升高，立刻回滚 Prompt 版本。"
+    ],
+    "practice": [
+      {
+        "title": "LangSmith 官方指南：CI/CD 中的自动化测试",
+        "url": "https://docs.smith.langchain.com/cookbook/testing-examples/ci",
+        "description": "详细讲解如何将 LangSmith 的 Eval 机制集成到 GitHub Actions 中，实现 Prompt 变更时的自动化回归阻断。"
+      },
+      {
+        "title": "微软 Prompt Flow 集成 GitHub Actions 教程",
+        "url": "https://microsoft.github.io/promptflow/how-to-guides/how-to-test-a-flow-with-pytest.html",
+        "description": "手把手教你使用 Pytest 对 Prompt 版本进行单元测试和批量评估，并融入现有的工程化 CICD 流水线。"
+      },
+      {
+        "title": "A/B Testing LLM Prompts 实战指南",
+        "url": "https://blog.langchain.dev/using-langsmith-to-ab-test-your-llm-applications/",
+        "description": "LangChain 官方博客教程，详解如何使用 LangSmith 进行 A/B 测试，科学对比新旧 Prompt 版本的 Agent 性能差异。"
+      },
+      {
+        "title": "构建可观测的 LLM 应用最佳实践",
+        "url": "https://docs.smith.langchain.com/cookbook/tracing-examples/traceable",
+        "description": "关于如何在代码中建立可观测性，为后续的提示词性能评估和蓝绿部署数据收集打下基础的实战指南。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+        "url": "https://arxiv.org/abs/2310.03714",
+        "description": "斯坦福大学前沿研究，提出用编译器思维替代手写 Prompt，通过自动化反馈循环（类似 CICD 中的自动化测试）自动优化提示词和 Agent 工作流。"
+      },
+      {
+        "title": "LLM as an Optimizer: Automatic Prompt Engineering",
+        "url": "https://arxiv.org/abs/2305.03495",
+        "description": "探讨大模型自主优化提示词的 OPRO 算法，未来 Agent 的 CICD 可能不再需要人类手动修改版本，而是由 AI 自动提交和测试更优的 Prompt 版本。"
+      },
+      {
+        "title": "Agentless: Demystifying LLM-based Software Engineering",
+        "url": "https://arxiv.org/abs/2407.01489",
+        "description": "2024年关于自动化软件工程的最新前沿探讨，其中包含对于 AI Agent 自身代码和工具管理的自动化回归验证思路。"
+      },
+      {
+        "title": "2025 趋势展望：从 LLMOps 到 Agentic CI/CD",
+        "url": "https://www.ibm.com/blog/ai-ops/",
+        "description": "业界正在探索将 Agent 的系统提示词与底层神经网络权重进行解耦的标准化部署方案，未来的 CI/CD 将实现提示词、RAG 知识库和工具 API 的多维联合自动化回归。"
+      }
+    ]
+  },
+  "summary": "本次调研发现，Agent CI/CD 正在经历从'手工作坊'向'现代软件工程'的范式跃迁。将 Prompt 视为代码并通过 Git 进行版本控制已成为行业共识（以微软 Promptflow 和 LangSmith 为代表）。为解决大模型的非确定性问题，开发者必须依赖基于'黄金测试集'的自动化回归测试和 LLM-as-a-Judge 机制。在部署阶段，结合 Feature Flag 的蓝绿发布和 A/B 测试是规避 Agent 幻觉和行为漂移风险的关键防线。未来，由 AI 自主编译和测试提示词（如 DSPy 框架）将成为 Agentic CI/CD 的前沿爆发点。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/stanfordnlp/dspy",
+      "title": "DSPy",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/promptflow",
+      "title": "Promptflow",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langserve",
+      "title": "LangServe",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/",
+      "title": "LangSmith 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://weave-docs.wandb.ai/",
+      "title": "Weights & Biases (W&B) Weave",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.promptlayer.com/introduction",
+      "title": "Promptlayer",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/evals",
+      "title": "OpenAI Evals API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/cookbook/testing-examples/ci",
+      "title": "LangSmith 官方指南：CI/CD 中的自动化测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://microsoft.github.io/promptflow/how-to-guides/how-to-test-a-flow-with-pytest.html",
+      "title": "微软 Prompt Flow 集成 GitHub Actions 教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://blog.langchain.dev/using-langsmith-to-ab-test-your-llm-applications/",
+      "title": "A/B Testing LLM Prompts 实战指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/cookbook/tracing-examples/traceable",
+      "title": "构建可观测的 LLM 应用最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.03714",
+      "title": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.03495",
+      "title": "LLM as an Optimizer: Automatic Prompt Engineering",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2407.01489",
+      "title": "Agentless: Demystifying LLM-based Software Engineering",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent CI/CD：提示词版本管理与自动化 Agent系统的提示词和工具定义需要像代码一样管理。本文详解Agent CI/CD实践：Prompt版本控制（git-based管理提示词变更历史），A/B测试框架（对比不同提示词版本的Agent表现），回归测试流水线（确保提示词修改不破坏已有功能），蓝绿部署（新旧版本Agent并行运行逐步切换）。覆盖LangSmith的prompt管理和eval集成。",
+  "researched_at": "2026-04-04T15:06:42.866411"
+}

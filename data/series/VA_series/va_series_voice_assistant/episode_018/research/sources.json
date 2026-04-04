@@ -1,0 +1,158 @@
+{
+  "dimensions": {
+    "facts": [
+      "情感语音合成（Emotional TTS）的核心在于打破传统TTS的平板感，通过对韵律特征（基频 F0、能量 Energy、时长 Duration）的精细建模来实现喜怒哀乐的表达。",
+      "2018年Google提出了全局风格令牌（GST，Global Style Tokens），成为情感嵌入的奠基性技术，让模型可以在无标注数据的情况下自动挖掘和聚类语音风格。",
+      "随着大模型的发展，行业正从“预设情感分类（如开心/悲伤）”转向“细粒度风格控制”，即通过文本提示词或参考音频直接控制语音的细粒度表现（如气声、停顿、激动程度）。",
+      "市场主要玩家包括传统的科技巨头（微软、谷歌）以及新兴的AI语音独角兽（ElevenLabs），国内的代表则包括阿里通义实验室、网易有道、火山引擎等。"
+    ],
+    "opensource": [
+      {
+        "name": "Bert-VITS2",
+        "url": "https://github.com/fishaudio/Bert-VITS2",
+        "description": "国内极为火爆的VITS2改进版，引入了中文BERT模型提取语意特征，极大提升了中文的情感表现力和韵律自然度，是AI配音界的神器。"
+      },
+      {
+        "name": "ChatTTS",
+        "url": "https://github.com/2noise/ChatTTS",
+        "description": "专为对话场景设计的文本转语音模型，支持细粒度的韵律控制（如笑声、停顿、韵律重音），自带极强的情感表现力和日常口语感。"
+      },
+      {
+        "name": "EmotiVoice (网易有道)",
+        "url": "https://github.com/netease-youdao/EmotiVoice",
+        "description": "网易有道开源的一个支持中英双语的情感语音合成系统，支持208种细粒度情感标签控制，并发性能优异。"
+      },
+      {
+        "name": "Coqui TTS",
+        "url": "https://github.com/coqui-ai/TTS",
+        "description": "全球最活跃的开源TTS社区之一，内置了大量先进的模型（如VITS, Tacotron, YourTTS），支持多风格和情感微调。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "ElevenLabs",
+        "url": "https://elevenlabs.io/",
+        "description": "目前全球商业情感语音和声音克隆的绝对天花板，能够通过极短的参考音频完美复刻说话人的情绪、语气和呼吸声。"
+      },
+      {
+        "name": "微软 Azure 神经网络语音",
+        "url": "https://learn.microsoft.com/zh-cn/azure/ai-services/speech-service/",
+        "description": "提供企业级的情感TTS服务（如多风格的 Xiaoxiao），支持通过 SSML 标记语言精确调整语调、语速和情感风格。"
+      },
+      {
+        "name": "火山引擎 语音合成",
+        "url": "https://www.volcengine.com/product/tts",
+        "description": "字节跳动推出的商业TTS服务，其大模型语音合成在短视频配音、有声书领域表现出极佳的情感丰富度。"
+      }
+    ],
+    "community": [
+      "开发者和创作者普遍认为，传统TTS的“机器味”主要集中在呼吸声缺失和断句不自然，而现在的模型（如ChatTTS/Bert-VITS2）通过引入高频呼吸音和思考停顿，让AI有了真实的“温度”。",
+      "社区讨论的最大痛点是“高质量多情感数据集的极度匮乏”。由于情感数据标注成本极高，很多开发者转向使用大语言模型（LLM）来生成带有情感标签的文本进行数据增强。",
+      "用户反馈表明，在实际应用中，AI的“情感表现”经常容易用力过猛，导致声音出现破音或出现诡异的吼叫感，如何平滑地控制情感强度（Intensity Control）是社区热议的工程难题。"
+    ],
+    "practice": [
+      {
+        "title": "Bert-VITS2 自动化训练部署指南",
+        "url": "https://github.com/fishaudio/Bert-VITS2/wiki",
+        "description": "官方Wiki提供的从数据集处理、文本标注、特征提取到模型微调的完整保姆级教程。"
+      },
+      {
+        "title": "Google SSML (语音合成标记语言) 官方文档",
+        "url": "https://cloud.google.com/text-to-speech/docs/ssml",
+        "description": "实战中通过API控制情感的经典做法，详解如何使用 <prosody> 等标签控制音高、语速和音量。"
+      },
+      {
+        "title": "EmotiVoice 环境配置与推理实战",
+        "url": "https://github.com/netease-youdao/EmotiVoice/blob/main/README.md",
+        "description": "提供了开箱即用的情感推理代码，适合中小企业和个人开发者快速搭建带情感控制的语音服务。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "NaturalSpeech 2: Latent Diffusion Models are Natural and Zero-Shot Speech & Singing Synthesizers",
+        "url": "https://arxiv.org/abs/2304.09116",
+        "description": "微软亚洲研究院的重磅研究，使用潜在扩散模型，实现了极佳的零样本情感语音克隆和细腻的韵律控制。"
+      },
+      {
+        "title": "Global Style Tokens : Unsupervised Style Modeling, Control and Transfer",
+        "url": "https://arxiv.org/abs/1803.09017",
+        "description": "情感TTS领域的奠基性论文，提出使用无监督聚类提取风格令牌，至今仍是各大开源框架实现风格控制的核心思想。"
+      },
+      {
+        "title": "2025-2026 研究趋势：基于大语言模型的端到端语音生成 (Speech Language Modeling)",
+        "url": "https://arxiv.org/abs/2409.00764",
+        "description": "未来趋势是放弃传统的音素转换 pipeline，直接利用类似 LLM 的架构（如 VALL-E 系列）从文本直接生成带有丰富情感的音频token，实现极致的情感理解。"
+      }
+    ]
+  },
+  "summary": "情感语音生成技术正经历从“冰冷机械”到“拥有温度”的跨越式发展。其核心技术已从单一的韵律参数（F0、时长）控制，演进为基于 GST（全局风格令牌）和 BERT 等深度学习模型的细粒度情感嵌入。当前，以 Bert-VITS2 和 ChatTTS 为代表的开源方案让多风格 TTS 飞入寻常百姓家，而 ElevenLabs 等商业方案则将情感克隆推向了极致。对于小红书创作者和开发者而言，掌握数据集微调与情感强度的平衡，是让 AI 表达真实喜怒哀乐、赋能短视频及播客内容创作的关键实战能力。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/fishaudio/Bert-VITS2",
+      "title": "Bert-VITS2",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/2noise/ChatTTS",
+      "title": "ChatTTS",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/netease-youdao/EmotiVoice",
+      "title": "EmotiVoice (网易有道)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/coqui-ai/TTS",
+      "title": "Coqui TTS",
+      "type": "opensource"
+    },
+    {
+      "url": "https://elevenlabs.io/",
+      "title": "ElevenLabs",
+      "type": "commercial"
+    },
+    {
+      "url": "https://learn.microsoft.com/zh-cn/azure/ai-services/speech-service/",
+      "title": "微软 Azure 神经网络语音",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.volcengine.com/product/tts",
+      "title": "火山引擎 语音合成",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/fishaudio/Bert-VITS2/wiki",
+      "title": "Bert-VITS2 自动化训练部署指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://cloud.google.com/text-to-speech/docs/ssml",
+      "title": "Google SSML (语音合成标记语言) 官方文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/netease-youdao/EmotiVoice/blob/main/README.md",
+      "title": "EmotiVoice 环境配置与推理实战",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.09116",
+      "title": "NaturalSpeech 2: Latent Diffusion Models are Natural and Zero-Shot Speech & Singing Synthesizers",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/1803.09017",
+      "title": "Global Style Tokens : Unsupervised Style Modeling, Control and Transfer",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2409.00764",
+      "title": "2025-2026 研究趋势：基于大语言模型的端到端语音生成 (Speech Language Modeling)",
+      "type": "frontier"
+    }
+  ],
+  "query": "情感语音生成：让 AI 有温度地说话 语音助手不能只是冷冰冰的机器。详解风格控制技术、情感嵌入方法、韵律建模（F0、能量、时长），以及多风格TTS如何让AI表达喜怒哀乐。",
+  "researched_at": "2026-04-03T22:19:16.883777"
+}

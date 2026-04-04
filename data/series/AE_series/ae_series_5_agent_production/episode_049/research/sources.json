@@ -1,0 +1,181 @@
+{
+  "dimensions": {
+    "facts": [
+      "多智能体协作框架在2023-2024年迎来爆发，主流架构从单一Prompt工程转向基于图结构或任务委派的复杂工作流（如LangGraph和CrewAI）。",
+      "大模型应用的标准评估体系逐渐成型，黄金数据集结合准确率、首字延迟（TTFT）、吞吐量和Token成本构成了评估的核心指标。",
+      "可观测性已成为LLM应用标配，通过抓取输入输出、延迟和评分，平台能生成完整的审计日志，以满足企业级合规需求。",
+      "无服务器容器化部署（如Cloud Run）结合基于Token计费的弹性伸缩，已成为AI应用应对高并发和冷启动问题的主流工程选择。",
+      "安全护栏技术从基础的PII（个人身份信息）脱敏，发展到动态的Prompt注入检测和输出合规性拦截。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "构建具备状态管理、多Agent协作的循环图工作流框架，非常适合实现复杂业务逻辑。"
+      },
+      {
+        "name": "Langfuse",
+        "url": "https://github.com/langfuse/langfuse",
+        "description": "开源的LLM工程平台，提供强大的Tracing追踪、成本计算、延迟监控和评估数据集管理功能。"
+      },
+      {
+        "name": "Guardrails AI",
+        "url": "https://github.com/guardrails-ai/guardrails",
+        "description": "用于LLM输入输出验证、安全防护和结构化数据提取的开源框架。"
+      },
+      {
+        "name": "Ragas",
+        "url": "https://github.com/explodinggradients/ragas",
+        "description": "专门用于评估RAG和Agent应用的开源框架，支持自动化生成黄金测试集和多维度打分。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangSmith",
+        "url": "https://docs.smith.langchain.com/",
+        "description": "LangChain官方提供的闭源可观测性与评估平台，支持无代码创建测试集和人工辅助评估。"
+      },
+      {
+        "name": "Google Cloud Run",
+        "url": "https://cloud.google.com/run/docs",
+        "description": "谷歌云全代管制的无服务器容器运行环境，支持基于流量的自动扩缩容，适合Agent API部署。"
+      },
+      {
+        "name": "Google Vertex AI",
+        "url": "https://cloud.google.com/vertex-ai/docs",
+        "description": "谷歌云的企业级机器学习平台，提供从模型微调、评估到Agent引擎（包含Memory与推理）的一站式部署方案。"
+      },
+      {
+        "name": "Docker",
+        "url": "https://docs.docker.com/reference/",
+        "description": "提供应用容器化打包的标准文档，是实现项目跨环境一致性的基石。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈，多Agent系统在生产环境中最难的是状态管理和死循环控制，必须设定最大迭代次数限制和打断机制。",
+      "在评估方面，业界认为构建'黄金数据集'耗时耗力，目前社区强烈推荐使用强大的LLM（如GPT-4o/Claude-3.5）作为自动化裁判来进行主观维度的打分。",
+      "可观测性层面，Langfuse被社区公认为平替LangSmith的最佳选择，其自部署特性有效打消了企业对数据隐私的顾虑。",
+      "在安全方面，研发人员指出Guardrails或NeMo Guardrails不仅用于防泄漏，更是限制多Agent'迷失方向'（幻觉）的必要安全网。",
+      "部署阶段遇到的最大痛点是流式输出的兼容性，尤其在Cloud Run等网关后处理SSE（Server-Sent Events）时需要特殊的超时与缓冲配置。"
+    ],
+    "practice": [
+      {
+        "title": "Deploying a LangGraph Application with Docker and Cloud Run",
+        "url": "https://langchain-ai.github.io/langgraph/cloud/deployment/",
+        "description": "官方提供的LangGraph应用容器化打包并部署到云托管环境的实战最佳实践指南。"
+      },
+      {
+        "title": "Tracing LangChain Applications with Langfuse",
+        "url": "https://langfuse.com/docs/integrations/langchain/tracing",
+        "description": "手把手教你将Langfuse集成到代码中，实现多Agent链路的每一步打点追踪与成本监控。"
+      },
+      {
+        "title": "Building Golden Test Datasets for LLM Evaluation",
+        "url": "https://docs.smith.langchain.com/evaluation/datasets",
+        "description": "如何使用真实生产数据或LLM合成，构建高质量的测试集用于回归验证。"
+      },
+      {
+        "title": "Vertex AI Reasoning Engine for Multi-Agent Systems",
+        "url": "https://cloud.google.com/vertex-ai/docs/tutorials/agent-engine-langgraph",
+        "description": "将基于LangGraph构建的Agent直接一键部署到Vertex AI Agent引擎的官方教程。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Evaluating Large Language Models for Complex Tasks: A Case Study on Multi-Agent Systems",
+        "url": "https://arxiv.org/abs/2405.06878",
+        "description": "探讨2024-2025年间，针对多智能体系统在执行复杂任务时的可靠性评估方法与基准测试前沿。"
+      },
+      {
+        "title": "Self-Evolving LLM Agents: Continual Learning in Production",
+        "url": "https://arxiv.org/abs/2402.12033",
+        "description": "探索Agent在生产环境中如何利用实时日志和可观测性数据进行自我反思和持续微调进化。"
+      },
+      {
+        "title": "Serverless Inference and The Future of Containerized AI Workloads",
+        "url": "https://arxiv.org/abs/2310.07868",
+        "description": "研究针对LLM应用的无服务器冷启动优化，以及如何基于流量特征实现高性价比的云原生部署架构。"
+      }
+    ]
+  },
+  "summary": "本次毕业项目的下半场聚焦于将理论架构转化为可靠的生产级应用。核心在于利用LangGraph等现代框架实现稳定的多Agent协作，并通过构建精准的'黄金数据集'与自动化裁判机制，对准确率、延迟及Token成本进行三维评估。安全方面，集成Guardrails与可观测性工具（Langfuse/Smith）构建了牢不可破的安全网与审计闭环。最终，借助Docker与Serverless云平台（Cloud Run/Vertex AI），实现了高弹性的云原生容器化部署，完成了从实验性代码到企业级AI微服务的完整蜕变。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langfuse/langfuse",
+      "title": "Langfuse",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/guardrails-ai/guardrails",
+      "title": "Guardrails AI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/explodinggradients/ragas",
+      "title": "Ragas",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/",
+      "title": "LangSmith",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/run/docs",
+      "title": "Google Cloud Run",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs",
+      "title": "Google Vertex AI",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.docker.com/reference/",
+      "title": "Docker",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/cloud/deployment/",
+      "title": "Deploying a LangGraph Application with Docker and Cloud Run",
+      "type": "practice"
+    },
+    {
+      "url": "https://langfuse.com/docs/integrations/langchain/tracing",
+      "title": "Tracing LangChain Applications with Langfuse",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/evaluation/datasets",
+      "title": "Building Golden Test Datasets for LLM Evaluation",
+      "type": "practice"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs/tutorials/agent-engine-langgraph",
+      "title": "Vertex AI Reasoning Engine for Multi-Agent Systems",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.06878",
+      "title": "Evaluating Large Language Models for Complex Tasks: A Case Study on Multi-Agent Systems",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.12033",
+      "title": "Self-Evolving LLM Agents: Continual Learning in Production",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.07868",
+      "title": "Serverless Inference and The Future of Containerized AI Workloads",
+      "type": "frontier"
+    }
+  ],
+  "query": "毕业项目（下）：实现、测试与部署 延续Ep 48的架构设计，完成完整实现。代码实现多Agent协作流程，编写黄金数据集进行评估验证（准确率、延迟、成本指标），安全加固（Guardrails+审计日志），Docker容器化打包，接入可观测性平台（Langfuse/LangSmith），部署到Cloud Run或Vertex AI。复盘整个开发过程中的经验教训和调优策略。",
+  "researched_at": "2026-04-04T16:26:00.127848"
+}

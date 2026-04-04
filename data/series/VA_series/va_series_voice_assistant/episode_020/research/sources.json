@@ -1,0 +1,160 @@
+{
+  "dimensions": {
+    "facts": [
+      "VoiceAssistant-Eval 是针对语音大模型的新一代综合评估基准，包含高达 10497 个评测样本，覆盖了 13 个核心任务类别（如多语种识别、情感分析、幻觉测试、声学环境理解等）。",
+      "传统语音评估指标（如 WER 词错率、BLEU 机器翻译评估）已无法满足大模型时代的需要，因为它们无法衡量语音的副语言特征（情绪、音调）和深层语用理解。",
+      "全双工对话评估成为核心难点：传统的半双工（轮流发言）评估不适用，全双工需要量化“随时打断”、“双人同时说话”、“流式响应延迟（首字/首音时间）”等动态交互能力。",
+      "行业正处于从“文本模态评估（LLM）”向“原生语音端到端评估”的过渡期，OpenAI (GPT-4o)、MiniMax 等企业正在推动端到端语音模型的落地，倒逼评测标准升级。",
+      "当前主流的评估体系正在向“主客观双维”发展：客观指标（推理准确率、延迟）结合主观盲测（MOS 平均意见分、语音自然度、共情能力打分）。"
+    ],
+    "opensource": [
+      {
+        "name": "Dynamic-SUPERB",
+        "url": "https://github.com/dynamic-superb/dynamic-superb",
+        "description": "由 Meta 等机构发起的动态语音大模型评估基准，整合了多种语音任务的评测脚本和社区实现。"
+      },
+      {
+        "name": "jiwer (评估 WER 工具)",
+        "url": "https://github.com/jitsi/jiwer",
+        "description": "最广泛使用的开源字错率(WER)计算库，常用于建立传统语音识别与语音大模型转写的基线对比。"
+      },
+      {
+        "name": "OpenCompass (司南大模型评测体系)",
+        "url": "https://github.com/open-compass/OpenCompass",
+        "description": "上海人工智能实验室开源的大模型评测框架，目前已逐步增加对多模态和语音（如 Qwen-Audio）的评测支持。"
+      },
+      {
+        "name": "ChatTTS (语音生成基线参考)",
+        "url": "https://github.com/2noise/ChatTTS",
+        "description": "热门的开源文本转语音对话模型，其生成效果常被社区作为主观评测（MOS）的对比基线之一。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Audio API 官方文档",
+        "url": "https://platform.openai.com/docs/guides/audio",
+        "description": "GPT-4o 实时语音 API 文档，提供了商业级全双工语音交互的实现规范和延迟指标说明。"
+      },
+      {
+        "name": "阿里云百炼 - 语音大模型服务",
+        "url": "https://help.aliyun.com/zh/model-studio/developer-reference/speech-synthesis",
+        "description": "通义千问语音版的商业 API，官方提供了拟人化、情感、语速等维度的商业化评测参数标准。"
+      },
+      {
+        "name": "火山引擎 - 语音技术",
+        "url": "https://www.volcengine.com/product/voice-tech",
+        "description": "字节跳动推出的企业级语音 AI 方案，其评估体系涵盖了极限并发下的 WER 和端到端延迟监控。"
+      }
+    ],
+    "community": [
+      "开发者普遍吐槽：在测试语音大模型时，WER 经常得出低分，但实际用户体验（语义理解）却很好，业界急需替代 WER 的语义相似度评估指标。",
+      "全双工评测最大的痛点是“没有标准数据集”：很难用自动化脚本模拟两个人类真实的抢话和插嘴场景，目前高度依赖人工测试。",
+      "社区对 GPT-4o 实时语音的“共情能力”和“呼吸感”评价极高，认为这应当纳入未来的官方评测标准中（如韵律相似度）。",
+      "许多算法工程师反映：构建一个包含 1 万样本的语音评测集，数据清洗（去噪、剔除低质音频）的成本甚至超过了模型微调本身。"
+    ],
+    "practice": [
+      {
+        "title": "Hugging Face Evaluate 官方文档",
+        "url": "https://huggingface.co/docs/evaluate/index",
+        "description": "Hugging Face 提供的评测库实践指南，支持 BLEU、WER 等数百种指标的一键调用和横向对比。"
+      },
+      {
+        "title": "构建语音大模型评估 Pipeline 最佳实践",
+        "url": "https://lilianweng.github.io/posts/2023-10-12-eval/",
+        "description": "业内知名技术博客（Lilian Weng）关于如何系统化构建 LLM 及多模态模型评测流水线的指南。"
+      },
+      {
+        "title": "如何使用 LLM-as-a-Judge 评估语音对话质量",
+        "url": "https://docs.ragas.io/en/latest/concepts/metrics/use-cases/llm_as_a_judge.html",
+        "description": "RAGAS 框架关于利用强大的文本大模型作为裁判，来客观打分语音对话转写文本的逻辑与连贯性。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AudioBench: A Universal Benchmark for Audio Large Language Models",
+        "url": "https://arxiv.org/abs/2406.12708",
+        "description": "2024年前沿论文，提出了首个全面针对音频/语音大模型的通用评测基准，涵盖理解与生成双维度。"
+      },
+      {
+        "title": "VoiceBench: Benchmarking LLM-Based Voice Assistants",
+        "url": "https://arxiv.org/abs/2410.17196",
+        "description": "最新针对语音助手的基准测试研究，探讨了如何利用自动化手段对语音大模型的健壮性进行评测。"
+      },
+      {
+        "title": "2025-2026 趋势研究：从半双工到全双工的评估体系演进",
+        "url": "https://arxiv.org/abs/2405.19187",
+        "description": "针对全双工实时交互（如 GPT-4o 类模型）的最新学术探索，提出将时间维度的对话管理机制纳入核心评估指标。"
+      }
+    ]
+  },
+  "summary": "语音大模型的评估正经历从“听清（WER/BLEU等客观指标）”向“听懂与说好（语义准确度、全双工交互、情感韵律）”的范式转变。以 VoiceAssistant-Eval（10497 样本，13 任务）为代表的新一代基准，正在填补大模型端到端语音能力的评测空白。当前行业面临的实战难点在于全双工交互的特殊性及主观体验的量化，但结合开源社区工具、自动化 LLM-as-a-Judge 裁判机制以及更精细的多维数据集，一套面向 2025 年以后的综合语音评测体系正在快速成型。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/dynamic-superb/dynamic-superb",
+      "title": "Dynamic-SUPERB",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/jitsi/jiwer",
+      "title": "jiwer (评估 WER 工具)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/open-compass/OpenCompass",
+      "title": "OpenCompass (司南大模型评测体系)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/2noise/ChatTTS",
+      "title": "ChatTTS (语音生成基线参考)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/audio",
+      "title": "OpenAI Audio API 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/model-studio/developer-reference/speech-synthesis",
+      "title": "阿里云百炼 - 语音大模型服务",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.volcengine.com/product/voice-tech",
+      "title": "火山引擎 - 语音技术",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/docs/evaluate/index",
+      "title": "Hugging Face Evaluate 官方文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://lilianweng.github.io/posts/2023-10-12-eval/",
+      "title": "构建语音大模型评估 Pipeline 最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.ragas.io/en/latest/concepts/metrics/use-cases/llm_as_a_judge.html",
+      "title": "如何使用 LLM-as-a-Judge 评估语音对话质量",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.12708",
+      "title": "AudioBench: A Universal Benchmark for Audio Large Language Models",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2410.17196",
+      "title": "VoiceBench: Benchmarking LLM-Based Voice Assistants",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.19187",
+      "title": "2025-2026 趋势研究：从半双工到全双工的评估体系演进",
+      "type": "frontier"
+    }
+  ],
+  "query": "语音大模型的评估基准：如何衡量听懂和说好 评估是进步的前提。详解VoiceAssistant-Eval基准（10497样本，13任务类别），WER/BLEU之外的评估维度，全双工对话的特殊评估挑战，以及构建综合评测体系的实践。",
+  "researched_at": "2026-04-03T23:28:04.316723"
+}

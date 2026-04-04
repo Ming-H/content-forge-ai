@@ -1,0 +1,189 @@
+{
+  "dimensions": {
+    "facts": [
+      "多智能体系统（Multi-Agent System, MAS）正在从概念走向工业级落地，以 LangGraph 为代表的图状态编排框架成为构建复杂 AI 协作流程的事实标准。",
+      "在 AI 软件研发领域，2023年是“单体代码助手”（如早期 GitHub Copilot）之年，而 2024-2025 年则是“多智能体虚拟团队”（如 MetaGPT, ChatDev）的爆发期。",
+      "大模型在软件工程中的能力边界不断扩展：从简单的代码补全，演进到需求理解（PRD生成）、系统架构设计（Mermaid图表）、全量代码生成及自动化测试闭环。",
+      "智能体间的核心协作机制从简单的 Prompt 串联，升级为基于“状态机”和“图节点”的数据流转，通过结构化输出（如 JSON Schema）实现精准的上下文交接。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的Agent编排框架，支持循环、状态管理、分支等复杂逻辑，是构建多Agent研发团队的最佳底层基座。"
+      },
+      {
+        "name": "MetaGPT",
+        "url": "https://github.com/geekan/MetaGPT",
+        "description": "国内开源的明星项目，多智能体框架的先驱。内置了产品经理、架构师、工程师等角色，一句话需求即可输出设计文档和代码，是本主题的最佳参考实现。"
+      },
+      {
+        "name": "ChatDev",
+        "url": "https://github.com/OpenBMB/ChatDev",
+        "description": "清华大学发布的虚拟软件公司框架，通过多Agent对话实现从需求到代码的开发全流程，在游戏和小型Web应用生成上表现优异。"
+      },
+      {
+        "name": "OpenHands (原 OpenDevin)",
+        "url": "https://github.com/All-Hands-AI/OpenHands",
+        "description": "一个强大的自主AI软件工程师平台，支持编写代码、修复bug以及与命令行交互，其任务拆解和执行机制值得借鉴。"
+      },
+      {
+        "name": "GPT-Engineer",
+        "url": "https://github.com/gpt-engineer-org/gpt-engineer",
+        "description": "早期著名的需求转代码项目，其通过AI指定架构并逐步生成代码的思路对实战有重要启发。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangGraph Cloud / Studio",
+        "url": "https://langchain-ai.github.io/langgraph/cloud/",
+        "description": "LangGraph 官方推出的云服务和可视化画布，支持直接在界面上拖拽构建多Agent流程，并提供状态追踪 API。"
+      },
+      {
+        "name": "Cursor / Composer",
+        "url": "https://www.cursor.com/",
+        "description": "目前最强的 AI-IDE，其 Composer 功能已初步具备多文件架构理解、代码生成与自动 Apply 的多步协作雏形。"
+      },
+      {
+        "name": "Devin (by Cognition)",
+        "url": "https://www.cognition.ai/",
+        "description": "全球首个全自主AI软件工程师，虽然定位为单体，但其内部采用了复杂的规划-执行-修复循环机制，代表了商业化的最高水平。"
+      },
+      {
+        "name": "LangSmith",
+        "url": "https://www.langchain.com/langsmith",
+        "description": "LangChain 推出的可观测性平台，在多Agent实战中必不可少，用于追踪每个Agent的Token消耗、响应耗时和上下文传递情况。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：构建多Agent团队最难的并非代码生成，而是“上下文窗口限制”和“需求传递过程中的信息丢失”（即Agent幻觉导致偏离原始需求）。",
+      "LangGraph 的学习曲线相对陡峭，社区共识是：对于简单的线性流程用 LangChain 即可，但涉及 Code Review -> 修改 -> 再 Review 的“循环纠错”机制，LangGraph 的状态图是刚需。",
+      "小红书/掘金等社区用户认为，AI程序员目前更适合作为“高级外包”，在明确的脚手架（如 Next.js, Vite）限制下生成代码，成功率远高于从零构建复杂架构。",
+      "角色设定的 Prompt 工程非常关键。给 Agent 赋予特定的性格（如严厉的 Code Reviewer）和约束（如“必须符合 SOLID 原则”），能显著提高生成质量。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph 官方文档：Multi-Agent Collaboration",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/",
+        "description": "官方提供的多智能体协作教程，详细说明了如何使用 Supervisor 和 Swarm 模式构建多Agent网络。"
+      },
+      {
+        "title": "使用 LangGraph 构建 LLM 驱动的“软件工厂”实战指南",
+        "url": "https://blog.langchain.dev/software-engineering-with-langgraph/",
+        "description": "LangChain 官方博客，深入探讨如何定义架构师和程序员的状态图，以及实现自动代码审查迭代的实战路径。"
+      },
+      {
+        "title": "SWE-bench：AI 软件工程能力的“跑分”基准",
+        "url": "https://www.swebench.com/",
+        "description": "用于评估 AI Agent 在真实 GitHub 仓库中解决 Issue 能力的基准测试，是衡量研发团队Agent实战效果的最佳参考。"
+      },
+      {
+        "title": "实战最佳实践：交接策略的设计",
+        "url": "https://python.langchain.com/docs/concepts/structured_output/",
+        "description": "Agent 间应通过结构化输出（如 Pydantic Model 的 JSON）交接数据，而非非结构化的文本，这在教程中有详细说明。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "MetaGPT 相关论文：MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+        "url": "https://arxiv.org/abs/2308.00352",
+        "description": "详细论述了如何将标准化作业程序（SOP）应用于多智能体团队，从而大幅减少大模型的幻觉。"
+      },
+      {
+        "title": "ChatDev 相关论文：Communicative Agents for Software Development",
+        "url": "https://arxiv.org/abs/2307.07924",
+        "description": "探讨了通过角色扮演和思维链引导多智能体进行对话式软件开发的前沿研究。"
+      },
+      {
+        "title": "Agentless：无Agent的软件工程修复范式 (2024前沿)",
+        "url": "https://arxiv.org/abs/2407.01489",
+        "description": "2024年的热门论文，探讨了与多Agent相对的路径——通过纯粹的代码检索和局部化池来修复Bug。为Agent的策略制定提供了反面参考与平衡。"
+      },
+      {
+        "title": "未来趋势：从 Multi-Agent 到 Self-Play (自我博弈)",
+        "url": "https://arxiv.org/abs/2401.03368",
+        "description": "未来的研发团队可能由同一个强大的模型承担需求方和开发方，通过对抗性的自我博弈不断提升代码架构质量，类似于 AlphaGo 的训练机制。"
+      }
+    ]
+  },
+  "summary": "本次调研发现，基于多Agent构建AI软件研发团队正成为2025年AI工程领域最火热的落地方向。以 LangGraph 为代表的图编排框架解决了复杂研发流程中的“循环审查”与“状态管理”难题；而架构师、程序员与审查员之间的交接策略，正从自然语言过渡到结构化的 JSON 数据流。尽管面临上下文丢失和高昂的 Token 消耗挑战，但在 MetaGPT、LangGraph 等成熟开源项目的支撑下，开发者已完全能够实现“需求输入 -> 架构设计 -> 代码生成 -> 自动审查修订”的全链路自动化，小红书博主在创作此类内容时，可重点突出 LangGraph 的工作流画布展示、Prompt 角色卡设计及实战中的避坑指南。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/geekan/MetaGPT",
+      "title": "MetaGPT",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/OpenBMB/ChatDev",
+      "title": "ChatDev",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "title": "OpenHands (原 OpenDevin)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/gpt-engineer-org/gpt-engineer",
+      "title": "GPT-Engineer",
+      "type": "opensource"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/cloud/",
+      "title": "LangGraph Cloud / Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.cursor.com/",
+      "title": "Cursor / Composer",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.cognition.ai/",
+      "title": "Devin (by Cognition)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.langchain.com/langsmith",
+      "title": "LangSmith",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/",
+      "title": "LangGraph 官方文档：Multi-Agent Collaboration",
+      "type": "practice"
+    },
+    {
+      "url": "https://blog.langchain.dev/software-engineering-with-langgraph/",
+      "title": "使用 LangGraph 构建 LLM 驱动的“软件工厂”实战指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.swebench.com/",
+      "title": "SWE-bench：AI 软件工程能力的“跑分”基准",
+      "type": "practice"
+    },
+    {
+      "url": "https://python.langchain.com/docs/concepts/structured_output/",
+      "title": "实战最佳实践：交接策略的设计",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.00352",
+      "title": "MetaGPT 相关论文：MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2307.07924",
+      "title": "ChatDev 相关论文：Communicative Agents for Software Development",
+      "type": "frontier"
+    }
+  ],
+  "query": "多 Agent 综合实战：构建一个软件研发团队 构建一个完整的AI软件研发团队：需求分析师（理解用户需求、拆解任务）、架构师（设计技术方案）、程序员（生成代码）、Code Reviewer（审查质量）。使用LangGraph编排四个Agent的协作流程，展示代码生成→自动审查→修订迭代的全链路。分析各Agent的角色设定、工具配置和交接策略。",
+  "researched_at": "2026-04-04T05:32:16.678219"
+}

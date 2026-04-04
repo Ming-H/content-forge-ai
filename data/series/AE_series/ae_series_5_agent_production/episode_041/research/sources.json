@@ -1,0 +1,179 @@
+{
+  "dimensions": {
+    "facts": [
+      "从 Jupyter Notebook 到生产环境的核心跨越在于：将单机同步执行的原型代码，重构为支持异步并发、状态外置、具备容错机制的微服务架构。",
+      "Serverless（如 AWS Lambda）存在 15 分钟的硬性执行超时限制，对于需要复杂反思和多步工具调用的长耗时 Agent 并不适用，长驻服务或基于容器的按需付费（如 GCP Cloud Run）是更优解。",
+      "Agent 的弹性伸缩难点在于 LLM 推理的“流式返回”和“长阻塞”，传统的基于 CPU/内存的 K8s HPA 往往失效，基于事件驱动的 KEDA（如根据消息队列 RabbitMQ/Kafka 积压情况）成为自动扩缩容的事实标准。",
+      "Agent 的版本迭代具有高度不确定性（Prompt 的微小改动可能导致输出剧变），因此灰度发布（Canary/Blue-Green）不仅是流量平滑过渡的手段，更是进行 A/B 测试和安全兜底（Guardrails）的必要机制。"
+    ],
+    "opensource": [
+      {
+        "name": "LangServe",
+        "url": "https://github.com/langchain-ai/langserve",
+        "description": "LangChain 官方出品的部署工具，可将 Agent 快速打包为 REST API，内置流式输出和异步支持，适合从 Notebook 快速走向服务化。"
+      },
+      {
+        "name": "KEDA (Kubernetes Event-driven Autoscaling)",
+        "url": "https://github.com/kedacore/keda",
+        "description": "针对 Kubernetes 的事件驱动自动伸缩器，非常适合根据 Agent 的并发请求、消息队列深度等外部指标进行弹性扩缩容。"
+      },
+      {
+        "name": "FastAPI",
+        "url": "https://github.com/tiangolo/fastapi",
+        "description": "高性能异步 Web 框架，是 Python 生态中将 Agent 封装为生产级 API 的首选，原生支持异步和流式响应。"
+      },
+      {
+        "name": "BentoML",
+        "url": "https://github.com/bentoml/BentoML",
+        "description": "专为 AI 模型和应用设计的统一部署框架，原生支持将 Agent 打包为 Docker 容器并一键部署到各类云平台。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Google Cloud Run",
+        "url": "https://cloud.google.com/run",
+        "description": "基于 Knative 的无服务器容器平台，支持最长 60 分钟的超时设置，按请求计费，是长耗时 Agent 替代传统 Serverless 的绝佳方案。"
+      },
+      {
+        "name": "Vertex AI Agent Engine (Google Cloud)",
+        "url": "https://cloud.google.com/vertex-ai",
+        "description": "谷歌云全托管的 Agent 运行时环境（原 LangChain on Vertex AI），内置了持久化内存、状态管理和无服务器弹性伸缩能力。"
+      },
+      {
+        "name": "AWS Lambda",
+        "url": "https://aws.amazon.com/lambda/",
+        "description": "业界标杆 Serverless 平台，适合轻量级、执行时间短（<15min）的 Agent 微服务，配合 API Gateway 可实现极速弹性。"
+      },
+      {
+        "name": "Azure Container Apps",
+        "url": "https://azure.microsoft.com/en-us/products/container-apps",
+        "description": "基于无服务器容器的微服务架构，原生集成 KEDA，非常适合部署需要根据 HTTP 流量或后台队列动态伸缩的 Agent 应用。"
+      }
+    ],
+    "community": [
+      "“Serverless 对 Agent 来说是个陷阱”——社区普遍认为由于 LLM 推理的延迟，Serverless 的冷启动和超时机制会导致请求大面积失败，长驻服务配合事件驱动伸缩才是正解。",
+      "“状态外置是 Agent 上云的第一课”——生产环境中绝不能把对话历史和上下文保存在内存里，必须引入 Redis/MongoDB 等外部状态存储以保证 Pod 重启或扩缩容时状态不丢失。",
+      "“Docker 镜像体积是个大坑”——Python 环境加上各类 LLM 依赖动辄上 GB，社区强烈建议使用多阶段构建或 Alpine 基础镜像来瘦身，以加快 K8s 集群的拉取和扩容速度。",
+      "“灰度发布救了命”——由于大模型的幻觉问题，很多团队在升级 Agent Prompt 或更换模型版本时，通过按百分比切流量的 Canary 发布，提前捕获了严重的逻辑漏洞。"
+    ],
+    "practice": [
+      {
+        "title": "Deploying LangChain Agents to Production",
+        "url": "https://python.langchain.com/docs/deployment/",
+        "description": "LangChain 官方提供的部署指南，详细对比了各类云平台和容器化部署的最佳实践。"
+      },
+      {
+        "title": "KEDA Official Documentation: Scalers",
+        "url": "https://keda.sh/docs/scalers/",
+        "description": "KEDA 官方文档中关于各类触发器（HTTP, Kafka, Redis 等）的配置指南，用于实现 Agent 集群的精细化弹性伸缩。"
+      },
+      {
+        "title": "Building LLM Applications: From Prototype to Production",
+        "url": "https://www.databricks.com/blog/LLM-auto-eval-best-practices-RAG",
+        "description": "Databricks 整理的最佳实践，重点讲解了如何评估 Agent 行为并建立持续监控机制，以确保生产环境的稳定性。"
+      },
+      {
+        "title": "Best Practices for Production LLM APIs",
+        "url": "https://platform.openai.com/docs/guides/production-best-practices",
+        "description": "OpenAI 官方给出的生产环境 API 调用最佳实践，涵盖限流、重试机制和流式响应处理，是构建底层 Agent 必读的指南。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "The Shift from Models to Compound AI Systems",
+        "url": "https://bair.berkeley.edu/blog/2024/02/18/compound-systems/",
+        "description": "伯克利 RI 实验室前沿观点：指出 AI 系统正从单一模型调用向复合系统演进，控制流、数据流和部署架构的工程化成为核心壁垒。"
+      },
+      {
+        "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
+        "url": "https://arxiv.org/abs/2404.13501",
+        "description": "针对 Agent 记忆机制的最新综述，探讨了长期/短期记忆架构如何影响生产环境中 Agent 的状态管理和持久化部署。"
+      },
+      {
+        "title": "Stateful Serverless Computing for AI Workloads",
+        "url": "https://arxiv.org/abs/2311.01160",
+        "description": "探讨如何针对 AI 和 LLM 工作负载改造传统的无服务器架构，解决长连接和状态保持问题，代表了 2025 年 Agent 底层架构的演进方向。"
+      }
+    ]
+  },
+  "summary": "本次调研揭示了 Agent 从 Notebook 走向生产的跨越不仅是代码重构，更是系统架构的升维：通过 Docker 容器化实现环境隔离，摒弃传统 Serverless 转向基于 KEDA 的事件驱动弹性伸缩以应对 LLM 长耗时，并利用 Blue-Green/Canary 策略进行具备安全兜底的灰度发布。随着 Google Cloud Run 和 Vertex AI Agent Engine 等专为 Agentic Workflow 设计的商业方案成熟，未来的生产级 Agent 正加速向“状态外置+无服务器容器+复合流控”的前沿架构演进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langserve",
+      "title": "LangServe",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/kedacore/keda",
+      "title": "KEDA (Kubernetes Event-driven Autoscaling)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/tiangolo/fastapi",
+      "title": "FastAPI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/bentoml/BentoML",
+      "title": "BentoML",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/run",
+      "title": "Google Cloud Run",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai",
+      "title": "Vertex AI Agent Engine (Google Cloud)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/lambda/",
+      "title": "AWS Lambda",
+      "type": "commercial"
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/container-apps",
+      "title": "Azure Container Apps",
+      "type": "commercial"
+    },
+    {
+      "url": "https://python.langchain.com/docs/deployment/",
+      "title": "Deploying LangChain Agents to Production",
+      "type": "practice"
+    },
+    {
+      "url": "https://keda.sh/docs/scalers/",
+      "title": "KEDA Official Documentation: Scalers",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.databricks.com/blog/LLM-auto-eval-best-practices-RAG",
+      "title": "Building LLM Applications: From Prototype to Production",
+      "type": "practice"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/production-best-practices",
+      "title": "Best Practices for Production LLM APIs",
+      "type": "practice"
+    },
+    {
+      "url": "https://bair.berkeley.edu/blog/2024/02/18/compound-systems/",
+      "title": "The Shift from Models to Compound AI Systems",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.13501",
+      "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.01160",
+      "title": "Stateful Serverless Computing for AI Workloads",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 部署架构：从原型到生产 从Jupyter Notebook到生产服务是Agent工程的最大跨越。本文详解Agent部署架构：Docker容器化封装，弹性伸缩（K8s HPA/KEDA基于请求量自动扩缩），灰度发布（Canary/Blue-Green策略平滑升级），Serverless vs长驻服务的权衡。覆盖Google Cloud Run、Vertex AI Agent Engine、AWS Lambda等部署方案。",
+  "researched_at": "2026-04-04T11:02:40.510437"
+}

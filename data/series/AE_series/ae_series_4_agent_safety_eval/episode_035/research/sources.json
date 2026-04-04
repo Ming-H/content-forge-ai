@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "NVIDIA NeMo Guardrails 使用专有的 Colang 语言来定义对话边界，支持输入、输出以及对话轮次控制，主要侧重于对话流的拓扑约束。",
+      "Guardrails AI 是基于 Python 的独立防护栏项目，采用 RAIL (Reliable AI Markup Language) 规范和类似 Pydantic 的 Schema 定义，专注于大语言模型输入输出的结构化验证和修复。",
+      "OpenAI 在其 Assistants API 及 Agents SDK 生态中强化了内置 Guardrails 机制，提供了并行和阻塞两种执行模式，涵盖 Input/Output/Tool 三维度的拦截。",
+      "多层防护栏组合通常遵循洋葱模型：最外层拦截违规意图（NeMo），中间层验证数据结构合法性与幻觉（Guardrails AI），底层控制工具调用的权限（OpenAI Tool Guardrails）。"
+    ],
+    "opensource": [
+      {
+        "name": "NVIDIA/NeMo-Guardrails",
+        "url": "https://github.com/NVIDIA/NeMo-Guardrails",
+        "description": "NVIDIA 官方开源的 Guardrails 库，通过 Colang 语言为 LLM 添加可编程的边界控制。"
+      },
+      {
+        "name": "guardrails-ai/guardrails",
+        "url": "https://github.com/guardrails-ai/guardrails",
+        "description": "Guardrails AI 官方开源库，提供 Pydantic 风格的验证器和 RAIL 规范，用于验证、纠正 LLM 的输入输出。"
+      },
+      {
+        "name": "openai/openai-python",
+        "url": "https://github.com/openai/openai-python",
+        "description": "OpenAI 官方 Python SDK，集成了 Moderation API 以及最新 Agent 框架中输入输出与工具调用的拦截机制。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "NVIDIA NeMo Guardrails 官方文档",
+        "url": "https://docs.nvidia.com/nemo/guardrails/",
+        "description": "提供关于如何使用 Colang 配置对话流、构建安全客服机器人及部署的详尽企业级指南。"
+      },
+      {
+        "name": "Guardrails AI 官方文档与 Hub",
+        "url": "https://docs.guardrailsai.com/",
+        "description": "包含 RAIL 规范说明、验证器市场以及如何在生产环境中集成 Pydantic Schema 的 API 文档。"
+      },
+      {
+        "name": "OpenAI API 文档",
+        "url": "https://platform.openai.com/docs/api-reference/moderations",
+        "description": "OpenAI 官方内置安全审查 API，配合 Agents SDK 可实现并行/阻塞模式的高效输入输出审查。"
+      }
+    ],
+    "community": [
+      "社区普遍反映 NeMo 的 Colang 语言学习曲线较陡峭，但对于复杂的分支对话控制（如客服多轮语境）极其强大。",
+      "Python 开发者高度评价 Guardrails AI 与 Pydantic 的无缝结合，认为它极大降低了结构化数据提取时发生幻觉的概率。",
+      "开发者常讨论多层拦截带来的高延迟问题：如果串联 NeMo + Guardrails AI + LLM 调用，P95延迟可能超出可接受范围，建议采用并行执行或异步架构。",
+      "针对越狱攻击，社区共识是没有单一防护栏是绝对安全的，企业级 Agent 必须采用 Input/Output 双重验证加 Tool 权限隔离的组合拳。"
+    ],
+    "practice": [
+      {
+        "title": "Building a Secure Customer Service Agent with NeMo Guardrails",
+        "url": "https://github.com/NVIDIA/NeMo-Guardrails/blob/main/examples/banking/banking-demo.md",
+        "description": "NVIDIA 提供的银行业务客服实战案例，展示了如何阻断特定主题并防止话题偏离。"
+      },
+      {
+        "title": "Guardrails AI: Getting Started with Validators",
+        "url": "https://docs.guardrailsai.com/examples/overview",
+        "description": "实战教程，演示如何使用类似 Pydantic 的模式防止 LLM 在 JSON 输出中产生格式或逻辑错误。"
+      },
+      {
+        "title": "OpenAI Agents SDK Guardrails Guide",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "展示了在 Agent 工作流中如何定义并行和阻塞模式的函数，在调用外部工具前实施拦截。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "LLM as a Judge: 动态防护栏的演进",
+        "url": "https://arxiv.org/abs/2306.05685",
+        "description": "探讨使用更强壮的 LLM（如 GPT-4）作为裁判模型来验证边缘情况，从而替代硬编码规则，提升防护栏的语义理解能力。"
+      },
+      {
+        "title": "Adversarial Prompting and Defense Mechanisms",
+        "url": "https://arxiv.org/abs/2310.03684",
+        "description": "关于对抗性提示注入及其防御机制的研究，为构建 Input Guardrails 提供了新的算法级理论支持。"
+      },
+      {
+        "title": "Self-Correcting Agents in Production",
+        "url": "https://arxiv.org/abs/2310.01798",
+        "description": "研究 Agent 在没有人工干预的情况下，如何通过内置的 Output Guardrails 反馈循环自动发现并纠正自身的逻辑错误。"
+      }
+    ]
+  },
+  "summary": "本次调研深入剖析了当前大模型智能体安全防护的三大主流实战方案：NVIDIA NeMo Guardrails（擅长通过 Colang 控制复杂对话流边界）、Guardrails AI（基于 Pydantic 实现输入输出结构化验证与修复）以及 OpenAI Agents SDK 内置的 Input/Output/Tool 拦截机制。调研发现，面对日益复杂的越狱攻击和幻觉问题，企业级客服智能体需采用多层洋葱防御架构。尽管组合不同框架的防护栏能极大提升安全性，但开发者必须关注多重拦截带来的系统延迟，并建议在未来探索并行处理和 LLM-as-a-Judge 等前沿自治防护策略。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/NVIDIA/NeMo-Guardrails",
+      "title": "NVIDIA/NeMo-Guardrails",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/guardrails-ai/guardrails",
+      "title": "guardrails-ai/guardrails",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/openai-python",
+      "title": "openai/openai-python",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.nvidia.com/nemo/guardrails/",
+      "title": "NVIDIA NeMo Guardrails 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.guardrailsai.com/",
+      "title": "Guardrails AI 官方文档与 Hub",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/api-reference/moderations",
+      "title": "OpenAI API 文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/NVIDIA/NeMo-Guardrails/blob/main/examples/banking/banking-demo.md",
+      "title": "Building a Secure Customer Service Agent with NeMo Guardrails",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.guardrailsai.com/examples/overview",
+      "title": "Guardrails AI: Getting Started with Validators",
+      "type": "practice"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Agents SDK Guardrails Guide",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.05685",
+      "title": "LLM as a Judge: 动态防护栏的演进",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.03684",
+      "title": "Adversarial Prompting and Defense Mechanisms",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.01798",
+      "title": "Self-Correcting Agents in Production",
+      "type": "frontier"
+    }
+  ],
+  "query": "Guardrails 实战：输入输出防护栏 防护栏是Agent安全的第一道防线。本文实战三种Guardrails方案：NVIDIA NeMo Guardrails（Colang语言定义对话边界）、Guardrails AI（Pydantic schema验证输入输出）、OpenAI Agents SDK内置Guardrails（Input/Output/Tool三种类型，parallel和blocking两种执行模式）。通过客服Agent案例，展示如何组合使用多层防护栏。",
+  "researched_at": "2026-04-04T08:02:19.550342"
+}

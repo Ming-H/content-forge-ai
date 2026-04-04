@@ -1,0 +1,21 @@
+{
+  "id": "ae_topic_016",
+  "series_id": "ae_series_2",
+  "episode": 16,
+  "title": "Agent 状态管理与持久化",
+  "description": "生产级Agent需要状态持久化能力。本文详解LangGraph的Checkpointer机制（SqliteSaver/PostgresSaver/MemorySaver），通过thread_id实现多会话管理，支持中断恢复和时间旅行(Time-travel)调试。对比OpenAI Agents SDK的Session方案（SQLite/Redis/SQLAlchemy/Dapr），分析不同场景下的选型建议。",
+  "keywords": [
+    "状态管理",
+    "持久化",
+    "Checkpoint",
+    "Session",
+    "中断恢复",
+    "Time-travel",
+    "LangGraph",
+    "OpenAI"
+  ],
+  "difficulty": "进阶",
+  "estimated_words": 10000,
+  "status": "pending",
+  "completed_at": null
+}

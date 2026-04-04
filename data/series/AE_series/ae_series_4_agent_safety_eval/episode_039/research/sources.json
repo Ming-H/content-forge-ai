@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "OWASP LLM Top 10（2025版预览）针对Agent系统引入了新型风险，其中'过度权限(Excessive Agency)'和'不安全的输出处理(Insecure Output Handling)'在Agent自主调用API场景下最为致命。",
+      "EU AI Act（《欧盟人工智能法案》）于2024年正式立法，将AI系统分为不可接受风险、高风险、有限风险和极小风险四个等级。具备自主决策能力的Agent系统在处理医疗、金融等敏感领域时通常被划定为'高风险'。",
+      "NIST AI Risk Management Framework (AI RMF) 的核心治理原则分为四个模块：Govern（治理）、Map（映射）、Measure（测量）、Manage（管理），被业界视为构建AI合规体系的基础方法论。",
+      "Agent系统的合规审计日志不再局限于传统的输入/输出，必须详细记录其内部思维链、外部工具调用轨迹及错误重试机制，以确保决策过程可追溯。"
+    ],
+    "opensource": [
+      {
+        "name": "OWASP LLM Top 10 官方仓库",
+        "url": "https://github.com/OWASP/www-project-top-10-for-large-language-model-applications",
+        "description": "包含LLM及Agent应用最全的安全漏洞列表、攻击场景描述及官方缓解建议文档。"
+      },
+      {
+        "name": "Langfuse",
+        "url": "https://github.com/langfuse/langfuse",
+        "description": "专为LLM/Agent设计的开源可观测性与评估平台，完美满足合规框架中的'审计日志'要求，支持追踪每一次工具调用。"
+      },
+      {
+        "name": "Promptfoo",
+        "url": "https://github.com/promptfoo/promptfoo",
+        "description": "开源的LLM红队测试与安全评估工具，可针对OWASP Top 10进行自动化安全扫描和合规基线测试。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "EU AI Act 官方法案文本",
+        "url": "https://artificialintelligenceact.eu/",
+        "description": "欧盟官方提供的AI法案全文、分级标准及合规指南，是出海企业必备的法律参考文档。"
+      },
+      {
+        "name": "NIST AI RMF 官方框架",
+        "url": "https://www.nist.gov/artificial-intelligence/risk-management-framework",
+        "description": "美国国家标准与技术研究院发布的AI风险管理框架，包含详细的合规实施手册和可信AI特征说明。"
+      },
+      {
+        "name": "Protect AI (商业安全平台)",
+        "url": "https://protectai.com/",
+        "description": "提供企业级的AI供应链安全与合规解决方案，包含针对LLM和Agent的漏洞扫描与实时防护。"
+      }
+    ],
+    "community": [
+      "开发者在社区中普遍反映，在Agent场景下，最让人头疼的OWASP风险是'过度权限'，因为Agent为了完成任务往往会要求过多的系统操作权限，导致潜在的安全灾难。",
+      "关于EU AI Act，社区讨论指出其'高风险'分类让许多AI初创公司感到合规成本高昂，尤其是如何证明Agent的决策过程不存在偏见且可解释。",
+      "用户真实反馈：现有的审计日志方案（如LangSmith）虽然好用，但在高频Agent调用下会产生海量的Token记录，导致合规存储成本急剧上升。",
+      "业界共识认为，在Agent工作流中加入'Human-in-the-loop (人机回环)'机制，是目前应对EU合规要求和防范Prompt Injection最有效且成本最低的'银弹'。"
+    ],
+    "practice": [
+      {
+        "title": "OWASP LLM/Agent 安全与合规缓解速查表",
+        "url": "https://genai.owasp.org/",
+        "description": "OWASP官方提供的实战指南，详细列出如何通过权限最小化、权限隔离来防止Agent越权操作。"
+      },
+      {
+        "title": "Langfuse 官方文档：Agent Tracing 与合规审计",
+        "url": "https://langfuse.com/docs/tracing-features",
+        "description": "手把手教你如何接入Langfuse SDK，记录多智能体协作中的每一次决策树和外部API调用。"
+      },
+      {
+        "title": "Microsoft Responsible AI 实践指南",
+        "url": "https://www.microsoft.com/en-us/ai/responsible-ai",
+        "description": "微软发布的负责任AI标准文档，包含大量如何在Azure云服务中实现数据隐私保护和合规评估的最佳实践。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Adversarial Attacks on LLM Agents (Agent对抗性攻击前沿研究)",
+        "url": "https://arxiv.org/abs/2406.08351",
+        "description": "研究Agent在多轮交互和工具调用中面临的新型攻击面，提出在合规框架下必须增加的动态防御指标。"
+      },
+      {
+        "title": "A Survey on Large Language Model-based Agents: Security and Privacy",
+        "url": "https://arxiv.org/abs/2312.07783",
+        "description": "全面总结基于LLM的Agent在安全和隐私方面的前沿挑战，指出传统的IT合规框架需要专门针对LLM的'幻觉'和'越狱'进行更新。"
+      },
+      {
+        "title": "趋势预测：合规即代码 与运行时防护",
+        "url": "https://arxiv.org/abs/2407.01065",
+        "description": "2025-2026年的前沿趋势是将EU AI Act的静态法律条款转化为可执行的代码（如NeMo Guardrails），在Agent运行时实时阻断不合规操作。"
+      }
+    ]
+  },
+  "summary": "本次调研全面梳理了Agent系统在OWASP LLM Top 10、EU AI Act及NIST AI RMF三大核心框架下的合规要求。发现Agent的'自主性'与'工具调用'是合规的重灾区，尤其是过度权限与审计追踪问题；社区正通过开源的观测性工具（如Langfuse）和运行时护栏来实现'合规即代码'。未来，结合成本可控的日志记录机制与前沿的红队测试，将是AI应用出海满足欧盟严苛合规要求的关键实战路径。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/OWASP/www-project-top-10-for-large-language-model-applications",
+      "title": "OWASP LLM Top 10 官方仓库",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langfuse/langfuse",
+      "title": "Langfuse",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/promptfoo/promptfoo",
+      "title": "Promptfoo",
+      "type": "opensource"
+    },
+    {
+      "url": "https://artificialintelligenceact.eu/",
+      "title": "EU AI Act 官方法案文本",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.nist.gov/artificial-intelligence/risk-management-framework",
+      "title": "NIST AI RMF 官方框架",
+      "type": "commercial"
+    },
+    {
+      "url": "https://protectai.com/",
+      "title": "Protect AI (商业安全平台)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://genai.owasp.org/",
+      "title": "OWASP LLM/Agent 安全与合规缓解速查表",
+      "type": "practice"
+    },
+    {
+      "url": "https://langfuse.com/docs/tracing-features",
+      "title": "Langfuse 官方文档：Agent Tracing 与合规审计",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/ai/responsible-ai",
+      "title": "Microsoft Responsible AI 实践指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.08351",
+      "title": "Adversarial Attacks on LLM Agents (Agent对抗性攻击前沿研究)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.07783",
+      "title": "A Survey on Large Language Model-based Agents: Security and Privacy",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2407.01065",
+      "title": "趋势预测：合规即代码 与运行时防护",
+      "type": "frontier"
+    }
+  ],
+  "query": "安全合规：OWASP LLM Top 10 与 EU AI Act Agent系统面临严格的合规要求。本文全面解读OWASP LLM Top 10(2025)的每个风险项在Agent场景下的具体表现和缓解措施，EU AI Act对AI系统的分级（unacceptable/high/limited/minimal risk）和对应义务，NIST AI Risk Management Framework的核心原则。详解审计日志设计（记录所有Agent决策和操作），数据隐私保护策略。",
+  "researched_at": "2026-04-04T10:02:36.598593"
+}

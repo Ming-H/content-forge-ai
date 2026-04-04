@@ -1,0 +1,196 @@
+{
+  "dimensions": {
+    "facts": [
+      "起源阶段：20世纪50年代Audrey系统，至80年代HMM-GMM（隐马尔可夫-高斯混合模型）成为主流统治了近30年。",
+      "深度学习爆发：2012年DNN-HMM模型大幅降低错误率，标志深度学习介入语音识别。",
+      "端到端三大范式：CTC（Connectionist Temporal Classification，主要解决对齐问题）、Attention（基于序列到序列的注意力机制）、RNN-T（RNN Transducer，目前流式识别的主流选择）。",
+      "现代架构：从传统的“声学模型+发音词典+语言模型”流水线，演进为“声学模型+解码器”一体化的端到端架构。",
+      "关键数据集：英语常用Librispeech，中文常用AISHELL-1/2，是目前学术界的基准测试集。",
+      "开源巨变：OpenAI发布的Whisper模型（2022）基于弱监督学习，在多语言通用识别上实现了SOTA（State of the Art），极大地降低了门槛。"
+    ],
+    "opensource": [
+      {
+        "name": "Kaldi",
+        "url": "https://github.com/kaldi-asr/kaldi",
+        "description": "语音识别界的“TensorFlow”，虽然目前主要维护HMM/GMM及混合模型，但仍是工业界基石，代码库极其庞大。"
+      },
+      {
+        "name": "ESPnet",
+        "url": "https://github.com/espnet/espnet",
+        "description": "主要基于PyTorch的端到端语音处理工具箱，强力支持CTC、Attention和Transducer，学术界最常用。"
+      },
+      {
+        "name": "WeNet",
+        "url": "https://github.com/wenet-e2e/wenet",
+        "description": "由Mobvoi主导的生产级端到端ASR工具包，主打流式与非流式一体化，工业部署非常友好。"
+      },
+      {
+        "name": "OpenAI Whisper",
+        "url": "https://github.com/openai/whisper",
+        "description": "目前最火的通用语音识别模型，包含多语言翻译能力，拥有6.8亿小时弱监督数据训练。"
+      },
+      {
+        "name": "PaddleSpeech",
+        "url": "https://github.com/PaddlePaddle/PaddleSpeech",
+        "description": "百度飞桨旗下的语音生态套件，包含丰富的中文预训练模型和工业级部署方案。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Google Cloud Speech-to-Text",
+        "url": "https://cloud.google.com/speech-to-text",
+        "description": "全球领先的云语音API，支持自动标点、说话人分离和海量词汇。"
+      },
+      {
+        "name": "Azure Speech Services",
+        "url": "https://azure.microsoft.com/en-us/products/cognitive-services/speech-to-text",
+        "description": "微软提供的语音服务，集成在OpenAI Whisper模型发布前是其主力，性能极其稳定。"
+      },
+      {
+        "name": "Amazon Transcribe",
+        "url": "https://aws.amazon.com/transcribe/",
+        "description": "AWS的语音转文字服务，擅长处理医疗、法律等垂直领域的专业词汇。"
+      },
+      {
+        "name": "科大讯飞语音开放平台",
+        "url": "https://www.xfyun.cn/services/voicedictation",
+        "description": "中文语音识别市场的龙头，中文方言识别能力极强，提供离线/在线SDK。"
+      },
+      {
+        "name": "Deepgram",
+        "url": "https://deepgram.com/",
+        "description": "专注于开发者和企业的高速语音API，以极低的延迟著称，基于NVIDIA Riva等技术。"
+      }
+    ],
+    "community": [
+      "关于Whisper的讨论：社区普遍认为Whisper在通用场景很强，但存在‘幻觉’（Hallucination）问题，即会生成音频中不存在的文本，且在实时流式场景下延迟较高。",
+      "HMM vs E2E：老派工程师认为HMM（Kaldi）在特定小数据量下可控性更强；新一代开发者倾向于E2E（Espnet/WeNet），因为全栈神经网络训练更简单。",
+      "RNN-T 的工业地位：在智能助手（Siri, 小爱同学）等对延迟要求极高的场景，RNN-T是目前无可争议的王者，CTC常作为辅助。",
+      "部署痛点：端侧部署是社区讨论热点，如何在手机/芯片上跑动大模型（量化、剪枝）是关键。"
+    ],
+    "practice": [
+      {
+        "title": "Speech and Language Processing (教材)",
+        "url": "https://web.stanford.edu/~jurafsky/slp3/",
+        "description": "Dan Jurafsky和James H. Martin的经典教材，ASR章节详细讲述了HMM到WFST的数学原理。"
+      },
+      {
+        "title": "ESPnet 官方教程",
+        "url": "https://espnet.github.io/espnet/espnet2_tutorial.html",
+        "description": "从安装到ASR、ST（语音翻译）的完整 walkthrough，最适合上手端到端研究。"
+      },
+      {
+        "title": "清华大学数据挖掘实验室ASR综述",
+        "url": "https://thuhcsi.github.io/intro2slp-resources/",
+        "description": "国内高质量的语音识别与语言处理课程资料，包含HMM及深度学习部分。"
+      },
+      {
+        "title": "WeNet 工业化部署指南",
+        "url": "https://github.com/wenet-e2e/wenet/blob/main/docs/production.md",
+        "description": "详细介绍了如何将WeNet模型导出为ONNX并进行C++/Android端部署，实战性强。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SpeechGPT: Empowering Large Language Models with Intrinsic Cross-Modal Conversational Abilities",
+        "url": "https://arxiv.org/abs/2305.11016",
+        "description": "探索将大语言模型（LLM）直接与语音模态结合，跳过中间的ASR文本步骤，实现原生语音交互。"
+      },
+      {
+        "title": "Universal Speech Model (USM) - Google",
+        "url": "https://ai.googleblog.com/2023/03/universal-speech-model.html",
+        "description": "谷歌发布的通用的多语言语音模型，支持1000+种语言，使用了自监督学习（2B小时参数）。"
+      },
+      {
+        "title": "Scaling Speech Technology to 1,000+ Languages",
+        "url": "https://arxiv.org/abs/2305.13516",
+        "description": "关于如何利用大规模自监督学习构建多语言ASR系统的核心论文。"
+      },
+      {
+        "title": "GPT-4o System Card",
+        "url": "https://openai.com/research/gpt-4o-system-card",
+        "description": "OpenAI最新的原生多模态模型，展示了端到端语音交互（Listening/Speaking）的未来趋势，不再依赖传统ASR流水线。"
+      }
+    ]
+  },
+  "summary": "ASR技术已完成从统计学模型（HMM-GMM）向端到端深度学习的全面转型。目前CTC、Attention和RNN-T构成了现代识别的三大支柱，其中RNN-T因兼顾精度与低延迟成为工业界流式首选。开源生态上，Kaldi虽老但稳固，Espnet和WeNet代表了端到端的主流，而OpenAI Whisper凭借海量弱监督数据改变了通用识别的游戏规则。未来趋势正朝着‘语音大模型’和‘LLM原生语音交互’方向发展，试图打破传统‘语音转文本再处理’的流水线限制。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/kaldi-asr/kaldi",
+      "title": "Kaldi",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/espnet/espnet",
+      "title": "ESPnet",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/wenet-e2e/wenet",
+      "title": "WeNet",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/whisper",
+      "title": "OpenAI Whisper",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/PaddlePaddle/PaddleSpeech",
+      "title": "PaddleSpeech",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/speech-to-text",
+      "title": "Google Cloud Speech-to-Text",
+      "type": "commercial"
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/cognitive-services/speech-to-text",
+      "title": "Azure Speech Services",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/transcribe/",
+      "title": "Amazon Transcribe",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.xfyun.cn/services/voicedictation",
+      "title": "科大讯飞语音开放平台",
+      "type": "commercial"
+    },
+    {
+      "url": "https://deepgram.com/",
+      "title": "Deepgram",
+      "type": "commercial"
+    },
+    {
+      "url": "https://web.stanford.edu/~jurafsky/slp3/",
+      "title": "Speech and Language Processing (教材)",
+      "type": "practice"
+    },
+    {
+      "url": "https://espnet.github.io/espnet/espnet2_tutorial.html",
+      "title": "ESPnet 官方教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://thuhcsi.github.io/intro2slp-resources/",
+      "title": "清华大学数据挖掘实验室ASR综述",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/wenet-e2e/wenet/blob/main/docs/production.md",
+      "title": "WeNet 工业化部署指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.11016",
+      "title": "SpeechGPT: Empowering Large Language Models with Intrinsic Cross-Modal Conversational Abilities",
+      "type": "frontier"
+    }
+  ],
+  "query": "语音识别全景：从 HMM 到端到端神经网络的演进 ASR技术发展脉络全梳理。从早期HMM-GMM到深度学习革命，详解CTC、Attention、RNNT三大解码范式，以及现代ASR流水线的完整架构。理解这些基础是掌握语音助手技术的第一步。",
+  "researched_at": "2026-04-02T09:25:53.467422"
+}

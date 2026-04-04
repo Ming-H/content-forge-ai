@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "2023年AutoGPT和BabyAGI的爆火首次向大众展示了“设定目标即自主执行”的完全自主Agent概念，但也暴露出极易陷入死循环、上下文溢出和API成本极高的局限性。",
+      "动态路由是当前解决大模型Agent推理成本与延迟的主流方案，通过语义意图识别，将简单任务分发给轻量级模型或单一工具，将复杂任务动态路由给高级推理模型（如GPT-4o）或多Agent协作网络。",
+      "动态工具发现突破了传统预定义API的限制，允许Agent在运行时通过联网搜索（如查找RapidAPI）、解析OpenAPI文档并自主编写调用代码来扩展自身能力边界。",
+      "Agent中的元学习目前主要体现为“反思机制”与“经验记忆”，如将历史执行中的成功轨迹和报错信息存入向量数据库，在后续任务中进行Few-shot提示，实现策略的自我进化。",
+      "2024-2025年行业趋势从“完全自主捣乱型Agent”转向“人在回路（HITL）+ 结构化工作流”的自适应模式。"
+    ],
+    "opensource": [
+      {
+        "name": "AutoGPT (Next Gen)",
+        "url": "https://github.com/Significant-Gravitas/AutoGPT",
+        "description": "最早的自主Agent之一，目前正在进行下一代重构，引入了更为复杂的 Agent Protocol 和动态工具集成能力。"
+      },
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain团队推出的Agent编排框架，通过状态机和图结构实现Agent的动态路由、自我纠错和循环反思。"
+      },
+      {
+        "name": "Semantic Router",
+        "url": "https://github.com/aurelio-labs/semantic-router",
+        "description": "专注于动态路由的开源项目，利用语义相似度快速将用户意图路由到特定的Agent或工具，无需等待LLM生成。"
+      },
+      {
+        "name": "BabyAGI",
+        "url": "https://github.com/yoheinakajima/babyagi",
+        "description": "基于任务驱动型的轻量级自主Agent鼻祖，展示了目标拆解、动态执行和基于历史记忆自我调整的基本原理。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI官方推出的Agent构建API，内置了动态工具调用（Function calling）、代码解释器和文件检索，支持自主多轮执行。"
+      },
+      {
+        "name": "Anthropic Tool Use (Computer Use API)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "Claude 3.5 Sonnet推出的动态工具使用和计算机控制API，Agent可根据任务动态决定调用哪个工具或查看屏幕截图进行操作。"
+      },
+      {
+        "name": "Google Vertex AI Agent Builder",
+        "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-intro",
+        "description": "谷歌云的企业级Agent构建平台，支持基于企业数据的动态路由、 grounding 和自适应扩展。"
+      }
+    ],
+    "community": [
+      "AutoGPT式全自主Agent被开发者普遍认为“听起来很酷，但在生产环境中像是个无底洞”，因为缺乏动态路由往往导致简单任务耗费巨大Token且容易跑偏。",
+      "动态工具发现目前被认为是高风险技术：社区反馈表明，如果不对Agent发现的工具进行严格的沙盒安全审查，极易引发不可控的API调用甚至安全漏洞。",
+      "“反思与路由”是当前小红书和技术圈内测中最受欢迎的Agent设计模式，通过让小模型做网关路由，大模型做复杂推理，实现成本和能力的最佳性价比。",
+      "真实反馈：相比于让Agent自我学习修改代码（元学习），直接使用 LangGraph 设定好重试边界和纠错节点的工程实践往往更稳定。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph Guide: How to Build Dynamic Routing Agents",
+        "url": "https://langchain-ai.github.io/langgraph/how-tos/branching/",
+        "description": "LangGraph官方关于如何实现条件边和动态分支的实战教程，帮助开发者根据状态实现路由分发。"
+      },
+      {
+        "title": "Reflexion: Building an Agent that Learns from Mistakes",
+        "url": "https://python.langchain.com/v0.1/docs/use_cases/motoral/agent_with_reflection/",
+        "description": "LangChain官方关于实现反思机制Agent的实战指南，展示了如何将历史动作作为元学习数据喂给Agent。"
+      },
+      {
+        "title": "SWE-bench: Agent Benchmark",
+        "url": "https://www.swebench.com/",
+        "description": "目前最权威的自主Agent解决真实Github Issue的能力基准测试，反映了具备动态路由和工具发现能力的Agent实战表现。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "description": "Northeastern大学等提出的开创性论文，Agent不更新权重，而是通过语言反馈进行自我反思，是当前元学习在Agent中的主流实现思路。"
+      },
+      {
+        "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+        "url": "https://arxiv.org/abs/2302.04761",
+        "description": "Meta AI研究，展示了LLM如何自主决定何时以及如何调用API工具，是动态工具发现与集成的理论基础。"
+      },
+      {
+        "title": "A Survey on Large Language Model based Autonomous Agents",
+        "url": "https://arxiv.org/abs/2308.11432",
+        "description": "Fudan大学的Agent全景综述，详细拆解了自主Agent的架构，包括记忆、规划、动作模块以及自我学习演进的前沿方向。"
+      },
+      {
+        "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+        "url": "https://arxiv.org/abs/2310.11511",
+        "description": "探讨了模型如何动态决定是否需要检索工具，并通过对自身输出的批判来实现自适应路由和改进。"
+      }
+    ]
+  },
+  "summary": "本次调研发现，自适应Agent正在从AutoGPT式的“纯粹概念型自主”向“动态路由+反思纠错”的工程化可控方向演进。动态路由通过语义网关有效解决了单一Agent推理成本过高的问题；元学习目前以RAG记忆检索和反思机制为主，帮助Agent从历史错误中优化执行策略；而动态工具发现虽然展示了惊人的扩展能力，但受限于不可预测性，目前多处于前沿探索阶段。在商业落地中，结构化编排与自适应工具调用的结合，正成为打造高效多Agent系统的主流最佳实践。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/Significant-Gravitas/AutoGPT",
+      "title": "AutoGPT (Next Gen)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/aurelio-labs/semantic-router",
+      "title": "Semantic Router",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/yoheinakajima/babyagi",
+      "title": "BabyAGI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "title": "Anthropic Tool Use (Computer Use API)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-intro",
+      "title": "Google Vertex AI Agent Builder",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/how-tos/branching/",
+      "title": "LangGraph Guide: How to Build Dynamic Routing Agents",
+      "type": "practice"
+    },
+    {
+      "url": "https://python.langchain.com/v0.1/docs/use_cases/motoral/agent_with_reflection/",
+      "title": "Reflexion: Building an Agent that Learns from Mistakes",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.swebench.com/",
+      "title": "SWE-bench: Agent Benchmark",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.11432",
+      "title": "A Survey on Large Language Model based Autonomous Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.11511",
+      "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "type": "frontier"
+    }
+  ],
+  "query": "自适应 Agent：动态路由与自我改进 让Agent自己学会如何更高效地工作。本文探索自适应Agent的前沿方向：动态路由（Agent根据任务特征自动选择处理策略），动态工具发现（Agent自主搜索和集成新工具），元学习在Agent中的应用（从历史执行中学习最优策略）。分析AutoGPT和BabyAGI式全自主Agent的能力边界和实际局限性。",
+  "researched_at": "2026-04-04T13:42:50.623776"
+}

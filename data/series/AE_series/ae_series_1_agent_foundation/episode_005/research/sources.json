@@ -1,0 +1,132 @@
+{
+  "dimensions": {
+    "facts": [
+      "2024年底，Anthropic发布《Building Effective Agents》指南，在附录2中系统性提出ACI（Agent-Computer Interface，智能体-计算机接口）的设计概念。",
+      "核心理念为“工具即提示工程”，指出在SWE-bench等复杂任务中，工程师花在优化工具定义和接口上的时间远超优化Prompt本身，且收益巨大。",
+      "提出Poka-yoke（防错设计）原则在ACI中的应用：通过系统设计防止Agent犯错，例如强制要求使用绝对路径代替相对路径，或过滤掉对LLM无意义的冗余报错信息。"
+    ],
+    "opensource": [
+      {
+        "name": "SWE-agent",
+        "url": "https://github.com/princeton-nlp/SWE-agent",
+        "description": "普林斯顿大学开源的SWE-bench评测代理，其核心设计高度契合ACI理念，将复杂的Linux终端改造为对LLM极度友好的工具接口。"
+      },
+      {
+        "name": "anthropic-cookbook",
+        "url": "https://github.com/anthropics/anthropic-cookbook",
+        "description": "Anthropic官方代码库，包含大量关于Tool Use、ACI设计原则、Claude 3.5 Sonnet工具调用的最佳实践代码。"
+      },
+      {
+        "name": "ToolBench",
+        "url": "https://github.com/OpenBMB/ToolBench",
+        "description": "开源的大规模工具学习基准项目，涵盖16000+真实API，是研究ACI工具描述优化和LLM调用能力的经典底座。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic Tool Use 官方文档",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "Claude官方的工具调用商业API文档，包含复杂的JSON Schema定义规范和工具防错设计指南。"
+      },
+      {
+        "name": "Building Effective Agents 博文",
+        "url": "https://www.anthropic.com/research/building-effective-agents",
+        "description": "Anthropic官方发布的智能体构建指南，详细阐述了从工作流设计到ACI工具界面的进阶策略。"
+      },
+      {
+        "name": "OpenAI Function Calling",
+        "url": "https://platform.openai.com/docs/guides/function-calling",
+        "description": "行业标杆级的闭源函数调用方案，其Parallel Function Calling等特性与Anthropic的ACI设计形成商业竞争。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：Agent陷入死循环往往是因为后端API返回的错误信息过于“人类化”（如包含HTML堆栈），大模型无法解析；将错误信息转换为明确的结构化文本后问题迎刃而解。",
+      "社区高度认同“防错（Poka-yoke）”理念：与其写长篇大论的Prompt告诉大模型“不要怎样”，不如直接在代码的输入输出校验层面强制拦截非法操作，效果更好且节省Token。",
+      "在工具参数设计上，社区建议尽量使用枚举类型而非自由文本，并在工具的Description中加入具体的“什么时候该用”以及“什么时候不该用”的负面示例。"
+    ],
+    "practice": [
+      {
+        "title": "SWE-bench 官方排行榜",
+        "url": "https://www.swebench.com/",
+        "description": "软件工程任务基准测试平台，展示了Anthropic团队如何通过仅仅优化ACI（不改模型底层），使Claude解决真实GitHub Issue的成功率大幅提升。"
+      },
+      {
+        "title": "Tool Use Best Practices (Anthropic官方)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "官方最佳实践指南，详细说明了如何编写清晰的工具描述、如何处理边缘情况（Emojis/特殊字符）以及如何设计对LLM友好的报错返回。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+        "url": "https://arxiv.org/abs/2405.15793",
+        "description": "与ACI概念高度重合的前沿论文，系统探讨了如何将复杂的HCI（如GitHub网页界面）简化为对LLM极度友好的ACI（如精简的基于终端的搜索/编辑命令）。"
+      },
+      {
+        "title": "Tool Learning with Foundation Models",
+        "url": "https://arxiv.org/abs/2305.16554",
+        "description": "工具学习领域的奠基性综述，系统梳理了大模型使用工具的认知框架，指出未来的趋势是从“模型适应工具”转向“工具适应模型”。"
+      },
+      {
+        "title": "Gorilla: An API 生态中的大型语言模型",
+        "url": "https://arxiv.org/abs/2305.15334",
+        "description": "研究了LLM如何准确调用超过16000个API，是研究ACI中“工具描述与文档评估优化”方向的重要参考。"
+      }
+    ]
+  },
+  "summary": "本次调研围绕Anthropic提出的Agent-Computer Interface (ACI) 设计理念展开。调研发现，业界正经历从“优化提示词”到“优化工具接口”的范式转移。通过引入Poka-yoke防错机制（如强制绝对路径、精简报错信息）、优化API的JSON Schema描述，开发者能大幅降低Agent的幻觉和试错成本。前沿基准（如SWE-bench）及学术论文证明，构建对LLM友好的周边工具生态已成为提升Agent任务成功率最关键的抓手。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent",
+      "title": "SWE-agent",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "title": "anthropic-cookbook",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/OpenBMB/ToolBench",
+      "title": "ToolBench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "title": "Anthropic Tool Use 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "title": "Building Effective Agents 博文",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling",
+      "title": "OpenAI Function Calling",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.swebench.com/",
+      "title": "SWE-bench 官方排行榜",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.16554",
+      "title": "Tool Learning with Foundation Models",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.15334",
+      "title": "Gorilla: An API 生态中的大型语言模型",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent-Computer Interface 设计：工具即提示工程 Anthropic在\"Building Effective Agents\"附录2中提出：设计Agent-Computer Interface(ACI)应该和设计Human-Computer Interface(HCI)投入同样多的精力。本文详解ACI设计原则：Poka-yoke防错设计（如强制绝对路径避免相对路径错误）、工具描述优化技巧、工具评估方法论。以SWE-bench实际案例说明：Anthropic团队花在优化工具上的时间远超优化prompt。",
+  "researched_at": "2026-04-03T13:11:27.695309"
+}

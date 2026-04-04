@@ -1,0 +1,185 @@
+{
+  "dimensions": {
+    "facts": [
+      "Function Calling 最初由 OpenAI 于 2023 年 6 月在 GPT-4 和 GPT-3.5-turbo 中首次引入，使 LLM 能够生成结构化的 JSON 参数以触发外部 API。",
+      "2023 年底至 2024 年，OpenAI 逐步推出了并行工具调用 以及更精确的 tool_choice 控制参数 (auto, required, none, 特定函数名)。",
+      "Anthropic 的 Claude 模型采用了与 OpenAI 不同的 API 设计，强调通过 XML 标签或特定的 system prompt 格式来引导模型输出工具调用，且在复杂参数生成的稳定性上表现优异。",
+      "LLM 本身不执行任何代码，它仅负责“理解意图”并输出符合预定义 JSON Schema 的参数字符串，实际的 API 调用和代码执行由开发者本地的业务逻辑层完成。",
+      "结构化输出 (Structured Outputs) 成为 2024 年的技术拐点，OpenAI 宣布其新一代模型能够 100% 遵循复杂的 JSON Schema，极大降低了工具调用失败率。"
+    ],
+    "opensource": [
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "目前最流行的 LLM 应用开发框架，内置了高度抽象的 Tool/Function Calling 接口，支持统一封装 OpenAI、Anthropic 等不同厂商的工具调用。"
+      },
+      {
+        "name": "BerriAI/litellm",
+        "url": "https://github.com/BerriAI/litellm",
+        "description": "统一的大模型 API 代理层，将 OpenAI、Anthropic、Google 等不同厂家的 Function Calling API 转换为统一的 OpenAI 标准格式，极大简化了多模型路由和切换。"
+      },
+      {
+        "name": "Gorilla LLM",
+        "url": "https://github.com/ShishirPatil/gorilla",
+        "description": "UC Berkeley 开源的专门针对 API 调用微调的 LLM，拥有庞大的 API 数据集，在工具调用准确性上超过早期的 GPT-4。"
+      },
+      {
+        "name": "OpenBMB/ToolBench",
+        "url": "https://github.com/OpenBMB/ToolBench",
+        "description": "开源的大规模工具学习基准测试项目，包含 16000+ 真实 API，常用于评估和训练模型的并行调用与工具规划能力。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Function Calling 官方文档",
+        "url": "https://platform.openai.com/docs/guides/function-calling",
+        "description": "详细介绍 parallel tool calls、tool_choice 参数设置及 JSON Schema 定义最佳实践的官方权威指南。"
+      },
+      {
+        "name": "Anthropic Tool Use 官方文档",
+        "url": "https://docs.anthropic.com/claude/docs/tool-use",
+        "description": "Claude 模型的工具使用指南，解析其 tool_choice (auto, any, tool) 机制与 JSON 提取的底层逻辑差异。"
+      },
+      {
+        "name": "Google Gemini API: Function Calling",
+        "url": "https://ai.google.dev/docs/function_calling",
+        "description": "Gemini 模型连接外部函数的官方 API 文档，支持自动处理参数提取和并行请求。"
+      },
+      {
+        "name": "Microsoft Azure AI Agent Service",
+        "url": "https://azure.microsoft.com/en-us/products/ai-services/ai-agent-service",
+        "description": "微软推出的企业级 Agent 云服务，内置了高度可靠的 Function Calling 编排与错误自动重试机制。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：JSON Schema 的容错设计至关重要，LLM 经常在枚举值 和可选参数 上出现幻觉，必须设置严格的防御性校验代码。",
+      "关于 OpenAI vs Anthropic：社区认为 OpenAI 的 API 更新极快且支持原生并行调用，但 Anthropic 在长上下文下对复杂工具参数的理解和遵循能力更强。",
+      "针对 tool_choice 的探讨：开发者应谨慎使用 'required' 强制调用，除非非常明确用户的意图，否则容易导致模型为了满足调用而虚构参数。",
+      "错误处理痛点：当外部 API 报错时，如何优雅地将 HTTP 错误码和报错信息反馈给 LLM 让其进行自我纠正，是目前 Agent 构建中的核心难点之一。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI Cookbook: How to call functions with chat models",
+        "url": "https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models",
+        "description": "OpenAI 官方提供的函数调用实战 Cookbook，包含单步调用、多步调用、并行调用以及错误处理机制的完整 Python 代码示例。"
+      },
+      {
+        "title": "Anthropic Cookbook: Tool use & function calling",
+        "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/tool_use.ipynb",
+        "description": "Claude 官方提供的工具调用实战指南，展示了如何构建复杂的 JSON Schema 及实现多轮工具对话。"
+      },
+      {
+        "title": "Building Reliable Agents with Function Calling (Best Practices)",
+        "url": "https://www.deeplearning.ai/the-batch/how-to-build-reliable-agents/",
+        "description": "Andrew Ng 及业界专家总结的可靠 Agent 构建指南，强调在工具执行失败时引入反射机制 以提高成功率。"
+      },
+      {
+        "title": "JSON Schema 官方最佳实践文档",
+        "url": "https://json-schema.org/understanding-json-schema/reference/index.html",
+        "description": "撰写精准的 JSON Schema 是降低 Function Calling 失败率的前提，此文档帮助开发者掌握 type, items, properties 等高级定义技巧。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs",
+        "url": "https://arxiv.org/abs/2307.16789",
+        "description": "探索大模型如何学习掌握数以万计的真实 API，提出了 DFSDT (深度优先搜索决策树) 算法来提升多工具并行调用的推理能力。"
+      },
+      {
+        "title": "Gorilla: Large Language Model Connected with Massive APIs",
+        "url": "https://arxiv.org/abs/2305.15334",
+        "description": "研究如何通过微调使开源模型超越 GPT-4 在工具调用方面的能力，显著减少了 API 调用的幻觉问题。"
+      },
+      {
+        "title": "Toward Reliable Large Language Models: Automated Error Detection and Self-Correction in Tool Utilization",
+        "url": "https://arxiv.org/abs/2401.10577",
+        "description": "前沿研究聚焦于工具利用中的自动错误检测与自我纠正机制，探索如何在没有人工干预的情况下从 tool error 中恢复。"
+      },
+      {
+        "title": "Future Trend: Stateful Agents with Deterministic Workflows",
+        "url": "https://blog.langchain.dev/reflection-agents/",
+        "description": "Langchain 团队指出，2025 年后 Function Calling 的趋势将是结合状态机 与流式输出来构建具备极高可靠性的生产级 Agent。"
+      }
+    ]
+  },
+  "summary": "本次调研深入解析了 Function Calling 连接大模型与外部世界的核心机制，梳理了 OpenAI 与 Anthropic 在 JSON Schema 定义、并行调用 及 tool_choice 控制上的技术差异。通过结合开源框架、主流云服务、开发者实战反馈及最新学术前沿，揭示了构建生产级 Agent 的关键路径：即通过严谨的 JSON Schema 设计、结构化输出生成以及闭环的错误处理/自我纠正策略，解决 LLM 在意图路由与 API 调用中的幻觉与不稳定性痛点。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/BerriAI/litellm",
+      "title": "BerriAI/litellm",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ShishirPatil/gorilla",
+      "title": "Gorilla LLM",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/OpenBMB/ToolBench",
+      "title": "OpenBMB/ToolBench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling",
+      "title": "OpenAI Function Calling 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/tool-use",
+      "title": "Anthropic Tool Use 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://ai.google.dev/docs/function_calling",
+      "title": "Google Gemini API: Function Calling",
+      "type": "commercial"
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/ai-services/ai-agent-service",
+      "title": "Microsoft Azure AI Agent Service",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models",
+      "title": "OpenAI Cookbook: How to call functions with chat models",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/tool_use.ipynb",
+      "title": "Anthropic Cookbook: Tool use & function calling",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.deeplearning.ai/the-batch/how-to-build-reliable-agents/",
+      "title": "Building Reliable Agents with Function Calling (Best Practices)",
+      "type": "practice"
+    },
+    {
+      "url": "https://json-schema.org/understanding-json-schema/reference/index.html",
+      "title": "JSON Schema 官方最佳实践文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2307.16789",
+      "title": "ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2401.10577",
+      "title": "Toward Reliable Large Language Models: Automated Error Detection and Self-Correction in Tool Utilization",
+      "type": "frontier"
+    }
+  ],
+  "query": "Function Calling 深度解析：让 LLM 连接外部世界 Function Calling是Agent连接外部世界的桥梁。本文深入解析JSON Schema工具定义的最佳实践、并行工具调用(parallel tool calls)的实现、tool_choice(auto/required/none)的精确控制，以及工具调用失败时的错误处理策略。对比OpenAI和Anthropic在工具调用API上的差异，帮助开发者构建可靠的工具调用层。",
+  "researched_at": "2026-04-03T12:32:38.730149"
+}

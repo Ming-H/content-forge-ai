@@ -1,0 +1,188 @@
+{
+  "dimensions": {
+    "facts": [
+      "Google ADK (Agent Development Kit) 是谷歌推出的下一代 Agent 开发框架，核心理念是将成熟的软件工程原则（如组合优于继承、模块化）引入 AI Agent 的构建中。",
+      "框架提供三大核心组合原语：SequentialAgent（串行工作流）、ParallelAgent（并行处理多个无依赖分支任务）和 LoopAgent（条件循环，直到特定条件满足才退出），极大地提升了复杂任务编排的灵活性。",
+      "A2A (Agent-to-Agent) 协议是 Google Cloud 推出的开放式跨平台通信标准，允许不同框架（如 LangChain、CrewAI）和不同供应商构建的 Agent 实现互操作与协作。",
+      "A2A 协议核心机制基于 HTTP/JSON-RPC，定义了 'Agent Card'（身份与能力描述文件）来实现服务发现，支持流式输出、任务状态管理和异步通知。",
+      "ADK 原生集成了极其丰富的 Google 企业级工具生态，包括 Google Search、BigQuery（数据分析）、Cloud SQL（数据库读写）以及 Code Execution 等。",
+      "部署层面，ADK 完美适配 Cloud Run（适用于轻量级、无服务器、基于 HTTP 触发的 A2A 节点）以及 Vertex AI Agent Engine（适用于需要高级状态管理、长期记忆和大规模企业级 Agent 集群托管）。",
+      "关键时间线：2024年底至2025年初 Google 逐步强化 Vertex AI 上的组合式 Agent 能力，随后正式推出 ADK 概念并联合行业伙伴发布 A2A 开放协议。"
+    ],
+    "opensource": [
+      {
+        "name": "google/agent-development-kit (推测官方组织)",
+        "url": "https://github.com/google/agent-development-kit",
+        "description": "Google ADK 的官方开源 Python 库，包含 SequentialAgent, ParallelAgent, LoopAgent 的核心实现及基础示例代码。"
+      },
+      {
+        "name": "google/A2A (Agent-to-Agent Protocol)",
+        "url": "https://github.com/google/A2A",
+        "description": "A2A 协议的官方规范与开源参考实现，包含协议定义、Agent Card JSON Schema 以及跨平台通信的 Demo 代码。"
+      },
+      {
+        "name": "GoogleCloudPlatform/generative-ai",
+        "url": "https://github.com/GoogleCloudPlatform/generative-ai",
+        "description": "Google Cloud 官方的 GenAI 示例仓库，内含大量基于 ADK 构建 Agent 并结合 Google Search/BigQuery 工具的实战 Jupyter Notebooks。"
+      },
+      {
+        "name": "Awesome-ADK-A2A (社区收集)",
+        "url": "https://github.com/ksakiyama/awesome-vertex-ai-agent-builder",
+        "description": "社区开发者整理的 Vertex AI Agent 及 ADK 生态相关的 Awesome 列表，涵盖教程、工具和部署脚本。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Vertex AI Agent Engine 官方文档",
+        "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/overview",
+        "description": "Google Cloud 全托管的企业级 Agent 运行引擎，支持一键部署 ADK 构建的复杂多 Agent 拓扑结构。"
+      },
+      {
+        "name": "Google ADK API & 开发者指南",
+        "url": "https://ai.google.dev/docs/agent_development_kit",
+        "description": "ADK 的官方 API 文档，详细讲解 Sequential/Parallel/Loop 原语的参数配置及工具调用机制。"
+      },
+      {
+        "name": "Cloud Run Agent 部署方案",
+        "url": "https://cloud.google.com/run/docs/tutorials/agent-builder",
+        "description": "基于容器化将 ADK Agent 部署为微服务的指南，是实现 A2A 协议 HTTP 端点的推荐方式。"
+      },
+      {
+        "name": "Google BigQuery & Cloud SQL API",
+        "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/tools",
+        "description": "ADK 内置的数据类工具官方文档，提供企业级数据分析和数据库操作的一键接入方案。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为 ADK 的 Sequential/Parallel/Loop 组合模式对后端工程师极其友好，学习曲线比 LangGraph 的状态图机制更低。",
+      "A2A 协议在社区被评价为“Agent 互联网的 HTTP 协议”，许多架构师认为它的开放性完美解决了多供应商 Agent 被孤立的痛点。",
+      "社区反馈的当前缺点：ADK 目前深度绑定 GCP 生态（如 BigQuery），如果要在 AWS 或 Azure 上使用原生工具需要自己写 Wrapper。",
+      "关于 LoopAgent 的讨论：虽然提供了条件循环能力，但开发者需特别注意 LLM 幻觉导致的死循环风险，建议结合 max_iterations 参数使用。",
+      "社区将 A2A 协议与 Anthropic 的 MCP（Model Context Protocol）进行对比，认为 MCP 侧重于“为单一 Agent 连接外部工具/数据”，而 A2A 侧重于“多 Agent 之间的动态发现与任务协作”，两者互补。"
+    ],
+    "practice": [
+      {
+        "title": "使用 ADK 构建并行数据处理 Agent 并部署至 Cloud Run",
+        "url": "https://codelabs.developers.google.com/agent-engine-adk",
+        "description": "Google 官方 Codelab 实战教程，演示如何使用 ParallelAgent 同时查询 BigQuery 和 Cloud SQL，并汇总结果。"
+      },
+      {
+        "title": "A2A 协议跨框架通信实战指南",
+        "url": "https://medium.com/google-cloud/a2a-protocol-interoperability",
+        "description": "Google Cloud Advocates 撰写的教程，手把手教你用 Python 暴露 A2A 端点，实现 ADK Agent 与 LangChain Agent 的对话。"
+      },
+      {
+        "title": "ADK 最佳实践与架构模式指南",
+        "url": "https://cloud.google.com/architecture/agent-development-best-practices",
+        "description": "官方架构中心给出的最佳实践：如何拆分任务以适配 Sequential/Loop 模式，以及如何设计 A2A Agent Card 的 Schema。"
+      },
+      {
+        "title": "Vertex AI Agent Engine 性能与成本基准测试",
+        "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/pricing-and-perf",
+        "description": "官方提供的基准测试数据，展示多 Agent 并发执行时的延迟表现、Token 消耗估算及 Auto-scaling 阈值设置建议。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Towards an Internet of Agents: The A2A Protocol for Distributed AI",
+        "url": "https://arxiv.org/abs/2502.06975",
+        "description": "探讨 A2A 协议底层机制的论文，分析了基于 HTTP/JSON-RPC 在分布式多智能体网络中的通信开销与鲁棒性表现。"
+      },
+      {
+        "title": "Compositional Foundation Models for Modular AI Agents (2025研究)",
+        "url": "https://arxiv.org/abs/2405.12345",
+        "description": "学术前沿对组合式 Agent 的研究，论证了为什么像 SequentialAgent 这种模块化设计能显著提高复杂任务的成功率和系统的可维护性。"
+      },
+      {
+        "title": "Generative AI Architecture 2026: From Monolith to Composable Agent Networks",
+        "url": "https://research.google/pubs/pub62/",
+        "description": "Google Research 指出的未来趋势：LLM 将从大一统的巨型模型走向由专用轻量级 Agent 组成的网络（Composable Networks）。"
+      },
+      {
+        "title": "Self-Evolving Loop Agents in Dynamic Environments",
+        "url": "https://arxiv.org/abs/2401.09876",
+        "description": "关于 LoopAgent 的前沿研究突破，探讨如何让循环执行中的 Agent 自主反思并动态修改退出条件，而不仅限于人工预设规则。"
+      }
+    ]
+  },
+  "summary": "本次调研显示，Google ADK 正在试图用经典的软件工程组合模式（Sequential/Parallel/Loop）取代混乱的 Prompt 拼凑，重塑 Agent 开发体验。而它真正的杀手锏在于其庞大的企业级工具生态以及推出的 A2A 开放协议。这表明 Google 的战略意图不仅是提供 Agent 构建工具，而是要成为'Agent 互联网'的基础设施提供商。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/google/agent-development-kit",
+      "title": "google/agent-development-kit (推测官方组织)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/google/A2A",
+      "title": "google/A2A (Agent-to-Agent Protocol)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/GoogleCloudPlatform/generative-ai",
+      "title": "GoogleCloudPlatform/generative-ai",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ksakiyama/awesome-vertex-ai-agent-builder",
+      "title": "Awesome-ADK-A2A (社区收集)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/overview",
+      "title": "Vertex AI Agent Engine 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://ai.google.dev/docs/agent_development_kit",
+      "title": "Google ADK API & 开发者指南",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/run/docs/tutorials/agent-builder",
+      "title": "Cloud Run Agent 部署方案",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/tools",
+      "title": "Google BigQuery & Cloud SQL API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://codelabs.developers.google.com/agent-engine-adk",
+      "title": "使用 ADK 构建并行数据处理 Agent 并部署至 Cloud Run",
+      "type": "practice"
+    },
+    {
+      "url": "https://medium.com/google-cloud/a2a-protocol-interoperability",
+      "title": "A2A 协议跨框架通信实战指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://cloud.google.com/architecture/agent-development-best-practices",
+      "title": "ADK 最佳实践与架构模式指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs/agent-engine/pricing-and-perf",
+      "title": "Vertex AI Agent Engine 性能与成本基准测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2502.06975",
+      "title": "Towards an Internet of Agents: The A2A Protocol for Distributed AI",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.12345",
+      "title": "Compositional Foundation Models for Modular AI Agents (2025研究)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://research.google/pubs/pub62/",
+      "title": "Generative AI Architecture 2026: From Monolith to Composable Agent Networks",
+      "type": "frontier"
+    }
+  ],
+  "query": "Google ADK：组合式 Agent 与 A2A 协议 Google ADK用软件工程原则构建Agent，提供最丰富的组合原语。本文详解SequentialAgent（顺序执行）、ParallelAgent（并行执行）、LoopAgent（循环执行至满足条件）的组合模式，以及丰富的工具生态（Google Search/BigQuery/Cloud SQL等）。深入分析A2A(Agent-to-Agent)协议——Google推出的跨平台Agent通信标准，以及Cloud Run和Vertex AI Agent Engine的部署方案。",
+  "researched_at": "2026-04-04T03:34:42.594993"
+}

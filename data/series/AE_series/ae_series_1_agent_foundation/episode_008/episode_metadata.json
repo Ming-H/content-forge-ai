@@ -1,0 +1,19 @@
+{
+  "id": "ae_topic_008",
+  "series_id": "ae_series_1",
+  "episode": 8,
+  "title": "Parallelization 与 Orchestrator-Workers：并行与动态分工",
+  "description": "当任务可以分解时，并行化能显著提升效率。本文详解Anthropic定义的两种并行模式：Sectioning（分段并行处理不同子任务）和Voting（多次执行投票取最优）。进一步解析Orchestrator-Workers模式——中央LLM动态分解任务、分派给Worker LLM、综合结果。对比两者的适用场景：固定子任务用Parallelization，不可预测子任务用Orchestrator-Workers。",
+  "keywords": [
+    "Parallelization",
+    "Orchestrator-Workers",
+    "Sectioning",
+    "Voting",
+    "动态子任务",
+    "Anthropic"
+  ],
+  "difficulty": "进阶",
+  "estimated_words": 10000,
+  "status": "pending",
+  "completed_at": null
+}

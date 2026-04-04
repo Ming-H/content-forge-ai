@@ -1,0 +1,161 @@
+{
+  "dimensions": {
+    "facts": [
+      "LLM-as-a-Judge 是一种利用强大的大语言模型（如 GPT-4、Claude 3.5）来评估其他 LLM 或 Agent 输出质量的自动化评测范式。",
+      "2023 年 LMSYS 发表的论文《Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena》正式确立了这一范式，证明了强大的 LLM 可以达到与人类评判 80% 以上的高度一致性。",
+      "评估提示的核心要素包括：明确的任务背景、细化的评分量规、参考答案以及强制性的结构化输出（如 JSON 格式）。",
+      "LLM 评估存在固有的位置偏差（偏向排在前面的答案）、冗余偏差（偏向字数更多的回答）、自我偏好（偏向自己生成的风格）以及 verbosity bias（偏向冗长但缺乏实质内容的回答）。",
+      "针对 Agent 产出的评估比单纯文本生成更复杂，需要不仅评估最终结果，还要评测工具使用正确性、多步推理的逻辑连贯性。",
+      "一致性校验机制通常通过多次采样和多数投票或要求模型输出置信度分数来降低评估的随机性，提高系统的信效度。"
+    ],
+    "opensource": [
+      {
+        "name": "FastChat (MT-Bench)",
+        "url": "https://github.com/lm-sys/FastChat",
+        "description": "LMSYS 开源的项目，包含了经典的 MT-Bench 评测集以及利用 LLM-as-a-Judge 进行成对比较和单点打分的完整实现代码。"
+      },
+      {
+        "name": "Ragas",
+        "url": "https://github.com/explodinggradients/ragas",
+        "description": "专门针对 RAG 和 Agent 进行评估的框架，深度集成了 LLM-as-a-Judge 机制，支持多维打分（忠实度、答案相关性、上下文利用率等）。"
+      },
+      {
+        "name": "Promptfoo",
+        "url": "https://github.com/promptfoo/promptfoo",
+        "description": "强大的 LLM 输出测试工具，支持配置多种 LLM-as-Judge 的断言模式，可快速实现多维打分和一致性回归测试。"
+      },
+      {
+        "name": "Prometheus (开源评判模型)",
+        "url": "https://github.com/kaistAI/Prometheus",
+        "description": "专门为评估任务微调的开源大模型，具备强大的多维度打分能力，可替代昂贵的商业模型作为本地评判引擎。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Evals",
+        "url": "https://platform.openai.com/docs/guides/evals",
+        "description": "OpenAI 官方推出的评测产品，支持用户自定义评分标准，并可直接调用 GPT-4 等模型进行自动化输出质量评估。"
+      },
+      {
+        "name": "LangSmith",
+        "url": "https://docs.smith.langchain.com/",
+        "description": "LangChain 推出的云服务平台，提供无代码配置的 LLM-as-Judge 评估器，支持对 Agent 轨迹进行自动打分和在线调试。"
+      },
+      {
+        "name": "Anthropic - Tool Use Evaluation",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "Claude 官方文档中关于 Agent 和工具调用的评测指南，提供了针对工具调用准确性的评估策略和最佳实践。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈，虽然 GPT-4 是目前最权威的裁判，但在涉及代码执行或多步工具调用时，纯文本维度的 LLM 判断往往力不从心。",
+      "社区强烈建议在使用 LLM-as-Judge 时，必须将多维度打分拆分（例如：不要在一个 Prompt 里同时评估准确性和排版），最好让模型每次只关注一个维度。",
+      "Prompt 脆弱性备受诟病：仅仅将评分标准从 1-10 分改为 1-100 分，或者改变评分标准的顺序，可能会导致评测结果发生显著变化。",
+      "对于简单的分类或判别任务，利用开源小模型（如 Llama-3-8B）配合严格的输出格式约束（甚至 JSON Schema）进行本地评估，被认为是低成本替代 GPT-4 的有效方案。"
+    ],
+    "practice": [
+      {
+        "title": "DeepLearning.AI - Building Evaluators for LLM Applications",
+        "url": "https://www.deeplearning.ai/short-courses/building-evaluators-llm-applications/",
+        "description": "免费短课程，由 Hugging Face 专家主讲，手把手教你如何编写高质量的评估提示模板并部署评估系统。"
+      },
+      {
+        "title": "How to evaluate RAG applications",
+        "url": "https://docs.smith.langchain.com/how_to_guides/evaluation/evaluate_llm_application",
+        "description": "Ragas 和 LangSmith 联合出品的实战指南，详细介绍了多维度打分的提示词工程，包含真实可用的打分模板代码。"
+      },
+      {
+        "title": "Best Practices for LLM-as-a-Judge",
+        "url": "https://www.anthropic.com/research/building-effective-agents",
+        "description": "Anthropic 官方博客关于构建 Agent 的文章，深入探讨了如何通过“黄金数据集”校准 LLM 裁判的偏见。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+        "url": "https://arxiv.org/abs/2306.05685",
+        "description": "奠定 LLM-as-a-Judge 基础的经典论文，系统分析了位置偏差、冗余偏差等局限性问题。"
+      },
+      {
+        "title": "AgentBench: Evaluating LLMs as Agents",
+        "url": "https://arxiv.org/abs/2308.03688",
+        "description": "针对大模型 Agent 能力评测的前沿研究，提出了多维度评估复杂任务中 Agent 操作系统、数据库等工具的综合表现。"
+      },
+      {
+        "title": "Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models",
+        "url": "https://arxiv.org/abs/2405.01535",
+        "description": "2024年最新研究，开源了直接与 GPT-4 评判能力对齐的模型，解决了闭源模型作为评判的黑盒和不稳定问题。"
+      }
+    ]
+  },
+  "summary": "LLM-as-Judge 已成为 2024-2025 年评估 Agent 和复杂 LLM 应用的绝对主流范式。它通过精心设计的评估提示（多维度量规+输出格式约束）和一致性校验机制，有效解决了传统人工评测成本高、不可扩展的问题。然而，开发者必须警惕并缓解其固有的位置偏差、字数偏好和自我偏好等局限性。当前社区的趋势是从单一的闭源 API 评分，转向利用开源专属评判模型（如 Prometheus）、结合 Agent 轨迹验证以及自动化测试框架（如 Ragas, Promptfoo）构建的多维评估体系，从而实现低成本、高可靠的自动化评测闭环。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/lm-sys/FastChat",
+      "title": "FastChat (MT-Bench)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/explodinggradients/ragas",
+      "title": "Ragas",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/promptfoo/promptfoo",
+      "title": "Promptfoo",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/kaistAI/Prometheus",
+      "title": "Prometheus (开源评判模型)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/evals",
+      "title": "OpenAI Evals",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/",
+      "title": "LangSmith",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "title": "Anthropic - Tool Use Evaluation",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/building-evaluators-llm-applications/",
+      "title": "DeepLearning.AI - Building Evaluators for LLM Applications",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.smith.langchain.com/how_to_guides/evaluation/evaluate_llm_application",
+      "title": "How to evaluate RAG applications",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "title": "Best Practices for LLM-as-a-Judge",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.01535",
+      "title": "Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models",
+      "type": "frontier"
+    }
+  ],
+  "query": "LLM-as-Judge：用大模型评测 Agent 产出 用LLM评估LLM的输出质量已成为主流评测方法。本文详解LLM-as-Judge的实践：评估提示设计（明确的评分标准+参考答案+输出格式），一致性校验（多次评估取多数投票），多维度打分（准确性/完整性/可读性/安全性），以及局限性分析（位置偏差、冗余偏差、自我偏好）。提供可直接使用的评估提示模板。",
+  "researched_at": "2026-04-04T06:32:10.874893"
+}

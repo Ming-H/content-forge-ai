@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "MCP (Model Context Protocol) 是由 Anthropic 于 2024 年 11 月正式发布并开源的开放协议，旨在标准化大语言模型 (LLM) 与外部数据源和工具之间的通信方式。",
+      "MCP 采用经典的客户端-服务器架构，核心原语分为三大类：Tools（模型可调用的函数/工具）、Resources（可供模型读取的上下文数据/文件）、Prompts（用户定义的可复用提示词模板）。",
+      "通信机制主要分为两种：Stdio（标准输入输出，适用于本地同机进程通信，安全性高）和 HTTP + SSE（服务器发送事件，适用于远程分布式部署和网络访问）。",
+      "开发 MCP Server 可使用官方提供的 Python SDK 或 TypeScript SDK，原生支持通过 JSON Schema 对 Tools 的输入输出进行严格的类型校验。"
+    ],
+    "opensource": [
+      {
+        "name": "MCP Python SDK (官方)",
+        "url": "https://github.com/modelcontextprotocol/python-sdk",
+        "description": "Anthropic 官方维护的 MCP Python 开发工具包，包含底层通信协议、装饰器注册和类型校验支持。"
+      },
+      {
+        "name": "FastMCP",
+        "url": "https://github.com/jlowin/fastmcp",
+        "description": "由社区大佬 jlowin 开发的高级封装库，提供极度简化的 API，以极低的代码量快速构建带有异步支持、类型安全和自动文档生成的 MCP Server。"
+      },
+      {
+        "name": "Awesome MCP Servers",
+        "url": "https://github.com/punkpeye/awesome-mcp-servers",
+        "description": "GitHub 上收集各种开源、优质 MCP Server 实现的 Awesome 列表，涵盖数据库、文件系统、API 集成等多种场景。"
+      },
+      {
+        "name": "MCP Official Servers",
+        "url": "https://github.com/modelcontextprotocol/servers",
+        "description": "Anthropic 官方提供的一系列参考实现 MCP Server（如文件系统、GitHub、Postgres、Slack 等），是学习规范的最佳参考代码。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "MCP 官方规范与文档",
+        "url": "https://modelcontextprotocol.io/",
+        "description": "MCP 协议的官方网站，包含完整的协议规范、架构设计理念以及核心概念的详细说明。"
+      },
+      {
+        "name": "Anthropic MCP 文档",
+        "url": "https://docs.anthropic.com/en/docs/agents-and-tools/mcp",
+        "description": "Claude 官方文档中关于如何集成和使用 MCP 的指南，包含如何在 Claude Desktop 中配置。"
+      },
+      {
+        "name": "Cloudflare MCP 文档 (远程部署方案)",
+        "url": "https://developers.cloudflare.com/agents/guides/remote-mcp-server/",
+        "description": "Cloudflare 提供了使用 Workers 平台一键部署远程 HTTP/SSE 模式 MCP Server 的商业级云服务解决方案。"
+      }
+    ],
+    "community": [
+      "社区普遍评价 MCP 为 'AI 领域的 USB-C 接口'，它彻底终结了为不同 LLM 单独开发插件/工具的碎片化痛点。",
+      "开发者反馈：官方 Python SDK 写法相对繁琐，FastMCP 成为了实战中的事实标准，极大降低了心智负担，几行代码就能写出一个带类型提示的 Server。",
+      "痛点反馈：目前在 Claude Desktop 中集成本地 MCP Server 只支持 Stdio 模式，配置需要修改 claude_desktop_config.json，路径写错或权限问题极易导致静默失败，调试依赖开发者工具查看日志。",
+      "关于安全性：社区指出 HTTP 模式的 MCP Server 目前缺乏标准的 OAuth2 等鉴权机制，暴露在公网存在风险，这正在成为协议演进的下一个重点。"
+    ],
+    "practice": [
+      {
+        "title": "MCP 快速开始：构建你的第一个 Server",
+        "url": "https://modelcontextprotocol.io/quickstart/server",
+        "description": "官方手把手教程，指导如何使用 Python SDK 或 TS SDK 从零构建一个天气查询 MCP Server，并包含错误处理。"
+      },
+      {
+        "title": "FastMCP 官方实战示例与指南",
+        "url": "https://github.com/jlowin/fastmcp#examples",
+        "description": "FastMCP 的 README 文档，展示了如何通过 Python 类型提示自动生成 JSON Schema，以及如何混合注册 Tool、Resource 和 Prompt。"
+      },
+      {
+        "title": " debugging-mcp-servers (调试指南)",
+        "url": "https://modelcontextprotocol.io/docs/tools/debugging",
+        "description": "官方提供的 MCP Server 调试最佳实践，包括如何使用 Inspector 工具和查看 Claude Desktop 的日志输出。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "MCP 规范演进：Auth 认证机制升级",
+        "url": "https://modelcontextprotocol.io/specification/2025-03-26",
+        "description": "2025年最新规范草案中，重点提出了基于 OAuth 2.1 的标准认证流程，为 HTTP 模式下远程多租户 MCP Server 的商业化铺平道路。"
+      },
+      {
+        "title": "MCP 与 AI Agent 架构的深度融合 (Compositional MCP)",
+        "url": "https://arxiv.org/abs/2405.19318",
+        "description": "学术与工业界正在探索 MCP Server 作为 AI Agent 的原子执行单元，实现 'MCP Server 调度 MCP Server' 的组合式智能体网络。"
+      }
+    ]
+  },
+  "summary": "MCP（模型上下文协议）正在重塑 AI Agent 连接外部工具和数据的方式，成为大模型生态的底层基础设施。本次调研发现，借助官方 Python SDK 和高度封装的 FastMCP 库，开发者可以极低成本实现带有严格 JSON Schema 类型校验的工具、资源和提示词注册。在实战部署中，Stdio 模式适合本地 Claude Desktop 的无缝集成，而基于 HTTP/SSE 的云服务部署（如 Cloudflare Workers）正成为远程服务的主流。尽管目前在调试体验和 HTTP 鉴权机制上仍有完善空间，但随着 2025 年最新规范中 OAuth 标准的引入，MCP 必将成为构建开放、安全、可复用 AI 工具生态的关键纽带。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "title": "MCP Python SDK (官方)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/jlowin/fastmcp",
+      "title": "FastMCP",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/punkpeye/awesome-mcp-servers",
+      "title": "Awesome MCP Servers",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "title": "MCP Official Servers",
+      "type": "opensource"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/",
+      "title": "MCP 官方规范与文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/agents-and-tools/mcp",
+      "title": "Anthropic MCP 文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://developers.cloudflare.com/agents/guides/remote-mcp-server/",
+      "title": "Cloudflare MCP 文档 (远程部署方案)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/quickstart/server",
+      "title": "MCP 快速开始：构建你的第一个 Server",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/jlowin/fastmcp#examples",
+      "title": "FastMCP 官方实战示例与指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/docs/tools/debugging",
+      "title": " debugging-mcp-servers (调试指南)",
+      "type": "practice"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/specification/2025-03-26",
+      "title": "MCP 规范演进：Auth 认证机制升级",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.19318",
+      "title": "MCP 与 AI Agent 架构的深度融合 (Compositional MCP)",
+      "type": "frontier"
+    }
+  ],
+  "query": "MCP Server 开发实战：构建自己的工具服务 动手构建MCP Server。本文使用FastMCP和官方Python SDK，从零开发一个完整的MCP工具服务：注册Tools（带JSON Schema类型安全）、暴露Resources（提供上下文数据）、定义Prompts（可复用模板）。详解错误处理、部署选项（Stdio模式本地使用/HTTP模式远程访问），以及如何在Claude Desktop或Claude Code中集成自建MCP Server。",
+  "researched_at": "2026-04-03T21:34:22.866523"
+}

@@ -1,0 +1,161 @@
+{
+  "dimensions": {
+    "facts": [
+      "随着LLM向Agent（智能体）演进，模型从孤立的文本生成转向使用外部工具（API、搜索、代码执行），导致攻击面呈指数级扩大。",
+      "直接注入：攻击者在用户输入中直接嵌入恶意指令，试图覆盖系统提示词。",
+      "间接注入：攻击者将恶意指令隐藏在Agent检索的外部数据源（如网页、邮件、文档）中，实现跨会话的盲打攻击。",
+      "工具污染：一种特殊的间接注入，Agent调用的第三方工具（如恶意插件、被篡改的API）返回包含诱导性指令的数据，窃取用户隐私或执行未授权操作。",
+      "OWASP LLM Top 10（2025版草案）中，提示注入、敏感信息泄露和供应链漏洞（涉及工具/插件）高居榜首，全面覆盖了Agent场景下的核心安全威胁。",
+      "防御策略核心正从单纯的“指令屏蔽”转向“架构级隔离”，如指令层级分离、权限最小化和监控代理。"
+    ],
+    "opensource": [
+      {
+        "name": "Garak (LLM Vulnerability Scanner)",
+        "url": "https://github.com/leondz/garak",
+        "description": "业界最权威的LLM安全漏洞扫描框架，支持对Prompt Injection、数据泄露等多种攻击手法进行自动化探测。"
+      },
+      {
+        "name": "Rebuff",
+        "url": "https://github.com/protectai/rebuff",
+        "description": "ProtectAI开源的针对Prompt Injection的防御工具，结合启发式规则、向量相似度检测和LLM二次验证来抵御攻击。"
+      },
+      {
+        "name": "Awesome-LLM-Safety",
+        "url": "https://github.com/ydyjya/Awesome-LLM-Safety",
+        "description": " GitHub上持续更新的LLM安全Awesome列表，全面收录了Prompt Injection相关的研究论文、开源工具和攻击框架。"
+      },
+      {
+        "name": "TensorTrust (AI Red Teaming)",
+        "url": "https://github.com/HumanCompatibleAI/tensor-trust",
+        "description": "基于大规模众包游戏收集的Prompt Injection攻击与防御数据集，用于评估和提升LLM的指令遵循抗性。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OWASP LLM Top 10 Official Documentation",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+        "description": "OWASP官方发布的LLM应用安全风险清单，包含详细的Agent场景风险解读及防御建议。"
+      },
+      {
+        "name": "Anthropic: Prompt Engineering - Defending against prompt injections",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/defending-against-prompt-injection",
+        "description": "Anthropic官方给出的防御指南，详细介绍了指令层级分离（使用XML标签隔离系统指令与不可信外部数据）的最佳实践。"
+      },
+      {
+        "name": "OpenAI Safety Best Practices",
+        "url": "https://platform.openai.com/docs/guides/safety-best-practices",
+        "description": "OpenAI官方安全指南，涵盖如何验证工具调用返回值、限制模型权限及控制外部内容解析。"
+      },
+      {
+        "name": "Lakera Guard",
+        "url": "https://lakera.ai/",
+        "description": "专注于生成式AI安全的商业SaaS产品，提供实时的Prompt Injection、数据泄露检测和企业级Agent安全防护。"
+      }
+    ],
+    "community": [
+      "安全社区普遍认为“在Agent场景下，Prompt Injection是一个无解的Bug而非Feature”，LLM无法从根本上区分“数据”和“指令”。",
+      "开发者反馈：输入验证等规则防御很容易被通过“越狱角色扮演”或“混淆加密”绕过，需要在应用层进行多层防御。",
+      "对齐税问题：严苛的安全防御往往会降低Agent的正常工作能力和灵活性，如何平衡“安全性”与“可用性”是社区讨论的热点。",
+      "针对工具污染，开发者强烈建议实施“权限最小化”原则，绝不给Agent提供超出其任务需求的API权限（如禁止删除、高权限读写）。"
+    ],
+    "practice": [
+      {
+        "title": "Prompt Injection Defense Strategies (PromptEngineering Guide)",
+        "url": "https://www.promptingguide.ai/risks/prompt-injection-defense",
+        "description": "DAIR.AI开源的权威提示工程指南，总结了包括输入过滤、指令层级分离在内的多种实战防御策略。"
+      },
+      {
+        "title": "红蓝对抗：如何使用Garak扫描你的AI Agent",
+        "url": "https://security.googleblog.com/2024/06/announcing-garak-llm-vulnerability.html",
+        "description": "Google安全团队关于如何部署和使用Garak对LLM Agent进行Prompt Injection和工具污染渗透测试的实践指南。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Instruction Injection",
+        "url": "https://arxiv.org/abs/2302.12173",
+        "description": "关于间接提示注入的开山之作，首次系统性分析了LLM应用集成外部工具后面临的数据泄露风险。"
+      },
+      {
+        "title": "ToolSword: Unveiling the Safety and Security of LLMs in Tool-Integrated Frameworks",
+        "url": "https://arxiv.org/abs/2402.10753",
+        "description": "前沿研究，针对Agent生态提出了全面的安全基准，详细解读了工具污染和恶意API调用的动态攻击过程。"
+      },
+      {
+        "title": "2025-2026 研究趋势：多Agent安防监控",
+        "url": "https://arxiv.org/abs/2404.08824",
+        "description": "未来趋势是使用“监控Agent”或“Critic Agent”动态审查主Agent的行为和工具返回结果，实现基于状态机的Agent安全边界控制。"
+      }
+    ]
+  },
+  "summary": "本次调研全面剖析了Prompt Injection在AI Agent时代面临的新型威胁与防御策略。随着Agent深度集成外部工具，直接注入、间接注入及工具污染成为OWASP LLM Top 10中最致命的安全隐患。调研显示，传统的指令屏蔽已无法满足需求，前沿防御正转向基于架构的“指令层级分离”、多Agent监控机制以及商业SaaS防护。安全社区目前公认的核心实践是遵循权限最小化原则，并引入动态红蓝对抗测试工具（如Garak），以在复杂工具调用中寻求安全性与可用性的极致平衡。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/leondz/garak",
+      "title": "Garak (LLM Vulnerability Scanner)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/protectai/rebuff",
+      "title": "Rebuff",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ydyjya/Awesome-LLM-Safety",
+      "title": "Awesome-LLM-Safety",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/HumanCompatibleAI/tensor-trust",
+      "title": "TensorTrust (AI Red Teaming)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "title": "OWASP LLM Top 10 Official Documentation",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/defending-against-prompt-injection",
+      "title": "Anthropic: Prompt Engineering - Defending against prompt injections",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/safety-best-practices",
+      "title": "OpenAI Safety Best Practices",
+      "type": "commercial"
+    },
+    {
+      "url": "https://lakera.ai/",
+      "title": "Lakera Guard",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.promptingguide.ai/risks/prompt-injection-defense",
+      "title": "Prompt Injection Defense Strategies (PromptEngineering Guide)",
+      "type": "practice"
+    },
+    {
+      "url": "https://security.googleblog.com/2024/06/announcing-garak-llm-vulnerability.html",
+      "title": "红蓝对抗：如何使用Garak扫描你的AI Agent",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.12173",
+      "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Instruction Injection",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.10753",
+      "title": "ToolSword: Unveiling the Safety and Security of LLMs in Tool-Integrated Frameworks",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.08824",
+      "title": "2025-2026 研究趋势：多Agent安防监控",
+      "type": "frontier"
+    }
+  ],
+  "query": "Prompt Injection 防御：对抗攻击与安全边界 Agent使用工具后攻击面急剧扩大。本文详解直接注入（用户输入中的恶意指令）和间接注入（被Agent检索到的恶意内容），工具污染(tool poisoning)——当Agent使用的第三方工具返回恶意数据时的风险。全面解读OWASP LLM Top 10(2025版)的全部10个风险项及其Agent场景下的具体表现。分析输入验证、指令层级分离等防御策略。",
+  "researched_at": "2026-04-04T07:32:07.812852"
+}

@@ -1,0 +1,222 @@
+{
+  "series_info": {
+    "id": "ae_series_2_agent_architecture",
+    "name": "Agent 架构与工具链",
+    "description": "从单工具到MCP生态，从无状态到持久化Agent的架构进阶",
+    "topic_count": 10,
+    "difficulty": "进阶",
+    "priority": 2,
+    "status": "in_progress"
+  },
+  "topics": [
+    {
+      "id": "ae_topic_011",
+      "series_id": "ae_series_2",
+      "episode": 11,
+      "title": "Plan-and-Execute 架构：规划与执行的分离设计",
+      "description": "Plan-and-Execute将Agent分为规划器和执行器两个独立组件，是处理复杂多步任务的有效架构。本文解读Plan-and-Solve Prompting论文，详解分层规划(hierarchical planning)策略，分析动态重规划(re-planning)机制如何应对执行中的意外情况。结合LangGraph的PlanAndExecute实现，展示这一架构的代码实践。",
+      "keywords": [
+        "Plan-and-Execute",
+        "任务分解",
+        "hierarchical planning",
+        "重规划",
+        "Plan-and-Solve",
+        "LangGraph"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_012",
+      "series_id": "ae_series_2",
+      "episode": 12,
+      "title": "Agent 记忆系统（上）：短期记忆与上下文管理",
+      "description": "记忆是Agent区分于无状态API调用的关键。本文聚焦短期记忆管理：详解上下文窗口策略（滑动窗口、优先级保留）、自动压缩(summarization)技术，以及Stanford Generative Agents论文(Park et al., UIST 2023)中的Memory Stream架构——时间戳+重要性+相关性三维度检索。分析LangGraph Checkpoint如何实现短期记忆持久化。",
+      "keywords": [
+        "记忆系统",
+        "短期记忆",
+        "上下文窗口",
+        "滑动窗口",
+        "Memory Stream",
+        "Generative Agents",
+        "压缩"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_013",
+      "series_id": "ae_series_2",
+      "episode": 13,
+      "title": "Agent 记忆系统（下）：长期记忆与向量检索",
+      "description": "长期记忆让Agent跨会话保留知识。本文详解向量数据库选型（ChromaDB轻量本地、Pinecone全托管、Qdrant高性能、Milvus大规模），嵌入模型选择（OpenAI text-embedding-3、BGE、Cohere），以及Agentic RAG与传统RAG的关键区别——Agent自主决定何时检索、检索什么、如何整合。介绍Mem0、Zep等Agent记忆工具。",
+      "keywords": [
+        "长期记忆",
+        "向量数据库",
+        "ChromaDB",
+        "Pinecone",
+        "Qdrant",
+        "RAG for Agents",
+        "嵌入模型",
+        "Mem0"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_014",
+      "series_id": "ae_series_2",
+      "episode": 14,
+      "title": "MCP 协议深度解析：AI 工具的 USB-C 标准",
+      "description": "MCP（Model Context Protocol）是Anthropic推出的开放标准，被称为\"AI工具的USB-C\"。本文深度解析MCP架构：Host-Client-Server三层模型、三大服务端原语（Tools可执行函数/Resources数据源/Prompts模板）、两大客户端原语（Sampling请求LLM完成/Elicitation请求用户输入），以及传输层（Stdio本地通信/Streamable HTTP远程通信）和JSON-RPC 2.0生命周期管理。",
+      "keywords": [
+        "MCP",
+        "Model Context Protocol",
+        "Host Client Server",
+        "Tools Resources Prompts",
+        "Stdio HTTP",
+        "JSON-RPC",
+        "Anthropic"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_015",
+      "series_id": "ae_series_2",
+      "episode": 15,
+      "title": "MCP Server 开发实战：构建自己的工具服务",
+      "description": "动手构建MCP Server。本文使用FastMCP和官方Python SDK，从零开发一个完整的MCP工具服务：注册Tools（带JSON Schema类型安全）、暴露Resources（提供上下文数据）、定义Prompts（可复用模板）。详解错误处理、部署选项（Stdio模式本地使用/HTTP模式远程访问），以及如何在Claude Desktop或Claude Code中集成自建MCP Server。",
+      "keywords": [
+        "MCP Server",
+        "FastMCP",
+        "工具注册",
+        "类型安全",
+        "部署",
+        "Python SDK",
+        "Resources",
+        "Prompts"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_016",
+      "series_id": "ae_series_2",
+      "episode": 16,
+      "title": "Agent 状态管理与持久化",
+      "description": "生产级Agent需要状态持久化能力。本文详解LangGraph的Checkpointer机制（SqliteSaver/PostgresSaver/MemorySaver），通过thread_id实现多会话管理，支持中断恢复和时间旅行(Time-travel)调试。对比OpenAI Agents SDK的Session方案（SQLite/Redis/SQLAlchemy/Dapr），分析不同场景下的选型建议。",
+      "keywords": [
+        "状态管理",
+        "持久化",
+        "Checkpoint",
+        "Session",
+        "中断恢复",
+        "Time-travel",
+        "LangGraph",
+        "OpenAI"
+      ],
+      "difficulty": "进阶",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_017",
+      "series_id": "ae_series_2",
+      "episode": 17,
+      "title": "代码 Agent：让 AI 读、写、执行代码",
+      "description": "代码Agent是Agent Engineering最成功的应用领域之一。本文深入解析SWE-agent论文(Yang et al., NeurIPS 2024)的Agent-Computer Interface设计——如何让Agent像人类开发者一样浏览代码、编辑文件、运行测试。详解代码沙箱执行的安全设计，以及OpenAI CodeInterpreter、ShellTool的实现原理。分析SWE-bench上的最新评测结果。",
+      "keywords": [
+        "Code Agent",
+        "SWE-agent",
+        "Code Interpreter",
+        "沙箱执行",
+        "Agent-Computer Interface",
+        "编程Agent"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_018",
+      "series_id": "ae_series_2",
+      "episode": 18,
+      "title": "浏览器 Agent：Web 自动化的架构设计",
+      "description": "浏览器Agent让AI像人类一样操作网页。本文详解Playwright MCP Server和Browser Use等方案的架构设计，分析DOM理解（Accessibility Tree vs 原始HTML）、元素定位（CSS选择器 vs 视觉定位）、多标签管理等核心技术。结合WebArena基准（812个真实Web任务），评估当前浏览器Agent的能力边界。",
+      "keywords": [
+        "Browser Agent",
+        "Playwright",
+        "Browser Use",
+        "WebArena",
+        "DOM理解",
+        "Web自动化",
+        "多标签"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-03"
+    },
+    {
+      "id": "ae_topic_019",
+      "series_id": "ae_series_2",
+      "episode": 19,
+      "title": "Human-in-the-Loop：人机协作 Agent 架构",
+      "description": "关键决策点引入人工审批是Agent安全落地的重要策略。本文详解OpenAI Agents SDK的needs_approval工具审批机制和RunState序列化，LangGraph的interrupt断点恢复机制，以及AG2的UserProxyAgent(human_input_mode=TERMINAL/ALWAYS/NEVER)。分析何时需要HITL（高风险操作、大额交易、数据删除）以及如何设计优雅的审批UX。",
+      "keywords": [
+        "Human-in-the-Loop",
+        "HITL",
+        "审批流程",
+        "interrupt",
+        "needs_approval",
+        "UserProxyAgent",
+        "RunState"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_020",
+      "series_id": "ae_series_2",
+      "episode": 20,
+      "title": "架构综合实战：构建带记忆和工具的个人助理",
+      "description": "将Ep 11-19的架构知识融会贯通，构建一个完整的个人助理Agent。该助理具备：持久化长期记忆（向量数据库存储用户偏好和历史对话）、多工具能力（通过MCP集成搜索、日历、文件操作）、人机协作（关键操作需人工确认）。从架构设计到完整Python实现，展示Ep 11-19所有技术在真实系统中的协同工作。",
+      "keywords": [
+        "综合实战",
+        "个人助理",
+        "记忆系统",
+        "MCP工具",
+        "人机协作",
+        "持久化",
+        "向量检索"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "pending",
+      "completed_at": null
+    }
+  ],
+  "statistics": {
+    "total_episodes": 10,
+    "completed_episodes": 9,
+    "total_estimated_words": 106000,
+    "completion_rate": 90.0,
+    "start_date": "2026-04-03",
+    "end_date": "2026-04-04"
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "dimensions": {
+    "facts": [
+      "SWE-agent 由普林斯顿大学 NLP 团队开发，在 NeurIPS 2024 上发表论文，率先提出了 Agent-Computer Interface (ACI) 概念，旨在让 LLM 更好地通过命令行浏览代码、编辑文件和执行测试。",
+      "目前评估代码 Agent 的最权威基准是 SWE-bench，它包含真实的 GitHub Issue 和 Pull Requests。SWE-agent 在该基准上曾取得 SOTA 成绩，解决了约 12-22% 的真实轻量级任务。",
+      "代码沙箱执行是 Code Agent 的核心安全保障。以 OpenAI Code Interpreter 为代表，底层采用类似 MicroVM（如 gVisor/Firecracker）或容器化技术，限制网络访问、文件系统权限和执行时间，防止 LLM 生成恶意代码。",
+      "ShellTool 是 Agent 框架中常用的工具封装方式，允许 LLM 通过生成 Shell 命令直接与操作系统交互，相比于封装特定 API，它赋予了 Agent 更强的泛化操作能力。",
+      "2024-2025 年间，代码 Agent 领域经历了从复杂多智能体架构（如 MetaGPT）向更轻量、高效的单体搜索定位+修改架构（如 SWE-agent, AutoCodeRover）的转变。"
+    ],
+    "opensource": [
+      {
+        "name": "SWE-agent",
+        "url": "https://github.com/princeton-nlp/SWE-agent",
+        "description": "普林斯顿大学开源的 SWE-bench 冠军级 Agent 框架，提供专为 LLM 设计的 Agent-Computer Interface。"
+      },
+      {
+        "name": "SWE-bench",
+        "url": "https://github.com/princeton-nlp/SWE-bench",
+        "description": "评估 AI 系统在真实软件仓库中解决 GitHub Issue 能力的基准测试数据集和评测框架。"
+      },
+      {
+        "name": "OpenHands (原 OpenDevin)",
+        "url": "https://github.com/All-Hands-AI/OpenHands",
+        "description": "目前社区最活跃的通用代码 Agent 平台之一，支持执行 Shell 命令、编写代码和浏览网页，内置完善的沙箱机制。"
+      },
+      {
+        "name": "E2B (Code Interpreter SDK)",
+        "url": "https://github.com/e2b-dev/code-interpreter",
+        "description": "专为 LLM 打造的开源安全代码沙箱，支持在隔离的云微虚拟机中快速执行 AI 生成的 Python/JS 代码。"
+      },
+      {
+        "name": "AutoCodeRover",
+        "url": "https://github.com/nus-apr/auto-code-rover",
+        "description": "新加坡国立大学开源的代码 Agent，采用频谱分析结合 LLM 进行精准的代码 Bug 定位与修复。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Assistants API - Code Interpreter",
+        "url": "https://platform.openai.com/docs/assistants/tools/code-interpreter",
+        "description": "OpenAI 官方提供的闭源代码执行工具，支持在沙箱中并行处理代码执行、数据分析与生成图表。"
+      },
+      {
+        "name": "Devin (by Cognition)",
+        "url": "https://www.cognition.ai/devin",
+        "description": "全球首个亮相的全自主 AI 软件工程师，具备完整的开发环境（浏览器、代码编辑器、Shell），提供商业 SaaS 服务。"
+      },
+      {
+        "name": "E2B Cloud Sandbox",
+        "url": "https://e2b.dev/",
+        "description": "为 AI Agent 提供安全云端执行环境的商业服务，支持毫秒级启动的轻量级虚拟机。"
+      },
+      {
+        "name": "Anthropic Computer Use API",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+        "description": "Anthropic 推出的 Claude 3.5 Sonnet 计算机使用 API，允许 AI 像人类一样看屏幕、移动鼠标并执行代码和系统操作。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为，代码 Agent 是目前 LLM 工具调用中最具实用价值的应用场景，尤其是在数据清洗、简单 Bug 修复和脚本编写上。",
+      "关于 SWE-agent 的讨论焦点在于 ACI 的设计：简单的 Shell 交互比复杂的 API 调用更能发挥大模型的逻辑推理优势，大幅减少了格式解析错误。",
+      "安全性是社区极度关注的痛点。在生产环境中直接使用 LLM 生成的 Shell 命令（如 rm -rf）风险极高，社区强烈建议配合 Docker 或 E2B 沙箱使用。",
+      "近期社区讨论指出，复杂的 Agent 循环容易陷入死胡同，而无 Agent（Agentless）或基于图谱搜索的轻量级 Agent 在基准测试中表现更好且成本更低。",
+      "Token 消耗是当前阻碍代码 Agent 落地的主要障碍。将庞大代码仓库喂给模型极易耗尽上下文窗口，RAG（检索增强生成）在代码 Agent 中仍需深度优化。"
+    ],
+    "practice": [
+      {
+        "title": "SWE-agent 官方运行与评测指南",
+        "url": "https://github.com/princeton-nlp/SWE-agent?tab=readme-ov-file#installation",
+        "description": "详细介绍如何本地配置 SWE-agent 并连接 Claude/GPT 模型在 SWE-bench 上运行测试的最佳实践。"
+      },
+      {
+        "title": "Building Code Interpreter with E2B",
+        "url": "https://github.com/e2b-dev/e2b-cookbook",
+        "description": "E2B 官方提供的代码示例库，教你如何用极少的代码从零搭建一个安全可靠的 AI 代码解释器。"
+      },
+      {
+        "title": "SWE-bench Verified 排行榜",
+        "url": "https://www.swebench.com/verified.html",
+        "description": "包含目前各大商业产品和开源框架在解决真实 GitHub Issue 上的性能基准数据，是评估实战能力的核心参考。"
+      },
+      {
+        "title": "LlamaIndex / LangChain 沙箱集成教程",
+        "url": "https://python.langchain.com/v0.2/docs/integrations/tools/e2b_data_analysis/",
+        "description": "主流 Agent 框架与 E2B 沙箱结合的实战指南，展示如何通过 Tool 机制赋予 AI 读写和执行代码的能力。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+        "url": "https://arxiv.org/abs/2405.15793",
+        "description": "提出 Agent-Computer Interface (ACI) 核心概念的突破性论文（NeurIPS 2024），论述如何优化环境交互设计以降低 LLM 的操作门槛。"
+      },
+      {
+        "title": "AutoCodeRover: Autonomous Program Improvement via AST-Level Code Search and Test-Time Budget Management",
+        "url": "https://arxiv.org/abs/2404.05427",
+        "description": "前沿研究：探索如何结合程序分析（抽象语法树 AST）与大模型，提升代码定位的精确度和 Bug 修复的成功率。"
+      },
+      {
+        "title": "Agentless: Demystifying LLM-based Software Engineering Agents",
+        "url": "https://arxiv.org/abs/2407.01489",
+        "description": "2024年下半年极具启发性的论文，挑战了 Agent 复杂交互循环的必要性，证明了简单的“定位-修复”管道在代码工程中可能更有效。"
+      },
+      {
+        "title": "未来趋势：长期记忆与自进化",
+        "url": "https://arxiv.org/abs/2310.01557",
+        "description": "研究重点正向让代码 Agent 记住历史 Bug 修复经验、学习特定项目的代码规范，以及通过反馈实现自我迭代优化的方向发展。"
+      }
+    ]
+  },
+  "summary": "本次调研发现，代码 Agent 正处于从“玩具”向“生产力工具”跨越的关键阶段。以 SWE-agent 为代表的系统通过优化 Agent-Computer Interface (ACI)，证明了大模型在真实软件工程（如解决 GitHub Issue）中的巨大潜力。当前的架构趋势正从复杂的多 Agent 交互转向更精准的 AST 级别定位及轻量级/无 Agent 架构。与此同时，以 E2B 和 OpenAI Code Interpreter 为核心的安全沙箱技术解决了 LLM 执行代码的信任危机。尽管面临 Token 成本和超长上下文检索的挑战，代码 Agent 在 2025 年必将成为开发者日常工作的标配辅助工具。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent",
+      "title": "SWE-agent",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-bench",
+      "title": "SWE-bench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "title": "OpenHands (原 OpenDevin)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/e2b-dev/code-interpreter",
+      "title": "E2B (Code Interpreter SDK)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/nus-apr/auto-code-rover",
+      "title": "AutoCodeRover",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/tools/code-interpreter",
+      "title": "OpenAI Assistants API - Code Interpreter",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.cognition.ai/devin",
+      "title": "Devin (by Cognition)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://e2b.dev/",
+      "title": "E2B Cloud Sandbox",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+      "title": "Anthropic Computer Use API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent?tab=readme-ov-file#installation",
+      "title": "SWE-agent 官方运行与评测指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/e2b-dev/e2b-cookbook",
+      "title": "Building Code Interpreter with E2B",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.swebench.com/verified.html",
+      "title": "SWE-bench Verified 排行榜",
+      "type": "practice"
+    },
+    {
+      "url": "https://python.langchain.com/v0.2/docs/integrations/tools/e2b_data_analysis/",
+      "title": "LlamaIndex / LangChain 沙箱集成教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.05427",
+      "title": "AutoCodeRover: Autonomous Program Improvement via AST-Level Code Search and Test-Time Budget Management",
+      "type": "frontier"
+    }
+  ],
+  "query": "代码 Agent：让 AI 读、写、执行代码 代码Agent是Agent Engineering最成功的应用领域之一。本文深入解析SWE-agent论文(Yang et al., NeurIPS 2024)的Agent-Computer Interface设计——如何让Agent像人类开发者一样浏览代码、编辑文件、运行测试。详解代码沙箱执行的安全设计，以及OpenAI CodeInterpreter、ShellTool的实现原理。分析SWE-bench上的最新评测结果。",
+  "researched_at": "2026-04-03T22:44:55.470674"
+}

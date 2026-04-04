@@ -1,0 +1,223 @@
+{
+  "series_info": {
+    "id": "ae_series_5_agent_production",
+    "name": "生产化与前沿",
+    "description": "从设计到部署的完整工程链路，框架对比与毕业项目",
+    "topic_count": 10,
+    "difficulty": "高级→前沿",
+    "priority": 5,
+    "status": "in_progress"
+  },
+  "topics": [
+    {
+      "id": "ae_topic_041",
+      "series_id": "ae_series_5",
+      "episode": 41,
+      "title": "Agent 部署架构：从原型到生产",
+      "description": "从Jupyter Notebook到生产服务是Agent工程的最大跨越。本文详解Agent部署架构：Docker容器化封装，弹性伸缩（K8s HPA/KEDA基于请求量自动扩缩），灰度发布（Canary/Blue-Green策略平滑升级），Serverless vs长驻服务的权衡。覆盖Google Cloud Run、Vertex AI Agent Engine、AWS Lambda等部署方案。",
+      "keywords": [
+        "Agent部署",
+        "容器化",
+        "Docker",
+        "弹性伸缩",
+        "灰度发布",
+        "Serverless",
+        "Cloud Run",
+        "Vertex AI"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_042",
+      "series_id": "ae_series_5",
+      "episode": 42,
+      "title": "专用 Agent：SWE-agent 与 Data Agent",
+      "description": "专用Agent在垂直领域展现出超越通用Agent的表现。本文深入两个方向：SWE-agent的最新进展（mini-swe-agent仅100行代码在SWE-bench Verified上达65%），Data Analysis Agent的架构设计（Text-to-SQL转换+自动可视化+洞察提取）。总结垂类Agent的设计方法论——如何将领域知识注入Agent的工具和提示中。",
+      "keywords": [
+        "SWE-agent",
+        "Data Agent",
+        "Text-to-SQL",
+        "代码Agent",
+        "数据分析",
+        "垂类Agent",
+        "mini-swe-agent"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_043",
+      "series_id": "ae_series_5",
+      "episode": 43,
+      "title": "实时 Agent：语音 Agent 与流式处理",
+      "description": "实时交互是Agent体验的下一个前沿。本文详解流式Agent架构：SSE(Server-Sent Events)推送中间结果，流式工具调用(streaming tool calls)实时显示执行进度，OpenAI Realtime Agents（基于gpt-realtime-1.5的语音Agent）的实现。分析端到端延迟优化：如何将语音Agent的总延迟控制在300ms以内。",
+      "keywords": [
+        "实时Agent",
+        "语音Agent",
+        "流式处理",
+        "SSE",
+        "OpenAI Realtime Agents",
+        "低延迟",
+        "streaming"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_044",
+      "series_id": "ae_series_5",
+      "episode": 44,
+      "title": "六大 Agent 框架全面对比评测",
+      "description": "六大主流Agent框架正面对决。本文从设计哲学、核心抽象、学习曲线、生产就绪度四个维度全面对比LangGraph（图论抽象、最高灵活性）、OpenAI Agents SDK（3原语、最简洁）、CrewAI（角色团队、最直觉）、AG2（对话范式、最适合研究）、Google ADK（组合式、最丰富工具生态）、Claude Agent SDK（安全优先、MCP原生）。给出不同场景下的选型推荐和迁移成本分析。",
+      "keywords": [
+        "框架对比",
+        "LangGraph",
+        "OpenAI SDK",
+        "CrewAI",
+        "AG2",
+        "Google ADK",
+        "Claude SDK",
+        "选型指南"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_045",
+      "series_id": "ae_series_5",
+      "episode": 45,
+      "title": "Agent 工程方法论：从需求到架构",
+      "description": "优秀的Agent从清晰的需求分析开始。本文建立Agent工程方法论：Agent需求分析框架（明确任务边界、失败模式、人工干预点），架构选型决策树（单次LLM调用→工作流→自主Agent的递进路径），Anthropic核心建议\"从最简单的方案开始，只在确实需要时增加复杂性\"。提供Agent设计文档模板和架构评审清单。",
+      "keywords": [
+        "Agent方法论",
+        "需求分析",
+        "架构选型",
+        "决策树",
+        "工作流vs自主Agent",
+        "Anthropic建议"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_046",
+      "series_id": "ae_series_5",
+      "episode": 46,
+      "title": "自适应 Agent：动态路由与自我改进",
+      "description": "让Agent自己学会如何更高效地工作。本文探索自适应Agent的前沿方向：动态路由（Agent根据任务特征自动选择处理策略），动态工具发现（Agent自主搜索和集成新工具），元学习在Agent中的应用（从历史执行中学习最优策略）。分析AutoGPT和BabyAGI式全自主Agent的能力边界和实际局限性。",
+      "keywords": [
+        "自适应Agent",
+        "动态路由",
+        "元学习",
+        "动态工具发现",
+        "AutoGPT",
+        "BabyAGI",
+        "自我改进"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_047",
+      "series_id": "ae_series_5",
+      "episode": 47,
+      "title": "Agent CI/CD：提示词版本管理与自动化",
+      "description": "Agent系统的提示词和工具定义需要像代码一样管理。本文详解Agent CI/CD实践：Prompt版本控制（git-based管理提示词变更历史），A/B测试框架（对比不同提示词版本的Agent表现），回归测试流水线（确保提示词修改不破坏已有功能），蓝绿部署（新旧版本Agent并行运行逐步切换）。覆盖LangSmith的prompt管理和eval集成。",
+      "keywords": [
+        "Agent CI/CD",
+        "Prompt版本控制",
+        "A/B测试",
+        "回归测试",
+        "蓝绿部署",
+        "LangSmith",
+        "自动化"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_048",
+      "series_id": "ae_series_5",
+      "episode": 48,
+      "title": "毕业项目（上）：需求分析与架构设计",
+      "description": "Agent Engineering系列的毕业项目开始。本文选择一个真实场景（如智能客服/代码开发助手/数据分析系统），完成完整的需求分析：明确功能需求和非功能需求（延迟<5s、准确率>90%、成本<$0.1/次），拆解为Agent子任务，进行技术选型决策（框架、模型、工具、部署方案），输出完整的架构设计文档（系统架构图、Agent拓扑、工具清单、安全方案）。",
+      "keywords": [
+        "毕业项目",
+        "需求分析",
+        "架构设计",
+        "技术选型",
+        "设计文档",
+        "真实场景"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_049",
+      "series_id": "ae_series_5",
+      "episode": 49,
+      "title": "毕业项目（下）：实现、测试与部署",
+      "description": "延续Ep 48的架构设计，完成完整实现。代码实现多Agent协作流程，编写黄金数据集进行评估验证（准确率、延迟、成本指标），安全加固（Guardrails+审计日志），Docker容器化打包，接入可观测性平台（Langfuse/LangSmith），部署到Cloud Run或Vertex AI。复盘整个开发过程中的经验教训和调优策略。",
+      "keywords": [
+        "毕业项目",
+        "实现",
+        "测试",
+        "部署",
+        "评估验证",
+        "安全加固",
+        "Docker",
+        "可观测性"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_050",
+      "series_id": "ae_series_5",
+      "episode": 50,
+      "title": "Agent Engineering 展望：从工程实践到 AGI 之路",
+      "description": "回顾50期Agent Engineering之旅，展望未来方向。分析2026-2027年趋势：通用Agent（一个Agent处理所有任务）、Agent OS（Agent作为操作系统层）、物理Agent（机器人+AI的融合）。讨论开放问题：长期记忆的持续性、安全对齐的可验证性、Agent决策的可解释性。梳理Agent生态系统和职业发展路径。",
+      "keywords": [
+        "Agent展望",
+        "AGI",
+        "通用Agent",
+        "Agent OS",
+        "物理Agent",
+        "开放问题",
+        "Agent生态系统",
+        "趋势分析"
+      ],
+      "difficulty": "前沿",
+      "estimated_words": 11000,
+      "status": "failed",
+      "completed_at": "2026-04-04"
+    }
+  ],
+  "statistics": {
+    "total_episodes": 10,
+    "completed_episodes": 9,
+    "total_estimated_words": 109000,
+    "completion_rate": 90.0,
+    "start_date": "2026-04-04",
+    "end_date": "2026-04-04"
+  }
+}

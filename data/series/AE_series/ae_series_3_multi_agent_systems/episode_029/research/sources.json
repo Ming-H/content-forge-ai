@@ -1,0 +1,161 @@
+{
+  "dimensions": {
+    "facts": [
+      "多Agent系统（MAS）存在两种核心通信范式：消息传递（如点对点RPC、松耦合）强调Agent的独立性与事件驱动；共享状态（如黑板模式、紧耦合）强调全局视野与数据一致性。",
+      "黑板模式起源于20世纪70年代的HEARSAY-II语音识别系统，其核心思想是多个独立专家（Agent）共同读写一个全局共享的数据结构（黑板），由控制模块决定下一步操作。",
+      "事件总线是实现Agent间松耦合广播的核心技术，常用发布/订阅模式，常用中间件包括Kafka、RabbitMQ和Redis Pub/Sub。",
+      "Google提出的A2A（Agent-to-Agent）协议概念旨在建立跨平台、跨框架的Agent互操作标准，类似于HTTP之于Web，解决不同厂商Agent之间的通信与能力发现难题。",
+      "Google ADK（Agent Development Kit）中的SessionService提供了一种集中式的状态管理方案，通过统一的会话存储接口，确保多轮对话和多Agent协作时上下文状态的强一致性。",
+      "现代多Agent框架（如LangGraph）倾向于混合模式：底层数据流通过图结构实现类似黑板的共享状态，而节点（Agent）间通过消息传递触发执行。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain旗下的主流多Agent编排框架，通过图结构和全局共享状态机制，完美实现了现代版的黑板模式与状态机控制。"
+      },
+      {
+        "name": "Microsoft AutoGen",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软推出的多Agent通信框架，以松耦合的消息传递和对话驱动为核心，支持高度定制化的Agent交互拓扑。"
+      },
+      {
+        "name": "CrewAI",
+        "url": "https://github.com/joaomdmoura/crewAI",
+        "description": "专注于角色扮演的多Agent框架，内置了Shared Memory（共享记忆）机制和Delegation（任务委派）消息传递功能。"
+      },
+      {
+        "name": "Redis",
+        "url": "https://github.com/redis/redis",
+        "description": "业界最流行的开源内存数据库，常用于实现黑板架构中的共享状态存储（Hash类型）和事件总线。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Google Cloud Vertex AI Agent Builder",
+        "url": "https://cloud.google.com/vertex-ai",
+        "description": "Google官方企业级AI构建平台，其内置的ADK和SessionService提供了商业级的多Agent会话状态管理与持久化方案。"
+      },
+      {
+        "name": "Amazon Bedrock Agents",
+        "url": "https://aws.amazon.com/bedrock/agents/",
+        "description": "AWS的企业级Agent服务，通过Action Groups和集中式记忆存储实现跨Agent的协同与状态共享。"
+      },
+      {
+        "name": "Confluent Cloud",
+        "url": "https://www.confluent.io/",
+        "description": "基于Kafka的全托管事件流处理平台，常用于大型企业级Agent系统的Event Bus广播与状态变更事件捕获。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为：消息传递（如AutoGen）更符合人类社会的协作直觉，扩展性极强，但面临上下文爆炸和无限循环调用的痛点。",
+      "架构师反馈：在复杂的代码生成/审查场景中，黑板模式（如LangGraph的State）因为具有全局上下文，一致性表现更好，但并发写操作容易引发冲突。",
+      "关于A2A协议，社区抱有极高期待，但也存在担忧：目前各家大厂（如OpenAI、Google、微软）底层Agent定义差异巨大，真正实现跨生态无缝通信仍需时间。",
+      "最佳实践共识：Agent间不应直接传递大段冗余文本，而应传递引用指针（如共享状态中的Key），让接收方按需读取，以大幅降低Token消耗。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph官方指南：Multi-Agent Network 构建",
+        "url": "https://langchain-ai.github.io/langgraph/concepts/multi_agent/",
+        "description": "详解如何使用LangGraph的状态图实现Agent间的控制权交接和共享状态读写。"
+      },
+      {
+        "title": "Redis作为多Agent黑板模式的工程实现",
+        "url": "https://redis.io/docs/manual/patterns/distributed-locks/",
+        "description": "利用Redis实现共享状态读写锁的实战指南，避免黑板模式下多Agent并发覆盖数据。"
+      },
+      {
+        "title": "Google ADK State Management 文档",
+        "url": "https://developers.generativeai.google/",
+        "description": "Google AI Studio相关开发文档，涵盖了多轮对话中Session状态的保存与跨Agent注入方法。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures (2024-2025)",
+        "url": "https://arxiv.org/abs/2404.11543",
+        "description": "关于大模型Agent架构的综合综述，深入探讨了Agent间通信协议、拓扑结构及共享记忆机制的性能瓶颈。"
+      },
+      {
+        "title": "Communicative Agents for Software Development (ChatDev)",
+        "url": "https://arxiv.org/abs/2307.07924",
+        "description": "经典的基于消息传递的多Agent协作论文，通过角色扮演和结构化对话解决复杂软件工程问题。"
+      },
+      {
+        "title": "A2A Protocol Spec & Future Trends",
+        "url": "https://github.com/google",
+        "description": "2025年工业界前沿趋势：探索类似MCP（Model Context Protocol）的Agent-to-Agent互操作标准，旨在让不同底层架构的Agent通过标准化API握手并共享意图。"
+      }
+    ]
+  },
+  "summary": "多Agent系统中的通信机制正经历从简单的点对点消息传递向复杂的混合架构演进。黑板模式（共享状态）以其全局视野和强一致性在LangGraph等图结构框架中大放异彩，而事件总线则为大规模Agent广播提供了解耦基础。随着应用规模扩大，Google ADK的SessionService为状态持久化提供了工程解法，而跨平台通信协议（A2A与MCP）的探索则预示着未来多Agent生态将从孤岛走向万维网级别的互联互通。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "Microsoft AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/joaomdmoura/crewAI",
+      "title": "CrewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/redis/redis",
+      "title": "Redis",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai",
+      "title": "Google Cloud Vertex AI Agent Builder",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/bedrock/agents/",
+      "title": "Amazon Bedrock Agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.confluent.io/",
+      "title": "Confluent Cloud",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/concepts/multi_agent/",
+      "title": "LangGraph官方指南：Multi-Agent Network 构建",
+      "type": "practice"
+    },
+    {
+      "url": "https://redis.io/docs/manual/patterns/distributed-locks/",
+      "title": "Redis作为多Agent黑板模式的工程实现",
+      "type": "practice"
+    },
+    {
+      "url": "https://developers.generativeai.google/",
+      "title": "Google ADK State Management 文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11543",
+      "title": "The Landscape of Emerging AI Agent Architectures (2024-2025)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2307.07924",
+      "title": "Communicative Agents for Software Development (ChatDev)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://github.com/google",
+      "title": "A2A Protocol Spec & Future Trends",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 间通信与共享状态 Agent间如何交换信息是多Agent系统的核心问题。本文对比两种通信范式：消息传递（点对点、松耦合）vs共享状态（黑板模式、紧耦合但一致性好）。详解黑板模式(Blackboard Architecture)的实现，事件总线在Agent间广播中的应用，以及Google A2A协议如何实现跨平台Agent通信。分析Google ADK的SessionService状态管理方案。",
+  "researched_at": "2026-04-04T05:02:43.970153"
+}

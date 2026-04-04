@@ -1,0 +1,207 @@
+{
+  "dimensions": {
+    "facts": [
+      "LangGraph 诞生于2024年初，由 LangChain 团队推出，其核心技术事实是基于图论（节点、边、状态）的底层抽象，是目前构建复杂循环工作流的最灵活框架。",
+      "OpenAI 在2024年底至2025年初推出官方 Agents SDK，其设计哲学是极简主义，仅依赖 Agents、Handoffs（交接）和 Guardrails（护栏）三个核心原语。",
+      "CrewAI 以“角色扮演”和“团队协作”为核心抽象，开发者通过定义 Agent 的角色、目标和背景故事来构建系统，是目前最符合人类直觉的框架。",
+      "AG2（原 AutoGen）由微软和研究院推动，核心是 Conversation Pattern（对话范式），极度适合多智能体研究的学术探索和群聊模式验证。",
+      "Google ADK（Agent Development Kit）代表 Google 在 Cloud 和 Vertex AI 上的组合式生态，强调与自家云服务、Gemini 模型及丰富工具链的深度整合。",
+      "Claude Agent SDK（基于 Anthropic API 及 Tool Use）确立了 MCP（Model Context Protocol）原生标准，核心哲学是安全优先和系统提示词级别的防御机制。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "用于构建多参与者、有状态 LLM 应用的框架，支持循环图数据结构。"
+      },
+      {
+        "name": "OpenAI Agents SDK",
+        "url": "https://github.com/openai/openai-agents-python",
+        "description": "OpenAI 官方推出的轻量级多智能体编排框架（从 Swarm 演进而来）。"
+      },
+      {
+        "name": "CrewAI",
+        "url": "https://github.com/crewAIInc/crewAI",
+        "description": "基于角色驱动的自主智能体框架，支持本地运行及与 LangChain 等工具集成。"
+      },
+      {
+        "name": "AG2 (原AutoGen)",
+        "url": "https://github.com/ag2ai/ag2",
+        "description": "专注于多智能体对话的下一代开源框架，提供高度可定制的对话模式。"
+      },
+      {
+        "name": "Anthropic Cookbooks (Claude Agent 实现)",
+        "url": "https://github.com/anthropics/anthropic-cookbook",
+        "description": "包含大量 Claude 官方维护的 Agent 构建、工具调用和 MCP 协议实战代码示例。"
+      },
+      {
+        "name": "Google Generative AI Samples",
+        "url": "https://github.com/GoogleCloudPlatform/generative-ai",
+        "description": "Google 官方提供的生成式 AI 示例仓库，包含 Vertex AI 上的 Agent Builder 最佳实践。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangGraph Cloud / Studio",
+        "url": "https://www.langchain.com/langgraph",
+        "description": "LangGraph 的托管云服务，提供可视化图编排界面、持久化状态管理和高并发部署方案。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI 官方托管的 Agent 解决方案，内置代码解释器、检索和文件处理工具。"
+      },
+      {
+        "name": "CrewAI Enterprise",
+        "url": "https://www.crewai.com/",
+        "description": "提供无代码的 Crew 构建平台，适合企业级团队快速部署多智能体协作。"
+      },
+      {
+        "name": "Google Vertex AI Agent Builder",
+        "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-overview",
+        "description": "基于 Google Cloud 的全托管企业级 Agent 开发平台，提供丰富的连接器和基础架构。"
+      },
+      {
+        "name": "Anthropic Messages API (Tool Use)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "Claude 官方商业 API，提供业界领先的系统提示词安全和原生工具调用能力。"
+      }
+    ],
+    "community": [
+      "LangGraph 学习曲线极其陡峭（需要理解图论和状态机），但生产就绪度最高，社区评价其为'复杂系统的唯一解'。",
+      "CrewAI 非常适合非科班出身的开发者或快速 MVP 验证，但生产环境中由于过度依赖 Prompt 编排，常被吐槽存在'黑盒崩溃'问题。",
+      "OpenAI Agents SDK 因极简的代码量受到追捧，但由于缺乏内置的持久化和长期记忆机制，目前社区对其在生产环境中的健壮性持观望态度。",
+      "AG2 保留了 AutoGen 的最强研究基因，学术圈普遍使用，但企业级开发者反映其 v0.2 到 AG2 的迁移成本较高，API 变动频繁。",
+      "Claude 的 MCP 协议在社区呼声极高，被认为是未来 Agent 连接外部工具的'USB-C标准'，但目前完整的 Agent 框架仍需开发者手动拼装。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph 快速入门：构建有状态的多智能体",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/introduction/",
+        "description": "官方教程指导如何从零开始定义节点、边和状态图。"
+      },
+      {
+        "title": "OpenAI Agents SDK 官方文档",
+        "url": "https://openai.github.io/openai-agents-python/",
+        "description": "涵盖 Handoffs（交接）和 Guardrails（护栏）的最佳实现指南。"
+      },
+      {
+        "title": "CrewAI 框架核心概念与实战",
+        "url": "https://docs.crewai.com/core-concepts/Agents",
+        "description": "详细说明如何配置 Agent、Task 和 Crew 以实现自动化工作流。"
+      },
+      {
+        "title": "Anthropic: Building effective agents",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+        "description": "Claude 官方总结的构建高效 Agent 的最佳实践，强烈建议从单一 Prompt 组合而非复杂框架起步。"
+      },
+      {
+        "title": "Model Context Protocol (MCP) 规范指南",
+        "url": "https://modelcontextprotocol.io/introduction",
+        "description": "MCP 官方文档，介绍如何为 Claude 等模型构建标准化的工具和安全连接。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "url": "https://arxiv.org/abs/2308.08155",
+        "description": "奠定多智能体对话研究基础的核心论文，探讨了高度可定制和对话驱动的范式。"
+      },
+      {
+        "title": "Model Context Protocol (MCP) 技术规范 (2024-2025)",
+        "url": "https://spec.modelcontextprotocol.io/",
+        "description": "Anthropic 发布的开放协议，旨在标准化大型语言模型与外部系统（工具/数据）的连接方式，是2025年智能体前沿趋势。"
+      },
+      {
+        "title": "LLM Primitives: 从单模型调用到图/工作流执行的演进研究",
+        "url": "https://arxiv.org/abs/2405.18431",
+        "description": "2024-2025年业界研究热点，探讨如何通过 DAG（有向无环图）和循环图提升 LLM 任务执行的鲁棒性。"
+      },
+      {
+        "title": "Agent 安全与护栏系统前沿研究",
+        "url": "https://arxiv.org/abs/2407.01499",
+        "description": "针对多智能体系统提示词注入、权限逃逸的最新防御研究，印证了 Claude 安全优先设计的必要性。"
+      }
+    ]
+  },
+  "summary": "本次调研揭示了2025年六大主流 Agent 框架的鲜明定位：LangGraph 是底层图论抽象的'性能怪兽'，适合复杂且严苛的生产环境但门槛极高；OpenAI SDK 和 CrewAI 走'极简与直觉'路线，前者回归原语后者主打角色扮演，适合快速迭代；AG2 依然是学术多智能体对话的王者；Google ADK 占据云原生生态优势；而 Claude 则以革命性的 MCP 协议和极致的安全防守开辟新路径。选型建议：学术研究选 AG2，复杂企业级工作流选 LangGraph，快速落地与原型验证选 CrewAI 或 OpenAI SDK，需要极高安全性和工具标准化选 Claude MCP。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/openai-agents-python",
+      "title": "OpenAI Agents SDK",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/crewAIInc/crewAI",
+      "title": "CrewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ag2ai/ag2",
+      "title": "AG2 (原AutoGen)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "title": "Anthropic Cookbooks (Claude Agent 实现)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/GoogleCloudPlatform/generative-ai",
+      "title": "Google Generative AI Samples",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.langchain.com/langgraph",
+      "title": "LangGraph Cloud / Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.crewai.com/",
+      "title": "CrewAI Enterprise",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/generative-ai-app-builder/docs/agent-overview",
+      "title": "Google Vertex AI Agent Builder",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "title": "Anthropic Messages API (Tool Use)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/tutorials/introduction/",
+      "title": "LangGraph 快速入门：构建有状态的多智能体",
+      "type": "practice"
+    },
+    {
+      "url": "https://openai.github.io/openai-agents-python/",
+      "title": "OpenAI Agents SDK 官方文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.crewai.com/core-concepts/Agents",
+      "title": "CrewAI 框架核心概念与实战",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+      "title": "Anthropic: Building effective agents",
+      "type": "practice"
+    }
+  ],
+  "query": "六大 Agent 框架全面对比评测 六大主流Agent框架正面对决。本文从设计哲学、核心抽象、学习曲线、生产就绪度四个维度全面对比LangGraph（图论抽象、最高灵活性）、OpenAI Agents SDK（3原语、最简洁）、CrewAI（角色团队、最直觉）、AG2（对话范式、最适合研究）、Google ADK（组合式、最丰富工具生态）、Claude Agent SDK（安全优先、MCP原生）。给出不同场景下的选型推荐和迁移成本分析。",
+  "researched_at": "2026-04-04T12:41:06.031619"
+}

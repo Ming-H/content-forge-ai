@@ -1,0 +1,190 @@
+{
+  "dimensions": {
+    "facts": [
+      "普林斯顿大学 NLP 团队提出的 SWE-agent 开创了“Agent-计算机接口（ACI）”概念，显著提升了 LLM 在真实 GitHub Issue 修复中的表现。",
+      "近期极简主义趋势显现：基于强大的基础模型（如 Claude 3.5 Sonnet），仅需约 100 行代码的 mini-swe-agent 即可在 SWE-bench Verified 基准上达到 65% 以上的解决率，证明“模型能力>复杂 Agent 框架”。",
+      "Data Analysis Agent 的标准架构演变为：意图理解 -> 领域知识匹配 -> Text-to-SQL 转换 -> 沙箱代码执行（自动可视化） -> LLM 洞察提取。",
+      "垂类 Agent 设计核心方法论：将领域知识（如数据库 Schema、业务术语表、API 规范）深度注入系统提示词和工具的 docstring 中，而非单纯依赖模型参数记忆。",
+      "2023-2024 年为专用 Agent 爆发期，基准测试从通用的 MMLU 转向 SWE-bench、BIRD-bench 等极具垂直业务属性的测试集。"
+    ],
+    "opensource": [
+      {
+        "name": "SWE-agent",
+        "url": "https://github.com/princeton-nlp/SWE-agent",
+        "description": "普林斯顿大学官方仓库，将 LLM 变成软件工程 Agent，自带针对 SWE-bench 的 ACI 环境配置。"
+      },
+      {
+        "name": "Vanna",
+        "url": "https://github.com/vanna-ai/vanna",
+        "description": "开源的 Python RAG + Text-to-SQL Agent 框架，通过训练 DDL 和业务文档实现高精度 SQL 生成。"
+      },
+      {
+        "name": "DB-GPT",
+        "url": "https://github.com/eosphoros-ai/DB-GPT",
+        "description": "国产开源的 Data Agent 框架，集成了多模型管理、Text-to-SQL、数据分析、自动报表生成等全套能力。"
+      },
+      {
+        "name": "Data Interpreter (MetaGPT)",
+        "url": "https://github.com/geekan/MetaGPT",
+        "description": "MetaGPT 推出的数据解释器 Agent，擅长处理数据爬取、清洗、可视化及复杂动态数据任务。"
+      },
+      {
+        "name": "PandasAI",
+        "url": "https://github.com/sinaptik-ai/pandas-ai",
+        "description": "让数据分析师用自然语言对话操作 Pandas DataFrame，快速实现数据查询和可视化绘图。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Devin (Cognition)",
+        "url": "https://www.cognition.ai/blog/devin-generally-available",
+        "description": "全球首个全栈 AI 软件工程师商业产品，在 SWE-bench 上表现顶尖，代表了 SWE Agent 的最高商业化水平。"
+      },
+      {
+        "name": "OpenAI Code Interpreter (Advanced Data Analysis)",
+        "url": "https://platform.openai.com/docs/assistants/tools/code-interpreter",
+        "description": "OpenAI 官方内置的数据分析 Agent，支持文件上传、Python 代码执行及自动图表生成。"
+      },
+      {
+        "name": "Snowflake Cortex AI",
+        "url": "https://www.snowflake.com/en/data-cloud/cortex/",
+        "description": "云数仓巨头推出的 Data Agent 方案，提供完全托管的 Text-to-SQL 和企业级数据分析函数。"
+      },
+      {
+        "name": "Databricks AI/BI Dashboards",
+        "url": "https://www.databricks.com/product/ai-bi",
+        "description": "基于大模型的商业智能 Agent，通过对话直接从 Lakehouse 生成洞察报表和可视化图表。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为，在 SWE-agent 中，良好的提示词（Prompt）和简化的命令行工具集比不断增加代码复杂度更有效，这促成了 mini-swe-agent 100行代码打平复杂框架的现象。",
+      "Data Agent 实践中最大的痛点是大型数据库的 Schema 幻觉问题，社区建议使用 RAG 动态检索表结构而非将所有 DDL 塞入 Prompt。",
+      "很多数据分析师反馈，Text-to-SQL 的准确率在单表和简单多表查询中表现极好，但涉及复杂窗口函数或特定业务口径时，必须依赖人工校验。",
+      "社区高度认同“工具即知识”的理念，与其让 Agent 自己写 matplotlib 画图代码，不如封装出如 `plot_sales_trend()` 这样的特定工具并注入详细的说明。"
+    ],
+    "practice": [
+      {
+        "title": "SWE-agent 官方 ACI 环境配置与实战指南",
+        "url": "https://github.com/princeton-nlp/SWE-agent/blob/main/docs/usage.md",
+        "description": "指导如何配置 SWE-agent 的命令行环境，连接本地 LLM 或 API，并针对特定代码库运行 Issue 修复任务。"
+      },
+      {
+        "title": "Advanced RAG: 构建高准确率 Text-to-SQL Agent 最佳实践",
+        "url": "https://docs.llamaindex.ai/en/stable/use_cases/data_extraction/",
+        "description": "LlamaIndex 官方提供的数据库查询指南，涵盖 Schema 提取、向量检索、Few-shot 提示词构建和数据验证链条。"
+      },
+      {
+        "title": "Python 代码沙箱部署安全指南",
+        "url": "https://e2b.dev/docs",
+        "description": "E2B 官方文档，指导如何安全地部署代码执行环境（沙箱），这是 Data Agent 运行 pandas 和 matplotlib 的基础依赖。"
+      },
+      {
+        "title": "Mckinsey 级别的自动可视化 Agent 提示词工程",
+        "url": "https://docs.streamlit.io/knowledge-base/tutorials/build-conversational-app",
+        "description": "结合 LLM 与 Streamlit 构建自动数据洞察应用的实战案例。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+        "url": "https://arxiv.org/abs/2405.15793",
+        "description": "提出 SWE-agent 的核心论文，详细阐述了如何通过 ACI（Agent-Computer Interface）使 LLM 更好地浏览和编辑代码仓库。"
+      },
+      {
+        "title": "Data Interpreter: An LLM Agent For Data Science",
+        "url": "https://arxiv.org/abs/2402.18679",
+        "description": "MetaGPT 团队发表的论文，提出了一种能够在数据驱动任务中自动纠错和调试的智能体架构。"
+      },
+      {
+        "title": "The Dawn of a New Era: Domain-Specific Agents vs. General Agents",
+        "url": "https://arxiv.org/abs/2402.05912",
+        "description": "前沿研究综述，探讨了 2024-2026 年 AI 从通用大模型向垂直领域特化 Agent（领域知识图+工具库）演进的技术路线。"
+      },
+      {
+        "title": "BIRD: A Big Bench for Large-Scale Database Grounded Text-to-SQL",
+        "url": "https://arxiv.org/abs/2305.03111",
+        "description": "Text-to-SQL 领域目前最权威的基准测试，强调了将业务领域知识与脏数据处理纳入 SQL 生成任务的重要性。"
+      }
+    ]
+  },
+  "summary": "本次调研聚焦于专用 Agent 领域的两大核心方向：软件工程（SWE-agent）与数据分析（Data Agent）。研究显示，专用 Agent 正在褪去“过度包装的框架”，回归“强大基座模型+极简领域工具”的本质（如 100 行代码的 mini-swe-agent 凭借优秀的 ACI 设计即可达到 65% 解决率）。在 Data Agent 方面，Text-to-SQL 与自动可视化的成熟架构已经能够替代大量初级数据清洗与报表工作。未来垂类 Agent 的核心壁垒不在于代码复杂度，而在于如何将业务领域的 Schema、业务指标字典和逻辑沉淀到 RAG 和工具的 docstring 中，从而实现精准的领域知识注入。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent",
+      "title": "SWE-agent",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/vanna-ai/vanna",
+      "title": "Vanna",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/eosphoros-ai/DB-GPT",
+      "title": "DB-GPT",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/geekan/MetaGPT",
+      "title": "Data Interpreter (MetaGPT)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/sinaptik-ai/pandas-ai",
+      "title": "PandasAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.cognition.ai/blog/devin-generally-available",
+      "title": "Devin (Cognition)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/tools/code-interpreter",
+      "title": "OpenAI Code Interpreter (Advanced Data Analysis)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.snowflake.com/en/data-cloud/cortex/",
+      "title": "Snowflake Cortex AI",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.databricks.com/product/ai-bi",
+      "title": "Databricks AI/BI Dashboards",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent/blob/main/docs/usage.md",
+      "title": "SWE-agent 官方 ACI 环境配置与实战指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.llamaindex.ai/en/stable/use_cases/data_extraction/",
+      "title": "Advanced RAG: 构建高准确率 Text-to-SQL Agent 最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://e2b.dev/docs",
+      "title": "Python 代码沙箱部署安全指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.streamlit.io/knowledge-base/tutorials/build-conversational-app",
+      "title": "Mckinsey 级别的自动可视化 Agent 提示词工程",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.18679",
+      "title": "Data Interpreter: An LLM Agent For Data Science",
+      "type": "frontier"
+    }
+  ],
+  "query": "专用 Agent：SWE-agent 与 Data Agent 专用Agent在垂直领域展现出超越通用Agent的表现。本文深入两个方向：SWE-agent的最新进展（mini-swe-agent仅100行代码在SWE-bench Verified上达65%），Data Analysis Agent的架构设计（Text-to-SQL转换+自动可视化+洞察提取）。总结垂类Agent的设计方法论——如何将领域知识注入Agent的工具和提示中。",
+  "researched_at": "2026-04-04T11:43:34.847872"
+}

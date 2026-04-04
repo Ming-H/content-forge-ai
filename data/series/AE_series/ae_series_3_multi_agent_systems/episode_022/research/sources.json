@@ -1,0 +1,150 @@
+{
+  "dimensions": {
+    "facts": [
+      "OpenAI Agents SDK 是 OpenAI 推出的用于编排多 Agent 系统的官方框架，其核心基于三个基本原语：Agents（智能体）、Handoffs（交接）和 Guardrails（护栏）。",
+      "Agents-as-Tools 与 Handoffs 存在本质区别：Agents-as-Tools（即管理者调用专家模式）中，主 Agent 保持对流程的控制，调用专家获取结果后继续执行；而 Handoffs（路由给专家接管模式）中，主 Agent 会将未来的控制权和对话上下文完全移交给专家 Agent。",
+      "Input Filter 机制是 Handoff 流程中的核心组件，允许开发者在 Agent 交接时对历史对话记录进行拦截、过滤或摘要提取，以控制传递给下一个 Agent 的上下文长度，避免超出模型的 Token 窗口。",
+      "动态 Instructions 支持根据当前对话的上下文变量（如用户身份、地理位置、业务状态）在运行时实时调整被交接 Agent 的系统提示词，从而改变其行为模式。",
+      "在生产级多 Agent 应用中，Session 管理至关重要：通常使用 SQLite 进行轻量级本地开发与测试，使用 Redis 进行高并发生产环境的短期状态管理，而 Dapr 等分布式运行时则用于处理复杂的跨服务持久化 Actor 状态。"
+    ],
+    "opensource": [
+      {
+        "name": "OpenAI Swarm (Experimental)",
+        "url": "https://github.com/openai/swarm",
+        "description": "OpenAI 官方早期推出的多 Agent 编排实验性/教育性框架，是 Agents SDK 及 Handoff 机制的核心概念验证前身，代码极度轻量。"
+      },
+      {
+        "name": "OpenAI Agents SDK (Python)",
+        "url": "https://github.com/openai/openai-agents-python",
+        "description": "OpenAI 最新发布的官方 Agent 框架，原生支持 Handoffs、Input Filter 动态上下文控制以及 Guardrails 输入输出校验。"
+      },
+      {
+        "name": "Dapr (Distributed Application Runtime)",
+        "url": "https://github.com/dapr/python-sdk",
+        "description": "用于构建微服务的开源项目，其状态管理和 Actor 模型在复杂多 Agent 系统中被广泛应用于实现持久化的 Session 管理。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI API Platform",
+        "url": "https://platform.openai.com/docs/overview",
+        "description": "OpenAI 官方 API 文档中心，提供底层大模型能力（如 GPT-4o 等），是运行 Agents SDK 及多 Agent 架构的核心基座。"
+      },
+      {
+        "name": "OpenAI Cookbook",
+        "url": "https://cookbook.openai.com/",
+        "description": "OpenAI 官方案例库，包含大量关于如何构建多 Agent 系统、设计 Handoff 路由逻辑以及上下文管理的最佳实践指南和代码示例。"
+      },
+      {
+        "name": "Redis Cloud",
+        "url": "https://redis.io/cloud/",
+        "description": "云原生内存数据库服务，常用于在商业级 Agent 系统中缓存和持久化高频交互的 Session 上下文状态。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为 Handoffs 模式比 Agents-as-Tools 模式更具扩展性，特别适合客服路由等场景，但核心痛点在于控制权移交时的上下文丢失，必须精细设计 Input Filter。",
+      "Guardrails（护栏）机制在社区中获得高度评价，被认为有效降低了多 Agent 串联时因提示词注入导致的安全风险和死循环问题。",
+      "关于 Session 管理，生产环境开发者强烈推荐采用 Redis 结合消息队列的方案，而非单纯依赖 SQLite，以解决高并发下的上下文状态覆盖问题。",
+      "动态 Instructions 被认为是杀手级特性，它允许同一个底层 Agent 根据交接过来的不同上下文，动态演化为完全不同业务属性的专家。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI Agents SDK 官方示例与快速入门",
+        "url": "https://github.com/openai/openai-agents-python/tree/main/examples",
+        "description": "涵盖基础的 Agent 定义、Handoffs 交接路由配置、以及如何编写自定义 Input Filter 清理历史消息的实战代码。"
+      },
+      {
+        "title": "Building effective agents (OpenAI Cookbook)",
+        "url": "https://cookbook.openai.com/articles/related_resources#agent-frameworks",
+        "description": "详细对比了 Agent 编排的各种模式（如路由、交接、并行），指导开发者何时使用 Managers（管理者）模式以及何时使用 Swarm（Handoffs）模式。"
+      },
+      {
+        "title": "LangGraph vs OpenAI Agents SDK 架构选型与性能对比",
+        "url": "https://python.langchain.com/docs/concepts/langgraph/",
+        "description": "社区主流的实践参考，对比基于图状态机的 LangGraph 与基于 Handoffs 原语的 OpenAI SDK 在复杂任务流中的优缺点。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "url": "https://arxiv.org/abs/2308.08155",
+        "description": "多智能体领域的前沿奠基性研究之一，探讨了基于对话的 LLM Agent 交互模式，对后来的交接机制设计产生了深远影响。"
+      },
+      {
+        "title": "Scaling Instructable Agents Across Many Simulated Worlds",
+        "url": "https://arxiv.org/abs/2304.03442",
+        "description": "Google DeepMind 的研究（SIMA），探索了 Agent 如何根据指令动态适应新环境和接管任务，是动态 Instructions 概念在学术界的延伸。"
+      },
+      {
+        "title": "2025 趋势研究：Stateful Multi-Agent Orchestration (有状态多智能体编排)",
+        "url": "https://arxiv.org/abs/2402.05120",
+        "description": "针对多 Agent 交互中的长上下文遗忘问题，最新的研究正致力于通过层次化状态机和自适应 Memory 机制来优化类似 Handoff 过程中的 Token 损耗。"
+      }
+    ]
+  },
+  "summary": "本次调研深入拆解了 OpenAI Agents SDK 的核心交接机制：Handoffs 模式通过将控制权转交（而非作为工具调用），极大地提升了多 Agent 系统的灵活性与业务解耦能力。配合动态 Instructions 与 Input Filter，开发者能精准控制交接过程中的上下文与行为；而在生产落地时，从开源 SQLite 向 Redis/Dapr 等高可用 Session 管理方案的演进，则是保障系统稳定运行的关键。该模式代表了 2025 年 AI 工程界从“单一提示词工程”向“复杂状态与工作流编排”迈进的核心趋势。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/openai/swarm",
+      "title": "OpenAI Swarm (Experimental)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/openai-agents-python",
+      "title": "OpenAI Agents SDK (Python)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/dapr/python-sdk",
+      "title": "Dapr (Distributed Application Runtime)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/overview",
+      "title": "OpenAI API Platform",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cookbook.openai.com/",
+      "title": "OpenAI Cookbook",
+      "type": "commercial"
+    },
+    {
+      "url": "https://redis.io/cloud/",
+      "title": "Redis Cloud",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/openai/openai-agents-python/tree/main/examples",
+      "title": "OpenAI Agents SDK 官方示例与快速入门",
+      "type": "practice"
+    },
+    {
+      "url": "https://cookbook.openai.com/articles/related_resources#agent-frameworks",
+      "title": "Building effective agents (OpenAI Cookbook)",
+      "type": "practice"
+    },
+    {
+      "url": "https://python.langchain.com/docs/concepts/langgraph/",
+      "title": "LangGraph vs OpenAI Agents SDK 架构选型与性能对比",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.03442",
+      "title": "Scaling Instructable Agents Across Many Simulated Worlds",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.05120",
+      "title": "2025 趋势研究：Stateful Multi-Agent Orchestration (有状态多智能体编排)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Handoff 模式：OpenAI Agents SDK 的交接机制 OpenAI Agents SDK以三个原语构建整个多Agent系统。本文深度解析Agents、Handoffs、Guardrails的设计理念：Agents-as-Tools模式（管理者调用专家）vs Handoffs模式（路由给专家接管）的本质区别，Input Filter如何控制交接时的历史记录过滤，动态Instructions如何根据上下文调整Agent行为，以及Session管理（SQLite/Redis/Dapr）。",
+  "researched_at": "2026-04-04T01:16:51.973075"
+}

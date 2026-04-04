@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "Anthropic 在其官方指南《Building Effective Agents》中正式定义了 'Evaluator-Optimizer'（评估器-优化器）工作流，即一个 LLM 负责生成输出，另一个 LLM 提供评估和反馈，形成闭环迭代优化。",
+      "Reflexion 框架由 Noah Shinn 等人于 2023 年提出（NeurIPS 2023），核心创新在于引入了 'Verbal Reinforcement Learning'（语言强化学习），Agent 不更新权重，而是将失败经验和反思存入记忆缓冲区以指导后续尝试。",
+      "此模式的核心触发条件是：任务存在明确的评估标准（如代码的单元测试、文章的具体约束），且 LLM 能够根据具体的文本反馈进行有意义的改进。如果任务偏好主观且无对错之分，该模式效果有限。",
+      "ICLR 2024 的一项重要研究《Large Language Models Cannot Self-Correct Reasoning Yet》指出，没有外部反馈的纯自纠错往往无效甚至会降低性能，这进一步印证了引入独立 'Evaluator'（无论是代码执行器还是更强的LLM）的必要性。"
+    ],
+    "opensource": [
+      {
+        "name": "Reflexion (Official Implementation)",
+        "url": "https://github.com/noahshinn/reflexion",
+        "description": "Reflexion 论文的官方开源代码库，包含了 HumanEval、HotPotQA 等基准测试的实现，展示了如何通过语言反馈进行自我纠错。"
+      },
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的构建复杂 Agent 工作流框架，官方示例中提供了极其完善的 Evaluator-Optimizer 和 Reflexion 状态图实现。"
+      },
+      {
+        "name": "AutoGen",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软推出的多 Agent 对话框架，非常适合实现 '一个生成、一个评估' 的双角色迭代工作流。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic Claude - Agentic Patterns",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+        "description": "Anthropic 官方 Claude 开发者文档，详细介绍了 Evaluator-Optimizer 模式的适用场景与官方最佳实践。"
+      },
+      {
+        "name": "LangSmith",
+        "url": "https://smith.langchain.com/",
+        "description": "LangChain 推出的商业可观测性平台，在实现 Reflexion 循环时，可用于追踪每次迭代的 Token 消耗、延迟和评估打分变化。"
+      },
+      {
+        "name": "OpenAI Evals",
+        "url": "https://platform.openai.com/docs/guides/evals",
+        "description": "OpenAI 官方的评估工具，虽然主要用于模型评估，但其框架非常适合用来构建 Evaluator-Optimizer 工作流中的客观评分系统。"
+      }
+    ],
+    "community": [
+      "开发者普遍认为，Evaluator-Optimizer 模式是解决 LLM '幻觉' 和复杂逻辑推理的银弹之一，但最大的痛点在于 Latency（延迟）和 Token 消耗，因为每次迭代都等于翻倍的成本。",
+      "社区经验表明，Evaluator 和 Optimizer 最好使用不同量级的模型（例如 Optimizer 用 GPT-4o，Evaluator 用 Claude 3.5 Sonnet），或者 Evaluator 直接使用确定性代码（如 Python REPL），以避免 '模型自己骗自己' 的共犯现象。",
+      "在 Prompt 构建上，'提供具体修改建议' 比 '仅给出对错判断' 的效果好得多。Reflexion 中的反思提示词设计必须要求 Agent 分析 '为什么错' 以及 '如何改'，否则容易陷入重复输出相同错误答案的死循环。",
+      "在小红书等技术社区，分享如何通过设定最大迭代次数和设置评分阈值来打断死循环，是新手极容易踩坑并被广泛讨论的话题。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph Official Tutorial: Reflexion",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/reflexion/reflexion/",
+        "description": "LangGraph 官方提供的保姆级 Reflexion 实战教程，通过代码生成任务演示了如何构建自我反思与纠错的图结构。"
+      },
+      {
+        "title": "Anthropic Cookbook: Evaluator-Optimizer",
+        "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/patterns/evaluator_optimizer.ipynb",
+        "description": "Anthropic 官方厨房提供的 Jupyter Notebook，手把手教你用 Claude 实现 Evaluator-Optimizer 模式的代码实战。"
+      },
+      {
+        "title": "Best Practices for LLM Evaluation Loops",
+        "url": "https://hamel.dev/blog/llm-evals/",
+        "description": "Hamel Husain 等资深工程师分享的关于如何设定优秀的 LLM 评估标准及避免评估循环陷阱的工程最佳实践文章。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "url": "https://arxiv.org/abs/2303.11366",
+        "description": "奠定该领域的经典论文，NeurIPS 2023 收录，提出了用自然语言代替标量奖励进行强化学习的创新思路。"
+      },
+      {
+        "title": "Building Effective Agents - Anthropic Research",
+        "url": "https://www.anthropic.com/research/building-effective-agents",
+        "description": "Anthropic 2024 年底的重磅发布，系统总结了包括 Evaluator-Optimizer 在内的 4 种核心 Agent 工作流，定义了业界标准。"
+      },
+      {
+        "title": "RewardBench: Evaluating Reward Models for RLHF",
+        "url": "https://arxiv.org/abs/2403.13787",
+        "description": "2024年的前沿研究，探索了如何更科学地评估 Evaluator 的能力。在未来的 Evaluator-Optimizer 工作流中，引入专门的 Reward Model 替代通用 LLM 作为 Evaluator 正成为新趋势。"
+      }
+    ]
+  },
+  "summary": "Evaluator-Optimizer 与 Reflexion 代表了当前 AI Agent 从 '单次推理' 向 '迭代进化' 跨越的核心技术。Anthropic 的工程实践与 NeurIPS 的 Reflexion 论文共同指出：通过独立的评估器提供明确的文本反馈，能让 LLM 在代码生成、复杂推理等任务上实现质的飞跃。然而，工程落地时必须克服延迟、Token 成本以及 '自我麻痹（评估不准）' 的挑战，最佳实践通常是结合代码执行器等客观反馈机制，并设定严格的熔断退出策略。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/noahshinn/reflexion",
+      "title": "Reflexion (Official Implementation)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
+      "title": "Anthropic Claude - Agentic Patterns",
+      "type": "commercial"
+    },
+    {
+      "url": "https://smith.langchain.com/",
+      "title": "LangSmith",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/evals",
+      "title": "OpenAI Evals",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/tutorials/reflexion/reflexion/",
+      "title": "LangGraph Official Tutorial: Reflexion",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/patterns/evaluator_optimizer.ipynb",
+      "title": "Anthropic Cookbook: Evaluator-Optimizer",
+      "type": "practice"
+    },
+    {
+      "url": "https://hamel.dev/blog/llm-evals/",
+      "title": "Best Practices for LLM Evaluation Loops",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "type": "frontier"
+    },
+    {
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "title": "Building Effective Agents - Anthropic Research",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2403.13787",
+      "title": "RewardBench: Evaluating Reward Models for RLHF",
+      "type": "frontier"
+    }
+  ],
+  "query": "Evaluator-Optimizer 与 Reflection：自我纠错的 Agent 让Agent学会自我纠错是提升输出质量的关键。本文详解Anthropic的Evaluator-Optimizer工作流模式——一个LLM生成、另一个LLM评估反馈的迭代循环。结合Reflexion论文(Shinn et al., NeurIPS 2023)的verbal reinforcement learning方法，分析Agent如何通过文本反思从失败中学习。讨论何时适合使用此模式：当LLM的响应在有明确反馈时可显著改善时。",
+  "researched_at": "2026-04-03T17:34:00.186586"
+}

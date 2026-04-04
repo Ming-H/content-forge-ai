@@ -1,0 +1,151 @@
+{
+  "dimensions": {
+    "facts": [
+      "CrewAI 由 João Moura 创立，核心隐喻是将多 Agent 系统视为一个「公司团队」，包含经理（Manager）和各级员工（Agent）。",
+      "核心三层模型：Agent（定义角色、目标、背景故事）、Task（定义具体任务及预期输出）、Crew（编排和管理 Agent 与 Task 的执行）。",
+      "提供 Sequential（顺序执行，上下文依次传递）和 Hierarchical（层级执行，由 LLM 充当 Manager 动态委派任务）两种主要进程模式。",
+      "CrewAI Flows 是其最新的重大更新，引入了事件驱动的宏观编排能力，通过 @start, @listen, @router 等装饰器实现复杂的状态管理和多 Crew 串联。",
+      "支持完全的 YAML 配置文件驱动开发，开发者可以通过 CLI 脚手架快速生成项目和定义 Agent/Task 结构，实现代码与配置解耦。"
+    ],
+    "opensource": [
+      {
+        "name": "crewAIInc/crewAI",
+        "url": "https://github.com/crewAIInc/crewAI",
+        "description": "CrewAI 核心框架官方开源仓库，包含框架源码及基础示例。"
+      },
+      {
+        "name": "crewAIInc/crewAI-examples",
+        "url": "https://github.com/crewAIInc/crewAI-examples",
+        "description": "官方提供的各种 CrewAI 实战示例集合，包含库存分析、落地页生成、招聘等场景。"
+      },
+      {
+        "name": "crewAIInc/tools",
+        "url": "https://github.com/crewAIInc/tools",
+        "description": "CrewAI 官方工具库，包含各种可集成到 Agent 中的现成工具（如搜索、文件读写、代码执行等）。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "CrewAI 官方文档",
+        "url": "https://docs.crewai.com/",
+        "description": "涵盖 Core、Flows、Tools 的完整官方技术文档，包含详细的 API Reference。"
+      },
+      {
+        "name": "CrewAI Enterprise",
+        "url": "https://www.crewai.com/",
+        "description": "CrewAI 推出的企业级云服务平台，提供无代码构建、API 部署、团队协作及无服务器 Agent 运行环境。"
+      },
+      {
+        "name": "CrewAI+ (付费版)",
+        "url": "https://www.crewai.com/pricing",
+        "description": "提供更高级的云端支持、优先级技术支持以及企业级 SSO 等商业功能。"
+      }
+    ],
+    "community": [
+      "「上手极快，设计理念非常直观」：相比于 AutoGen，开发者普遍反馈 CrewAI 的角色扮演概念更加符合人类直觉，新手极其友好。",
+      "「YAML 驱动太香了」：社区非常认可 YAML 配置与 Python 逻辑分离的设计，认为这极大提升了非硬核开发者的参与度，方便产品经理参与调试。",
+      "「Token 消耗与延迟问题」：在 Hierarchical 模式下，Manager Agent 会进行大量的内部规划与委派，导致 Token 消耗较高且任务完成延迟增加。",
+      "「上下文容易丢失」：在 Sequential 模式下执行长链路任务时，如果 Task 切割不合理，早期上下文在传递过程中容易被截断或遗忘。",
+      "「Flows 是真正迈向生产级的关键」：社区认为单纯的 Crew 编排较为单薄，最新的 Flows 事件驱动机制才是解决复杂业务逻辑容错和状态管理的关键。"
+    ],
+    "practice": [
+      {
+        "title": "CrewAI Quickstart Guide",
+        "url": "https://docs.crewai.com/quickstart",
+        "description": "官方快速入门指南，手把手教你如何用代码和 YAML 创建第一个 Agent 团队。"
+      },
+      {
+        "title": "Building and Evaluating Agentic Workflows with CrewAI",
+        "url": "https://www.deeplearning.ai/short-courses/building-agentic-workflows-with-crewai/",
+        "description": "DeepLearning.AI 与 CrewAI 创始人合作的免费短视频课程，系统讲解如何构建和评估工作流。"
+      },
+      {
+        "title": "CrewAI Flows 官方文档",
+        "url": "https://docs.crewai.com/concepts/flows",
+        "description": "最新 Flows 功能实战指南，详解如何使用 @start/@listen 装饰器构建事件驱动 DAG 图。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "基于大语言模型的多智能体系统演进趋势 (Multi-Agent System Trends)",
+        "url": "https://arxiv.org/abs/2402.01680",
+        "description": "探讨 2024-2025 年多智能体框架从简单的顺序执行向动态、去中心化协作（如 Flows 事件驱动）演进的趋势论文。"
+      },
+      {
+        "title": "模型上下文协议",
+        "url": "https://arxiv.org/abs/2312.15907",
+        "description": "虽然不是 CrewAI 独有，但 MCP 正在成为 2025 年 Agent 连接外部数据源的新标准，CrewAI 社区正积极探索其集成方案。"
+      },
+      {
+        "title": "Agentic RAG (检索增强生成智能体化)",
+        "url": "https://arxiv.org/abs/2407.12871",
+        "description": "未来趋势是将 RAG 技术融入多 Agent 工作流中，CrewAI 在这方面被广泛用于构建具有自纠错能力的深度研究团队。"
+      }
+    ]
+  },
+  "summary": "CrewAI 以直观的「企业团队」隐喻重塑了多 Agent 开发体验，通过 Agent-Task-Crew 三层模型以及 Sequential/Hierarchical 双引擎降低了入门门槛，而近期推出的 Flows 功能更是通过事件驱动架构补齐了复杂生产工作流的短板。它在 GitHub 上拥有极高的活跃度，YAML 驱动和 CLI 脚手架备受社区赞誉，虽然面临 Token 消耗和长链路上下文丢失的挑战，但凭借不断完善的开源生态和商业化的 Enterprise 平台，CrewAI 已成为目前构建生成式 AI 自动化应用最主流、最接地气的框架之一。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/crewAIInc/crewAI",
+      "title": "crewAIInc/crewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/crewAIInc/crewAI-examples",
+      "title": "crewAIInc/crewAI-examples",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/crewAIInc/tools",
+      "title": "crewAIInc/tools",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.crewai.com/",
+      "title": "CrewAI 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.crewai.com/",
+      "title": "CrewAI Enterprise",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.crewai.com/pricing",
+      "title": "CrewAI+ (付费版)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.crewai.com/quickstart",
+      "title": "CrewAI Quickstart Guide",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/building-agentic-workflows-with-crewai/",
+      "title": "Building and Evaluating Agentic Workflows with CrewAI",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.crewai.com/concepts/flows",
+      "title": "CrewAI Flows 官方文档",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.01680",
+      "title": "基于大语言模型的多智能体系统演进趋势 (Multi-Agent System Trends)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.15907",
+      "title": "模型上下文协议",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2407.12871",
+      "title": "Agentic RAG (检索增强生成智能体化)",
+      "type": "frontier"
+    }
+  ],
+  "query": "CrewAI 角色团队：基于角色的多 Agent 协作 CrewAI用\"公司团队\"的隐喻组织多Agent。本文详解Agent-Task-Crew三层模型：Agent定义角色(role/goal/backstory)，Task定义任务，Crew编排执行。对比Sequential（顺序传递上下文）和Hierarchical（Manager动态委派）两种进程。深入分析Flows——CrewAI的事件驱动生产工作流（@start/@listen/@router装饰器），以及YAML配置驱动的CLI脚手架。",
+  "researched_at": "2026-04-04T02:41:12.841726"
+}

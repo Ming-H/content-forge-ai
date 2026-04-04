@@ -1,0 +1,192 @@
+{
+  "dimensions": {
+    "facts": [
+      "OpenAI Whisper 发布于 2022 年 9 月，是一个基于 68 万小时多语言音频训练的弱监督通用语音识别模型。",
+      "架构采用 Transformer Encoder-Decoder 结构，无需微调即可在多种低资源语言上表现优异。",
+      "模型分为 Tiny, Base, Small, Medium, Large 五个等级，参数量从 3900 万到 15 亿不等。",
+      "Whisper v3 (Large-v3) 是目前性能最强的开源版本，词错误率 (WER) 相比 v2 显著降低。",
+      "支持 99 种语言的转录和翻译，是目前多语言 ASR 领域的黄金标准。",
+      "核心技术痛点包括‘幻觉’（模型在静音段编造文本）以及高延迟导致的实时性挑战。"
+    ],
+    "opensource": [
+      {
+        "name": "OpenAI Whisper (Official)",
+        "url": "https://github.com/openai/whisper",
+        "description": "官方 PyTorch 实现，包含模型权重、推理代码和训练细节。"
+      },
+      {
+        "name": "faster-whisper",
+        "url": "https://github.com/SYSTRAN/faster-whisper",
+        "description": "基于 CTranslate2 的重实现，推理速度比官方快 4 倍以上，显存占用减半，是生产环境首选。"
+      },
+      {
+        "name": "whisper.cpp",
+        "url": "https://github.com/ggerganov/whisper.cpp",
+        "description": "使用 C/C++ 编写，无依赖，支持 Apple Silicon 纯 CPU/GPU 推理，适合边缘端和嵌入式设备。"
+      },
+      {
+        "name": "Insanely Fast Whisper",
+        "url": "https://github.com/Vaibhavs10/insanely-fast-whisper",
+        "description": "利用 PyTorch 2.0 和 Flash Attention 优化，能在几秒钟内转录长音频，侧重极致速度。"
+      },
+      {
+        "name": "Awesome Whisper",
+        "url": "https://github.com/skytnt/awesome-whisper",
+        "description": "收集了 Whisper 相关的论文、微调模型、WebUI 工具及部署方案的精选列表。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Whisper API",
+        "url": "https://platform.openai.com/docs/guides/speech-to-text",
+        "description": "OpenAI 官方托管的 API 服务，基于 Large-v2 模型，按秒计费，无需本地 GPU。"
+      },
+      {
+        "name": "Groq Whisper",
+        "url": "https://groq.com/",
+        "description": "利用 Groq 的 LPU 推理引擎提供极低延迟的 Whisper 推理服务，适合实时场景。"
+      },
+      {
+        "name": "AssemblyAI",
+        "url": "https://www.assemblyai.com/",
+        "description": "商业 ASR 服务商，底层优化了 Whisper 模型并提供标点、章节总结等附加 API。"
+      },
+      {
+        "name": "Hugging Face Inference Endpoints",
+        "url": "https://huggingface.co/inference-endpoints",
+        "description": "提供一键部署 Whisper 及其微调版本的云服务，支持私有化部署。"
+      }
+    ],
+    "community": [
+      "用户普遍反馈 Whisper 在嘈杂环境下的鲁棒性优于传统模型，但对某些方言（如中文口音）仍需针对性微调。",
+      "‘幻觉’问题是社区讨论焦点，特别是在背景音乐或无人声时，模型容易生成无意义的重复文本。",
+      "部署选型上，开发者倾向于在服务器端使用 faster-whisper，在本地/客户端使用 whisper.cpp。",
+      "医疗和法律领域的从业者强调，通用 Whisper 无法直接满足高精度术语要求，必须进行领域微调 (SFT)。",
+      "社区活跃贡献了大量针对特定语言的微调模型（如 Gujarati, Arabic 等），弥补了原生模型的不足。"
+    ],
+    "practice": [
+      {
+        "title": "Hugging Face Whisper Fine-tuning Guide",
+        "url": "https://huggingface.co/blog/fine-tune-whisper",
+        "description": "官方级别的微调教程，详细讲解了如何使用 PEFT (LoRA) 在特定数据集上微调 Whisper。"
+      },
+      {
+        "title": "Faster-Whisper Deployment Best Practices",
+        "url": "https://github.com/SYSTRAN/faster-whisper#usage",
+        "description": "官方 README 包含了模型量化 (INT8/FP16)、批处理设置和 VAD (语音活动检测) 的最佳实践代码。"
+      },
+      {
+        "title": "Whisper Performance Benchmark",
+        "url": "https://github.com/ggerganov/whisper.cpp#performance",
+        "description": "whisper.cpp 提供了详细的 CPU/GPU 硬件性能基准数据，涵盖 Mac M1/M2 到各类 NVIDIA 显卡。"
+      },
+      {
+        "title": "Distil-Whisper: Distilled Version",
+        "url": "https://github.com/huggingface/distil-whisper",
+        "description": "介绍如何使用经过知识蒸馏的 Whisper 模型，在保持 95% 精度的同时速度提升 6 倍。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+        "url": "https://arxiv.org/abs/2212.04356",
+        "description": "Whisper 的原始论文，详细阐述了数据集构建、模型架构和弱监督训练方法。"
+      },
+      {
+        "title": "Distil-Whisper: 6x Faster, 95% Retained",
+        "url": "https://arxiv.org/abs/2311.00430",
+        "description": "2023-2024 年的重要研究，探讨了如何通过蒸馏技术大幅压缩 Whisper 模型。"
+      },
+      {
+        "title": "Streaming Whisper Research (2024-2025 Trends)",
+        "url": "https://github.com/SYSTRAN/faster-whisper#streaming",
+        "description": "针对流式 ASR 的前沿探索，尝试解决 Transformer 因果推理带来的高延迟问题，向实时交互演进。"
+      },
+      {
+        "title": "Whisper-Medical & Legal Domain Adaptation",
+        "url": "https://huggingface.co/models?search=whisper+medical",
+        "description": "2025 年趋势显示，针对垂直领域的 SLM（小语言模型）与 Whisper 结合，用于生成带有结构化信息的医疗/法律记录。"
+      }
+    ]
+  },
+  "summary": "Whisper 已确立了开源多语言 ASR 的霸主地位，其核心价值在于庞大的弱监督数据带来的零样本泛化能力。目前工程实践已从单纯使用官方模型，转向 faster-whisper (服务端) 和 whisper.cpp (边缘端) 的差异化部署。未来的技术演进集中在通过 Distil-Whisper 降低成本、解决流式推理的实时延迟问题，以及在医疗、法律等垂直领域通过 LoRA 微调实现专业级落地。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/openai/whisper",
+      "title": "OpenAI Whisper (Official)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/SYSTRAN/faster-whisper",
+      "title": "faster-whisper",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ggerganov/whisper.cpp",
+      "title": "whisper.cpp",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/Vaibhavs10/insanely-fast-whisper",
+      "title": "Insanely Fast Whisper",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/skytnt/awesome-whisper",
+      "title": "Awesome Whisper",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/speech-to-text",
+      "title": "OpenAI Whisper API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://groq.com/",
+      "title": "Groq Whisper",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.assemblyai.com/",
+      "title": "AssemblyAI",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/inference-endpoints",
+      "title": "Hugging Face Inference Endpoints",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/blog/fine-tune-whisper",
+      "title": "Hugging Face Whisper Fine-tuning Guide",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/SYSTRAN/faster-whisper#usage",
+      "title": "Faster-Whisper Deployment Best Practices",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/ggerganov/whisper.cpp#performance",
+      "title": "Whisper Performance Benchmark",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/huggingface/distil-whisper",
+      "title": "Distil-Whisper: Distilled Version",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2212.04356",
+      "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.00430",
+      "title": "Distil-Whisper: 6x Faster, 95% Retained",
+      "type": "frontier"
+    }
+  ],
+  "query": "Whisper 深度解析：多语言 ASR 的工程实践 OpenAI Whisper是多语言ASR的黄金标准。深入解析Whisper架构设计，对比faster-whisper（CTranslate2加速）、whisper.cpp（边缘推理）等社区方案，以及医疗、法律等领域的微调实践。",
+  "researched_at": "2026-04-02T09:56:13.499854"
+}

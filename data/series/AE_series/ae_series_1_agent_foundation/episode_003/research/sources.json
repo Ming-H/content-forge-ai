@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "Agent 的核心底层逻辑是 ReAct (Reasoning and Acting) 模式，即大模型进行思考，然后调用工具，根据工具结果继续思考的循环过程。",
+      "2023 年 OpenAI 推出 Function Calling 功能，标志着 LLM 从纯文本生成走向可执行外部动作的 Agent 时代，随后各大厂商迅速跟进。",
+      "2024 年 Anthropic 为 Claude 系列模型发布了原生 Tool Use (tool_use) 功能，并在系统底层针对多轮工具调用进行了强力优化。",
+      "Agent Loop（代理循环）的工程学本质是一个 `while True` 循环：检测 LLM 的输出是否包含 tool_use 意图 -> 若有则执行对应 Python 函数 -> 将函数返回值拼装回 Prompt 再次输入 LLM -> 直到 LLM 输出最终文本答案后 break。"
+    ],
+    "opensource": [
+      {
+        "name": "anthropics/anthropic-cookbook",
+        "url": "https://github.com/anthropics/anthropic-cookbook",
+        "description": "Anthropic 官方实战手册，包含大量不依赖复杂框架、使用纯 Python 实现 Claude tool_use 的基础代码示例，是极好的底层学习资源。"
+      },
+      {
+        "name": "openai/openai-cookbook",
+        "url": "https://github.com/openai/openai-cookbook",
+        "description": "OpenAI 官方示例库，包含 How to call functions with chat models 等核心章节，详解了纯 API 层构建 Agent 的 JSON 解析与循环逻辑。"
+      },
+      {
+        "name": "modelcontextprotocol/python-sdk",
+        "url": "https://github.com/modelcontextprotocol/python-sdk",
+        "description": "Anthropic 推出的模型上下文协议(MCP)的 Python 实现，展示了最新的标准化工具调用底层机制，是进阶理解 Agent 底层交互的优秀参考。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Function Calling 官方文档",
+        "url": "https://platform.openai.com/docs/guides/function-calling",
+        "description": "OpenAI 提供的 Function Calling 权威指南，详述了如何通过 API 传递 tools 参数及处理 tool_calls 响应。"
+      },
+      {
+        "name": "Anthropic Tool Use 官方文档",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "description": "Claude 官方的 Tool Use 指南，详细介绍了 tool_choice 参数、JSON Schema 定义规范以及多工具并发的底层原理。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI 提供的云端托管 Agent 方案，将其内置的 Agent Loop 封装在云端，与自行用纯 Python 构建的本地 Loop 形成商业层面的对比。"
+      }
+    ],
+    "community": [
+      "许多资深开发者在技术社区呼吁「不要上来就学 LangChain/LlamaIndex」，手写一个纯 Python Agent 能极大消除对大模型开发的神秘认知，避免被框架的「黑盒魔法」绑架。",
+      "纯 Python 写 Agent 最头疼的是处理异常和格式：如模型偶尔不按 JSON 格式输出、死循环不断调用同一个工具、或者 API 超时，需要写大量的 try-except 和重试逻辑。",
+      "在相同 Prompt 和工具设定下，OpenAI 和 Anthropic 的 tool_use 表现差异明显：Claude 在并行工具调用（一次请求调多个函数）和多步骤长链推理上表现出更高的稳定性，而 GPT-4o 在理解复杂参数结构上较强。",
+      "社区强烈建议为手写的 Agent Loop 加上 `max_iterations` 强制退出机制，并做好 Token 消耗的实时统计，防止陷入死循环导致账单爆炸。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI Cookbook: How to call functions with chat models",
+        "url": "https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models",
+        "description": "OpenAI 官方提供的初学者最佳教程，展示了如何用最基础的 Python 代码一步步构建请求、解析执行函数并回传结果。"
+      },
+      {
+        "title": "Anthropic Cookbook: Tool use & Agents",
+        "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/tool_use.ipynb",
+        "description": "Anthropic 提供的实战 Jupyter Notebook，从零构建了一个具备工具调用能力的 Agent，非常贴近「纯代码手搓 Agent」的教学场景。"
+      },
+      {
+        "title": "Building Effective Agents (HumanEval & Best Practices)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/define-your-tools",
+        "description": "官方给出的工具定义最佳实践，强调了在纯 Python 构建时，如何通过良好的 JSON Schema 和 Description 设计，最大程度减少 Agent Loop 的幻觉和出错率。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "description": "奠定现代 Agent Loop 基础的经典学术论文，提出了推理和行动协同的范式，是用 while 循环构建 Agent 的学术理论基石。"
+      },
+      {
+        "title": "Toolformer 大模型自发学习使用工具",
+        "url": "https://arxiv.org/abs/2302.04761",
+        "description": "Meta 等机构关于 LLM 自主决定何时调用 API 的前沿研究，解释了为什么现代大模型能够在纯 API 层面完美契合 tool_use 标签。"
+      },
+      {
+        "title": "Model Context Protocol (MCP) 的演进与未来",
+        "url": "https://www.anthropic.com/news/model-context-protocol",
+        "description": "2024 年末发布并将在 2025-2026 年重塑 Agent 生态的开放标准。未来即使手写纯 Python Agent，也会通过 MCP 协议以标准化的方式接入万物，取代当前零散的自定义函数挂载方式。"
+      }
+    ]
+  },
+  "summary": "本次调研针对「用纯 Python+API 从零构建首个 Agent」主题进行了深入剖析。事实层揭示了 Agent Loop 的本质是建立在 OpenAI 和 Anthropic 等各大模型 tool_use 能力之上的 while 循环状态机；开源与商业维度的资料（如官方 Cookbooks 和 API 文档）为开发者提供了不带框架滤镜的纯正底层代码参考。社区反馈表明，手写 Agent 虽然能极大降低学习门槛并消除框架黑盒，但也面临容错处理和死循环防范等工程挑战。通过结合 ReAct 等经典学术理论与最新的 MCP 开放协议趋势，开发者不仅能扎实掌握当前纯 Python 构建 Agent 的最佳实践，更能为迎接 2025 年标准化 Agent 生态打下坚实基础。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "title": "anthropics/anthropic-cookbook",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/openai/openai-cookbook",
+      "title": "openai/openai-cookbook",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "title": "modelcontextprotocol/python-sdk",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling",
+      "title": "OpenAI Function Calling 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+      "title": "Anthropic Tool Use 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models",
+      "title": "OpenAI Cookbook: How to call functions with chat models",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/tool_use.ipynb",
+      "title": "Anthropic Cookbook: Tool use & Agents",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/define-your-tools",
+      "title": "Building Effective Agents (HumanEval & Best Practices)",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.04761",
+      "title": "Toolformer 大模型自发学习使用工具",
+      "type": "frontier"
+    },
+    {
+      "url": "https://www.anthropic.com/news/model-context-protocol",
+      "title": "Model Context Protocol (MCP) 的演进与未来",
+      "type": "frontier"
+    }
+  ],
+  "query": "第一个 Agent：用纯 Python + API 从零构建 不依赖任何框架，用纯Python+API调用构建一个能真正工作的Agent。详解Agent Loop的本质：while循环检测tool_use → 执行工具 → 将结果喂回LLM → 继续循环。通过完整的代码示例（使用OpenAI或Anthropic API），让读者理解Agent运行机制的底层原理，为后续学习框架打下坚实基础。",
+  "researched_at": "2026-04-03T10:10:34.609215"
+}

@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "Agent系统具有高度的非确定性，其运行路径和输出依赖大模型的推理，导致传统的Assert断言无法直接应用，测试复杂度呈指数级上升。",
+      "黄金数据集是由人工或专家精心标注的“输入-期望输出”配对库，作为评估Agent输出准确性和底层逻辑一致性的基准。",
+      "工具Mock策略是通过拦截Agent对外部API或数据库的调用，返回预置的模拟响应，从而隔离外部依赖、消除网络波动并大幅降低测试成本。",
+      "Google ADK（Agent Development Kit）等现代框架引入了标准化的eval流程，通过加载evalset文件定义测试用例，支持启发式规则与LLM-as-a-Judge（大模型裁判）自动评分。",
+      "端到端测试覆盖了从用户输入、意图识别、工具调用到最终响应的完整认知链路，是验证Agent多步推理能力的核心环节。"
+    ],
+    "opensource": [
+      {
+        "name": "DeepEval",
+        "url": "https://github.com/confident-ai/deepeval",
+        "description": "开源的LLM与Agent评估框架，提供丰富的内置指标（如幻觉测试、工具调用准确率），支持本地运行和CI/CD集成。"
+      },
+      {
+        "name": "Promptfoo",
+        "url": "https://github.com/promptfoo/promptfoo",
+        "description": "专为LLM应用设计的测试与红队评估工具，支持针对Agent工具调用和输出格式的回归测试。"
+      },
+      {
+        "name": "Ragas",
+        "url": "https://github.com/explodinggradients/ragas",
+        "description": "专注于检索增强生成（RAG）和Agent工作流的开源评估框架，支持基于合成数据集的自动化测试。"
+      },
+      {
+        "name": "LangChain Test Utilities",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "LangChain生态内置的测试工具集，提供FakeListLLM、mock工具等基础能力，用于Agent逻辑的单元隔离测试。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Google Vertex AI Evaluation Service",
+        "url": "https://cloud.google.com/vertex-ai/docs/evaluation",
+        "description": "Google Cloud提供的商业化Agent与LLM评估服务，支持AutoSxS和自定义指标，对应ADK企业级eval能力。"
+      },
+      {
+        "name": "LangSmith",
+        "url": "https://www.langchain.com/langsmith",
+        "description": "LangChain官方商业平台，提供强大的Agent追踪、数据集构建与自动化回归测试功能。"
+      },
+      {
+        "name": "OpenAI Evals",
+        "url": "https://platform.openai.com/docs/guides/evals",
+        "description": "OpenAI官方推出的模型与应用评估API，支持定义黄金数据集进行高效回归测试。"
+      },
+      {
+        "name": "Braintrust",
+        "url": "https://www.braintrust.dev/",
+        "description": "专为AI研发设计的评估与测试云平台，提供极佳的评分函数支持和CI/CD数据看板。"
+      }
+    ],
+    "community": [
+      "开发者普遍反映：黄金数据集的维护成本极高，业务逻辑的微小变化往往导致大批量标注数据失效。",
+      "在工具Mock策略上，社区共识是“尽早Mock、全面Mock”，这不仅能避免测试时消耗真实API额度，还能防止外部API限流导致CI/CD流水线失败。",
+      "对于回归测试，纯靠LLM作为裁判评分存在标准不稳定的问题，社区推荐结合传统的正则匹配、JSON Schema校验与LLM语义评分组成混合断言。",
+      "许多团队反馈，Agent测试中最难的环节是“多轮对话状态管理”的测试，单轮测试往往无法暴露上下文丢失或记忆溢出的问题。"
+    ],
+    "practice": [
+      {
+        "title": "LangChain官方指南：在不调用API的情况下进行单元测试",
+        "url": "https://python.langchain.com/docs/guides/debugging/tests",
+        "description": "详细演示了如何使用pytest和mock替换Agent底层模型与工具，实现毫秒级单元测试。"
+      },
+      {
+        "title": "Hamel Hussein博客：构建LLM评估体系的最佳实践",
+        "url": "https://hamel.dev/blog/llm-evals/",
+        "description": "深入探讨了如何定义黄金数据集、避免评估盲点，以及如何将人工评估与自动化测试结合。"
+      },
+      {
+        "title": "DeepEval文档：在CI/CD中实现Agent回归测试",
+        "url": "https://docs.confident-ai.com/docs/integrations/github-actions",
+        "description": "实战指南：如何利用GitHub Actions在每次代码提交时自动运行Agent的端到端评估流水线。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AgentBench: Evaluating LLMs as Agents",
+        "url": "https://arxiv.org/abs/2308.03688",
+        "description": "早期且极具影响力的研究，提出多维评估框架以测试大模型在复杂真实环境中的工具调用与推理表现。"
+      },
+      {
+        "title": "T-Eval: Evaluating the Tool Utilization Capability Step by Step",
+        "url": "https://arxiv.org/abs/2312.14033",
+        "description": "前沿研究：提出将Agent的工具调用能力拆解为多个子维度进行细粒度测试与评估的方法。"
+      },
+      {
+        "title": "AI Agent自进化与自动红队测试 (2025趋势)",
+        "url": "https://arxiv.org/abs/2402.09132",
+        "description": "2025年最新趋势：利用对抗性AI自动生成极端测试用例（红队测试）来发现Agent的边界漏洞，实现测试集的自动扩充。"
+      }
+    ]
+  },
+  "summary": "Agent测试策略正从传统的代码单元测试向“数据驱动+认知评估”演进。通过构建黄金数据集设定基准、利用Mock技术解耦工具依赖，并结合端到端测试验证多步推理，业界已初步形成标准闭环。以Google ADK、DeepEval等为代表的工具将这一流程自动化与标准化，使其无缝接入CI/CD流水线，极大缓解了Agent非确定性带来的工程难题，成为2025年AI基础设施的关键拼图。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/confident-ai/deepeval",
+      "title": "DeepEval",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/promptfoo/promptfoo",
+      "title": "Promptfoo",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/explodinggradients/ragas",
+      "title": "Ragas",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain Test Utilities",
+      "type": "opensource"
+    },
+    {
+      "url": "https://cloud.google.com/vertex-ai/docs/evaluation",
+      "title": "Google Vertex AI Evaluation Service",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.langchain.com/langsmith",
+      "title": "LangSmith",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/evals",
+      "title": "OpenAI Evals",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.braintrust.dev/",
+      "title": "Braintrust",
+      "type": "commercial"
+    },
+    {
+      "url": "https://python.langchain.com/docs/guides/debugging/tests",
+      "title": "LangChain官方指南：在不调用API的情况下进行单元测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://hamel.dev/blog/llm-evals/",
+      "title": "Hamel Hussein博客：构建LLM评估体系的最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.confident-ai.com/docs/integrations/github-actions",
+      "title": "DeepEval文档：在CI/CD中实现Agent回归测试",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.14033",
+      "title": "T-Eval: Evaluating the Tool Utilization Capability Step by Step",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2402.09132",
+      "title": "AI Agent自进化与自动红队测试 (2025趋势)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 测试策略：单元测试与回归测试 Agent系统的测试比传统软件更复杂。本文详解Agent测试策略：黄金数据集构建（标注输入-期望输出的配对），工具mock策略（模拟API响应避免外部依赖），端到端测试（完整Agent流程验证），以及Google ADK的eval命令——通过evalset文件定义测试用例并自动评分。讨论CI/CD中的Agent回归测试方案。",
+  "researched_at": "2026-04-04T07:02:43.555876"
+}

@@ -1,0 +1,221 @@
+{
+  "series_info": {
+    "id": "ae_series_4_agent_safety_eval",
+    "name": "评估、安全与可观测",
+    "description": "让Agent从能跑到可靠，评估基准、安全防护与可观测性体系",
+    "topic_count": 10,
+    "difficulty": "高级",
+    "priority": 4,
+    "status": "in_progress"
+  },
+  "topics": [
+    {
+      "id": "ae_topic_031",
+      "series_id": "ae_series_4",
+      "episode": 31,
+      "title": "Agent 评估基准：AgentBench、SWE-bench、WebArena",
+      "description": "如何科学评估Agent能力？本文详解三大评估基准：AgentBench（多维度Agent能力评估）、SWE-bench（从GitHub Issue到PR的软件工程能力，含SWE-bench Verified和SWE-smith数据生成工具）、WebArena（812个真实Web任务的交互评估）。分析各基准的评分方法、覆盖范围，以及如何在自有任务上构建评估框架。",
+      "keywords": [
+        "AgentBench",
+        "SWE-bench",
+        "WebArena",
+        "评估基准",
+        "Agent评估",
+        "benchmark",
+        "mini-swe-agent",
+        "SWE-smith"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_032",
+      "series_id": "ae_series_4",
+      "episode": 32,
+      "title": "LLM-as-Judge：用大模型评测 Agent 产出",
+      "description": "用LLM评估LLM的输出质量已成为主流评测方法。本文详解LLM-as-Judge的实践：评估提示设计（明确的评分标准+参考答案+输出格式），一致性校验（多次评估取多数投票），多维度打分（准确性/完整性/可读性/安全性），以及局限性分析（位置偏差、冗余偏差、自我偏好）。提供可直接使用的评估提示模板。",
+      "keywords": [
+        "LLM-as-Judge",
+        "评估提示",
+        "一致性校验",
+        "多维度打分",
+        "自动评测",
+        "评分标准"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_033",
+      "series_id": "ae_series_4",
+      "episode": 33,
+      "title": "Agent 测试策略：单元测试与回归测试",
+      "description": "Agent系统的测试比传统软件更复杂。本文详解Agent测试策略：黄金数据集构建（标注输入-期望输出的配对），工具mock策略（模拟API响应避免外部依赖），端到端测试（完整Agent流程验证），以及Google ADK的eval命令——通过evalset文件定义测试用例并自动评分。讨论CI/CD中的Agent回归测试方案。",
+      "keywords": [
+        "Agent测试",
+        "单元测试",
+        "回归测试",
+        "黄金数据集",
+        "工具mock",
+        "端到端测试",
+        "Google ADK eval"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_034",
+      "series_id": "ae_series_4",
+      "episode": 34,
+      "title": "Prompt Injection 防御：对抗攻击与安全边界",
+      "description": "Agent使用工具后攻击面急剧扩大。本文详解直接注入（用户输入中的恶意指令）和间接注入（被Agent检索到的恶意内容），工具污染(tool poisoning)——当Agent使用的第三方工具返回恶意数据时的风险。全面解读OWASP LLM Top 10(2025版)的全部10个风险项及其Agent场景下的具体表现。分析输入验证、指令层级分离等防御策略。",
+      "keywords": [
+        "Prompt Injection",
+        "对抗攻击",
+        "工具污染",
+        "数据泄露",
+        "OWASP LLM Top 10",
+        "越狱",
+        "安全防御"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_035",
+      "series_id": "ae_series_4",
+      "episode": 35,
+      "title": "Guardrails 实战：输入输出防护栏",
+      "description": "防护栏是Agent安全的第一道防线。本文实战三种Guardrails方案：NVIDIA NeMo Guardrails（Colang语言定义对话边界）、Guardrails AI（Pydantic schema验证输入输出）、OpenAI Agents SDK内置Guardrails（Input/Output/Tool三种类型，parallel和blocking两种执行模式）。通过客服Agent案例，展示如何组合使用多层防护栏。",
+      "keywords": [
+        "Guardrails",
+        "NeMo Guardrails",
+        "Guardrails AI",
+        "输入防护",
+        "输出防护",
+        "工具防护",
+        "OpenAI Guardrails"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 12000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_036",
+      "series_id": "ae_series_4",
+      "episode": 36,
+      "title": "Agent 可观测性（上）：追踪与日志",
+      "description": "无法观测就无法优化。本文建立Agent可观测性的基础框架：详解Tracing和Span概念（借鉴OpenTelemetry），Agent执行路径追踪（每一步推理、工具调用、决策节点的完整记录），结构化日志（JSON格式、关联trace_id）。讨论Agent决策可视化——如何将Agent的推理链路呈树状/图状展示，帮助开发者快速定位问题。",
+      "keywords": [
+        "可观测性",
+        "Observability",
+        "Tracing",
+        "Span",
+        "OpenTelemetry",
+        "执行路径",
+        "结构化日志"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_037",
+      "series_id": "ae_series_4",
+      "episode": 37,
+      "title": "Agent 可观测性（下）：LangSmith 与 Langfuse",
+      "description": "选择合适的可观测性平台是Agent生产化的关键。本文对比LangSmith（LangChain官方、深度集成LangGraph、付费SaaS）和Langfuse（开源、框架无关、自托管选项）：Dashboard设计、执行追踪可视化、延迟分析、Token消耗追踪、反馈标注、A/B测试支持。覆盖20+集成伙伴（Weights & Biases、MLflow、Arize Phoenix等）。",
+      "keywords": [
+        "LangSmith",
+        "Langfuse",
+        "可观测性平台",
+        "Dashboard",
+        "延迟分析",
+        "成本追踪",
+        "tracing"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_038",
+      "series_id": "ae_series_4",
+      "episode": 38,
+      "title": "成本优化：Token 管理与模型路由策略",
+      "description": "Agent的Token消耗远超简单API调用，成本控制是生产化的必修课。本文详解Prompt Caching策略（Anthropic cache_control和OpenAI cached_response），大小模型路由（用Haiku处理简单分类、Sonnet处理复杂推理），Token预算管理（设置单次运行上限），以及模型量化部署（4-bit量化减少推理成本）。",
+      "keywords": [
+        "成本优化",
+        "Token管理",
+        "模型路由",
+        "Prompt Caching",
+        "缓存策略",
+        "量化部署",
+        "Haiku Sonnet"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_039",
+      "series_id": "ae_series_4",
+      "episode": 39,
+      "title": "安全合规：OWASP LLM Top 10 与 EU AI Act",
+      "description": "Agent系统面临严格的合规要求。本文全面解读OWASP LLM Top 10(2025)的每个风险项在Agent场景下的具体表现和缓解措施，EU AI Act对AI系统的分级（unacceptable/high/limited/minimal risk）和对应义务，NIST AI Risk Management Framework的核心原则。详解审计日志设计（记录所有Agent决策和操作），数据隐私保护策略。",
+      "keywords": [
+        "OWASP LLM",
+        "EU AI Act",
+        "NIST AI RMF",
+        "合规框架",
+        "审计日志",
+        "数据隐私",
+        "风险评估"
+      ],
+      "difficulty": "高级",
+      "estimated_words": 10000,
+      "status": "completed",
+      "completed_at": "2026-04-04"
+    },
+    {
+      "id": "ae_topic_040",
+      "series_id": "ae_series_4",
+      "episode": 40,
+      "title": "安全综合实战：构建有防护栏的客服 Agent",
+      "description": "将Ep 31-39的评估与安全技术融会贯通，构建一个生产级安全的客服Agent。实现：多层Guardrails（输入检查+输出过滤+工具审批），可观测性（Langfuse追踪每次交互），审计日志（记录所有操作用于合规），成本控制（大小模型路由）。从威胁建模到安全架构设计再到代码实现，展示Ep 31-39所有安全技术的协同。",
+      "keywords": [
+        "综合实战",
+        "客服Agent",
+        "Guardrails",
+        "审批流程",
+        "可观测性",
+        "审计日志",
+        "安全体系"
+      ],
+      "difficulty": "实战",
+      "estimated_words": 12000,
+      "status": "pending",
+      "completed_at": null
+    }
+  ],
+  "statistics": {
+    "total_episodes": 10,
+    "completed_episodes": 9,
+    "total_estimated_words": 104000,
+    "completion_rate": 90.0,
+    "start_date": "2026-04-04",
+    "end_date": "2026-04-04"
+  }
+}

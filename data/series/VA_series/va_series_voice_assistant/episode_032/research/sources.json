@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "语音 Agent 工具调用的标准链路为：语音输入(ASR) -> 大模型意图识别(LLM) -> 结构化参数生成(Function Calling) -> 外部工具执行(API) -> 结果总结(LLM) -> 语音输出(TTS)。",
+      "为了满足人类对话的实时性要求，高级语音 Agent 的端到端延迟必须控制在 800ms 以内，这要求 ASR、LLM 推理、特别是 TTS 必须采用流式处理方案。",
+      "多轮工具交互管理通常依赖状态机和记忆机制。当调用如“订机票”等复杂 API 时，若参数缺失（如缺少目的地），Agent 需自动暂停执行并转化为向用户提问的语音交互。",
+      "2023-2024 年是技术转折点，OpenAI 发布 Realtime API 彻底改变了传统管道，实现了原生多模态对话中的“听、想、用工具、说”并发进行，大幅降低了对话延迟。",
+      "流式工具使用（如 Web 搜索）在语音场景中的关键在于“边搜边说”，Agent 会在接收到搜索结果流时，即时生成口语化的引导语（如“我正在为您查找，请稍等”），而不是死等全部结果返回。"
+    ],
+    "opensource": [
+      {
+        "name": "Pipecat",
+        "url": "https://github.com/pipecat-ai/pipecat",
+        "description": "目前最流行的开源语音 Agent 框架之一，专为实时多模态对话设计，完美支持 Function Calling、Web 搜索等工具的流式集成。"
+      },
+      {
+        "name": "Vocode",
+        "url": "https://github.com/vocodedev/vocode-core",
+        "description": "开源的语音 Agent 编排库，提供高度抽象的对话状态管理，支持结合 LLM 进行复杂的电话外呼与 API 联动。"
+      },
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "构建 Agent 的核心框架，其提供的 Tool Calling 模块和多轮对话记忆模块是开发语音工具助手的标准底层组件。"
+      },
+      {
+        "name": "LiveKit Agents",
+        "url": "https://github.com/livekit/agents",
+        "description": "基于 WebRTC 的开源实时多模态 AI 框架，内置极低延迟的语音管道和优秀的工具调用插件机制。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Realtime API",
+        "url": "https://platform.openai.com/docs/api-reference/realtime",
+        "description": "革命性的实时多模态 API，支持在单一连接内完成语音输入、输出，并原生支持在对话中并发触发 function calling。"
+      },
+      {
+        "name": "Vapi AI",
+        "url": "https://docs.vapi.ai/",
+        "description": "最顶级的商业化语音 Agent 云平台，开发者只需配置提示词和外部 API 的 Swagger/OpenAPI 文档，即可低代码构建带工具调用能力的语音助手。"
+      },
+      {
+        "name": "Retell AI",
+        "url": "https://www.retellai.com/",
+        "description": "提供企业级的对话式语音 Agent API，具备极快的响应速度，支持复杂的多轮工具执行和断点恢复。"
+      },
+      {
+        "name": "Twilio Voice (结合 AI Assistants)",
+        "url": "https://www.twilio.com/en-us/voice",
+        "description": "传统电信网与语音 AI 结合的标杆，提供电话网关能力，配合大模型可实现真实的电话机器人工具操作（如查询订单、语音支付）。"
+      }
+    ],
+    "community": [
+      "延迟是最大的痛点：开发者普遍反馈，如果在语音对话中使用传统的 HTTP 同步请求去调用第三方 API，等待时间往往会导致对话陷入尴尬的停顿。",
+      "误触发工具的“幻觉”问题：用户在闲聊时，LLM 可能会错误地认为需要调用某个工具（比如把“我想天凉快些”误判为调用“开空调”的智能家居 API），需要精准的 System Prompt 约束。",
+      "流式 JSON 解析是技术难点：在工具调用的实战中，大模型输出 JSON 参数也是逐字生成的，开发者必须自己写逻辑去实时拼接和校验不完整的 JSON，以争取几百毫秒的时间。",
+      "打断机制的处理：当 AI 正在播报工具调用结果时（例如播报航班信息），用户突然打断并要求换一个航班，系统需要立刻取消当前 API 调用或重新发起请求。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI 官方 Realtime API Function Calling Guide",
+        "url": "https://platform.openai.com/docs/guides/realtime-function-calling",
+        "description": "最权威的实战指南，详细讲解了如何通过 WebSocket 实时监听对话并在毫秒级插入工具执行逻辑。"
+      },
+      {
+        "title": "Build a Voice Agent with LangGraph and Vocode",
+        "url": "https://blog.langchain.dev/build-a-voice-agent-with-langgraph/",
+        "description": "LangChain 官方博客教程，演示如何使用 LangGraph 实现包含复杂工具调用和多轮状态流转的语音机器人。"
+      },
+      {
+        "title": "Optimizing TTS and ASR Latency for Voice Agents",
+        "url": "https://docs.livekit.io/realtime/optimization/latency/",
+        "description": "LiveKit 关于语音 Agent 性能优化的最佳实践，涵盖流式 VAD、网络抖动处理等与工具调用并发相关的实战技巧。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Speaking and Listening Simultaneously: Full-Duplex Communication",
+        "url": "https://arxiv.org/abs/2405.19187",
+        "description": "探索全双工语音交互的前沿研究，解决 AI 在说话的同时倾听并随时响应指令（包括工具调用指令）的问题。"
+      },
+      {
+        "title": "Audio-based Tool Use in Multimodal LLMs",
+        "url": "https://arxiv.org/abs/2409.18641",
+        "description": "关于原生音频大模型（如 GPT-4o 类模型）如何不经过文本中间步骤，直接在音频表征层生成工具调用意图的研究。"
+      },
+      {
+        "title": "ReAct Agent Patterns for Voice Assistants",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "description": "经典的 ReAct (Reasoning and Acting) 范式，目前正被大量移植到语音 Agent 中，以解决复杂的多步工具调用逻辑推理问题。"
+      }
+    ]
+  },
+  "summary": "本次调研揭示了“语音 Agent + 工具调用”正经历从“串行管道”向“实时全双工多模态并发”的范式跃迁。其核心挑战不再是单纯的 API 拼接，而是如何在极低延迟（<800ms）的要求下，优雅地实现流式 Function Calling、处理用户随时打断，以及避免工具的误触发。借助 LiveKit、Pipecat 等开源生态以及 Vapi 等商业平台，开发者现在可以构建出像真人一样不仅能“聊”，还能高效“办事”的超级语音助理。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/pipecat-ai/pipecat",
+      "title": "Pipecat",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/vocodedev/vocode-core",
+      "title": "Vocode",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/livekit/agents",
+      "title": "LiveKit Agents",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/api-reference/realtime",
+      "title": "OpenAI Realtime API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.vapi.ai/",
+      "title": "Vapi AI",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.retellai.com/",
+      "title": "Retell AI",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.twilio.com/en-us/voice",
+      "title": "Twilio Voice (结合 AI Assistants)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/realtime-function-calling",
+      "title": "OpenAI 官方 Realtime API Function Calling Guide",
+      "type": "practice"
+    },
+    {
+      "url": "https://blog.langchain.dev/build-a-voice-agent-with-langgraph/",
+      "title": "Build a Voice Agent with LangGraph and Vocode",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.livekit.io/realtime/optimization/latency/",
+      "title": "Optimizing TTS and ASR Latency for Voice Agents",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2405.19187",
+      "title": "Speaking and Listening Simultaneously: Full-Duplex Communication",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2409.18641",
+      "title": "Audio-based Tool Use in Multimodal LLMs",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "title": "ReAct Agent Patterns for Voice Assistants",
+      "type": "frontier"
+    }
+  ],
+  "query": "语音 Agent 工具调用：让助手帮你执行操作 语音助手不只是聊天。详解Function Calling + 语音的集成方案、流式工具使用（Web搜索、API调用），以及多轮工具交互的对话管理策略。",
+  "researched_at": "2026-04-04T13:43:41.950312"
+}

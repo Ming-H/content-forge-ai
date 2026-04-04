@@ -1,0 +1,159 @@
+{
+  "dimensions": {
+    "facts": [
+      "大模型应用架构正经历从“纯Prompt工程”向“Agentic Workflow（智能体工作流）”的演进，Agent架构已成为2024-2025年AI毕业项目和工业界落地的主流范式。",
+      "现代Agent系统架构通常包含四大核心模块：规划、记忆、工具调用。",
+      "架构设计中的非功能需求（NFR）极难平衡：要求系统延迟P95<5s，意味着必须限制Agent的迭代反思次数（通常ReAct不超过3次）；准确率>90%高度依赖RAG（检索增强生成）的召回率和意图识别；单次成本<$0.1则要求避免盲目使用昂贵的最新大模型（如GPT-4o），需采用大小模型协同路由架构。",
+      "主流的Agent拓扑结构从单智能体（ReAct）向多智能体演进，模式包括：瀑布流式、协同式和中心编排式（如LangGraph的图结构）。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "目前构建复杂、可控Agent拓扑结构最热门的框架，支持状态管理、循环控制，非常适合设计需要精确控制延迟和准确率的复杂工作流。"
+      },
+      {
+        "name": "MetaGPT",
+        "url": "https://github.com/geekan/MetaGPT",
+        "description": "优秀的多智能体框架，其标准操作程序（SOP）设计理念对毕业项目中的需求拆解和角色分配（如产品经理、架构师、工程师Agent）具有极高的参考价值。"
+      },
+      {
+        "name": "Dify",
+        "url": "https://github.com/langgenius/dify",
+        "description": "开源的LLM应用开发平台，提供可视化的Agent编排和工作流设计，适合作为毕业项目快速验证需求分析和架构设计的原型工具。"
+      },
+      {
+        "name": "Awesome LLM Apps",
+        "url": "https://github.com/isan-bel/awesome-llm-apps",
+        "description": "收集了各类基于大模型的应用和Agent实现，包含完整的架构设计，是毕业项目寻找灵感和技术选型对比的极佳资源库。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "官方提供的托管Agent解决方案，内置代码解释器、文件检索等工具，其设计规范是自研Agent架构时的重要参考标准。"
+      },
+      {
+        "name": "Anthropic Claude Tool Use",
+        "url": "https://docs.anthropic.com/claude/docs/tool-use",
+        "description": "业界公认最优秀的Function Calling和Agent工具调用实现之一，其官方文档提供了大量关于架构设计和提示词工程的最佳实践。"
+      },
+      {
+        "name": "AWS Bedrock Agents",
+        "url": "https://aws.amazon.com/bedrock/agents/",
+        "description": "商业云服务方案代表，展示了企业级Agent系统如何结合知识库和安全架构进行一键式部署。"
+      }
+    ],
+    "community": [
+      "架构选型争议：社区普遍认为基于DAG（有向无环图）的静态工作流比完全自主的动态Agent更具确定性和可控性，更适合对延迟和准确率有严格要求的商业/毕设项目。",
+      "成本控制经验：为了满足<$0.1/次的成本要求，开发者常采用“大小模型协同”架构：用便宜快速的小参数模型（如GPT-4o-mini/Qwen-7b）负责意图识别、信息抽取和路由，仅在核心推理环节调用昂贵的大模型。",
+      "需求分析痛点：“用户不知道要什么，Agent容易胡说八道”。因此在需求分析阶段，必须把“防幻觉机制（如强制的引用溯源、置信度评分）”作为核心非功能需求写入设计文档。",
+      "安全机制反馈：社区强烈建议在架构设计中为Agent工具加上“人工干预”机制和严格的权限沙箱（如只读数据库权限），防止Agent在自主迭代中产生不可逆的破坏性操作。"
+    ],
+    "practice": [
+      {
+        "title": "DeepLearning.AI - AI Agents in LangGraph",
+        "url": "https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/",
+        "description": "顶级实操课程，手把手教授如何从0构建具有持久化状态、人机交互和循环控制能力的Agent，非常适合毕设架构落地。"
+      },
+      {
+        "title": "微软 Azure AI 架构中心 - 设计安全的AI应用",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/",
+        "description": "官方提供的企业级AI应用参考架构，涵盖了负载均衡、安全性设计及RAG流水线，是输出毕设“安全方案”和“系统架构图”的最权威参考。"
+      },
+      {
+        "title": "DeepSeek API 定价与性能基准",
+        "url": "https://platform.deepseek.com/api-docs/pricing",
+        "description": "在技术选型中，若需满足成本<$0.1/次且具备强大推理能力，DeepSeek V3/R1 是目前社区最推荐的底层模型之一，此链接提供真实的延迟与成本基准数据。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures (arXiv)",
+        "url": "https://arxiv.org/abs/2404.11584",
+        "description": "全面梳理了AI智能体架构的演进图谱，对需求分析中拆解Agent子任务（如规划、反思、记忆检索）提供了坚实的学术支撑。"
+      },
+      {
+        "title": "Model Context Protocol (MCP) by Anthropic",
+        "url": "https://modelcontextprotocol.io/",
+        "description": "2024年底发布的前沿标准，定义了AI Agent与外部数据源和工具交互的统一协议，是设计毕设“工具清单”和“系统对接架构”的最新风向标。"
+      },
+      {
+        "title": "CoALA: Cognitive Architectures for Language Agents",
+        "url": "https://arxiv.org/abs/2309.02427",
+        "description": "论述大语言模型智能体的认知架构设计，将Agent与传统软件工程架构结合，对未来（2025+）Agent系统的设计有指导意义。"
+      }
+    ]
+  },
+  "summary": "本次调研全面梳理了“毕业项目：需求分析与架构设计”在Agent Engineering领域的核心要素。现代Agent架构已从简单的提示词工程演进为包含规划、记忆和工具调用的复杂工作流。调研发现，要在真实场景（如智能客服/数据分析）中满足延迟<5s、准确率>90%、成本<$0.1的硬性指标，必须采用“大小模型协同路由”、“LangGraph图结构控制循环”以及“强制引用溯源”等架构设计策略。结合MetaGPT、LangGraph等优秀开源项目和MCP等前沿协议，开发者可以系统地完成从需求拆解、技术选型到安全方案输出的完整闭环，为打造企业级高可用AI系统奠定基础。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/geekan/MetaGPT",
+      "title": "MetaGPT",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langgenius/dify",
+      "title": "Dify",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/isan-bel/awesome-llm-apps",
+      "title": "Awesome LLM Apps",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/tool-use",
+      "title": "Anthropic Claude Tool Use",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/bedrock/agents/",
+      "title": "AWS Bedrock Agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/",
+      "title": "DeepLearning.AI - AI Agents in LangGraph",
+      "type": "practice"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/",
+      "title": "微软 Azure AI 架构中心 - 设计安全的AI应用",
+      "type": "practice"
+    },
+    {
+      "url": "https://platform.deepseek.com/api-docs/pricing",
+      "title": "DeepSeek API 定价与性能基准",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11584",
+      "title": "The Landscape of Emerging AI Agent Architectures (arXiv)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/",
+      "title": "Model Context Protocol (MCP) by Anthropic",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2309.02427",
+      "title": "CoALA: Cognitive Architectures for Language Agents",
+      "type": "frontier"
+    }
+  ],
+  "query": "毕业项目（上）：需求分析与架构设计 Agent Engineering系列的毕业项目开始。本文选择一个真实场景（如智能客服/代码开发助手/数据分析系统），完成完整的需求分析：明确功能需求和非功能需求（延迟<5s、准确率>90%、成本<$0.1/次），拆解为Agent子任务，进行技术选型决策（框架、模型、工具、部署方案），输出完整的架构设计文档（系统架构图、Agent拓扑、工具清单、安全方案）。",
+  "researched_at": "2026-04-04T15:34:30.261436"
+}

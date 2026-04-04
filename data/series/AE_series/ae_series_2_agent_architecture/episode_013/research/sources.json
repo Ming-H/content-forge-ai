@@ -1,0 +1,179 @@
+{
+  "dimensions": {
+    "facts": [
+      "长期记忆让 Agent 能够跨越会话保留用户偏好和历史知识，是实现个性化陪伴与持续进化的核心基础设施。",
+      "Agentic RAG 与传统 RAG 的核心区别在于：传统 RAG 是被动检索（固定检索链路），而 Agentic RAG 赋予了 Agent 自主权，由大模型自主决定【是否需要检索】、【检索什么关键词/向量】以及【如何整合多源检索结果】。",
+      "向量数据库的选型呈现明显的场景分化：ChromaDB 适合单机轻量级开发测试；Pinecone 提供全托管免运维服务；Qdrant 基于 Rust 开发，主打低延迟和高性能；Milvus 则更适合企业级百亿级大规模数据生产环境。",
+      "嵌入模型的选型直接影响检索的准确性：OpenAI text-embedding-3 系列主打综合性能与多语言支持；BGE (BAAI) 在开源社区评测中霸榜，适合私有化部署；Cohere 则在多语言跨语种检索上表现优异。"
+    ],
+    "opensource": [
+      {
+        "name": "ChromaDB",
+        "url": "https://github.com/chroma-core/chroma",
+        "description": "AI 原生的开源向量数据库，极简的 API 设计，非常适合本地 Python/JS 开发和原型验证。"
+      },
+      {
+        "name": "Qdrant",
+        "url": "https://github.com/qdrant/qdrant",
+        "description": "用 Rust 编写的高性能开源向量搜索引擎，内存占用极小，支持复杂的负载过滤，性能指标业界领先。"
+      },
+      {
+        "name": "Milvus",
+        "url": "https://github.com/milvus-io/milvus",
+        "description": "LF AI & Data 基金会毕业项目，全球最流行的开源向量数据库之一，专为万亿级向量的大规模分布式检索设计。"
+      },
+      {
+        "name": "Mem0",
+        "url": "https://github.com/mem0ai/mem0",
+        "description": "专为 LLM Agent 打造的记忆管理框架，能自动从对话中提取实体和偏好并更新长期记忆，被业界称为 Agent 记忆的终极解决方案。"
+      },
+      {
+        "name": "Zep",
+        "url": "https://github.com/getzep/zep",
+        "description": "一个为 AI 助手设计的开源长期记忆服务器，内置对话摘要、实体提取、自动向量化存储以及完善的 Auto-RAG 功能。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Pinecone 官方文档",
+        "url": "https://docs.pinecone.io/",
+        "description": "全托管的闭源云原生向量数据库，只需几行代码即可完成大规模向量检索，完全无需运维底层基础设施。"
+      },
+      {
+        "name": "OpenAI Embeddings API",
+        "url": "https://platform.openai.com/docs/guides/embeddings",
+        "description": "OpenAI 推出的闭源文本嵌入模型服务，最新的 text-embedding-3-small/large 在性能和成本上取得了极佳的平衡。"
+      },
+      {
+        "name": "Cohere Embed API",
+        "url": "https://docs.cohere.com/reference/embed",
+        "description": "Cohere 提供的企业级 Embeddings 云服务，在多语言搜索和语义相似度计算上表现顶尖。"
+      },
+      {
+        "name": "BGE Models (HuggingFace)",
+        "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+        "description": "智源研究院（BAAI）开源的商业级嵌入模型，允许企业在本地私有化部署，免费且准确率极高。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈：Mem0 的封装极大降低了实现 Agent 长期记忆的门槛，它解决了 LangChain 传统 Memory 模块依赖大模型上下文窗口（容易爆字数）的痛点。",
+      "关于传统 RAG 的吐槽：‘查询一旦复杂或者关键词没命中，传统 RAG 就容易变成笨检索’，因此 Agentic RAG（引入工具调用机制让大模型自我规划检索路线）成为社区公认的 2025 年 Agent 核心进化方向。",
+      "向量库选型经验：初创公司和独立开发者极度偏爱 Pinecone 和 ChromaDB，因为不需要处理分布式索引的运维噩梦；而国内大厂和金融政企客户由于合规要求，基本清一色选择 Milvus 私有化部署。",
+      "对于 Embedding 模型，社区观点认为：如果是全球化业务直接用 OpenAI 或 Cohere，如果是中文为主且算力充足，BGE 系列是目前毫无争议的开源首选。"
+    ],
+    "practice": [
+      {
+        "title": "OpenAI 官方 RAG 与向量数据库最佳实践指南",
+        "url": "https://cookbook.openai.com/examples/vector_databases/readme",
+        "description": "涵盖了 OpenAI Embedding 模型与各种主流向量数据库（Pinecone, Qdrant, Chroma, Milvus等）的集成实战代码。"
+      },
+      {
+        "title": "Building Agentic RAG with LlamaIndex",
+        "url": "https://docs.llamaindex.ai/en/stable/use_cases/agent_memory/",
+        "description": "LlamaIndex 官方关于如何将传统 RAG 升级为 Agentic RAG 的实战教程，详细演示了 Agent 如何利用检索工具动态路由。"
+      },
+      {
+        "title": "Mem0 官方文档与集成指南",
+        "url": "https://docs.mem0.ai/",
+        "description": "手把手教你如何将 Mem0 的长期记忆层无缝接入 OpenAI、Claude、LangChain 等主流智能体框架。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Generative Agents: Interactive Simulacra of Human Behavior (斯坦福虚拟小镇论文)",
+        "url": "https://arxiv.org/abs/2304.03442",
+        "description": "奠定了现代 Agent 记忆架构的鼻祖论文，提出了记忆流、反思机制和高层规划的完整长期记忆认知框架。"
+      },
+      {
+        "title": "Corrective RAG (CRAG) 理念与最新研究",
+        "url": "https://arxiv.org/abs/2401.05856",
+        "description": "前沿的“纠错式 RAG”理念，是 Agentic RAG 的重要分支，通过引入轻量级检索评估器，让 Agent 在检索质量不佳时能自主纠正或联网重搜。"
+      },
+      {
+        "title": "Graph RAG (知识图谱与向量检索的融合)",
+        "url": "https://microsoft.github.io/graphrag/",
+        "description": "微软提出的 GraphRAG 趋势。未来 Agent 长期记忆不仅是向量检索，还将结合知识图谱，解决复杂实体关系的推理和全局性信息的总结问题。"
+      }
+    ]
+  },
+  "summary": "本次调研揭示，Agent 的长期记忆正在从单纯的'大模型上下文管理'向'智能体自主驱动的 Agentic RAG 架构'跃迁。在这一演进中，以 ChromaDB、Pinecone、Milvus 为代表的向量数据库充当了记忆的物理载体，OpenAI 与 BGE 等 Embedding 模型决定了记忆的编码质量，而 Mem0、Zep 等框架则通过整合这些底层组件，实现了记忆的自动化提取、存储与自主召回。未来的 Agent 记忆将不再局限于文本块的向量比对，而是向结合了知识图谱与自我反思纠错的复杂认知系统迈进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/chroma-core/chroma",
+      "title": "ChromaDB",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/qdrant/qdrant",
+      "title": "Qdrant",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/milvus-io/milvus",
+      "title": "Milvus",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/mem0ai/mem0",
+      "title": "Mem0",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/getzep/zep",
+      "title": "Zep",
+      "type": "opensource"
+    },
+    {
+      "url": "https://docs.pinecone.io/",
+      "title": "Pinecone 官方文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/embeddings",
+      "title": "OpenAI Embeddings API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.cohere.com/reference/embed",
+      "title": "Cohere Embed API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+      "title": "BGE Models (HuggingFace)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cookbook.openai.com/examples/vector_databases/readme",
+      "title": "OpenAI 官方 RAG 与向量数据库最佳实践指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.llamaindex.ai/en/stable/use_cases/agent_memory/",
+      "title": "Building Agentic RAG with LlamaIndex",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.mem0.ai/",
+      "title": "Mem0 官方文档与集成指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior (斯坦福虚拟小镇论文)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2401.05856",
+      "title": "Corrective RAG (CRAG) 理念与最新研究",
+      "type": "frontier"
+    },
+    {
+      "url": "https://microsoft.github.io/graphrag/",
+      "title": "Graph RAG (知识图谱与向量检索的融合)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 记忆系统（下）：长期记忆与向量检索 长期记忆让Agent跨会话保留知识。本文详解向量数据库选型（ChromaDB轻量本地、Pinecone全托管、Qdrant高性能、Milvus大规模），嵌入模型选择（OpenAI text-embedding-3、BGE、Cohere），以及Agentic RAG与传统RAG的关键区别——Agent自主决定何时检索、检索什么、如何整合。介绍Mem0、Zep等Agent记忆工具。",
+  "researched_at": "2026-04-03T20:25:55.363445"
+}

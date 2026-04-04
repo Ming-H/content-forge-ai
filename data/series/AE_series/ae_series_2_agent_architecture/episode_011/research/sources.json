@@ -1,0 +1,149 @@
+{
+  "dimensions": {
+    "facts": [
+      "Plan-and-Execute 架构最早在学术界引起广泛关注源于 2023 年 5 月的论文《Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models》，旨在替代简单的 Let's think step by step，减少计算错误和步骤遗漏。",
+      "该架构将传统 Agent 拆分为两个独立组件：Planner（规划器，负责将复杂任务分解为可执行的子任务列表）和 Executor（执行器，负责逐步执行子任务并返回结果）。",
+      "Hierarchical Planning（分层规划）是该架构的核心策略，通常将高层的宏观计划逐步细化为底层的具体动作，或者根据前置步骤的结果动态生成下一阶段的计划。",
+      "Re-planning（动态重规划）机制使得 Agent 具备容错能力：当 Executor 发现某个步骤执行失败或环境发生变化时，Planner 会根据历史记录和错误信息重新生成后续计划，而非继续沿原错误路径行进。",
+      "相比 ReAct (Reason+Act) 架构的每步都要思考和行动，Plan-and-Execute 通过先全局规划再执行，大幅减少了 LLM 调用次数和 Token 消耗，显著提升了长链路复杂任务的处理效率。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph (Plan-and-Execute Example)",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的状态化多 Agent 框架，其官方示例中提供了最经典的 PlanAndExecute 模板，完美展示了 Planner、Executor 和 Re-planner 的图状态流转。"
+      },
+      {
+        "name": "langchain (Plan-and-Solve Agent)",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "LangChain 核心库，早期集成了基于 LLMChain 的计划与执行智能体实验性模块，供开发者快速原型验证。"
+      },
+      {
+        "name": "AutoGen (by Microsoft)",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软开源的多智能体对话框架，常被社区用于构建基于群聊模式的分层规划与执行系统，多个 Agent 分别承担规划、编码、执行等角色。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "LangGraph Cloud / LangGraph Studio",
+        "url": "https://www.langchain.com/langgraph",
+        "description": "LangChain 官方推出的商业化云服务方案，提供可视化的图节点拖拽界面，支持一键部署包含 Plan-and-Execute 循环逻辑的复杂 Agent 到生产环境。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI 官方的闭源 Agent 构建方案，内置代码解释器、文件检索和函数调用工具，在底层任务调度上实际采用了类似规划与执行分离的设计理念。"
+      },
+      {
+        "name": "Anthropic Claude 3.5 Sonnet (Tool Use)",
+        "url": "https://docs.anthropic.com/claude/docs/tool-use",
+        "description": "Anthropic 提供的具备极强逻辑推理能力的模型 API，目前被广泛用作商业级 Plan-and-Execute 架构中 '大脑'（即 Planner 规划器）的最佳基座模型之一。"
+      }
+    ],
+    "community": [
+      "社区开发者普遍反馈：Plan-and-Execute 模式在处理“数据清洗生成”、“自动多步编程”和“长篇结构化报告撰写”等确定性目标的多步任务时，成功率远高于传统的 ReAct 架构。",
+      "核心痛点在于错误传播：如果规划器（Planner）在第一步生成了一个逻辑错误的宏观计划，即使有动态重规划（Re-planning），执行器有时也会顺着错误的方向越走越远，产生“幻觉雪崩”。",
+      "关于模型选择的最佳实践：强烈建议用最强的大模型（如 Claude 3.5 或 GPT-4o）做 Planner，而用速度更快、成本更低的小模型（如 GPT-4o-mini 或 Llama 3 8B）做 Executor，兼顾效果与成本。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph 官方指南：Plan-and-Execute",
+        "url": "https://langchain-ai.github.io/langgraph/tutorials/plan-and-execute/plan-and-execute/",
+        "description": "手把手教你如何使用 LangGraph 定义状态图，实现一个包含计划节点、执行节点和重规划节点的完整 Python 实战项目。"
+      },
+      {
+        "title": "Prompt Engineering Guide: Plan-and-Solve",
+        "url": "https://www.promptingguide.ai/zh/techniques/ps",
+        "description": "DAIR.AI 整理的关于 Plan-and-Solve Prompting 的中文理论指南，详细介绍了如何设计提示词来显式指导模型进行计划和求解。"
+      },
+      {
+        "title": "Building a Research Assistant with Plan-and-Execute",
+        "url": "https://blog.langchain.dev/plan-and-execute-agents/",
+        "description": "LangChain 官方博客提供的实战案例，演示了如何利用该架构结合搜索引擎，构建一个具备反思能力的自动化深度研究助手。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Plan-and-Solve Prompting 论文",
+        "url": "https://arxiv.org/abs/2305.04091",
+        "description": "奠定该架构基础的经典论文《Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models》，详细分析了零样本思维链的改进方案。"
+      },
+      {
+        "title": "LLM Compiler (by UC Berkeley)",
+        "url": "https://arxiv.org/abs/2312.04511",
+        "description": "前沿研究突破《An LLM Compiler for Parallel Function Calling》，它将任务规划视为代码编译，将 Plan-and-Execute 架构推向了极致的并行执行优化，大幅降低了 Agent 执行延迟。"
+      },
+      {
+        "title": "Tree of Thoughts (ToT)",
+        "url": "https://arxiv.org/abs/2305.10601",
+        "description": "《Tree of Thoughts: Deliberate Problem Solving with Large Language Models》代表了未来趋势，将单一的线性规划升级为“树状”的探索式规划，允许 Agent 在执行中回溯并尝试不同的计划分支。"
+      }
+    ]
+  },
+  "summary": "Plan-and-Execute 架构通过分离任务的宏观规划（Planner）与具体执行（Executor），并引入动态重规划（Re-planning）机制，为处理复杂、长周期的多步任务提供了一种高效且容错的 Agent 设计范式。相比传统的单步推理（如 ReAct），它在逻辑严密性、Token 消耗控制和执行效率上具有显著优势。基于 LangGraph 等现代图状态框架的实现使得该架构的落地变得简单，而未来的研究趋势正朝着并行计划编译（LLM Compiler）和树状思维回溯等更高级的规划策略演进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph (Plan-and-Execute Example)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "langchain (Plan-and-Solve Agent)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "AutoGen (by Microsoft)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.langchain.com/langgraph",
+      "title": "LangGraph Cloud / LangGraph Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/tool-use",
+      "title": "Anthropic Claude 3.5 Sonnet (Tool Use)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/tutorials/plan-and-execute/plan-and-execute/",
+      "title": "LangGraph 官方指南：Plan-and-Execute",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.promptingguide.ai/zh/techniques/ps",
+      "title": "Prompt Engineering Guide: Plan-and-Solve",
+      "type": "practice"
+    },
+    {
+      "url": "https://blog.langchain.dev/plan-and-execute-agents/",
+      "title": "Building a Research Assistant with Plan-and-Execute",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.04091",
+      "title": "Plan-and-Solve Prompting 论文",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.04511",
+      "title": "LLM Compiler (by UC Berkeley)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.10601",
+      "title": "Tree of Thoughts (ToT)",
+      "type": "frontier"
+    }
+  ],
+  "query": "Plan-and-Execute 架构：规划与执行的分离设计 Plan-and-Execute将Agent分为规划器和执行器两个独立组件，是处理复杂多步任务的有效架构。本文解读Plan-and-Solve Prompting论文，详解分层规划(hierarchical planning)策略，分析动态重规划(re-planning)机制如何应对执行中的意外情况。结合LangGraph的PlanAndExecute实现，展示这一架构的代码实践。",
+  "researched_at": "2026-04-03T19:15:10.671047"
+}

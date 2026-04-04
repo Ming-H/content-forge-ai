@@ -1,0 +1,170 @@
+{
+  "dimensions": {
+    "facts": [
+      "Agent 的核心架构由感知、大脑（LLM）、记忆和动作组成，底层 LLM 的指令遵循能力和推理深度直接决定了 Agent 的能力上限。",
+      "在 Function Calling（函数调用）准确率方面，各家模型各有千秋：GPT-4o 表现最稳定；Claude 3.5 Sonnet 在复杂嵌套参数和多工具并行调用中表现出极强的容错性；Gemini 系列在与自家生态结合时表现优异；GLM-4/5 在中文语境下的本地化 API 调用具备高准确度。",
+      "长上下文理解方面，Gemini 1.5/2.5 Pro 支持高达 100万-200万 Token，在跨会话的全局代码库分析和长周期记忆 Agent 中具有绝对优势；Claude 拥有 200k 上下文且以“大海捞针”近乎 100% 的召回率著称。",
+      "多轮对话一致性与推理深度是构建复杂工作流 Agent 的关键。目前 OpenAI 推出的 o1 系列及 GPT-4o 持续引领，而 Claude 在避免 Agent 幻觉和长线任务指令遵循上受到开发者高度认可。",
+      "模型选型的核心权衡三角为：能力上限（推理/工具调用） vs 延迟（Token 生成速度） vs 成本（API 价格）。例如 GPT-4o 能力强但成本高，混合使用 GPT-4o-mini 或 GLM 系列做简单路由是业界常态。"
+    ],
+    "opensource": [
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "目前最主流的 Agent 开发框架，提供了丰富的工具集成和统一的模型接口，支持快速切换底层 LLM 以测试不同模型在 Agent 场景下的表现。"
+      },
+      {
+        "name": "Berkeley Function Calling Leaderboard (BFCL)",
+        "url": "https://github.com/ShishirPatil/gorilla",
+        "description": "加州大学伯克利分校维护的 Gorilla 项目，包含业界最权威的 Function Calling 评估基准，提供各主流模型在工具调用上的详细准确率对比数据。"
+      },
+      {
+        "name": "AutoGen",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软开源的多智能体协同框架，支持基于 GPT-4o、Claude 等模型构建可对话、可协作的复杂 Agent 工作流，适合研究推理深度和多轮一致性。"
+      },
+      {
+        "name": "Dify",
+        "url": "https://github.com/langgenius/dify",
+        "description": "开源的 LLMOps 平台，内置可视化的 Agent 编排工具，支持直接拖拽对比 GPT-4o、Claude、GLM 等模型在真实业务流中的效果。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI API (Function Calling)",
+        "url": "https://platform.openai.com/docs/guides/function-calling",
+        "description": "OpenAI 官方文档，详细阐述了 GPT-4o 及更新模型在结构化输出和函数调用上的最佳实践，支持并行函数调用。"
+      },
+      {
+        "name": "Anthropic Tool Use (Claude)",
+        "url": "https://docs.anthropic.com/claude/docs/tool-use",
+        "description": "Claude 官方关于工具使用的文档，支持强制调用特定工具、JSON 模式以及极强的复杂参数解析能力。"
+      },
+      {
+        "name": "Google Gemini API",
+        "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+        "description": "Google 官方 Gemini 模型的 Function Calling 文档，支持与 Google 生态服务无缝集成的 Agent 构建。"
+      },
+      {
+        "name": "智谱 GLM API",
+        "url": "https://open.bigmodel.cn/dev/api/normal-model/glm-4",
+        "description": "智谱 AI 官方大模型开放平台，GLM-4 及 GLM-5 系列模型的 API 文档，支持代码执行、网页浏览及函数调用等原生 Agent 能力。"
+      }
+    ],
+    "community": [
+      "社区普遍共识：Claude (Sonnet 3.5/4) 是目前「写代码 Agent」和「复杂多步逻辑 Agent」的王者，其指令遵循能力（IF）优于 GPT-4o。",
+      "很多独立开发者反馈，在 Agent 循环（ReAct Loop）中，Claude 较少出现“忘了自己该干嘛”的断线情况，而 GPT-4o 偶尔会在长程任务中迷失目标。",
+      "关于 Function Calling 的幻觉问题：不少开发者吐槽开源模型在遇到未定义的工具时容易“脑补”参数，相比之下 GPT-4o 和 Claude 能更准确地返回 Error 或要求补充信息。",
+      "成本考量是社区高频话题：开发者通常采用“路由架构”，简单工具调用用 GPT-4o-mini 或 GLM-4-Flash 等低成本模型，遇到深度推理才路由到 GPT-4o 或 Claude，以平衡能力与成本。"
+    ],
+    "practice": [
+      {
+        "title": "Berkeley Function Calling Leaderboard 排行榜",
+        "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+        "description": "业界最权威的工具调用评测榜单，实时展示 GPT-4o、Claude、Gemini 等在简单、多重、并行函数调用下的准确率基准数据。"
+      },
+      {
+        "title": "OpenAI 官方 Structured Outputs 最佳实践",
+        "url": "https://platform.openai.com/docs/guides/structured-outputs",
+        "description": "OpenAI 推出的结构化输出功能，确保 Agent 在调用函数时生成的 JSON 参数 100% 符合预设的 Schema，是解决 Agent 解析报错的最佳方案。"
+      },
+      {
+        "title": "LlamaIndex 构建数据 Agent 教程",
+        "url": "https://docs.llamaindex.ai/en/stable/use_cases/agents/",
+        "description": "LlamaIndex 官方文档中关于构建 Research Agent 和 数据分析 Agent 的实战指南，详细说明了不同模型在 RAG-Agent 中的选型策略。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures for Foundation Models",
+        "url": "https://arxiv.org/abs/2404.11584",
+        "description": "康奈尔大学的综述论文，全面梳理了基于大模型的 Agent 架构，深入探讨了 LLM 的记忆机制、规划能力和动作执行边界。"
+      },
+      {
+        "title": "Gorilla: Large Language Model Connected with Massive APIs",
+        "url": "https://arxiv.org/abs/2305.15334",
+        "description": "伯克利大学关于大模型工具调用能力的开创性研究，分析了如何让 LLM 准确对接海量 API，是 Function Calling 选型评估的理论基础。"
+      },
+      {
+        "title": "多模态与自我反思 Agent（Multimodal & Self-Reflective Agents）",
+        "url": "https://arxiv.org/abs/2304.08354",
+        "description": "前沿研究指出，2025-2026 年 Agent 的发展趋势将从纯文本工具调用升级为多模态操作（如 Claude 的 Computer Use），以及基于自我反馈的闭环纠错机制。"
+      }
+    ]
+  },
+  "summary": "本次调研深入剖析了“LLM 作为 Agent 大脑”的核心技术与选型策略。事实与开源评测（如 BFCL）表明，GPT-4o 在 Function Calling 综合稳定性上领先，Claude 在长上下文和复杂代码推理中表现惊艳，Gemini 凭借超长上下文在全局信息处理上占优，而 GLM 则在中文高性价比场景中脱颖而出。社区和实战层反馈，当前构建成熟 Agent 系统的关键在于平衡能力上限、Token 成本与生成延迟，采用“大小模型协同路由”是业界最佳实践。前沿趋势显示，未来 Agent 大脑将加速向多模态操作（如直接操控 GUI）和更强的自我反思纠错能力演进。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/ShishirPatil/gorilla",
+      "title": "Berkeley Function Calling Leaderboard (BFCL)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langgenius/dify",
+      "title": "Dify",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/function-calling",
+      "title": "OpenAI API (Function Calling)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/tool-use",
+      "title": "Anthropic Tool Use (Claude)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+      "title": "Google Gemini API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://open.bigmodel.cn/dev/api/normal-model/glm-4",
+      "title": "智谱 GLM API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+      "title": "Berkeley Function Calling Leaderboard 排行榜",
+      "type": "practice"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/structured-outputs",
+      "title": "OpenAI 官方 Structured Outputs 最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.llamaindex.ai/en/stable/use_cases/agents/",
+      "title": "LlamaIndex 构建数据 Agent 教程",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11584",
+      "title": "The Landscape of Emerging AI Agent Architectures for Foundation Models",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.08354",
+      "title": "多模态与自我反思 Agent（Multimodal & Self-Reflective Agents）",
+      "type": "frontier"
+    }
+  ],
+  "query": "LLM 作为 Agent 大脑：模型能力边界与选型策略 Agent的能力上限由底层LLM决定。本文对比GPT-4o、Claude 4 Sonnet、Gemini 2.5 Pro、GLM-5等主流模型在Agent场景下的表现差异，重点评估Function Calling准确率、长上下文理解、多轮对话一致性、推理深度等关键维度。构建模型选型决策树，帮助开发者在能力、成本、延迟之间做出最优权衡。",
+  "researched_at": "2026-04-03T09:30:04.992092"
+}

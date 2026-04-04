@@ -1,0 +1,160 @@
+{
+  "dimensions": {
+    "facts": [
+      "大模型Agent与传统的无状态API调用的核心区别在于‘状态维持’，而短期记忆（STM）是实现多轮对话、复杂规划与工具连续调用的基石。",
+      "上下文管理策略主要包括：滑动窗口（保留最近K轮对话）、优先级保留（为System Prompt和关键指令分配最高权重以防被挤占）以及Token预算控制。",
+      "自动压缩技术通过LLM对长历史对话进行实时摘要，将冗余的聊天记录转化为紧凑的上下文，从而在有限的Token窗口内延长Agent的有效交互寿命。",
+      "斯坦福大学《Generative Agents》(Park et al., 2023) 提出了突破性的 Memory Stream 架构，将环境交互记录构建为时间序列流，并通过 时间戳（近因）、重要性（显著度）和相关性（语义相似度）三个维度的加权和来进行精准的记忆检索。",
+      "LangGraph 通过引入 Checkpoint 机制（如 MemorySaver 或基于 Postgres/Sqlite 的持久化后端），将Agent每一次节点执行的State完整快照下来，实现了强一致性的短期记忆持久化与人机交互中断恢复。"
+    ],
+    "opensource": [
+      {
+        "name": "Generative Agents (Stanford)",
+        "url": "https://github.com/joonspk-research/generative_agents",
+        "description": "斯坦福大学官方开源的《Generative Agents》完整代码库，包含核心的 Memory Stream 架构及多维检索评分算法的原始实现。"
+      },
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的有状态多Actor图框架，内置了强大的 Checkpoint 和 MemorySaver 短期记忆持久化机制，是目前构建复杂Agent工作流的事实标准之一。"
+      },
+      {
+        "name": "MemGPT (Letta)",
+        "url": "https://github.com/cpacker/MemGPT",
+        "description": "采用了操作系统级虚拟内存管理的Agent架构，通过自动分页和压缩实现了超出上下文窗口限制的短期/长期记忆无缝管理。"
+      },
+      {
+        "name": "LangChain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "其 `langchain/memory` 模块提供了业界最全的短期记忆管理实现，如 ConversationBufferWindowMemory、ConversationSummaryMemory 等。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI官方推出的商业Agent构建方案，通过 Threads（线程）机制在服务端实现了短期记忆的自动存储、无限延长与自动截断（基于Token限制），开发者无需手动管理上下文。"
+      },
+      {
+        "name": "LangGraph Cloud / Studio",
+        "url": "https://langchain-ai.github.io/langgraph/cloud/",
+        "description": "LangGraph的官方商业化云服务，提供了高度稳定、可扩展的 Checkpoint 持久化存储方案，支持短期记忆状态的实时回放与调试。"
+      },
+      {
+        "name": "Anthropic Claude - Prompt Caching",
+        "url": "https://docs.anthropic.com/claude/docs/prompt-caching",
+        "description": "Anthropic推出的商业化上下文管理特性，通过缓存系统提示词和长历史对话，大幅降低了短期记忆多轮读写的延迟与成本。"
+      }
+    ],
+    "community": [
+      "开发者在真实业务中普遍吐槽简单的‘滑动窗口’策略存在金鱼记忆效应，经常导致Agent丢失早期的关键系统设定或用户偏好。",
+      "使用 LLM 进行自动摘要虽然效果好，但存在信息折损和极高的延迟（首Token时间增长），且多次压缩容易产生‘AI幻觉的回声室效应’。",
+      "Stanford的三维检索机制（时间+重要+相关）在学术界备受推崇，但在工业界落地时，往往因为需要多次调用LLM进行重要性打分，导致成本过高，企业常退化为仅使用‘向量相似度+时间衰减’的轻量方案。",
+      "LangGraph的 Checkpointer 机制深受复杂工作流开发者喜爱，认为其极大提升了多步Tool调用和Human-in-the-loop场景的容错率，解决了Agent执行中断后从头再来的痛点。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph Persistence Guide (Checkpointer)",
+        "url": "https://langchain-ai.github.io/langgraph/how-tos/persistence/",
+        "description": "官方提供的 LangGraph 记忆持久化实战指南，详细演示了如何集成 Sqlite/Postgres 存储短期状态并实现断点续传。"
+      },
+      {
+        "title": "Stanford Generative Agents 官方复现指南",
+        "url": "https://github.com/joonspk-research/generative_agents/blob/master/README.md",
+        "description": "手把手教如何部署斯坦福西部世界沙盒环境，实战感受 Memory Stream 的存储与检索全过程。"
+      },
+      {
+        "title": "LangChain Memory 模块最佳实践",
+        "url": "https://python.langchain.com/docs/modules/memory/",
+        "description": "全面介绍了缓冲区、滑动窗口、摘要压缩等多种短期记忆的实现方法与代码示例。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+        "url": "https://arxiv.org/abs/2304.03442",
+        "description": "奠定Agent记忆架构的里程碑式论文（UIST 2023），详细阐述了 Memory Stream 的架构设计及检索公式，是当前所有高级记忆系统的灵感来源。"
+      },
+      {
+        "title": "MemGPT: Towards LLMs as Operating Systems",
+        "url": "https://arxiv.org/abs/2310.08560",
+        "description": "提出虚拟上下文管理概念，通过操作系统的分页机制管理LLM的上下文，突破了物理Token限制，是短期记忆自动压缩技术的前沿代表。"
+      },
+      {
+        "title": "超长上下文模型（如 Gemini 1.5 Pro 1M-2M Context）",
+        "url": "https://deepmind.google/technologies/gemini/",
+        "description": "2024-2025年最显著的趋势是使用极长上下文替代复杂的短期记忆管理。当前研究正聚焦于在超长上下文中进行的高效检索（Needle In A Haystack）是否会淘汰传统的滑动窗口与压缩策略。"
+      }
+    ]
+  },
+  "summary": "短期记忆是让AI告别‘金鱼脑’、实现真正Agent化交互的绝对核心。本次调研深入剖析了从基础的滑动窗口到高阶的LLM自动压缩策略，并重点拆解了斯坦福《Generative Agents》中定义的‘时间-重要-相关’三维检索黄金法则。在实战层面，LangGraph的Checkpoint机制为开发者提供了工业级的状态持久化方案。然而，随着Gemini 1.5等超长上下文模型（LM）的崛起，传统的短期记忆分页与压缩管理正面临着向‘大海捞针’式原生记忆管理演进的前沿变革。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/joonspk-research/generative_agents",
+      "title": "Generative Agents (Stanford)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/cpacker/MemGPT",
+      "title": "MemGPT (Letta)",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "LangChain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/cloud/",
+      "title": "LangGraph Cloud / Studio",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/prompt-caching",
+      "title": "Anthropic Claude - Prompt Caching",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/how-tos/persistence/",
+      "title": "LangGraph Persistence Guide (Checkpointer)",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/joonspk-research/generative_agents/blob/master/README.md",
+      "title": "Stanford Generative Agents 官方复现指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://python.langchain.com/docs/modules/memory/",
+      "title": "LangChain Memory 模块最佳实践",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.08560",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "type": "frontier"
+    },
+    {
+      "url": "https://deepmind.google/technologies/gemini/",
+      "title": "超长上下文模型（如 Gemini 1.5 Pro 1M-2M Context）",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 记忆系统（上）：短期记忆与上下文管理 记忆是Agent区分于无状态API调用的关键。本文聚焦短期记忆管理：详解上下文窗口策略（滑动窗口、优先级保留）、自动压缩(summarization)技术，以及Stanford Generative Agents论文(Park et al., UIST 2023)中的Memory Stream架构——时间戳+重要性+相关性三维度检索。分析LangGraph Checkpoint如何实现短期记忆持久化。",
+  "researched_at": "2026-04-03T19:48:01.997446"
+}

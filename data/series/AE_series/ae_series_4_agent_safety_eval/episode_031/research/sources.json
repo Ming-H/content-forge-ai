@@ -1,0 +1,185 @@
+{
+  "dimensions": {
+    "facts": [
+      "AgentBench 由清华大学等机构于 2023 年提出，是一个多维度的 Agent 评估框架，涵盖了操作系统 (OS)、数据库 (DB)、知识图谱 (KG)、Web 等多个复杂环境，主要测试 LLM 在真实复杂环境中的指令执行和推理能力。",
+      "SWE-bench 由普林斯顿大学提出，旨在评估 Agent 解决真实软件工程问题的能力。它从 GitHub 上的 12 个流行 Python 仓库中提取了超 2000 个真实的 Issue-PR 对，要求 Agent 根据_issue_描述生成代码补丁。",
+      "SWE-bench Verified 是 SWE-bench 的新子集，通过人工验证确保每个任务都具有极高的人类可解性，排除了原本因为描述不清或依赖缺失导致无法解决的问题，使评分更加客观准确。",
+      "SWE-smith 是为了解决 SWE-bench 数据生成成本高昂而诞生的工具，它可以自动化地为任意代码库生成大量类 SWE-bench 的训练和评估数据。",
+      "WebArena 由 CMU 等机构提出，是一个真实的、可交互的 Web 环境评估基准。它包含 812 个真实的 Web 交互任务，涵盖电商、论坛、CMS 系统等，要求 Agent 具备长链条的 DOM 操作或视觉截图识别能力。"
+    ],
+    "opensource": [
+      {
+        "name": "AgentBench",
+        "url": "https://github.com/THUDM/AgentBench",
+        "description": "清华大学开源的 Agent 多维评估框架，包含完整的评估环境和数据集。"
+      },
+      {
+        "name": "SWE-bench",
+        "url": "https://github.com/princeton-nlp/SWE-bench",
+        "description": "普林斯顿大学开源的软件工程 Agent 基准数据集与评估脚本。"
+      },
+      {
+        "name": "SWE-agent",
+        "url": "https://github.com/princeton-nlp/SWE-agent",
+        "description": "基于 SWE-bench 优化的 Agent 执行框架，能将 LLM 的代码修改限制在合理的系统接口中，大幅提升基准得分。"
+      },
+      {
+        "name": "WebArena",
+        "url": "https://github.com/web-arena-x/webarena",
+        "description": "真实网页环境交互评估基准，包含独立部署的电商、论坛等网站环境 Docker 镜像。"
+      },
+      {
+        "name": "SWE-smith",
+        "url": "https://github.com/princeton-nlp/SWE-smith",
+        "description": "自动化软件工程数据生成工具，可用于快速构建私有的 SWE-bench 评估集。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "SWE-bench Official Leaderboard",
+        "url": "https://www.swebench.com/",
+        "description": "SWE-bench 官方排行榜，收录了 OpenAI, Anthropic, Cognition (Devin) 等全球顶尖商业模型和产品的最新评测得分。"
+      },
+      {
+        "name": "AgentBench Leaderboard",
+        "url": "https://huggingface.co/spaces/THUDM/AgentBench",
+        "description": "Hugging Face 上的 AgentBench 官方评测榜单，展示各大商业 LLM 在多项 Agent 任务中的表现。"
+      },
+      {
+        "name": "Anthropic Computer Use (结合 WebArena 理念)",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+        "description": "Claude 3.5 Sonnet 推出的商业级 Computer Use API，代表了 WebArena 所提倡的“屏幕操作Agent”的商业化落地。"
+      }
+    ],
+    "community": [
+      "社区普遍认为 SWE-bench 是目前评估 Coding Agent 最具含金量的基准，但难度过高，目前仅有少数顶尖模型和框架（如 SWE-agent, OpenDevin）能取得较高分数。",
+      "开发者反馈 WebArena 环境部署极其困难（依赖复杂的 Docker 组网），且基于 DOM 树的 Agent 很容易受网页结构变动影响，导致复现结果存在不稳定性。",
+      "业界专家指出，静态基准（如上述三项）很容易出现“刷榜”现象（通过将测试集加入训练集或针对性的 Prompt 调优），建议企业评估时必须结合自身的私有业务任务构建内部基准。",
+      "在技术论坛讨论中，AgentBench 因其极其全面的评估维度（特别是在操作系统和数据库方面）被视为评估通用 LLM Agent 的标准，但也是对 API 调用成本消耗最大的测试集之一。"
+    ],
+    "practice": [
+      {
+        "title": "WebArena 本地环境部署指南",
+        "url": "https://github.com/web-arena-x/webarena/blob/main/setup.md",
+        "description": "详细记录了如何在本地通过 Docker-Compose 搭建完整的 WebArena 评测环境（含 GitLab, Magento 等）。"
+      },
+      {
+        "title": "SWE-agent 快速上手与推理指南",
+        "url": "https://github.com/princeton-nlp/SWE-agent?tab=readme-ov-file#inference",
+        "description": "普林斯顿官方提供的 SWE-agent 运行教程，教你如何一步步让 Agent 读取 Issue 并生成代码修改。"
+      },
+      {
+        "title": "如何构建企业级私有 Agent 评估框架",
+        "url": "https://docs.llamaindex.ai/en/stable/module_guides/evaluating/",
+        "description": "结合 RAGAS 与 LlamaIndex 的最佳实践，介绍如何在自有业务数据上建立包含准确率、执行率、工具调用成功率的闭环评估流。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "SWE-bench: Can Language Agents Resolve Real-World GitHub Issues?",
+        "url": "https://arxiv.org/abs/2310.06770",
+        "description": "提出 SWE-bench 的原始论文，定义了软件工程智能体的基础评估范式。"
+      },
+      {
+        "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+        "url": "https://arxiv.org/abs/2307.13854",
+        "description": "提出 WebArena 的论文，首次将视觉和 DOM 结合的网页交互引入 Agent 核心评测。"
+      },
+      {
+        "title": "AgentBench: Evaluating LLMs as Agents",
+        "url": "https://arxiv.org/abs/2308.03688",
+        "description": "系统性阐述多维度、多环境评估 LLM Agent 能力的学术论文。"
+      },
+      {
+        "title": "SWE-smith: Scaling Automated Data Generation for Coding Agents",
+        "url": "https://arxiv.org/abs/2408.06821",
+        "description": "2024 年最新研究，突破了 SWE-bench 数据难以生成的瓶颈，预示着未来 Coding Agent 评测将走向高度定制化。"
+      },
+      {
+        "title": "VisualWebArena: Evaluating Visual Agents",
+        "url": "https://arxiv.org/abs/2401.13649",
+        "description": "WebArena 的进化版，2024年前沿研究，重点评估纯视觉多模态 Agent 在网页中的操作能力，推动了 Computer Use 的发展。"
+      }
+    ]
+  },
+  "summary": "本次调研深入剖析了 Agent 评估领域的三大核心基准：AgentBench 侧重于操作系统和数据库等多维环境的综合能力评测，SWE-bench 及其生态（Verified、SWE-agent、SWE-smith）定义了代码级软件工程的最高评估标准，而 WebArena 则补齐了网页端真实交互操作的评测空白。目前研究趋势正从纯文本 API 调用向多模态操作（如 Computer Use）演进，开源社区也正致力于通过自动化数据合成工具解决静态基准容易被“刷榜”的问题。对于开发者而言，科学评估不仅需要跑通这些权威榜单，更需借鉴其方法论构建贴合自身业务的动态私有评估框架。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/THUDM/AgentBench",
+      "title": "AgentBench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-bench",
+      "title": "SWE-bench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent",
+      "title": "SWE-agent",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/web-arena-x/webarena",
+      "title": "WebArena",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-smith",
+      "title": "SWE-smith",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.swebench.com/",
+      "title": "SWE-bench Official Leaderboard",
+      "type": "commercial"
+    },
+    {
+      "url": "https://huggingface.co/spaces/THUDM/AgentBench",
+      "title": "AgentBench Leaderboard",
+      "type": "commercial"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+      "title": "Anthropic Computer Use (结合 WebArena 理念)",
+      "type": "commercial"
+    },
+    {
+      "url": "https://github.com/web-arena-x/webarena/blob/main/setup.md",
+      "title": "WebArena 本地环境部署指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/princeton-nlp/SWE-agent?tab=readme-ov-file#inference",
+      "title": "SWE-agent 快速上手与推理指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.llamaindex.ai/en/stable/module_guides/evaluating/",
+      "title": "如何构建企业级私有 Agent 评估框架",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.06770",
+      "title": "SWE-bench: Can Language Agents Resolve Real-World GitHub Issues?",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.06821",
+      "title": "SWE-smith: Scaling Automated Data Generation for Coding Agents",
+      "type": "frontier"
+    }
+  ],
+  "query": "Agent 评估基准：AgentBench、SWE-bench、WebArena 如何科学评估Agent能力？本文详解三大评估基准：AgentBench（多维度Agent能力评估）、SWE-bench（从GitHub Issue到PR的软件工程能力，含SWE-bench Verified和SWE-smith数据生成工具）、WebArena（812个真实Web任务的交互评估）。分析各基准的评分方法、覆盖范围，以及如何在自有任务上构建评估框架。",
+  "researched_at": "2026-04-04T06:02:50.331641"
+}

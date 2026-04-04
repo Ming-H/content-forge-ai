@@ -1,0 +1,20 @@
+{
+  "id": "ae_topic_022",
+  "series_id": "ae_series_3",
+  "episode": 22,
+  "title": "Handoff 模式：OpenAI Agents SDK 的交接机制",
+  "description": "OpenAI Agents SDK以三个原语构建整个多Agent系统。本文深度解析Agents、Handoffs、Guardrails的设计理念：Agents-as-Tools模式（管理者调用专家）vs Handoffs模式（路由给专家接管）的本质区别，Input Filter如何控制交接时的历史记录过滤，动态Instructions如何根据上下文调整Agent行为，以及Session管理（SQLite/Redis/Dapr）。",
+  "keywords": [
+    "OpenAI Agents SDK",
+    "Handoff",
+    "Guardrails",
+    "Agents-as-Tools",
+    "Input Filter",
+    "Session",
+    "动态Instructions"
+  ],
+  "difficulty": "进阶",
+  "estimated_words": 10000,
+  "status": "pending",
+  "completed_at": null
+}

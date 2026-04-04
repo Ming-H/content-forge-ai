@@ -1,0 +1,160 @@
+{
+  "dimensions": {
+    "facts": [
+      "Anthropic 官方在《Building Effective Agents》指南中明确将 Parallelization 和 Orchestrator-Workers 列为构建 AI Agent 的核心设计模式。",
+      "Parallelization 模式分为两种：Sectioning（将任务切分为多个独立子任务并行处理，如对长文本分段总结）和 Voting（多次执行同一任务，通过多数表决或综合评估得出最优结果，提升输出的可靠性）。",
+      "Orchestrator-Workers 模式由一个中央 LLM（Orchestrator）担任指挥官，动态理解复杂任务，实时规划并生成子任务，然后分发给多个 Worker LLM 执行，最后由 Orchestrator 综合汇总结果。",
+      "核心区别与适用场景：Parallelization 适用于子任务固定且相互独立的场景；而 Orchestrator-Workers 适用于无法提前预测所有子任务步骤的复杂、动态场景（如大规模代码库的跨文件重构）。",
+      "在模型选择上，通常 Orchestrator 需要具备强推理能力的大模型（如 Claude 3.5 Sonnet），而执行具体细分任务的 Worker 则可以使用延迟低、成本少的小模型（如 Claude 3 Haiku）。"
+    ],
+    "opensource": [
+      {
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain 团队推出的状态化多 Actor 框架，原生支持构建极其灵活的 Parallelization 和 Orchestrator-Workers 图节点工作流。"
+      },
+      {
+        "name": "Microsoft AutoGen",
+        "url": "https://github.com/microsoft/autogen",
+        "description": "微软开源的多智能体对话框架，支持动态任务分发、群聊投票机制以及中央编排器模式。"
+      },
+      {
+        "name": "CrewAI",
+        "url": "https://github.com/joaomdmoura/crewAI",
+        "description": "专注于角色扮演的多智能体协作框架，内置 Manager 智能体作为 Orchestrator 动态分配任务给 Worker 智能体。"
+      },
+      {
+        "name": "Anthropic Cookbook",
+        "url": "https://github.com/anthropics/anthropic-cookbook",
+        "description": "Anthropic 官方代码示例库，包含如何使用 Claude API 实现多并发、并行处理和任务分解的实战代码。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "Anthropic Building Effective Agents",
+        "url": "https://www.anthropic.com/research/building-effective-agents",
+        "description": "Anthropic 官方发布的权威指南，详细阐述了从 Augmented LLM 到并行模式、中央编排模式的演进。"
+      },
+      {
+        "name": "OpenAI Assistants API",
+        "url": "https://platform.openai.com/docs/assistants/overview",
+        "description": "OpenAI 官方推出的 Assistants API，支持在云端托管 Orchestrator 逻辑，内置代码解释器与并行文件处理能力。"
+      },
+      {
+        "name": "Amazon Bedrock Agents",
+        "url": "https://aws.amazon.com/bedrock/agents/",
+        "description": "AWS 的全托管服务，允许开发者创建能够动态分解任务、调用并行 API 的编排智能体。"
+      }
+    ],
+    "community": [
+      "开发者普遍反馈，Orchestrator-Workers 模式虽然灵活，但极易遇到'编排死循环'或'上下文丢失'的问题，需要精心编写 Orchestrator 的 System Prompt。",
+      "在代码重构和复杂长文写作场景下，社区高度赞赏 Orchestrator-Workers 的表现，认为它比简单的 RAG 或长上下文处理更精确。",
+      "关于 Voting（投票机制），社区认为这是一种有效解决 LLM 幻觉和输出不稳定的'土办法'，但在 Token 成本和响应延迟上代价较高，适合对准确率要求极其苛刻的金融和医疗场景。",
+      "很多独立开发者倾向于在 Parallelization 中使用 Anthropic 的 Prompt Caching 技术，以大幅降低并行任务带来的重复上下文 Token 费用。"
+    ],
+    "practice": [
+      {
+        "title": "LangGraph 官方文档：Map-Reduce 并行模式",
+        "url": "https://langchain-ai.github.io/langgraph/how-tos/map-reduce/",
+        "description": "详细演示了如何使用 LangGraph 实现基于状态图的 Sectioning 并行处理，以及最后的结果汇总。"
+      },
+      {
+        "title": "Anthropic Cookbook：Orchestrator-Workers 实现",
+        "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb",
+        "description": "官方演示如何结合 Prompt Caching 构建高效的多 Agent 编排器，优化成本和延迟。"
+      },
+      {
+        "title": "最佳实践指南：如何控制 LLM 并发成本",
+        "url": "https://docs.anthropic.com/claude/docs/build-with-claude",
+        "description": "官方提供的构建指南，建议将大任务拆解，并根据子任务的难度动态路由到不同的模型，以实现成本与性能的最佳平衡。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "Self-Consistency (Voting 模式的学术基础)",
+        "url": "https://arxiv.org/abs/2203.11171",
+        "description": "Google DeepMind 提出的自我一致性论文，论证了通过对同一问题多次采样并投票取多数，能显著提升大模型推理能力的理论基础。"
+      },
+      {
+        "title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Framework",
+        "url": "https://arxiv.org/abs/2308.00352",
+        "description": "前沿的多智能体框架论文，引入了标准化操作程序（SOP）来优化 Orchestrator-Workers 动态分工中的角色协作和幻觉问题。"
+      },
+      {
+        "title": "The Landscape of Emerging AI Agent Architectures",
+        "url": "https://arxiv.org/abs/2404.11501",
+        "description": "2024年关于 AI Agent 架构全景的综述，深入探讨了从静态并行到动态自适应编排（Adaptive Orchestration）的技术演进趋势。"
+      }
+    ]
+  },
+  "summary": "本次调研深入解析了 Anthropic 提出的 Parallelization（分段并行处理与多次执行投票取最优）和 Orchestrator-Workers（中央动态分工）两大 Agentic 模式。核心发现是：两者分别解决了“确定性高且可拆解任务”的效率问题和“复杂且不可预测任务”的灵活性问题。当前开源界（如 LangGraph、AutoGen）已提供了完善的实现方案，业界趋势正向着“大模型做中央编排器，小模型做并行执行者”的异构混合架构演进，以此在复杂企业级应用中实现延迟、成本与准确率的最优解。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "title": "Microsoft AutoGen",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/joaomdmoura/crewAI",
+      "title": "CrewAI",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "title": "Anthropic Cookbook",
+      "type": "opensource"
+    },
+    {
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "title": "Anthropic Building Effective Agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://platform.openai.com/docs/assistants/overview",
+      "title": "OpenAI Assistants API",
+      "type": "commercial"
+    },
+    {
+      "url": "https://aws.amazon.com/bedrock/agents/",
+      "title": "Amazon Bedrock Agents",
+      "type": "commercial"
+    },
+    {
+      "url": "https://langchain-ai.github.io/langgraph/how-tos/map-reduce/",
+      "title": "LangGraph 官方文档：Map-Reduce 并行模式",
+      "type": "practice"
+    },
+    {
+      "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb",
+      "title": "Anthropic Cookbook：Orchestrator-Workers 实现",
+      "type": "practice"
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs/build-with-claude",
+      "title": "最佳实践指南：如何控制 LLM 并发成本",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2203.11171",
+      "title": "Self-Consistency (Voting 模式的学术基础)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2308.00352",
+      "title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Framework",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.11501",
+      "title": "The Landscape of Emerging AI Agent Architectures",
+      "type": "frontier"
+    }
+  ],
+  "query": "Parallelization 与 Orchestrator-Workers：并行与动态分工 当任务可以分解时，并行化能显著提升效率。本文详解Anthropic定义的两种并行模式：Sectioning（分段并行处理不同子任务）和Voting（多次执行投票取最优）。进一步解析Orchestrator-Workers模式——中央LLM动态分解任务、分派给Worker LLM、综合结果。对比两者的适用场景：固定子任务用Parallelization，不可预测子任务用Orchestrator-Workers。",
+  "researched_at": "2026-04-03T16:50:45.347919"
+}

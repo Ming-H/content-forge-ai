@@ -1,0 +1,161 @@
+{
+  "dimensions": {
+    "facts": [
+      "自动评估指标主要包含三大类：语音识别层面的词错率 (WER) 和字错率 (CER)；自然语言理解层面的意图分类准确率和实体 F1 分数 (Entity F1)；以及对话管理层面的对话成功率 (Dialog Success Rate) 和平均轮次。",
+      "全双工对话系统引入了特殊的评测维度，不再局限于文本响应，需重点考核：平均响应延迟、打断成功率、端点检测准确率 以及听者反馈的自然度。",
+      "人工评估方法通常遵循 MOS (Mean Opinion Score) 体系，针对对话体验细分为相关性、流畅度、帮助性、语气/共情能力等维度进行 1-5 分的量表打分。",
+      "行业评测体系经历了从基于规则的 IVR 评测，到流水线式 (ASR+NLU+DM+TTS) 模块化评测，再到 2024 年后以 GPT-4o 为代表的端到端语音大模型联合评测的演变。",
+      "构建可复现的评测体系依赖于标准化的开源数据集（如 LibriSpeech 用于基础语音，MultiWOZ 用于多轮对话）以及动态的模拟用户对话生成技术。",
+      "全球领先的全双工语音对话技术研发者包括 OpenAI (Realtime API), Google (Gemini), 阿里 (通义听悟/语音大模型), 科大讯飞以及 MiniMax 等头部 AI 公司。"
+    ],
+    "opensource": [
+      {
+        "name": "SpeechBrain",
+        "url": "https://github.com/speechbrain/speechbrain",
+        "description": "基于 PyTorch 的开源语音技术工具包，提供标准化的脚本用于计算 WER、SER 等基础语音识别与对话评估指标。"
+      },
+      {
+        "name": "Rasa",
+        "url": "https://github.com/RasaHQ/rasa",
+        "description": "主流的开源对话引擎，内置完善的对话评估框架，支持意图分类评估、实体抽取 F1 评估以及端到端对话故事测试。"
+      },
+      {
+        "name": "AudioBench",
+        "url": "https://github.com/AudioLLMs/AudioBench",
+        "description": "针对语音大模型的通用评测基准库，包含多种语音对话、情感识别和副语言特征的自动化评测脚本。"
+      },
+      {
+        "name": "Hugging Face Evaluate",
+        "url": "https://github.com/huggingface/evaluate",
+        "description": "HuggingFace 官方评测库，内置大量标准化指标计算函数，广泛用于 NLP 对话指标的快速工程化集成。"
+      }
+    ],
+    "commercial": [
+      {
+        "name": "OpenAI Realtime API 文档",
+        "url": "https://platform.openai.com/docs/guides/realtime",
+        "description": "定义了当前最新的全双工语音状态机与事件流规范，提供了延迟、打断能力和语音保真度的官方评测基准参考。"
+      },
+      {
+        "name": "Google Cloud Dialogflow CX 评估指南",
+        "url": "https://cloud.google.com/dialogflow/docs/eval",
+        "description": "企业级对话系统的自动化与人工评估官方文档，包含如何在实际生产环境中建立可复现的回归测试体系。"
+      },
+      {
+        "name": "Azure AI Speech 服务文档",
+        "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/",
+        "description": "微软提供的语音服务文档，包含丰富的发音评估 和实时语音转写精度评估的 API 参数说明。"
+      }
+    ],
+    "community": [
+      "全双工系统的评测存在巨大挑战：传统的 WER 根本无法反映系统的'情商'、副语言特征（如叹息、停顿）的处理以及对话节奏的把控。",
+      "自动评估指标（如对话成功率）与真实用户的体感往往存在鸿沟，社区普遍认为高价值的语音助手必须结合'按月迭代的人工抽检'作为校准标准。",
+      "构建可复现的评测环境非常头疼，特别是多轮对话中的声音环境、用户口音和打断时机难以在离线数据集中完美模拟。",
+      "LLM-as-a-Judge（大模型作为裁判）正在兴起，开发者倾向于使用 GPT-4o 或 Claude 3.5 Sonnet 代替人工对对话轮次的质量进行自动化打分，以降低成本并提高可复现性。"
+    ],
+    "practice": [
+      {
+        "title": "Testing your Rasa Assistant",
+        "url": "https://rasa.com/docs/rasa/testing-your-assistant/",
+        "description": "详细的实战指南，教授如何编写测试故事、评估 NLU 意图与实体 F1 分数，以及计算端到端对话成功率。"
+      },
+      {
+        "title": "Superb Benchmark 实践指南",
+        "url": "https://superbbenchmark.org/",
+        "description": "语音处理通用性能基准平台，提供了验证语音基础模型（如 ASR）各项底层指标的工程化操作步骤。"
+      },
+      {
+        "title": "Dynatrace 全双工对话性能监控指南",
+        "url": "https://www.dynatrace.com/news/blog/observability-for-generative-ai-powered-chatbots/",
+        "description": "探讨在生产环境中部署对话系统后，如何实时监控 TTFB 延迟、丢包率及用户打断延迟的工程实践。"
+      }
+    ],
+    "frontier": [
+      {
+        "title": "AudioBench: A Universal Benchmark for Audio Large Language Models",
+        "url": "https://arxiv.org/abs/2406.16020",
+        "description": "探讨面向下一代语音大模型的评测基准，涵盖了单音频、多轮音频对话以及副语言理解的自动化评测方法。"
+      },
+      {
+        "title": "SUPERB-SG: Enhanced Speech Processing Universal PERformance Benchmark",
+        "url": "https://arxiv.org/abs/2203.07830",
+        "description": "经典的语音处理基准研究扩展，详解如何构建可复现的语音理解与对话生成联合评测框架。"
+      },
+      {
+        "title": "Evaluating Voice Assistant Responses in Real-Time Interactions",
+        "url": "https://arxiv.org/abs/2310.14564",
+        "description": "前沿研究，深入探讨全双工实时交互下的特殊评测指标，包括人类打断行为建模、延迟容忍度及响应连贯性。"
+      }
+    ]
+  },
+  "summary": "语音对话系统评估方法论正处于从传统流水线向端到端全双工评估演变的关键期。在事实层面，评判体系不仅涵盖基础的 WER 和实体 F1 等自动评估指标，还高度依赖人工评估对情感和流畅度的把控；针对全双工对话，延迟和打断处理等特殊评测维度成为核心。通过结合开源工具（如 Rasa, SpeechBrain）与商业 API（如 OpenAI Realtime API），并引入前沿的 LLM-as-a-Judge 与标准化基准测试，开发者能够构建出一套兼顾技术指标与真实用户体感的可复现评测体系。",
+  "collected_urls": [
+    {
+      "url": "https://github.com/speechbrain/speechbrain",
+      "title": "SpeechBrain",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/RasaHQ/rasa",
+      "title": "Rasa",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/AudioLLMs/AudioBench",
+      "title": "AudioBench",
+      "type": "opensource"
+    },
+    {
+      "url": "https://github.com/huggingface/evaluate",
+      "title": "Hugging Face Evaluate",
+      "type": "opensource"
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/realtime",
+      "title": "OpenAI Realtime API 文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://cloud.google.com/dialogflow/docs/eval",
+      "title": "Google Cloud Dialogflow CX 评估指南",
+      "type": "commercial"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/",
+      "title": "Azure AI Speech 服务文档",
+      "type": "commercial"
+    },
+    {
+      "url": "https://rasa.com/docs/rasa/testing-your-assistant/",
+      "title": "Testing your Rasa Assistant",
+      "type": "practice"
+    },
+    {
+      "url": "https://superbbenchmark.org/",
+      "title": "Superb Benchmark 实践指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://www.dynatrace.com/news/blog/observability-for-generative-ai-powered-chatbots/",
+      "title": "Dynatrace 全双工对话性能监控指南",
+      "type": "practice"
+    },
+    {
+      "url": "https://arxiv.org/abs/2406.16020",
+      "title": "AudioBench: A Universal Benchmark for Audio Large Language Models",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2203.07830",
+      "title": "SUPERB-SG: Enhanced Speech Processing Universal PERformance Benchmark",
+      "type": "frontier"
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.14564",
+      "title": "Evaluating Voice Assistant Responses in Real-Time Interactions",
+      "type": "frontier"
+    }
+  ],
+  "query": "语音对话系统评估方法论 如何评判一个语音对话系统好不好？详解自动评估指标（WER、对话成功率、实体F1）与人工评估方法，全双工对话的特殊评测维度，以及构建可复现评测体系的实践。",
+  "researched_at": "2026-04-04T10:54:25.211366"
+}
