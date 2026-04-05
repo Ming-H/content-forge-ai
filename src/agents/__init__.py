@@ -48,6 +48,10 @@ from src.agents.longform_generator import LongFormGeneratorAgent
 from src.agents.research_agent import ResearchAgent
 from src.agents.deep_research_agent import DeepResearchAgent
 from src.agents.notebooklm_agent import NotebookLMAgent
+from src.agents.coherence_pass_agent import CoherencePassAgent
+from src.agents.self_refine_agent import SelfRefineAgent
+from src.agents.technical_deai_agent import TechnicalDeAIAgent
+from src.agents.quality_gate_agent import QualityGateAgent
 
 # 质量保证
 from src.agents.code_review_agent import CodeReviewAgent
@@ -110,6 +114,10 @@ __all__ = [
     "VisualizationGeneratorAgent",
     "CitationFormatterAgent",
     "SeriesContentEvaluatorAgent",
+    "CoherencePassAgent",
+    "SelfRefineAgent",
+    "TechnicalDeAIAgent",
+    "QualityGateAgent",
 
     # Quality
     "SEOOptimizerAgent",
@@ -146,6 +154,10 @@ AGENT_REGISTRY = {
     "consistency_checker": ConsistencyCheckerAgent,
     "visualization_generator": VisualizationGeneratorAgent,
     "citation_formatter": CitationFormatterAgent,
+    "coherence_pass_agent": CoherencePassAgent,
+    "self_refine_agent": SelfRefineAgent,
+    "technical_deai_agent": TechnicalDeAIAgent,
+    "quality_gate_agent": QualityGateAgent,
 
     # Quality
     "seo_optimizer": SEOOptimizerAgent,

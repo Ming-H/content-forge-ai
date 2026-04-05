@@ -184,6 +184,28 @@ agents:
     retry_delay: 10  # 重试延迟（秒）
     min_word_count: 8000  # 最低字数要求（Series模式）
 
+  # 全文一致性检查Agent（新增）
+  coherence_pass_agent:
+    enabled: true
+
+  # 自审自改Agent（新增）
+  self_refine_agent:
+    enabled: true
+    max_iterations: 2
+    min_score: 7.0
+
+  # 技术长文去AI化Agent（新增）
+  technical_deai_agent:
+    enabled: true
+    max_ai_patterns: 5
+    min_sentence_variance: 8.0
+
+  # 质量门禁Agent（新增）
+  quality_gate_agent:
+    enabled: true
+    min_score: 75
+    max_revision_cycles: 2
+
   # 小红书长笔记Agent（约2000字深度内容）
   xiaohongshu_long_refiner:
     enabled: true

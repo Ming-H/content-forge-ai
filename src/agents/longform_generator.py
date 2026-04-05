@@ -132,6 +132,7 @@ class LongFormGeneratorAgent(BaseAgent):
         # 不在这里添加主标题，在最后统一添加
         full_content = ""
         sections_content = {}
+        section_summaries = {}  # Track summaries for inter-section coherence
         previous_sections = []  # 跟踪前面已生成的章节
 
         # 检查是否启用上下文窗口
@@ -141,11 +142,11 @@ class LongFormGeneratorAgent(BaseAgent):
         for idx, section in enumerate(outline.get('sections', []), 1):
             self.log(f"  正在生成第 {idx}/{len(outline.get('sections', []))} 节: {section.get('title', '')}")
 
-            # 使用研究数据和上下文展开章节
+            # 使用研究数据和上下文展开章节，传递已有的章节摘要
             if enable_context:
-                section_content = self._expand_section(section, research_data, topic_data, previous_sections, knowledge_base)
+                section_content = self._expand_section(section, research_data, topic_data, previous_sections, knowledge_base, section_summaries=section_summaries)
             else:
-                section_content = self._expand_section(section, research_data, topic_data, previous_sections=None, knowledge_base=knowledge_base)
+                section_content = self._expand_section(section, research_data, topic_data, previous_sections=None, knowledge_base=knowledge_base, section_summaries=None)
 
             # 规范化章节标题，避免重复
             section_content = self._normalize_section_headers(section_content, section.get('title'))
@@ -156,6 +157,13 @@ class LongFormGeneratorAgent(BaseAgent):
 
             # 记录当前章节标题，供下一节使用
             previous_sections.append(section.get('title'))
+
+            # Generate a short summary for context passing to subsequent sections
+            section_title = section.get('title', '')
+            summary = self._summarize_section(section_content)
+            if summary:
+                section_summaries[section_title] = summary
+                self.log(f"    已生成章节摘要 ({len(summary)} 字符)")
 
         # 第三阶段：生成总结
         self.log("第三阶段：生成总结...")
@@ -306,7 +314,7 @@ class LongFormGeneratorAgent(BaseAgent):
 
     def _expand_section(self, section: Dict[str, Any], research_data: Dict[str, Any],
                        topic_data: Dict[str, Any], previous_sections: list = None,
-                       knowledge_base: str = "") -> str:
+                       knowledge_base: str = "", section_summaries: dict = None) -> str:
         """
         展开单个章节内容（增强版，包含上下文）
 
@@ -315,6 +323,8 @@ class LongFormGeneratorAgent(BaseAgent):
             research_data: 研究数据
             topic_data: 热点数据
             previous_sections: 前面章节的标题列表（用于保持连贯性）
+            knowledge_base: NotebookLM 知识库
+            section_summaries: 前面章节的摘要字典 {title: summary}
 
         Returns:
             str: 章节内容
@@ -326,8 +336,8 @@ class LongFormGeneratorAgent(BaseAgent):
         section_words = section.get('words', 500)
         section_points = section.get('points', '')
 
-        # 构建上下文信息
-        context = self._build_section_context(section_title, previous_sections, topic_data)
+        # 构建上下文信息，传递章节摘要以增强连贯性
+        context = self._build_section_context(section_title, previous_sections, topic_data, section_summaries=section_summaries)
 
         # 注入 NotebookLM 知识库到上下文
         if knowledge_base:
@@ -812,7 +822,7 @@ class LongFormGeneratorAgent(BaseAgent):
         return '\n'.join(cleaned)
 
     def _build_section_context(self, current_title: str, previous_sections: list,
-                              topic_data: Dict[str, Any]) -> str:
+                              topic_data: Dict[str, Any], section_summaries: dict = None) -> str:
         """
         构建章节上下文信息，用于保持内容连贯性
 
@@ -820,6 +830,7 @@ class LongFormGeneratorAgent(BaseAgent):
             current_title: 当前章节标题
             previous_sections: 前面章节的标题列表
             topic_data: 主题数据
+            section_summaries: 前面章节的摘要字典 {title: summary}，用于增强连贯性
 
         Returns:
             str: 上下文信息
@@ -834,7 +845,11 @@ class LongFormGeneratorAgent(BaseAgent):
         if previous_sections:
             context_parts.append(f"\n**已讨论的章节**：")
             for i, prev_title in enumerate(previous_sections, 1):
-                context_parts.append(f"{i}. {prev_title}")
+                # Inject section summary when available
+                if section_summaries and prev_title in section_summaries:
+                    context_parts.append(f"{i}. {prev_title} —— {section_summaries[prev_title]}")
+                else:
+                    context_parts.append(f"{i}. {prev_title}")
 
         # 添加当前章节在文章中的位置
         if len(previous_sections) == 0:
@@ -853,6 +868,9 @@ class LongFormGeneratorAgent(BaseAgent):
             last_section = previous_sections[-1]
             context_parts.append(f"\n**连贯性要求**：")
             context_parts.append(f"- 上一节讨论了：{last_section}")
+            # Inject last section's summary for tighter transition guidance
+            if section_summaries and last_section in section_summaries:
+                context_parts.append(f"- 上一节核心要点：{section_summaries[last_section]}")
             context_parts.append(f"- 本节要自然承接上一节的内容")
             context_parts.append(f"- 避免重复前面已经详细讨论的内容")
             context_parts.append(f"- 可以引用前面提到的概念（用'如前所述'、'前面提到'等连接词）")
@@ -1275,3 +1293,46 @@ class LongFormGeneratorAgent(BaseAgent):
                     break
 
         return "\n\n".join(parts) if parts else knowledge_base[:2000]
+
+    def _summarize_section(self, section_content: str, max_chars: int = 150) -> str:
+        """
+        Generate a 2-3 sentence summary of a section for context passing.
+
+        Uses a fast LLM call to produce a concise summary that captures the
+        key points of the section, enabling better logical coherence when
+        generating subsequent sections.
+
+        Args:
+            section_content: The full text of the section to summarize.
+            max_chars: Maximum character length for the summary (default 150).
+
+        Returns:
+            str: A 2-3 sentence summary of the section content.
+        """
+        if not section_content or len(section_content.strip()) < 50:
+            return ""
+
+        # Strip markdown headers for a cleaner summary input
+        clean_content = section_content.strip()
+        # Remove the section header line (## Title) to focus on body content
+        lines = clean_content.split('\n')
+        if lines and lines[0].strip().startswith('#'):
+            clean_content = '\n'.join(lines[1:]).strip()
+
+        # Truncate very long content to keep the LLM call fast
+        if len(clean_content) > 1500:
+            clean_content = clean_content[:1500]
+
+        prompt = f"""请用2-3句话概括以下章节的核心内容（不超过{max_chars}字），只输出概括文本，不要加任何前缀：
+
+{clean_content}"""
+
+        try:
+            summary = self._call_llm(prompt).strip()
+            # Enforce max length as a safety measure
+            if len(summary) > max_chars * 2:
+                summary = summary[:max_chars] + "..."
+            return summary
+        except Exception as e:
+            self.log(f"章节摘要生成失败，跳过: {str(e)}", "WARNING")
+            return ""

@@ -104,6 +104,54 @@ class SeriesOrchestrator:
                 logger.error(f"Failed to initialize longform_generator: {e}")
                 raise
 
+        # 阶段3.5：全文一致性检查 Agent
+        if agents_config.get("coherence_pass_agent", {}).get("enabled", True):
+            try:
+                from src.agents.coherence_pass_agent import CoherencePassAgent
+                agents["coherence_pass_agent"] = CoherencePassAgent(
+                    config=full_config,
+                    prompts=self.prompts
+                )
+                logger.info("Initialized agent: coherence_pass_agent")
+            except Exception as e:
+                logger.warning(f"Failed to initialize coherence_pass_agent: {e}")
+
+        # 阶段3.7：自审自改 Agent
+        if agents_config.get("self_refine_agent", {}).get("enabled", True):
+            try:
+                from src.agents.self_refine_agent import SelfRefineAgent
+                agents["self_refine_agent"] = SelfRefineAgent(
+                    config=full_config,
+                    prompts=self.prompts
+                )
+                logger.info("Initialized agent: self_refine_agent")
+            except Exception as e:
+                logger.warning(f"Failed to initialize self_refine_agent: {e}")
+
+        # 阶段4: 技术长文去AI化 Agent
+        if agents_config.get("technical_deai_agent", {}).get("enabled", True):
+            try:
+                from src.agents.technical_deai_agent import TechnicalDeAIAgent
+                agents["technical_deai_agent"] = TechnicalDeAIAgent(
+                    config=full_config,
+                    prompts=self.prompts
+                )
+                logger.info("Initialized agent: technical_deai_agent")
+            except Exception as e:
+                logger.warning(f"Failed to initialize technical_deai_agent: {e}")
+
+        # 阶段5：质量门禁 Agent
+        if agents_config.get("quality_gate_agent", {}).get("enabled", True):
+            try:
+                from src.agents.quality_gate_agent import QualityGateAgent
+                agents["quality_gate_agent"] = QualityGateAgent(
+                    config=full_config,
+                    prompts=self.prompts
+                )
+                logger.info("Initialized agent: quality_gate_agent")
+            except Exception as e:
+                logger.warning(f"Failed to initialize quality_gate_agent: {e}")
+
         return agents
 
     def _generate_series_metadata(self, series_id: str) -> dict:
@@ -260,7 +308,7 @@ class SeriesOrchestrator:
         state: Dict[str, Any],
         storage: SeriesStorage
     ) -> Dict[str, Any]:
-        """执行4阶段内容生成工作流（DeepResearch → NotebookLM → LongForm → 保存）"""
+        """执行7阶段内容生成工作流（DeepResearch → NotebookLM → LongForm → Coherence → Self-Refine → De-AI → QualityGate → 保存）"""
         import time
 
         def _call_agent_safely(agent_name: str, state: Dict[str, Any]) -> Dict[str, Any]:
@@ -336,10 +384,34 @@ class SeriesOrchestrator:
             logger.info("===== 阶段3：长文本生成 =====")
             state = _call_agent_safely("longform_generator", state)
 
+        # ========== 阶段3.5：全文一致性检查 ==========
+        if "coherence_pass_agent" in self.agents:
+            logger.info("===== 阶段3.5：全文一致性检查（Coherence Pass）=====")
+            state = _call_agent_safely("coherence_pass_agent", state)
+
+        # ========== 阶段3.7：自审自改 ==========
+        if "self_refine_agent" in self.agents:
+            logger.info("===== 阶段3.7：自审自改（Self-Refine）=====")
+            state = _call_agent_safely("self_refine_agent", state)
+
+        # ========== 阶段4：技术长文去AI化 ==========
+        if "technical_deai_agent" in self.agents:
+            logger.info("===== 阶段4：技术长文去AI化（De-AI）=====")
+            state = _call_agent_safely("technical_deai_agent", state)
+
+        # ========== 阶段5：质量门禁 ==========
+        if "quality_gate_agent" in self.agents:
+            logger.info("===== 阶段5：质量门禁（Quality Gate）=====")
+            state = _call_agent_safely("quality_gate_agent", state)
+
         # ========== 保存最终文章 ==========
         if "longform_article" in state:
             topic = state["current_topic"]
             article = state["longform_article"]
+
+            quality_report = state.get("quality_gate_report", {})
+            quality_score = quality_report.get("total_score", "N/A")
+            quality_passed = quality_report.get("passed", False)
 
             md_content = f"""# {article['title']}
 
@@ -352,6 +424,7 @@ class SeriesOrchestrator:
 - 标签: {', '.join(article.get('tags', []))}
 - 生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 - 知识库来源: {'NotebookLM' if state.get('knowledge_base') else 'LLM only'}
+- 质量评分: {quality_score}/100 ({'通过' if quality_passed else '待改进'})
 """
 
             saved_path = storage.save_article(md_content, title=article['title'])
