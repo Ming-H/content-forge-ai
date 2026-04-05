@@ -67,6 +67,16 @@ class QualityGateAgent(BaseAgent):
         for cycle in range(self.max_revision_cycles + 1):
             self.log(f"质量评估第 {cycle} 轮...")
             scores = self._score_with_llm(content)
+            # Ensure all scores are numeric (LLM may return strings)
+            for dim in self.dimensions:
+                val = scores.get(dim, 0)
+                if isinstance(val, str):
+                    try:
+                        scores[dim] = float(val)
+                    except (ValueError, TypeError):
+                        scores[dim] = 70
+                elif not isinstance(val, (int, float)):
+                    scores[dim] = 70
             total = round(
                 sum(scores.get(dim, 0) * info["weight"]
                     for dim, info in self.dimensions.items()),
@@ -165,10 +175,15 @@ class QualityGateAgent(BaseAgent):
             json_match = re.search(r'\{.*\}', response, re.DOTALL)
             if json_match:
                 scores = json.loads(json_match.group())
-                # Ensure all dimensions present with default fallback
+                # Coerce all values to float and ensure all dimensions present
                 for dim in self.dimensions:
                     if dim not in scores:
                         scores[dim] = 70
+                    else:
+                        try:
+                            scores[dim] = float(scores[dim])
+                        except (ValueError, TypeError):
+                            scores[dim] = 70
                 return scores
             else:
                 self.log("LLM评分返回格式异常，使用默认分数", "WARNING")
