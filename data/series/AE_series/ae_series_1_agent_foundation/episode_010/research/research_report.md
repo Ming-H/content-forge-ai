@@ -1,3 +1,3 @@
 # 调研报告
 
-本次调研系统梳理了多模式研究助手背后的核心技术。当前业界已明确将工作流划分为 Prompt Chaining（线性低延迟）、ReAct（动态推理）和 Orchestrator-Workers（复杂规划）。实战证明，脱离重度框架，利用 OpenAI/Anthropic 原生 Function Calling API 纯 Python 手搓 Agent Loop，不仅能避开黑盒问题，还能精准控制多模式间的路由与状态切换，是通向高级 AI 工程师的必经之路。
+本次调研围绕'构建多模式研究助手'展开，覆盖了从基础理论到纯Python实战的完整链路。核心发现是：一个优秀的智能研究助手不再依赖单一的万能模式，而是基于'路由分发'机制，对简单查询采用Prompt Chaining追求低延迟，对深度研究采用ReAct循环与Orchestrator-Workers分解保证高质量。通过研读Anthropic官方工程博客与OpenAI原生API文档，结合社区在Agent Loop状态管理和防死循环方面的实战经验，开发者完全可以抛弃重度框架，用原生Python打造出结构清晰、可控性极强的现代AI工作流系统。

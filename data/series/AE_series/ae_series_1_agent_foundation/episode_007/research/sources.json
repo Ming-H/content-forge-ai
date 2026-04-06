@@ -1,144 +1,149 @@
 {
   "dimensions": {
     "facts": [
-      "2024年底，Anthropic发布了《Building effective agents》指南，正式对大模型应用架构进行了清晰的分类，将系统分为'工作流'（预设流程）和'Agent'（动态自主决策）两大类。",
-      "Prompt Chaining（提示词链）的核心机制是将复杂任务分解为多个连续的子步骤，前一步的输出作为后一步的输入，且支持在步骤之间插入'门控检查'，若未通过验证则提前中止或重定向，从而提升整个链路的可靠性。",
-      "Routing（路由）模式的核心是对用户的输入进行意图分类，并将其分派到最合适的专属处理分支。典型案例是客服系统：通过分类器识别查询难度，将简单查询路由给轻量快速模型（如Claude 3 Haiku），将复杂推理路由给高智商模型（如Claude 3.5 Sonnet）。",
-      "事实表明，并非所有场景都适合使用高度自主的Agent。对于步骤明确、需要极高可控性和可预测性的业务（如合规审查、代码生成流水线），工作流模式具有更低的延迟、成本和更高的成功率。"
+      "2024年底，Anthropic发布了《Building effective agents》指南，系统定义了LLM工作流模式，明确指出并非所有任务都需要自主Agent，可预测的工作流往往更可靠。",
+      "Prompt Chaining（提示词链）核心机制：将大任务拆解为连续的子步骤，前一步的输出作为后一步的输入，并在关键节点加入'门控检查'以验证结果，失败则重试或终止，从而大幅降低幻觉。",
+      "Routing（路由）核心机制：通过分类器对用户输入的意图进行识别，将不同类型的请求分派给专门的处理流程或不同量级的模型（如简单闲聊/基础QA路由至低成本、高速度的Haiku，复杂推理/代码生成路由至高智力水平的Sonnet或Opus）。",
+      "工作流与Agent的核心区别：工作流是预定义的图，其分支和路径是可预测的；而Agent是动态的，模型自主决定下一步行动，具有极高的不可预测性。"
     ],
     "opensource": [
       {
-        "name": "LangChain / LangGraph",
-        "url": "https://github.com/langchain-ai/langchain",
-        "description": "目前最流行的LLM应用开发框架，原生支持Routing和Chaining机制。其扩展库LangGraph更是构建可控多步工作流和状态机的利器。"
+        "name": "LangGraph",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "description": "LangChain团队推出的编排框架，非常适合构建带有Routing和循环/分支的Prompt Chaining工作流。"
       },
       {
-        "name": "Anthropic Cookbook",
+        "name": "anthropic-cookbook",
         "url": "https://github.com/anthropics/anthropic-cookbook",
-        "description": "Anthropic官方提供的技巧与代码示例库，包含大量关于如何使用官方SDK实现Prompt Chaining、门控检查和智能路由的Python代码示例。"
+        "description": "Anthropic官方代码库，包含大量如何实现提示词链、门控检查和客户路由的实战代码示例。"
       },
       {
-        "name": "RouteLLM",
-        "url": "https://github.com/lm-sys/FastChat/tree/main/routellm",
-        "description": "LMSYS开源的专用于大模型路由的框架，可以低成本地将简单请求路由给开源小模型，复杂请求路由给强大模型，极大降低了API调用成本。"
+        "name": "Flowise / Langflow",
+        "url": "https://github.com/flowiseai/flowise",
+        "description": "开源的低代码可视化Agent/工作流构建工具，可以直接通过拖拽实现Routing和Prompt Chaining。"
       }
     ],
     "commercial": [
       {
-        "name": "Building effective agents (Anthropic 官方指南)",
+        "name": "Building effective agents (Anthropic官方博客)",
         "url": "https://www.anthropic.com/research/building-effective-agents",
-        "description": "定义了Prompt Chaining、Routing、Parallelization等工作流模式的官方权威博客文章，是本主题的核心理论依据。"
+        "description": "Anthropic官方发布的权威指南，详细图解了Prompt Chaining, Routing, Orchestrator-workers等5种核心模式。"
       },
       {
-        "name": "Amazon Bedrock Prompt Flows",
-        "url": "https://aws.amazon.com/bedrock/prompt-flows/",
-        "description": "AWS推出的云服务方案，通过可视化拖拽的方式构建包含Routing和Chaining的LLM工作流，支持接入门控逻辑检查。"
+        "name": "Amazon Bedrock (AWS)",
+        "url": "https://aws.amazon.com/bedrock/",
+        "description": "提供Prompt Routing和模型路由的商业化云服务，支持根据成本和延迟自动路由到不同模型。"
       },
       {
-        "name": "OpenAI Assistants API",
-        "url": "https://platform.openai.com/docs/assistants/overview",
-        "description": "OpenAI提供的商业级Agent/工作流API方案，后端自动处理任务编排，但在企业级开发中常被开发者二次封装以实现显式的路由控制。"
+        "name": "Anthropic Messages API",
+        "url": "https://docs.anthropic.com/zh-CN/docs/about-claude/models",
+        "description": "官方API文档，详细说明了Haiku与Sonnet的性能基准差异及在路由架构中的选型建议。"
       }
     ],
     "community": [
-      "开发者普遍认同'不要过度设计Agent'的观点。在实际生产中，带有门控检查的Chaining和基于成本考量的Routing往往比全自动Agent更稳定、更易于Debug。",
-      "针对Routing的讨论多集中在'意图分类器的准确率'上。社区反馈指出，如果第一步路由分错，后续的专业Prompt再强也无济于事，因此建议用大模型做强分类，再分发给小模型执行。",
-      "门控检查机制被社区认为是控制大模型'幻觉'的有效手段，通过编写轻量级的规则或小模型来判断前置步骤输出是否达标，可以大幅降低生产事故率。",
-      "在成本控制反馈中，高度称赞了'Haiku+Sonnet'组合的双轨路由方案。多数企业表示这种混合路由节省了60%以上的Token开销，同时没有牺牲复杂任务的处理质量。"
+      "开发者普遍认为'万物皆可Agent'是一种过度工程化，对于B2B、客服、数据处理等严谨场景，可预测的工作流才是上生产环境的唯一选择。",
+      "Prompt Chaining的门控检查被赞誉为'降本增效神器'，通过在中间步骤拦截错误，避免了整个长链条的无效推理消耗。",
+      "关于Routing的讨论热点：使用Haiku进行分类路由能节省约80%的Token成本，但存在'误分类'风险，建议对高敏感意图直接使用Sonnet处理或进行二次校验。",
+      "小红书/AI社区频繁讨论的痛点：工作流的Latency（延迟）问题，链式调用太长会导致用户等待时间超标，需要在拆解步骤和响应速度间找平衡。"
     ],
     "practice": [
       {
-        "title": "Anthropic: Prompt Chaining and Routing 实践模板",
-        "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
-        "description": "官方文档中关于工作流模式的最佳实践，详细说明了何时该用Chain、何时该用Route，以及如何定义中间的检查机制。"
+        "title": "客户支持路由系统实战案例",
+        "url": "https://docs.anthropic.com/zh-CN/docs/about-claude/use-case-guides/customer-support-chatbot",
+        "description": "Anthropic官方实操文档：使用Claude构建客服路由，将退款、技术支持、闲聊精准分流，并结合RAG生成回复。"
       },
       {
-        "title": "How to implement Routing in LLM apps (LangChain Docs)",
+        "title": "LangChain 官方路由教程",
         "url": "https://python.langchain.com/docs/how_to/routing/",
-        "description": "实战指南：讲解如何使用语义相似度或LLM函数调用来实现请求的分发路由。"
+        "description": "实战指南：教你如何使用LLM基于语义相似度或零样本分类器，将用户的查询路由到不同的Prompt链中。"
       },
       {
-        "title": "Customer Support Multi-Class Routing (Cookbook)",
-        "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb",
-        "description": "结合客服系统的实战案例，演示如何利用Prompt Caching技术加速路由分类器的响应，实现低延迟的意图分发。"
+        "title": "《从零构建多模型路由系统》最佳实践",
+        "url": "https://cobusgreyling.medium.com/prompt-routing-86b4c4eb0e7c",
+        "description": "实战总结：如何定义意图阈值，并设计Fallback兜底机制，确保请求不会被错误丢弃。"
       }
     ],
     "frontier": [
       {
-        "title": "RouteLLM: Learning to Route LLMs with Preference Data (arXiv 2406.18665)",
-        "url": "https://arxiv.org/abs/2406.18665",
-        "description": "前沿研究探索了如何使用数据驱动的方法训练轻量级路由器，在保持高回答质量的前提下，动态路由请求以大幅降低大模型部署成本。"
+        "title": "多智能体编排中的路由优化研究",
+        "url": "https://arxiv.org/abs/2310.06692",
+        "description": "探讨在复杂AI系统中的任务路由策略，研究表明动态路由比静态单模型推理在性价比上具有指数级优势。"
       },
       {
-        "title": "StateFlow: Enhancing LLM Task-Solving through State-Based Workflows",
-        "url": "https://arxiv.org/abs/2403.11322",
-        "description": "该论文提出了一种基于状态机的工作流构建方法，将Prompt Chaining与状态跳转规则深度融合，是取代纯自由态Agent的前沿方向。"
+        "title": "LLM Cascade (模型级联)",
+        "url": "https://arxiv.org/abs/2307.11769",
+        "description": "前沿算法FrugalGPT：提出通过级联多个大模型，先调用便宜的小模型，如果置信度低再路由到大模型，大幅降低成本。"
       },
       {
-        "title": "2025趋势：从Agentic向Deterministic workflows的回归",
-        "url": "https://www.anthropic.com/research/building-effective-agents",
-        "description": "业界前沿认知正在迭代：2025年的应用趋势不再盲目追求完全自主的Agent，而是向确定性工作流与局部自主性结合的混合架构演进。"
+        "title": "2025 趋势：Semantic Router (语义路由)",
+        "url": "https://github.com/aurelio-labs/semantic-router",
+        "description": "基于向量嵌入的非LLM路由技术，用极低的延迟（毫秒级）和几乎为零的成本替代LLM进行意图识别，是未来工作流的标配。"
       }
     ]
   },
-  "summary": "本次调研深入解析了Anthropic定义的两种核心工作流模式：Prompt Chaining与Routing。调研发现，相比于不可控的全自主Agent，基于串联、门控检查以及意图路由的确定性工作流在生产环境中更具实用价值。开源社区通过LangChain等工具大幅降低了实现门槛，而学术界与工业界的最新趋势（如动态模型路由RouteLLM）正致力于在确保输出可靠性的前提下，通过'大小模型协同路由'机制极致压缩成本与延迟，这将成为2025年大模型落地应用的核心范式。",
+  "summary": "本次调研揭示了2024-2025年AI工程的核心趋势：从追求不可控的Autonomous Agent（自主智能体）回归到可预测的AI Workflow（工作流）。Anthropic官方力推的Prompt Chaining和Routing模式，通过'拆解任务+门控检查'和'意图识别+模型分流'（如Haiku负责简单任务，Sonnet负责复杂推理），为客服系统等严谨商业场景提供了高可靠性、低延迟且极具性价比的落地方案，彻底解决了单一大模型成本高、幻觉不可控的痛点。",
   "collected_urls": [
     {
-      "url": "https://github.com/langchain-ai/langchain",
-      "title": "LangChain / LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "title": "LangGraph",
       "type": "opensource"
     },
     {
       "url": "https://github.com/anthropics/anthropic-cookbook",
-      "title": "Anthropic Cookbook",
+      "title": "anthropic-cookbook",
       "type": "opensource"
     },
     {
-      "url": "https://github.com/lm-sys/FastChat/tree/main/routellm",
-      "title": "RouteLLM",
+      "url": "https://github.com/flowiseai/flowise",
+      "title": "Flowise / Langflow",
       "type": "opensource"
     },
     {
       "url": "https://www.anthropic.com/research/building-effective-agents",
-      "title": "Building effective agents (Anthropic 官方指南)",
+      "title": "Building effective agents (Anthropic官方博客)",
       "type": "commercial"
     },
     {
-      "url": "https://aws.amazon.com/bedrock/prompt-flows/",
-      "title": "Amazon Bedrock Prompt Flows",
+      "url": "https://aws.amazon.com/bedrock/",
+      "title": "Amazon Bedrock (AWS)",
       "type": "commercial"
     },
     {
-      "url": "https://platform.openai.com/docs/assistants/overview",
-      "title": "OpenAI Assistants API",
+      "url": "https://docs.anthropic.com/zh-CN/docs/about-claude/models",
+      "title": "Anthropic Messages API",
       "type": "commercial"
     },
     {
-      "url": "https://docs.anthropic.com/en/docs/build-with-claude/agent-patterns",
-      "title": "Anthropic: Prompt Chaining and Routing 实践模板",
+      "url": "https://docs.anthropic.com/zh-CN/docs/about-claude/use-case-guides/customer-support-chatbot",
+      "title": "客户支持路由系统实战案例",
       "type": "practice"
     },
     {
       "url": "https://python.langchain.com/docs/how_to/routing/",
-      "title": "How to implement Routing in LLM apps (LangChain Docs)",
+      "title": "LangChain 官方路由教程",
       "type": "practice"
     },
     {
-      "url": "https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb",
-      "title": "Customer Support Multi-Class Routing (Cookbook)",
+      "url": "https://cobusgreyling.medium.com/prompt-routing-86b4c4eb0e7c",
+      "title": "《从零构建多模型路由系统》最佳实践",
       "type": "practice"
     },
     {
-      "url": "https://arxiv.org/abs/2406.18665",
-      "title": "RouteLLM: Learning to Route LLMs with Preference Data (arXiv 2406.18665)",
+      "url": "https://arxiv.org/abs/2310.06692",
+      "title": "多智能体编排中的路由优化研究",
       "type": "frontier"
     },
     {
-      "url": "https://arxiv.org/abs/2403.11322",
-      "title": "StateFlow: Enhancing LLM Task-Solving through State-Based Workflows",
+      "url": "https://arxiv.org/abs/2307.11769",
+      "title": "LLM Cascade (模型级联)",
+      "type": "frontier"
+    },
+    {
+      "url": "https://github.com/aurelio-labs/semantic-router",
+      "title": "2025 趋势：Semantic Router (语义路由)",
       "type": "frontier"
     }
   ],
   "query": "Prompt Chaining 与 Routing：可预测的工作流 不是所有任务都需要自主Agent。Anthropic定义的前两种工作流模式——Prompt Chaining和Routing——为可预测的任务提供了更可靠的方案。本文详解Prompt Chaining的串联+门控检查(gate check)机制，以及Routing如何将不同类型请求分派给专门处理流程（如简单查询用Haiku、复杂推理用Sonnet）。结合客服系统路由案例说明实战应用。",
-  "researched_at": "2026-04-03T15:53:18.604293"
+  "researched_at": "2026-04-06T13:41:11.381370"
 }

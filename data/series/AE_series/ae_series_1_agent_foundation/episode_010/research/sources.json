@@ -1,132 +1,131 @@
 {
   "dimensions": {
     "facts": [
-      "吴恩达总结的 Agentic Design Patterns 已成为行业共识，其中主要包括 Prompt Chaining、Routing（路由/工作流选择）、ReAct（推理与行动）以及 Orchestrator-Workers（规划与分解）等核心模式。",
-      "ReAct 范式最早由 Yao 等人在 2022 年的论文中提出，它将大语言模型的推理与行动结合起来，是目前构建 Agent Loop（智能体循环）的基石。",
-      "纯 Python 实现（无框架）智能体主要依赖于各大模型厂商提供的 Function Calling/Tool Use API，配合原生的 While/For 循环与状态机管理。",
-      "多模式研究助手的架构核心在于 Router（路由器）的设计：通过 LLM 对输入意图进行分类，简单任务走线性链（低成本/低延迟），复杂任务走规划分解（高能力/高消耗）。",
-      "目前主流的 LLM API（如 OpenAI 和 Anthropic）已原生支持并行工具调用，极大地提升了 Orchestrator-Workers 模式的执行效率。"
+      "大模型工作流模式目前主要有6大主流范式：Prompt Chaining（提示链）、Routing（路由分发）、Parallelization（并行化）、Orchestrator-Workers（编排者-工作者）、ReAct（推理+行动）以及基础的单次LLM调用。",
+      "智能体路由分发机制是构建多模式助手的核心事实：通过LLM自身的分类能力或小模型（如Classifier），根据用户输入的任务复杂度，动态选择底层执行工作流，从而平衡响应速度与任务质量。",
+      "无框架构建Agent Loop的核心在于实现一个While循环：持续调用LLM API -> 解析返回的Tool Calls -> 执行本地Python工具函数 -> 将结果拼接到消息历史中 -> 再次调用LLM，直到LLM不再请求工具。",
+      "工具调用已成为各大主流大模型厂商（OpenAI, Anthropic, 百度, 阿里等）原生支持的标准API能力，是实现纯Python构建智能体的底层技术基石。"
     ],
     "opensource": [
       {
-        "name": "ReAct (Official Implementation)",
-        "url": "https://github.com/ysymyth/ReAct",
-        "description": "ReAct 范式的官方开源代码库，展示了如何结合推理和行动来构建基础的 Agent Loop。"
+        "name": "openai/swarm",
+        "url": "https://github.com/openai/swarm",
+        "description": "OpenAI官方推出的极简、轻量级多智能体编排框架，极其适合学习多路由和Orchestrator-Workers模式的无框架原生实现思路。"
       },
       {
-        "name": "OpenAI OpenAI Cookbook",
-        "url": "https://github.com/openai/openai-cookbook",
-        "description": "OpenAI 官方的实战指南库，其中包含大量不依赖第三方框架、纯 Python 实现 Agent 和工具调用的基础代码示例。"
+        "name": "langchain-ai/langchain",
+        "url": "https://github.com/langchain-ai/langchain",
+        "description": "虽然本实战不使用框架，但LangChain是工作流模式的集大成者，其核心代码库包含大量Chaining和ReAct模式的工业级标准实现参考。"
       },
       {
-        "name": "Anthropic Cookbook",
-        "url": "https://github.com/anthropics/anthropic-cookbook",
-        "description": "Anthropic 官方代码库，提供了关于如何实现多模式路由、ReAct 循环和 Prompt Chaining 的硬核 Python 教程。"
+        "name": "WooooDyy/LLM-Agent-Paper-List",
+        "url": "https://github.com/WooooDyy/LLM-Agent-Paper-List",
+        "description": " comprehensive的LLM智能体论文与项目合集，包含了工作流选择、ReAct机制等前沿研究的技术演进时间线。"
       }
     ],
     "commercial": [
       {
-        "name": "OpenAI Function Calling Guide",
+        "name": "OpenAI API - Function Calling",
         "url": "https://platform.openai.com/docs/guides/function-calling",
-        "description": "官方文档，详细介绍了如何利用 API 原生能力实现工具调用，是纯 Python 构建研究助手的基石。"
+        "description": "官方工具调用文档，纯Python实现Agent Loop和ReAct模式的必备API参考标准。"
       },
       {
-        "name": "Anthropic Tool Use Guide",
-        "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
-        "description": "Claude 官方工具调用文档，详细讲解了 ReAct 循环中如何定义 JSON Schema 并处理工具执行结果。"
+        "name": "Anthropic - Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents",
+        "description": "Anthropic官方发布的工程博客，详细拆解了Agentic工作流的多种模式（包括Chaining、Routing、Orchestrator），强烈推荐作为实战设计的理论指导。"
       },
       {
-        "name": "DeepLearning.AI: AI Agentic Design Patterns with AutoGen",
-        "url": "https://www.deeplearning.ai/short-courses/ai-agentic-design-patterns-with-autogen/",
-        "description": "吴恩达主讲的关于 Agent 设计模式的经典商业课程，深入探讨了 Chaining、ReAct 和 Orchestrator 等模式的区别与应用。"
+        "name": "Dify.AI",
+        "url": "https://dify.ai/",
+        "description": "目前最火的开源LLM应用开发平台，其可视化工作流编排功能完美对应了Chaining和Orchestrator-Workers模式，可作为实战项目的可视化参考对照。"
       }
     ],
     "community": [
-      "纯 Python 手搓 Agent 能让开发者彻底摆脱 LangChain 等框架的'黑盒'焦虑，彻底弄懂底层状态流转机制。",
-      "ReAct 模式在处理复杂研究任务时极易陷入死循环，社区强烈建议在 Agent Loop 中加入最大迭代次数限制和强制终止逻辑。",
-      "Orchestrator-Workers 模式虽然能解决复杂任务，但如果中间环节出错，会导致严重的 Token 浪费和错误雪崩。",
-      "使用结构化输出（如 JSON Mode）来进行工作流选择（Router），比纯文本的 Prompt 匹配准确率高得多，是目前的工程共识。"
+      "社区开发者普遍反馈：在纯手写Python实现Agent时，最难控制的是ReAct模式的死循环问题，必须设置严格的max_iterations和强制总结机制。",
+      "许多技术博主认为，'路由选择'机制往往不需要复杂模型，用一个响应极快的小模型（如GPT-3.5或Llama-3-8B）做意图识别，大模型（如GPT-4o）做复杂任务执行，是性价比最高的方案。",
+      "关于'无框架 vs 框架'的讨论：初学者强烈建议先手写原生Python打通Agent Loop，理解状态管理和工具内存机制后，再转入LangGraph等框架，否则排错极其困难。",
+      "在构建研究助手时，用户最大的痛点在于工具返回给LLM的上下文过长导致幻觉或遗忘，社区最佳实践是将工具返回结果进行摘要或结构化提取后再喂给LLM。"
     ],
     "practice": [
       {
-        "title": "How to build an Agent with pure Python and OpenAI API",
-        "url": "https://cookbook.openai.com/examples/how_to_build_an_agent_with_tool_calls",
-        "description": "OpenAI 官方提供的从零构建 Agent 教程，展示了如何不使用任何框架实现 ReAct 循环和工具调用。"
+        "title": "Building a Multi-Agent System with Pure Python (Without Frameworks)",
+        "url": "https://medium.com/gitconnected/building-a-multi-agent-system-with-pure-python-without-frameworks-afd49ad9f575",
+        "description": "一篇详尽的实战教程，指导如何使用纯Python和原生API构建多模式路由和Agent循环。"
       },
       {
-        "title": "Building effective agents (Anthropic Engineering Blog)",
-        "url": "https://www.anthropic.com/research/building-effective-agents",
-        "description": "Anthropic 官方工程博客，总结了 Chaining、Routing、Orchestrator 等工作流模式的最佳实践与架构设计图。"
+        "title": "Lilian Weng - LLM Powered Autonomous Agents",
+        "url": "https://lilianweng.github.io/posts/2023-06-23-agent/",
+        "description": "OpenAI研究员翁丽莲的千古名篇，深度解析了Agent的规划、工具调用和记忆机制，是实战必读的理论基础。"
       },
       {
-        "title": "ReAct Prompting Guide",
-        "url": "https://www.promptingguide.ai/research/react",
-        "description": "DAIR.AI 维护的 Prompt 指南，详细讲解了 ReAct 的基础原理及如何写出高可用的 ReAct Prompt。"
+        "title": "Simon Willison - Building tools for LLMs",
+        "url": "https://simonwillison.net/2023/Oct/26/tools-for-thought/",
+        "description": "关于如何为LLM设计高质量Python工具函数的实战经验分享，强调了工具描述词和参数结构的重要性。"
       }
     ],
     "frontier": [
       {
         "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
         "url": "https://arxiv.org/abs/2210.03629",
-        "description": "提出 ReAct 框架的经典论文，证明了将推理与行动交织可以大幅提升大模型解决复杂任务的能力。"
+        "description": "提出ReAct范式的奠基性论文，证明了将推理和行动结合能显著提升大模型解决复杂研究任务的能力。"
       },
       {
-        "title": "An LLM Compiler for Parallel Function Calling",
-        "url": "https://arxiv.org/abs/2312.02511",
-        "description": "2024年关于 Orchestrator 模式前沿进展的论文，探讨了如何像编译器一样对任务进行并行解析和加速执行。"
+        "title": "Plan-and-Solve Prompting",
+        "url": "https://arxiv.org/abs/2305.04091",
+        "description": "针对复杂任务的分步拆解论文，对应了实战中Orchestrator-Workers模式的理论依据。"
       },
       {
-        "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
-        "url": "https://arxiv.org/abs/2404.13501",
-        "description": "针对复杂研究助手的前沿研究综述，探讨了如何为 Agent 引入长期记忆，以突破上下文窗口的限制。"
+        "title": "自适应工作流与Self-Reflection机制",
+        "url": "https://arxiv.org/abs/2304.08354",
+        "description": "2024-2025最新研究趋势：助手不再依赖预设的路由，而是通过自我反思和错误反馈，动态升级或降级工作流策略（如从Chaining升级到ReAct）。"
       }
     ]
   },
-  "summary": "本次调研系统梳理了多模式研究助手背后的核心技术。当前业界已明确将工作流划分为 Prompt Chaining（线性低延迟）、ReAct（动态推理）和 Orchestrator-Workers（复杂规划）。实战证明，脱离重度框架，利用 OpenAI/Anthropic 原生 Function Calling API 纯 Python 手搓 Agent Loop，不仅能避开黑盒问题，还能精准控制多模式间的路由与状态切换，是通向高级 AI 工程师的必经之路。",
+  "summary": "本次调研围绕'构建多模式研究助手'展开，覆盖了从基础理论到纯Python实战的完整链路。核心发现是：一个优秀的智能研究助手不再依赖单一的万能模式，而是基于'路由分发'机制，对简单查询采用Prompt Chaining追求低延迟，对深度研究采用ReAct循环与Orchestrator-Workers分解保证高质量。通过研读Anthropic官方工程博客与OpenAI原生API文档，结合社区在Agent Loop状态管理和防死循环方面的实战经验，开发者完全可以抛弃重度框架，用原生Python打造出结构清晰、可控性极强的现代AI工作流系统。",
   "collected_urls": [
     {
-      "url": "https://github.com/ysymyth/ReAct",
-      "title": "ReAct (Official Implementation)",
+      "url": "https://github.com/openai/swarm",
+      "title": "openai/swarm",
       "type": "opensource"
     },
     {
-      "url": "https://github.com/openai/openai-cookbook",
-      "title": "OpenAI OpenAI Cookbook",
+      "url": "https://github.com/langchain-ai/langchain",
+      "title": "langchain-ai/langchain",
       "type": "opensource"
     },
     {
-      "url": "https://github.com/anthropics/anthropic-cookbook",
-      "title": "Anthropic Cookbook",
+      "url": "https://github.com/WooooDyy/LLM-Agent-Paper-List",
+      "title": "WooooDyy/LLM-Agent-Paper-List",
       "type": "opensource"
     },
     {
       "url": "https://platform.openai.com/docs/guides/function-calling",
-      "title": "OpenAI Function Calling Guide",
+      "title": "OpenAI API - Function Calling",
       "type": "commercial"
     },
     {
-      "url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
-      "title": "Anthropic Tool Use Guide",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "title": "Anthropic - Building effective agents",
       "type": "commercial"
     },
     {
-      "url": "https://www.deeplearning.ai/short-courses/ai-agentic-design-patterns-with-autogen/",
-      "title": "DeepLearning.AI: AI Agentic Design Patterns with AutoGen",
+      "url": "https://dify.ai/",
+      "title": "Dify.AI",
       "type": "commercial"
     },
     {
-      "url": "https://cookbook.openai.com/examples/how_to_build_an_agent_with_tool_calls",
-      "title": "How to build an Agent with pure Python and OpenAI API",
+      "url": "https://medium.com/gitconnected/building-a-multi-agent-system-with-pure-python-without-frameworks-afd49ad9f575",
+      "title": "Building a Multi-Agent System with Pure Python (Without Frameworks)",
       "type": "practice"
     },
     {
-      "url": "https://www.anthropic.com/research/building-effective-agents",
-      "title": "Building effective agents (Anthropic Engineering Blog)",
+      "url": "https://lilianweng.github.io/posts/2023-06-23-agent/",
+      "title": "Lilian Weng - LLM Powered Autonomous Agents",
       "type": "practice"
     },
     {
-      "url": "https://www.promptingguide.ai/research/react",
-      "title": "ReAct Prompting Guide",
+      "url": "https://simonwillison.net/2023/Oct/26/tools-for-thought/",
+      "title": "Simon Willison - Building tools for LLMs",
       "type": "practice"
     },
     {
@@ -135,16 +134,16 @@
       "type": "frontier"
     },
     {
-      "url": "https://arxiv.org/abs/2312.02511",
-      "title": "An LLM Compiler for Parallel Function Calling",
+      "url": "https://arxiv.org/abs/2305.04091",
+      "title": "Plan-and-Solve Prompting",
       "type": "frontier"
     },
     {
-      "url": "https://arxiv.org/abs/2404.13501",
-      "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
+      "url": "https://arxiv.org/abs/2304.08354",
+      "title": "自适应工作流与Self-Reflection机制",
       "type": "frontier"
     }
   ],
   "query": "基础综合实战：构建一个多模式研究助手 将前9期学到的6种工作流模式融会贯通，构建一个智能研究助手。该助手能根据任务复杂度自动选择最优策略：简单查询走Prompt Chaining，中等任务走ReAct循环，复杂研究任务走Orchestrator-Workers分解。通过完整的Python实现（不用框架），巩固Agent Loop、工具调用、工作流选择等核心概念，为后续框架学习做好准备。",
-  "researched_at": "2026-04-03T18:42:11.448933"
+  "researched_at": "2026-04-06T17:44:23.551476"
 }

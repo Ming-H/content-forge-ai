@@ -1,3 +1,3 @@
 # 调研报告
 
-本次调研深入解析了 Anthropic 提出的 Parallelization（分段并行处理与多次执行投票取最优）和 Orchestrator-Workers（中央动态分工）两大 Agentic 模式。核心发现是：两者分别解决了“确定性高且可拆解任务”的效率问题和“复杂且不可预测任务”的灵活性问题。当前开源界（如 LangGraph、AutoGen）已提供了完善的实现方案，业界趋势正向着“大模型做中央编排器，小模型做并行执行者”的异构混合架构演进，以此在复杂企业级应用中实现延迟、成本与准确率的最优解。
+Parallelization与Orchestrator-Workers是当前大模型从“对话工具”走向“自动化系统”的核心工作流范式。Parallelization通过Sectioning和Voting机制，以资源换取时间与准确率，极适合确定性任务的提效与去噪；而Orchestrator-Workers则赋予了AI动态拆解复杂、不可预测任务的能力。从实战来看，业界正倾向于使用LangGraph、CrewAI等框架实现这两种模式的深度融合，以在动态编排与高并发执行之间取得最佳平衡，构成了2025年企业级多智能体协同的底层基石。

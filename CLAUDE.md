@@ -35,6 +35,7 @@ cd test && PYTHONPATH=/Users/z/Documents/work/content-forge-ai python test_diges
 cd test && PYTHONPATH=/Users/z/Documents/work/content-forge-ai python test_v9_categorization.py
 cd test && PYTHONPATH=/Users/z/Documents/work/content-forge-ai python test_daily_digest_constraints.py
 cd test && PYTHONPATH=/Users/z/Documents/work/content-forge-ai python test_data_sources.py
+cd test && PYTHONPATH=/Users/z/Documents/work/content-forge-ai python test_new_sources.py
 ```
 
 ## Setup
@@ -148,7 +149,7 @@ data/
 ```
 
 ### LLM Configuration
-Primary: ZhipuAI `glm-4.7` via `https://open.bigmodel.cn/api/coding/paas/v4/`
+Primary: ZhipuAI `glm-5.1` via `https://open.bigmodel.cn/api/coding/paas/v4/`
 Fallback: OpenAI `gpt-4o`
 Config in `config/config.yaml` under `llm.provider`.
 
@@ -185,6 +186,10 @@ Commit format: `feat: AI内容自动生成 - YYYY-MM-DD`
 | `scripts/content_quality_checker.py` | Content quality analysis |
 | `scripts/image_generator.py` | Standalone image generation |
 | `scripts/add_references.py` | Add references to existing articles |
+| `scripts/generate_va_next.sh` | Generate next VA series episode |
+| `scripts/generate_va_all.sh` | Generate all remaining VA series episodes |
+| `monitor_and_launch_next.sh` | Monitor and auto-launch next episode |
+| `daily_digest.sh` | Shell wrapper for daily digest generation |
 
 ## Gotchas
 
