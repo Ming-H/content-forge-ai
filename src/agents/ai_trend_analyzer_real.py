@@ -82,6 +82,14 @@ class RealAITrendAnalyzerAgent(BaseAgent):
             "towards_data_science": "towards_data_science" in sources_config,
             # ========== 新增科技新闻聚合器 (v12.0) ==========
             "techmeme": "techmeme" in sources_config,
+            # ========== 新增权威数据源 (v12.1) ==========
+            "nvidia_blog": "nvidia_blog" in sources_config,
+            "aws_ml_blog": "aws_ml_blog" in sources_config,
+            "arxiv_ai": "arxiv_ai" in sources_config,
+            "36kr": "36kr" in sources_config,
+            "the_verge_ai": "the_verge_ai" in sources_config,
+            "ars_technica": "ars_technica" in sources_config,
+            "ml_mastery": "ml_mastery" in sources_config,
         }
 
         # 获取配置
@@ -928,6 +936,120 @@ class RealAITrendAnalyzerAgent(BaseAgent):
                 "message": "未启用"
             }
 
+        # ========== v12.1: 新增权威数据源 ==========
+
+        # 44. NVIDIA Blog（GPU/AI基础设施）
+        if self.sources["nvidia_blog"]:
+            nvidia_trends = self._get_nvidia_blog_trends()
+            all_trends.extend(nvidia_trends)
+            self.source_status["NVIDIA Blog"] = {
+                "success": len(nvidia_trends) > 0,
+                "count": len(nvidia_trends),
+                "message": "正常" if len(nvidia_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["NVIDIA Blog"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 45. AWS ML Blog（云AI服务）
+        if self.sources["aws_ml_blog"]:
+            aws_trends = self._get_aws_ml_blog_trends()
+            all_trends.extend(aws_trends)
+            self.source_status["AWS ML Blog"] = {
+                "success": len(aws_trends) > 0,
+                "count": len(aws_trends),
+                "message": "正常" if len(aws_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["AWS ML Blog"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 46. arXiv cs.AI（AI综合论文）
+        if self.sources["arxiv_ai"]:
+            arxiv_ai_trends = self._get_arxiv_ai_trends()
+            all_trends.extend(arxiv_ai_trends)
+            self.source_status["arXiv AI"] = {
+                "success": len(arxiv_ai_trends) > 0,
+                "count": len(arxiv_ai_trends),
+                "message": "正常" if len(arxiv_ai_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["arXiv AI"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 47. 36氪（中国权威科技商业媒体）
+        if self.sources["36kr"]:
+            kr36_trends = self._get_36kr_trends()
+            all_trends.extend(kr36_trends)
+            self.source_status["36氪"] = {
+                "success": len(kr36_trends) > 0,
+                "count": len(kr36_trends),
+                "message": "正常" if len(kr36_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["36氪"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 48. The Verge AI（头部科技媒体）
+        if self.sources["the_verge_ai"]:
+            verge_trends = self._get_the_verge_ai_v2_trends()
+            all_trends.extend(verge_trends)
+            self.source_status["The Verge AI (RSS)"] = {
+                "success": len(verge_trends) > 0,
+                "count": len(verge_trends),
+                "message": "正常" if len(verge_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["The Verge AI (RSS)"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 49. Ars Technica（老牌深度科技媒体）
+        if self.sources["ars_technica"]:
+            ars_trends = self._get_ars_technica_trends()
+            all_trends.extend(ars_trends)
+            self.source_status["Ars Technica"] = {
+                "success": len(ars_trends) > 0,
+                "count": len(ars_trends),
+                "message": "正常" if len(ars_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["Ars Technica"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
+        # 50. Machine Learning Mastery（实用ML教程）
+        if self.sources["ml_mastery"]:
+            ml_mastery_trends = self._get_ml_mastery_trends()
+            all_trends.extend(ml_mastery_trends)
+            self.source_status["Machine Learning Mastery"] = {
+                "success": len(ml_mastery_trends) > 0,
+                "count": len(ml_mastery_trends),
+                "message": "正常" if len(ml_mastery_trends) > 0 else "无数据"
+            }
+        else:
+            self.source_status["Machine Learning Mastery"] = {
+                "success": False,
+                "count": 0,
+                "message": "未启用"
+            }
+
         # 不再排序、去重、过滤，保留所有数据源的完整内容
         # 按数据源组织返回
         trends_by_source = {
@@ -974,7 +1096,15 @@ class RealAITrendAnalyzerAgent(BaseAgent):
             "Reddit ML": [],
             "Reddit AI": [],
             "Towards Data Science": [],
-            "TechMeme": []
+            "TechMeme": [],
+            # 新增权威数据源 (v12.1)
+            "NVIDIA Blog": [],
+            "AWS ML Blog": [],
+            "arXiv AI": [],
+            "36氪": [],
+            "The Verge AI (RSS)": [],
+            "Ars Technica": [],
+            "Machine Learning Mastery": []
         }
 
         # 将热点按数据源分类
@@ -1067,6 +1197,21 @@ class RealAITrendAnalyzerAgent(BaseAgent):
                 trends_by_source["Towards Data Science"].append(trend)
             elif "TechMeme" in source:
                 trends_by_source["TechMeme"].append(trend)
+            # 新增权威数据源 (v12.1)
+            elif "NVIDIA Blog" in source:
+                trends_by_source["NVIDIA Blog"].append(trend)
+            elif "AWS ML Blog" in source:
+                trends_by_source["AWS ML Blog"].append(trend)
+            elif "arXiv AI" in source:
+                trends_by_source["arXiv AI"].append(trend)
+            elif "36氪" in source:
+                trends_by_source["36氪"].append(trend)
+            elif "The Verge AI (RSS)" in source:
+                trends_by_source["The Verge AI (RSS)"].append(trend)
+            elif "Ars Technica" in source:
+                trends_by_source["Ars Technica"].append(trend)
+            elif "Machine Learning Mastery" in source:
+                trends_by_source["Machine Learning Mastery"].append(trend)
 
         total_count = sum(len(trends) for trends in trends_by_source.values())
 
@@ -2331,6 +2476,99 @@ class RealAITrendAnalyzerAgent(BaseAgent):
 
         except Exception as e:
             self.log(f"{source_name} RSS获取失败: {e}", "ERROR")
+            return []
+
+    # ==================== v12.1 新增权威数据源 ====================
+
+    def _get_nvidia_blog_trends(self) -> List[Dict[str, Any]]:
+        """获取NVIDIA Blog（GPU/AI基础设施）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://developer.nvidia.com/blog/feed/",
+                source_name="NVIDIA Blog",
+                item_type="news",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"NVIDIA Blog RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_aws_ml_blog_trends(self) -> List[Dict[str, Any]]:
+        """获取AWS ML Blog（云AI服务）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://aws.amazon.com/blogs/machine-learning/feed/",
+                source_name="AWS ML Blog",
+                item_type="news",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"AWS ML Blog RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_arxiv_ai_trends(self) -> List[Dict[str, Any]]:
+        """获取arXiv cs.AI（AI综合论文）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://arxiv.org/rss/cs.AI",
+                source_name="arXiv AI",
+                item_type="academic",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"arXiv AI RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_36kr_trends(self) -> List[Dict[str, Any]]:
+        """获取36氪（中国权威科技商业媒体）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://36kr.com/feed",
+                source_name="36氪",
+                item_type="news",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"36氪 RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_the_verge_ai_v2_trends(self) -> List[Dict[str, Any]]:
+        """获取The Verge AI（头部科技媒体）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+                source_name="The Verge AI (RSS)",
+                item_type="news",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"The Verge AI RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_ars_technica_trends(self) -> List[Dict[str, Any]]:
+        """获取Ars Technica（老牌深度科技媒体）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://feeds.arstechnica.com/arstechnica/technology-lab",
+                source_name="Ars Technica",
+                item_type="news",
+                max_items=15
+            )
+        except Exception as e:
+            self.log(f"Ars Technica RSS解析失败: {e}", "ERROR")
+            return []
+
+    def _get_ml_mastery_trends(self) -> List[Dict[str, Any]]:
+        """获取Machine Learning Mastery（实用ML教程）"""
+        try:
+            return self._get_rss_trends(
+                rss_url="https://machinelearningmastery.com/feed/",
+                source_name="Machine Learning Mastery",
+                item_type="news",
+                max_items=10
+            )
+        except Exception as e:
+            self.log(f"Machine Learning Mastery RSS解析失败: {e}", "ERROR")
             return []
 
     # ==================== 辅助方法 ====================

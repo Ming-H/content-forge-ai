@@ -141,7 +141,15 @@ class ConcurrentFetchAgent(BaseAgent):
             "arXiv ML": [],
             "Reddit ML": [],
             "Reddit AI": [],
-            "Towards Data Science": []
+            "Towards Data Science": [],
+            # v12.1 新增权威数据源
+            "NVIDIA Blog": [],
+            "AWS ML Blog": [],
+            "arXiv AI": [],
+            "36氪": [],
+            "The Verge AI (RSS)": [],
+            "Ars Technica": [],
+            "Machine Learning Mastery": []
         }
 
         # 处理结果
@@ -234,6 +242,21 @@ class ConcurrentFetchAgent(BaseAgent):
             tasks.append(("Reddit AI", self._fetch_reddit_ai_async))
         if self.trend_analyzer.sources.get("towards_data_science"):
             tasks.append(("Towards Data Science", self._fetch_towards_data_science_async))
+        # v12.1 新增权威数据源
+        if self.trend_analyzer.sources.get("nvidia_blog"):
+            tasks.append(("NVIDIA Blog", self._fetch_nvidia_async))
+        if self.trend_analyzer.sources.get("aws_ml_blog"):
+            tasks.append(("AWS ML Blog", self._fetch_aws_ml_async))
+        if self.trend_analyzer.sources.get("arxiv_ai"):
+            tasks.append(("arXiv AI", self._fetch_arxiv_ai_async))
+        if self.trend_analyzer.sources.get("36kr"):
+            tasks.append(("36氪", self._fetch_36kr_async))
+        if self.trend_analyzer.sources.get("the_verge_ai"):
+            tasks.append(("The Verge AI (RSS)", self._fetch_verge_ai_v2_async))
+        if self.trend_analyzer.sources.get("ars_technica"):
+            tasks.append(("Ars Technica", self._fetch_ars_technica_async))
+        if self.trend_analyzer.sources.get("ml_mastery"):
+            tasks.append(("Machine Learning Mastery", self._fetch_ml_mastery_async))
 
         return tasks
 
@@ -273,6 +296,14 @@ class ConcurrentFetchAgent(BaseAgent):
             "The Gradient": self.trend_analyzer._get_gradient_trends,
             "InfoQ": self.trend_analyzer._get_infoq_ai_trends,
             "Hugging Face": self.trend_analyzer._get_hugging_face_blog_trends,
+            # v12.1 新增权威数据源
+            "NVIDIA Blog": self.trend_analyzer._get_nvidia_blog_trends,
+            "AWS ML Blog": self.trend_analyzer._get_aws_ml_blog_trends,
+            "arXiv AI": self.trend_analyzer._get_arxiv_ai_trends,
+            "36氪": self.trend_analyzer._get_36kr_trends,
+            "The Verge AI (RSS)": self.trend_analyzer._get_the_verge_ai_v2_trends,
+            "Ars Technica": self.trend_analyzer._get_ars_technica_trends,
+            "Machine Learning Mastery": self.trend_analyzer._get_ml_mastery_trends,
         }
         if source_name in sync_methods:
             return sync_methods[source_name]()
@@ -469,6 +500,50 @@ class ConcurrentFetchAgent(BaseAgent):
         return await self._fetch_rss_async(
             "https://towardsdatascience.com/feed",
             "Towards Data Science", 15
+        )
+
+    # ========== v12.1 新增权威数据源异步获取方法 ==========
+
+    async def _fetch_nvidia_async(self):
+        return await self._fetch_rss_async(
+            "https://developer.nvidia.com/blog/feed/",
+            "NVIDIA Blog", 15
+        )
+
+    async def _fetch_aws_ml_async(self):
+        return await self._fetch_rss_async(
+            "https://aws.amazon.com/blogs/machine-learning/feed/",
+            "AWS ML Blog", 15
+        )
+
+    async def _fetch_arxiv_ai_async(self):
+        return await self._fetch_rss_async(
+            "https://arxiv.org/rss/cs.AI",
+            "arXiv AI", 15
+        )
+
+    async def _fetch_36kr_async(self):
+        return await self._fetch_rss_async(
+            "https://36kr.com/feed",
+            "36氪", 15
+        )
+
+    async def _fetch_verge_ai_v2_async(self):
+        return await self._fetch_rss_async(
+            "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+            "The Verge AI (RSS)", 15
+        )
+
+    async def _fetch_ars_technica_async(self):
+        return await self._fetch_rss_async(
+            "https://feeds.arstechnica.com/arstechnica/technology-lab",
+            "Ars Technica", 15
+        )
+
+    async def _fetch_ml_mastery_async(self):
+        return await self._fetch_rss_async(
+            "https://machinelearningmastery.com/feed/",
+            "Machine Learning Mastery", 10
         )
 
     # ========== 需要特殊处理的异步获取方法 ==========
