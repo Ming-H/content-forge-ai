@@ -1,0 +1,828 @@
+{
+  "metadata": {
+    "title": "AI每日热点 · 2026年11月11日",
+    "subtitle": "微软揭Lazarus休眠神经元后门 AI Agent攻击面深入权重层 供应链审计成企业采购必备",
+    "issue_number": "20261111",
+    "publish_date": "2026-11-11",
+    "generated_at": "2026-11-11T09:46:11.564886",
+    "word_count": 13631,
+    "reading_time": "7分钟",
+    "total_items": 35,
+    "version": "v9.0",
+    "category_system": "6分类",
+    "categories": [
+      "学术前沿",
+      "开发工具",
+      "AI Agent",
+      "企业应用",
+      "消费产品",
+      "行业资讯"
+    ]
+  },
+  "editors_pick": [
+    {
+      "id": "ep_001",
+      "title": "Gilbert + Tobin rethinks the business of law with AI",
+      "title_cn": "Gilbert + Tobin用AI重塑法律服务模式",
+      "summary": "A conversation with Sam Nickless, Partner and Chief Executive Officer at Gilbert + Tobin.",
+      "summary_cn": "澳大利亚知名律所Gilbert + Tobin CEO Sam Nickless分享AI转型实践，探讨律所如何借助AI重新定义法律服务业务，提升运营效率",
+      "url": "https://openai.com/index/gilbert-tobin-sam-nickless",
+      "source": "OpenAI Blog",
+      "category": "企业应用",
+      "importance_score": 72.0,
+      "published_at": "2026-11-12 00:00:00",
+      "tags": [
+        "新闻",
+        "AI资讯"
+      ],
+      "background": "",
+      "impact": "",
+      "pick_rank": 1
+    },
+    {
+      "id": "ep_002",
+      "title": "Helping caregivers use AI in everyday life",
+      "title_cn": "OpenAI为护理人员推出免费ChatGPT培训，覆盖美国5城",
+      "summary": "OpenAI Academy is bringing free, hands-on ChatGPT workshops to caregivers in five U.S. cities, helping them build practical AI skills for everyday life.",
+      "summary_cn": "OpenAI Academy在美国5座城市推出免费ChatGPT实操工作坊，帮助护理人员掌握日常AI技能，让照护工作更轻松高效",
+      "url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life",
+      "source": "OpenAI Blog",
+      "category": "行业资讯",
+      "importance_score": 65.85,
+      "published_at": "2026-11-10 12:00:00",
+      "tags": [
+        "新闻",
+        "AI资讯"
+      ],
+      "background": "",
+      "impact": "",
+      "pick_rank": 2
+    },
+    {
+      "id": "ep_003",
+      "title": "Google Cloud launches Gemini for healthcare.",
+      "title_cn": "Google Cloud发布医疗版Gemini：统一临床数据，减轻医护行政负担",
+      "summary": "Google Cloud launches Gemini for healthcare to unify clinical data and automate workflows. Reduce administrative burnout. See how it works.",
+      "summary_cn": "Google Cloud推出医疗行业专用Gemini，整合分散的临床数据并自动化工作流程，直击医护人员行政倦怠痛点",
+      "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
+      "source": "Google AI Blog",
+      "category": "AI Agent",
+      "importance_score": 63.7,
+      "published_at": "2026-11-10 13:00:00",
+      "tags": [
+        "新闻",
+        "AI资讯"
+      ],
+      "background": "",
+      "impact": "",
+      "pick_rank": 3
+    },
+    {
+      "id": "ep_004",
+      "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+      "title_cn": "Adobe与Google打通工具链：Drive内直接编辑PDF，Gemini接入Adobe AI",
+      "summary": "Google and Adobe are integrating creative and productivity tools. Edit PDFs in Drive and use Adobe AI in Gemini. See what’s new in this partnership.",
+      "summary_cn": "Adobe创意工具与Google办公应用深度整合，用户可在Drive中直接编辑PDF，还能在Gemini中调用Adobe AI功能，工作流更顺畅",
+      "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+      "source": "Google AI Blog",
+      "category": "消费产品",
+      "importance_score": 63.7,
+      "published_at": "2026-11-10 14:00:00",
+      "tags": [
+        "新闻",
+        "AI资讯"
+      ],
+      "background": "",
+      "impact": "",
+      "pick_rank": 4
+    },
+    {
+      "id": "ep_005",
+      "title": "Gemini Intelligence: New features, on more devices",
+      "title_cn": "Gemini Intelligence功能升级，扩展至更多设备",
+      "summary": "A man speaks into a phone. Text on the screen reads 'Gemini Intelligence'",
+      "summary_cn": "Google的Gemini Intelligence迎来新功能更新，覆盖设备范围持续扩大，让智能助手体验惠及更广泛用户群体",
+      "url": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
+      "source": "Google AI Blog",
+      "category": "行业资讯",
+      "importance_score": 63.7,
+      "published_at": "2026-11-10 19:00:00",
+      "tags": [
+        "新闻",
+        "AI资讯"
+      ],
+      "background": "",
+      "impact": "",
+      "pick_rank": 5
+    }
+  ],
+  "categories": [
+    {
+      "id": "academic_frontier",
+      "name": "学术前沿",
+      "icon": "📚",
+      "count": 5,
+      "items": [
+        {
+          "id": "academic_frontier_562fd2",
+          "title": "Lazare, veni foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+          "title_cn": "微软发现\"Lazarus\"后门攻击：休眠神经元可被重编程，AI Agent沦为攻击工具",
+          "summary": "Microsoft researchers have discovered &#8220;Lazarus,&#8221; a backdoor technique that can reprogram dormant neurons in an AI model, causing an otherwise normal AI agent to execute malicious commands ",
+          "summary_cn": "微软研究人员发现名为\"Lazarus\"的后门技术，能重编程AI模型中的休眠神经元，让表现正常的AI Agent执行恶意命令，暴露Agent安全防线重大隐患",
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+          "source": "Microsoft Research",
+          "category": "学术前沿",
+          "importance_score": 63.5,
+          "published_at": "2026-11-10 20:52:56",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "academic_frontier_a0c29d",
+          "title": "Anthropic has its own AI-powered office suite now",
+          "title_cn": "Anthropic推出AI办公套件，正面挑战微软Copilot与Google Workspace",
+          "summary": "For years, Anthropic has been known for its focus on enterprise and coding tools that attract high-flying corporate clients, inspiring competing frontier labs - like OpenAI, SpaceXSI, and Meta - to co",
+          "summary_cn": "Anthropic发布自有AI办公套件，延续其在企业服务和编程工具领域的优势布局，凭借高端企业客户基础直接切入办公软件市场，OpenAI等对手或被迫跟进",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030709/anthropic-has-its-own-ai-powered-office-suite-now",
+          "source": "The Verge AI (RSS)",
+          "category": "学术前沿",
+          "importance_score": 58.35,
+          "published_at": "2026-11-10 12:30:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "academic_frontier_61b5b9",
+          "title": "The indie game community is in disarray over AI and Big Walk",
+          "title_cn": "独立游戏圈因AI陷入分裂：IGF评委集体拒投使用生成式AI的作品",
+          "summary": "Some Independent Games Festival (IGF) jurors published a statement yesterday saying they would not vote for games that use generative AI in \"any capacity.\" Soon after, the developer of indie hit Big W",
+          "summary_cn": "独立游戏节(IGF)多位评委公开声明，拒绝对任何形式使用生成式AI的游戏投票，随后热门游戏《Big Walk》开发商卷入争议，社区围绕AI使用边界激烈对立",
+          "url": "https://www.theverge.com/games/1030994/big-walk-independent-games-festival-igf-ai",
+          "source": "The Verge AI (RSS)",
+          "category": "学术前沿",
+          "importance_score": 57.0,
+          "published_at": "2026-11-10 12:32:47",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "academic_frontier_914024",
+          "title": "Eight countries and top AI labs agree to shutdown mechanisms in new Paris declaration",
+          "title_cn": "八国与OpenAI等AI巨头签署巴黎宣言，就AI关停机制达成一致",
+          "summary": "Eight countries along with representatives from OpenAI, Anthropic, Microsoft, and Mistral AI have signed the \"Paris Call for AI Safety and Security\" at Emmanuel Macron's initiative. The companies comm",
+          "summary_cn": "在马克龙倡议下，八国政府联合OpenAI、Anthropic、微软及Mistral AI签署《巴黎AI安全与安保倡议》，各方承诺为失控AI系统建立紧急关停机制",
+          "url": "https://the-decoder.com/eight-countries-and-top-ai-labs-agree-to-shutdown-mechanisms-in-new-paris-declaration/",
+          "source": "The Decoder",
+          "category": "学术前沿",
+          "importance_score": 55.35,
+          "published_at": "2026-11-10 13:37:16",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "academic_frontier_24b498",
+          "title": "Anthropic's Fable 5.2 completes 41 percent of real freelance jobs, up from 2.5 percent a year ago",
+          "title_cn": "Anthropic Fable 5.2完成41%真实自由职业任务，一年内飙升16倍",
+          "summary": "Anthropic's Fable 5.2 completes 41.3 percent of real freelance jobs at professional quality on the Remote Labor Index, more than double the next-best systems Opus 5.5 and GPT 6 Astra. A year ago the t",
+          "summary_cn": "Anthropic的Fable 5.2在Remote Labor Index测评中以专业水准完成41.3%的真实自由职业任务，性能达第二名Opus 5.5和GPT 6 Astra两倍，一年前行业最高仅2.5%",
+          "url": "https://the-decoder.com/anthropics-fable-5-2-completes-41-percent-of-real-freelance-jobs-up-from-2-5-percent-a-year-ago/",
+          "source": "The Decoder",
+          "category": "学术前沿",
+          "importance_score": 54.9,
+          "published_at": "2026-11-10 14:07:47",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    },
+    {
+      "id": "dev_tools",
+      "name": "开发工具",
+      "icon": "🛠️",
+      "count": 5,
+      "items": [
+        {
+          "id": "dev_tools_bd5f92",
+          "title": "Introducing Kimi K3.1 Pro on Amazon Bedrock",
+          "title_cn": "Kimi K3.1 Pro登陆Amazon Bedrock：兼容OpenAI API，现有代码直接调用",
+          "summary": "Kimi K3.1 Pro from Moonshot AI is now available on Amazon Bedrock. Learn how to get started through the OpenAI-compatible Chat Completions, Responses, and Converse APIs, optimize inference with explic",
+          "summary_cn": "月之暗面Kimi K3.1 Pro正式上线Amazon Bedrock，开发者可通过OpenAI兼容的Chat Completions、Responses及Converse API直接调用，无需改造现有代码即可接入企业级云端部署",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/",
+          "source": "AWS ML Blog",
+          "category": "开发工具",
+          "importance_score": 60.35,
+          "published_at": "2026-11-11 01:07:19",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "dev_tools_faee34",
+          "title": "Build a daily dependency watcher with LangGraph and Amazon Bedrock AgentCore web search",
+          "title_cn": "LangGraph+Bedrock AgentCore实战：搭建每日依赖监控Agent，搜索结果自带引用",
+          "summary": "The Web Search API in Amazon Bedrock AgentCore gives agents current, cited web results signed with the AWS credentials they already use. In this post, build a daily dependency watcher as a LangGraph g",
+          "summary_cn": "AWS教程演示如何用LangGraph结合Bedrock AgentCore的Web Search API构建每日依赖监控Agent，返回带引用来源的实时网络结果，且直接复用现有AWS凭证认证",
+          "url": "https://aws.amazon.com/blogs/machine-learning/build-a-daily-dependency-watcher-with-langgraph-and-amazon-bedrock-agentcore-web-search/",
+          "source": "AWS ML Blog",
+          "category": "开发工具",
+          "importance_score": 59.0,
+          "published_at": "2026-11-10 23:34:05",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "dev_tools_ce847e",
+          "title": "Agent Substrate: Advancing Kubernetes for Agents at Scale",
+          "title_cn": "Agent Substrate：为大规模AI Agent重新设计Kubernetes",
+          "summary": "AI agents spend most of their time idle, waiting on a human prompt, a tool result or a model response. Kubernetes wasn’t built for that. Running one Pod per...",
+          "summary_cn": "AI Agent大部分时间处于空闲等待，按Pod分配资源的Kubernetes架构成本过高。Agent Substrate针对Agent特性重设计，大幅降低大规模Agent部署的基础设施成本",
+          "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+          "source": "NVIDIA Blog",
+          "category": "开发工具",
+          "importance_score": 54.6,
+          "published_at": "2026-11-10 15:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "dev_tools_85424f",
+          "title": "Integrating LLM Translation into Your Scikit-Learn Pipelines with Scikit-LLM",
+          "title_cn": "Scikit-LLM教程：几行代码在scikit-learn流水线中集成LLM，搞定多语言分类",
+          "summary": "Learn, in a few easy steps, how to build a two-stage scikit-learn pipeline for multilingual text classification, guided by two pre-trained language models handled by Scikit-LLM for translation and zer",
+          "summary_cn": "教程展示如何用Scikit-LLM构建两阶段scikit-learn流水线：LLM先完成多语言文本翻译，再通过零样本分类统一处理，数据科学团队无需训练模型即可处理多语言任务",
+          "url": "https://www.kdnuggets.com/integrating-llm-translation-into-your-scikit-learn-pipelines-with-scikit-llm",
+          "source": "KDnuggets",
+          "category": "开发工具",
+          "importance_score": 54.3,
+          "published_at": "2026-11-10 15:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "dev_tools_fbd5b8",
+          "title": "I have trained 15+ models on my own blood sugar & metabonet dataset [P]",
+          "title_cn": "1型糖尿病患者开源：用自身血糖数据训练15+个AI模型",
+          "summary": "Source code: https://github.com/0xdeadf1sh/T1DMAI  &#32; submitted by &#32;  /u/0xdeadf1sh   [link] &#32; [comments]",
+          "summary_cn": "开发者基于个人血糖及代谢网络（Metabonet）数据集训练15+个模型预测血糖变化，全部源代码已在GitHub开源，为糖尿病管理提供可复用的个性化AI方案",
+          "url": "https://www.reddit.com/r/MachineLearning/comments/1xsussb/i_have_trained_15_models_on_my_own_blood_sugar/",
+          "source": "Reddit ML",
+          "category": "开发工具",
+          "importance_score": 54.15,
+          "published_at": "2026-11-10 18:35:32",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    },
+    {
+      "id": "ai_agent",
+      "name": "AI Agent",
+      "icon": "🦾",
+      "count": 5,
+      "items": [
+        {
+          "id": "ai_agent_df4be0",
+          "title": "eBay appears to have shut the door on third-party AI agents",
+          "title_cn": "eBay封杀第三方AI Agent访问，Meta Muse被拒之门外",
+          "summary": "eBay appears to have blocked AI agents, including Meta's Muse, from browsing on the platform - the latest speed bump in the AI agent race. A reader tells The Verge that for several weeks he's had his ",
+          "summary_cn": "eBay已屏蔽Meta Muse等第三方AI Agent浏览其平台，成为AI Agent竞赛的最新阻碍。据The Verge读者反馈，相关限制已持续数周时间",
+          "url": "https://www.theverge.com/tech/1030838/ebay-ai-agents-meta-muse-agentic-shopping",
+          "source": "The Verge AI (RSS)",
+          "category": "AI Agent",
+          "importance_score": 58.2,
+          "published_at": "2026-11-10 11:20:30",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "ai_agent_0412d3",
+          "title": "The agent evaluation playbook: Built-in, DeepEval, and AutoEval on Amazon Bedrock AgentCore Evaluations",
+          "title_cn": "Agent评估实战指南：Bedrock内置工具、DeepEval与AutoEval三大方案详解",
+          "summary": "When you deploy an agent, whether it is working is really several questions: did it finish the task, stay on topic, leak data, or skip steps? This post shows how to evaluate agents on Amazon Bedrock A",
+          "summary_cn": "Agent部署后是否可靠需多维验证：任务是否完成、是否跑题、是否泄露数据、是否跳步。本文详解用Amazon Bedrock AgentCore评估Agent的实操方法",
+          "url": "https://aws.amazon.com/blogs/machine-learning/the-agent-evaluation-playbook-built-in-deepeval-and-autoeval-on-agentcore/",
+          "source": "AWS ML Blog",
+          "category": "AI Agent",
+          "importance_score": 57.95,
+          "published_at": "2026-11-10 22:35:03",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "ai_agent_fde957",
+          "title": "Gemini 4 Carbon arrives just in time to feel like yesterday's news in the fastest model cycle yet",
+          "title_cn": "Gemini 4 Carbon正式发布：多项跑分登顶，价格仅为Fable 5.2一半",
+          "summary": "Google is making Gemini 4 Carbon generally available after a two-week testing phase. The model ranks first in several benchmarks, in some cases ahead of Anthropic's new Fable 5.2, at less than half th",
+          "summary_cn": "Google宣布Gemini 4 Carbon结束两周测试正式上线，多项基准测试排名第一，部分超越Anthropic新模型Fable 5.2，而价格不到其一半",
+          "url": "https://the-decoder.com/gemini-4-carbon-arrives-just-in-time-to-feel-like-yesterdays-news-in-the-fastest-model-cycle-yet/",
+          "source": "The Decoder",
+          "category": "AI Agent",
+          "importance_score": 55.5,
+          "published_at": "2026-11-10 18:19:13",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "ai_agent_9f96bb",
+          "title": "Copilot Caught 8 of 8 Diff Bugs With Rules, 0 of 2 Outside the Diff",
+          "title_cn": "Copilot实测：Diff范围内8个Bug全抓，范围外2个全漏",
+          "summary": "A guard on negative enrollment days looked correct while the function it called overbilled a customer 11 days, and an invariant test would have caught it.\nThe post Copilot Caught 8 of 8 Diff Bugs With",
+          "summary_cn": "实测显示Copilot按规则审查可抓出Diff范围内全部8个Bug，但范围外2个均漏检。一个看似正确的防护函数导致客户多付11天费用，不变性测试本可发现",
+          "url": "https://towardsdatascience.com/copilot-caught-8-of-8-diff-bugs-with-rules-0-of-2-outside-the-diff/",
+          "source": "Towards Data Science",
+          "category": "AI Agent",
+          "importance_score": 54.9,
+          "published_at": "2026-11-10 12:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "ai_agent_650b1f",
+          "title": "Running AV Reasoning Models Within Onboard Compute and Latency Limits",
+          "title_cn": "自动驾驶落地关键：推理模型如何在车载算力和延迟限制内运行",
+          "summary": "Autonomous vehicle (AV) developers need reasoning models that can operate within the compute and latency constraints of an onboard system. Larger models provide...",
+          "summary_cn": "自动驾驶(AV)开发者需要能在车载算力和延迟约束内运行的推理模型。大模型能力更强但难以满足实时要求，如何在性能与资源间取舍成为落地关键",
+          "url": "https://developer.nvidia.com/blog/running-av-reasoning-models-within-onboard-compute-and-latency-limits/",
+          "source": "NVIDIA Blog",
+          "category": "AI Agent",
+          "importance_score": 53.85,
+          "published_at": "2026-11-10 16:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    },
+    {
+      "id": "enterprise_apps",
+      "name": "企业应用",
+      "icon": "💼",
+      "count": 5,
+      "items": [
+        {
+          "id": "enterprise_apps_37c9ad",
+          "title": "OpenAI, Anthropic face new oversight as New York’s AI safety law takes effect",
+          "title_cn": "纽约AI安全法生效：OpenAI、Anthropic须注册披露安全实践，违者罚款",
+          "summary": "New York is preparing to enforce its sweeping AI safety law, requiring major developers like OpenAI and Anthropic to register, disclose safety practices, and report critical incidents or face fines.",
+          "summary_cn": "纽约州AI安全法正式执行，要求OpenAI、Anthropic等大型开发商注册登记、披露安全实践并上报重大事故，否则将面临罚款处罚，AI监管进入实操阶段",
+          "url": "https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/",
+          "source": "TechCrunch AI",
+          "category": "企业应用",
+          "importance_score": 57.9,
+          "published_at": "2026-11-10 20:52:13",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "enterprise_apps_0600ea",
+          "title": "OpenAI rolls out new business profiles, making ChatGPT just a little bit more like Google",
+          "title_cn": "OpenAI上线商家资料功能，ChatGPT加速对标Google变身商业发现引擎",
+          "summary": "OpenAI is looking to make ChatGPT a more robust consumer discovery engine, and a host of new features seek to empower businesses to help it do that.",
+          "summary_cn": "OpenAI为ChatGPT推出商家资料等新功能，邀请企业入驻平台，助力其成为更强大的消费发现引擎，进一步蚕食Google搜索业务",
+          "url": "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/",
+          "source": "TechCrunch AI",
+          "category": "企业应用",
+          "importance_score": 57.6,
+          "published_at": "2026-11-10 18:49:52",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "enterprise_apps_8422cd",
+          "title": "All 7 Anthropic founders will each cash out about $250M in IPO",
+          "title_cn": "Anthropic IPO在即：7位联合创始人人均套现2.5亿美元",
+          "summary": "Each of the seven co-founders plans to sell exactly the same number of shares in the IPO, which would bring each of them about $250 million in cash at the midpoint of the price range while leaving the",
+          "summary_cn": "Anthropic七位联合创始人计划在IPO中出售数量完全相同的股份，按发行价区间中值计算，每人可套现约2.5亿美元现金",
+          "url": "https://techcrunch.com/2026/11/10/all-7-anthropic-founders-will-each-cash-out-about-250m-in-ipo/",
+          "source": "TechCrunch AI",
+          "category": "企业应用",
+          "importance_score": 57.45,
+          "published_at": "2026-11-10 19:57:52",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "enterprise_apps_f9e2fc",
+          "title": "Oura to acquire AI-native primary care startup Counsel Health for $625M",
+          "title_cn": "Oura斥资6.25亿美元收购AI医疗初创Counsel Health",
+          "summary": "The deal comes a few weeks after Oura postponed its up to $2.2 billion IPO indefinitely, citing “uncertainty in the IPO market.”",
+          "summary_cn": "智能戒指厂商Oura将以6.25亿美元收购AI原生初级保健公司Counsel Health，数周前其高达22亿美元的IPO因市场不确定性被无限期推迟",
+          "url": "https://techcrunch.com/2026/11/10/oura-to-acquire-ai-native-primary-care-startup-counsel-health-for-625m/",
+          "source": "TechCrunch AI",
+          "category": "企业应用",
+          "importance_score": 57.0,
+          "published_at": "2026-11-10 19:23:34",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "enterprise_apps_febafc",
+          "title": "PSI is trying to make a business out of AI-driven scientific discovery",
+          "title_cn": "PSI押注AI科学发现：用未发布Anthropic模型破解量子计算20年难题",
+          "summary": "PSI used an unreleased Anthropic model to answer a fundamental question about quantum computing that scientists have pursued for nearly two decades.",
+          "summary_cn": "初创公司PSI使用Anthropic未发布模型解答科学家追寻近20年的量子计算基础问题，试图将AI驱动的科学发现打造成可盈利的商业模式",
+          "url": "https://techcrunch.com/2026/11/10/psi-is-trying-to-make-a-business-out-of-ai-driven-scientific-discovery/",
+          "source": "TechCrunch AI",
+          "category": "企业应用",
+          "importance_score": 56.85,
+          "published_at": "2026-11-10 19:03:52",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    },
+    {
+      "id": "consumer_apps",
+      "name": "消费产品",
+      "icon": "🌐",
+      "count": 5,
+      "items": [
+        {
+          "id": "consumer_apps_61dbd0",
+          "title": "ChatGPT is getting verified AI ‘Business Agents’",
+          "title_cn": "ChatGPT上线认证'商务Agent'，用户可与品牌官方AI直接比价购物",
+          "summary": "ChatGPT is going to let you chat with verified \"Business Agents\" that represent a brand to help you with things like comparison shopping. The feature, available first to \"eligible\" e-commerce and onli",
+          "summary_cn": "OpenAI在ChatGPT中引入认证商务Agent，用户可与代表品牌的官方AI对话，完成比价购物等任务。该功能率先向符合条件的电商领域开放",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030552/openai-chatgpt-business-agents-hub",
+          "source": "The Verge AI (RSS)",
+          "category": "消费产品",
+          "importance_score": 58.35,
+          "published_at": "2026-11-10 13:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "consumer_apps_77278f",
+          "title": "OpenAI turns ChatGPT into a business directory with AI agents that handle customer questions",
+          "title_cn": "OpenAI把ChatGPT变成企业获客平台：品牌可认领主页，AI Agent自动应答客户",
+          "summary": "OpenAI is opening up ChatGPT as a business platform: through a new Business Hub, companies can claim their profile, add product data, and track how users interact with them. \"Business Agents\" let elig",
+          "summary_cn": "OpenAI推出Business Hub，企业可认领资料页、上传产品数据并追踪用户互动，商务Agent自动处理客户咨询，ChatGPT正成为企业直达用户的新渠道",
+          "url": "https://the-decoder.com/openai-turns-chatgpt-into-a-business-directory-with-ai-agents-that-handle-customer-questions/",
+          "source": "The Decoder",
+          "category": "消费产品",
+          "importance_score": 55.5,
+          "published_at": "2026-11-10 20:17:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "consumer_apps_f54d05",
+          "title": "A Session-Start Hook Raised Claude Code Skill Firing From 15% to 62%",
+          "title_cn": "一个会话启动Hook，让Claude Code技能触发率从15%提升至62%",
+          "summary": "A software tester ran six testing skills on Haiku, Sonnet, and Opus; pushy descriptions added only 5 points, and near-miss requests never fired a skill.\nThe post A Session-Start Hook Raised Claude Cod",
+          "summary_cn": "开发者实测Haiku、Sonnet、Opus六项测试技能发现：会话启动Hook可将技能触发率从15%提升至62%，强制描述仅增5个百分点，近似请求则完全不触发",
+          "url": "https://towardsdatascience.com/a-session-start-hook-raised-claude-code-skill-firing-from-15-to-62/",
+          "source": "Towards Data Science",
+          "category": "消费产品",
+          "importance_score": 54.45,
+          "published_at": "2026-11-10 15:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "consumer_apps_5304a3",
+          "title": "Google DeepMind's Gemini Robotics 2.5 scores 96 percent sorting metal parts in a Mercedes-Benz assembly pilot",
+          "title_cn": "Gemini Robotics 2.5实测：人形机器人分拣奔驰产线零件，准确率达96%",
+          "summary": "Google Deepmind introduced Gemini Robotics 2.5, a new control model for robots, and tested it with Apptronik on active Mercedes-Benz production lines in Hungary and Germany. The humanoid robot Apollo ",
+          "summary_cn": "Google DeepMind发布机器人控制模型Gemini Robotics 2.5，与Apptronik在奔驰匈牙利和德国产线试点，人形机器人Apollo金属零件分拣准确率达96%",
+          "url": "https://the-decoder.com/google-deepminds-gemini-robotics-2-5-scores-96-percent-sorting-metal-parts-in-a-mercedes-benz-assembly-pilot/",
+          "source": "The Decoder",
+          "category": "消费产品",
+          "importance_score": 53.85,
+          "published_at": "2026-11-10 17:11:10",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "consumer_apps_c7e85f",
+          "title": "Start and Restore GPU Workloads in Seconds with NVIDIA Snapshot",
+          "title_cn": "NVIDIA开源Snapshot：GPU工作负载实现秒级启动与恢复",
+          "summary": "NVIDIA Snapshot, a new open-source component of the NVIDIA DSX AI Factory Platform, makes initialized GPU workloads reusable across inference...",
+          "summary_cn": "NVIDIA Snapshot作为DSX AI Factory平台新开源组件，让已初始化的GPU工作负载跨推理场景复用，启动与恢复时间从数分钟压缩至数秒",
+          "url": "https://developer.nvidia.com/blog/start-and-restore-gpu-workloads-in-seconds-with-nvidia-snapshot/",
+          "source": "NVIDIA Blog",
+          "category": "消费产品",
+          "importance_score": 53.85,
+          "published_at": "2026-11-10 15:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    },
+    {
+      "id": "industry_news",
+      "name": "行业资讯",
+      "icon": "📰",
+      "count": 5,
+      "items": [
+        {
+          "id": "industry_news_e166bc",
+          "title": "The Download: Pelosi’s successor targets AI and data centers face power woes",
+          "title_cn": "佩洛西继任者准备监管AI，数据中心遭遇电力危机",
+          "summary": "This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. Nancy Pelosi’s replacement is ready to regulate AI",
+          "summary_cn": "佩洛西的继任者已准备好对AI行业出手监管；与此同时，AI数据中心因耗电激增面临供电不足，算力扩张与能源约束的矛盾正成为行业焦点",
+          "url": "https://www.technologyreview.com/2026/11/10/1148150/the-download-pelosi-successor-ai-regulation-data-center-backlash/",
+          "source": "MIT Technology Review",
+          "category": "行业资讯",
+          "importance_score": 60.75,
+          "published_at": "2026-11-10 13:10:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "industry_news_88fb45",
+          "title": "The US is winning the AI race. Jensen Huang could have blown it",
+          "title_cn": "美国正赢得AI竞赛，但黄仁勋或成致命变数",
+          "summary": "As espionage targets go, Jensen Huang is perhaps one of the least surprising on Earth. The Nvidia CEO runs one of the world's most valuable companies, controls the in-demand technology fueling the AI ",
+          "summary_cn": "英伟达CEO黄仁勋掌控驱动AI革命的算力核心，是全球间谍活动聚焦目标；美国AI领先地位高度系于一人，其安全风险引发广泛担忧",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1031063/jensen-huang-ai-race-us-china-spy",
+          "source": "The Verge AI (RSS)",
+          "category": "行业资讯",
+          "importance_score": 57.0,
+          "published_at": "2026-11-10 14:04:05",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "industry_news_35a1bb",
+          "title": "5 Techniques for Fine-Tuning LLMs Without Breaking the Bank",
+          "title_cn": "5种低成本微调LLM技巧：从LoRA到Unsloth附完整代码",
+          "summary": "Learn five practical ways to fine-tune LLMs on a budget, from LoRA and QLoRA to Unsloth, DPO, and right-sizing your GPU, with working code for each technique.",
+          "summary_cn": "详解LoRA、QLoRA、Unsloth、DPO及GPU选型五种省钱微调方案，每种均配可运行代码，帮助小团队低成本打造高性能定制模型",
+          "url": "https://www.kdnuggets.com/5-techniques-for-fine-tuning-llms-without-breaking-the-bank",
+          "source": "KDnuggets",
+          "category": "行业资讯",
+          "importance_score": 55.35,
+          "published_at": "2026-11-10 13:00:00",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "industry_news_9d058e",
+          "title": "Anthropic kicks off IPO roadshow, offering shares at $70 to $78 and targeting a trillion-dollar valuation",
+          "title_cn": "Anthropic启动IPO路演：每股70-78美元，估值冲击万亿美元",
+          "summary": "Anthropic is kicking off its IPO roadshow, targeting a valuation of up to $1.02 trillion. Beyond the public offering of up to $64.4 billion, the company is securing $26 billion through a private place",
+          "summary_cn": "Anthropic正式开启IPO路演，目标估值最高1.02万亿美元；公开募股规模达644亿美元，另有260亿美元私募融资同步推进",
+          "url": "https://the-decoder.com/anthropic-kicks-off-ipo-roadshow-offering-shares-at-70-to-78-and-targeting-a-trillion-dollar-valuation/",
+          "source": "The Decoder",
+          "category": "行业资讯",
+          "importance_score": 53.7,
+          "published_at": "2026-11-10 12:13:03",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        },
+        {
+          "id": "industry_news_0f0188",
+          "title": "I benchmarked TimesFM 3.0, Chronos-2 and Toto 2.0 on market time series. None beat simple baseline. [P]",
+          "title_cn": "实测TimesFM 3.0等三大时序模型：金融预测不敌简单基线",
+          "summary": "I may be naive, but I've been curious whether the recent wave of time-series foundation models can actually extract useful predictive signals from financial markets. Models like Google's TimesFM 3.0, ",
+          "summary_cn": "开发者将Google TimesFM 3.0、Chronos-2和Toto 2.0用于金融市场时序预测，实测发现这些时序基础模型均未跑赢简单基线方法",
+          "url": "https://www.reddit.com/r/MachineLearning/comments/1xsqztt/i_benchmarked_timesfm_30_chronos2_and_toto_20_on/",
+          "source": "Reddit ML",
+          "category": "行业资讯",
+          "importance_score": 53.55,
+          "published_at": "2026-11-10 16:14:16",
+          "tags": [
+            "新闻",
+            "AI资讯"
+          ],
+          "background": "",
+          "impact": ""
+        }
+      ]
+    }
+  ],
+  "core_insights": [
+    "微软揭出休眠神经元后门，攻击面从提示层深入模型权重层；叠加纽约强制注册披露，企业采购第三方模型须把'供应链审计'写进合同，安全责任正在前置。",
+    "ChatGPT建认证商家生态，eBay却封杀外部Agent，平台在'拥抱AI入口'与'死守流量'间站队；品牌方自建官方Agent从可选项变必选项，迟一步比价流量即被截流。",
+    "Kimi借OpenAI兼容接口登陆Bedrock，API协议正成AI界的'HTTP'，模型层加速商品化；企业选型焦点上移至编排与评估层，模型迁移成本降至历史低位。",
+    "Anthropic推办公套件硬刚Copilot，模型厂商从'卖军火'转向抢应用层，与其最大客户微软、Google由合作变竞争；SaaS定价体系承压，最终利好企业买方。",
+    "Agent评估工具爆发、安全法规生效、数据中心电力告急同期而至，行业重心从'跑通Demo'转向'可持续生产'；评估监控成新基建，能耗正变选址硬约束。"
+  ],
+  "deep_observation": "攻击者已经懒得构造提示词了，微软此次发现的\"Lazarus\"后门藏得更深：在模型中休眠一段神经元，触发条件一到即唤醒，AI Agent反成攻击武器。攻击面从对话层沉入权重层；叠加纽约的强制注册披露，企业采购第三方模型时，“供应链审计”正变成合同标配。\n\n同一天，Kimi K3.1 Pro借OpenAI兼容接口登陆Bedrock，现有代码直接调用。两条新闻指向同一拐点：API协议正成为AI界的\"HTTP\"，模型层加速商品化，模型像标准件可随时替换，藏在权重里的风险反而更难察觉。企业选型焦点随之上移至编排与评估层，LangGraph加Bedrock AgentCore实战教程的走红，正说明评估监控在成为新基建。\n\n竞争同样在上移。Anthropic推出办公套件硬刚Copilot，从“卖军火”转向抢应用层，与其最大客户微软、Google由合作变竞争。SaaS定价体系承压，最终埋单的企业反倒成了受益者。\n\n而生产化的最后一道闸门在物理世界：佩洛西继任者准备监管AI，数据中心电力告急，能耗正从成本项变成选址硬约束。\n\n一句话，行业重心已从“跑通Demo”切换到“可持续生产”，还在晒参数的，已经掉队了。",
+  "trending_topics": [
+    {
+      "name": "新闻",
+      "count": 30,
+      "trend": "rising"
+    },
+    {
+      "name": "AI资讯",
+      "count": 30,
+      "trend": "rising"
+    }
+  ],
+  "sources": [
+    {
+      "name": "TechCrunch AI",
+      "count": 15
+    },
+    {
+      "name": "Hacker News",
+      "count": 11
+    },
+    {
+      "name": "MIT Technology Review",
+      "count": 10
+    },
+    {
+      "name": "OpenAI Blog",
+      "count": 15
+    },
+    {
+      "name": "BAIR Blog",
+      "count": 10
+    },
+    {
+      "name": "Microsoft Research",
+      "count": 10
+    },
+    {
+      "name": "KDnuggets",
+      "count": 10
+    },
+    {
+      "name": "AI Business",
+      "count": 12
+    },
+    {
+      "name": "The Gradient",
+      "count": 8
+    },
+    {
+      "name": "InfoQ",
+      "count": 12
+    },
+    {
+      "name": "Hugging Face",
+      "count": 10
+    },
+    {
+      "name": "The Decoder",
+      "count": 10
+    },
+    {
+      "name": "量子位",
+      "count": 10
+    },
+    {
+      "name": "Wired AI",
+      "count": 10
+    },
+    {
+      "name": "Google AI Blog (RSS)",
+      "count": 10
+    },
+    {
+      "name": "Google DeepMind",
+      "count": 10
+    },
+    {
+      "name": "arXiv NLP",
+      "count": 15
+    },
+    {
+      "name": "Reddit ML",
+      "count": 15
+    },
+    {
+      "name": "Towards Data Science",
+      "count": 15
+    },
+    {
+      "name": "NVIDIA Blog",
+      "count": 15
+    },
+    {
+      "name": "AWS ML Blog",
+      "count": 15
+    },
+    {
+      "name": "The Verge AI (RSS)",
+      "count": 10
+    },
+    {
+      "name": "Ars Technica",
+      "count": 15
+    },
+    {
+      "name": "Machine Learning Mastery",
+      "count": 10
+    }
+  ],
+  "markdown_content": "# AI每日热点 · 2026年11月11日\n\n> 💡 微软揭Lazarus休眠神经元后门 AI Agent攻击面深入权重层 供应链审计成企业采购必备\n\n> **期号**: #20261111  |  **阅读时间**: ~7分钟  |  **精选**: 35条（5条编辑精选 + 30条分类热点）\n\n---\n\n## 💡 核心洞察\n\n- 微软揭出休眠神经元后门，攻击面从提示层深入模型权重层；叠加纽约强制注册披露，企业采购第三方模型须把'供应链审计'写进合同，安全责任正在前置。\n- ChatGPT建认证商家生态，eBay却封杀外部Agent，平台在'拥抱AI入口'与'死守流量'间站队；品牌方自建官方Agent从可选项变必选项，迟一步比价流量即被截流。\n- Kimi借OpenAI兼容接口登陆Bedrock，API协议正成AI界的'HTTP'，模型层加速商品化；企业选型焦点上移至编排与评估层，模型迁移成本降至历史低位。\n- Anthropic推办公套件硬刚Copilot，模型厂商从'卖军火'转向抢应用层，与其最大客户微软、Google由合作变竞争；SaaS定价体系承压，最终利好企业买方。\n- Agent评估工具爆发、安全法规生效、数据中心电力告急同期而至，行业重心从'跑通Demo'转向'可持续生产'；评估监控成新基建，能耗正变选址硬约束。\n\n---\n\n## 📰 深度观察\n\n攻击者已经懒得构造提示词了，微软此次发现的\"Lazarus\"后门藏得更深：在模型中休眠一段神经元，触发条件一到即唤醒，AI Agent反成攻击武器。攻击面从对话层沉入权重层；叠加纽约的强制注册披露，企业采购第三方模型时，“供应链审计”正变成合同标配。\n\n同一天，Kimi K3.1 Pro借OpenAI兼容接口登陆Bedrock，现有代码直接调用。两条新闻指向同一拐点：API协议正成为AI界的\"HTTP\"，模型层加速商品化，模型像标准件可随时替换，藏在权重里的风险反而更难察觉。企业选型焦点随之上移至编排与评估层，LangGraph加Bedrock AgentCore实战教程的走红，正说明评估监控在成为新基建。\n\n竞争同样在上移。Anthropic推出办公套件硬刚Copilot，从“卖军火”转向抢应用层，与其最大客户微软、Google由合作变竞争。SaaS定价体系承压，最终埋单的企业反倒成了受益者。\n\n而生产化的最后一道闸门在物理世界：佩洛西继任者准备监管AI，数据中心电力告急，能耗正从成本项变成选址硬约束。\n\n一句话，行业重心已从“跑通Demo”切换到“可持续生产”，还在晒参数的，已经掉队了。\n\n---\n\n## ⭐ 编辑精选 (Editor's Picks)\n\n### 1. Gilbert + Tobin用AI重塑法律服务模式\n\n> 📰 **OpenAI Blog**  |  ⭐ **重要性**: 72/100  |  🔗 [原文链接](https://openai.com/index/gilbert-tobin-sam-nickless)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**核心内容**: 澳大利亚知名律所Gilbert + Tobin CEO Sam Nickless分享AI转型实践，探讨律所如何借助AI重新定义法律服务业务，提升运营效率\n\n---\n\n### 2. OpenAI为护理人员推出免费ChatGPT培训，覆盖美国5城\n\n> 📰 **OpenAI Blog**  |  ⭐ **重要性**: 65/100  |  🔗 [原文链接](https://openai.com/index/helping-caregivers-use-ai-in-everyday-life)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**核心内容**: OpenAI Academy在美国5座城市推出免费ChatGPT实操工作坊，帮助护理人员掌握日常AI技能，让照护工作更轻松高效\n\n---\n\n### 3. Google Cloud发布医疗版Gemini：统一临床数据，减轻医护行政负担\n\n> 📰 **Google AI Blog**  |  ⭐ **重要性**: 63/100  |  🔗 [原文链接](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**核心内容**: Google Cloud推出医疗行业专用Gemini，整合分散的临床数据并自动化工作流程，直击医护人员行政倦怠痛点\n\n---\n\n### 4. Adobe与Google打通工具链：Drive内直接编辑PDF，Gemini接入Adobe AI\n\n> 📰 **Google AI Blog**  |  ⭐ **重要性**: 63/100  |  🔗 [原文链接](https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**核心内容**: Adobe创意工具与Google办公应用深度整合，用户可在Drive中直接编辑PDF，还能在Gemini中调用Adobe AI功能，工作流更顺畅\n\n---\n\n### 5. Gemini Intelligence功能升级，扩展至更多设备\n\n> 📰 **Google AI Blog**  |  ⭐ **重要性**: 63/100  |  🔗 [原文链接](https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**核心内容**: Google的Gemini Intelligence迎来新功能更新，覆盖设备范围持续扩大，让智能助手体验惠及更广泛用户群体\n\n---\n\n## 📊 热门话题\n\n| 话题 | 相关新闻 | 趋势 |\n|------|---------|------|\n| 新闻 | 30条 | 📈 上升 |\n| AI资讯 | 30条 | 📈 上升 |\n\n---\n\n## 🔍 分类热点\n\n### 📚 学术前沿 (5条)\n\n#### 1. 微软发现\"Lazarus\"后门攻击：休眠神经元可被重编程，AI Agent沦为攻击工具\n\n> 📰 **Microsoft Research**  |  ⭐ **重要性**: 63/100  |  🔗 [原文](https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 微软研究人员发现名为\"Lazarus\"的后门技术，能重编程AI模型中的休眠神经元，让表现正常的AI Agent执行恶意命令，暴露Agent安全防线重大隐患\n\n---\n\n#### 2. Anthropic推出AI办公套件，正面挑战微软Copilot与Google Workspace\n\n> 📰 **The Verge AI (RSS)**  |  ⭐ **重要性**: 58/100  |  🔗 [原文](https://www.theverge.com/ai-artificial-intelligence/1030709/anthropic-has-its-own-ai-powered-office-suite-now)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Anthropic发布自有AI办公套件，延续其在企业服务和编程工具领域的优势布局，凭借高端企业客户基础直接切入办公软件市场，OpenAI等对手或被迫跟进\n\n---\n\n#### 3. 独立游戏圈因AI陷入分裂：IGF评委集体拒投使用生成式AI的作品\n\n> 📰 **The Verge AI (RSS)**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://www.theverge.com/games/1030994/big-walk-independent-games-festival-igf-ai)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 独立游戏节(IGF)多位评委公开声明，拒绝对任何形式使用生成式AI的游戏投票，随后热门游戏《Big Walk》开发商卷入争议，社区围绕AI使用边界激烈对立\n\n---\n\n#### 4. 八国与OpenAI等AI巨头签署巴黎宣言，就AI关停机制达成一致\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 55/100  |  🔗 [原文](https://the-decoder.com/eight-countries-and-top-ai-labs-agree-to-shutdown-mechanisms-in-new-paris-declaration/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 在马克龙倡议下，八国政府联合OpenAI、Anthropic、微软及Mistral AI签署《巴黎AI安全与安保倡议》，各方承诺为失控AI系统建立紧急关停机制\n\n---\n\n#### 5. Anthropic Fable 5.2完成41%真实自由职业任务，一年内飙升16倍\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://the-decoder.com/anthropics-fable-5-2-completes-41-percent-of-real-freelance-jobs-up-from-2-5-percent-a-year-ago/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Anthropic的Fable 5.2在Remote Labor Index测评中以专业水准完成41.3%的真实自由职业任务，性能达第二名Opus 5.5和GPT 6 Astra两倍，一年前行业最高仅2.5%\n\n---\n\n### 🛠️ 开发工具 (5条)\n\n#### 1. Kimi K3.1 Pro登陆Amazon Bedrock：兼容OpenAI API，现有代码直接调用\n\n> 📰 **AWS ML Blog**  |  ⭐ **重要性**: 60/100  |  🔗 [原文](https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 月之暗面Kimi K3.1 Pro正式上线Amazon Bedrock，开发者可通过OpenAI兼容的Chat Completions、Responses及Converse API直接调用，无需改造现有代码即可接入企业级云端部署\n\n---\n\n#### 2. LangGraph+Bedrock AgentCore实战：搭建每日依赖监控Agent，搜索结果自带引用\n\n> 📰 **AWS ML Blog**  |  ⭐ **重要性**: 59/100  |  🔗 [原文](https://aws.amazon.com/blogs/machine-learning/build-a-daily-dependency-watcher-with-langgraph-and-amazon-bedrock-agentcore-web-search/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: AWS教程演示如何用LangGraph结合Bedrock AgentCore的Web Search API构建每日依赖监控Agent，返回带引用来源的实时网络结果，且直接复用现有AWS凭证认证\n\n---\n\n#### 3. Agent Substrate：为大规模AI Agent重新设计Kubernetes\n\n> 📰 **NVIDIA Blog**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: AI Agent大部分时间处于空闲等待，按Pod分配资源的Kubernetes架构成本过高。Agent Substrate针对Agent特性重设计，大幅降低大规模Agent部署的基础设施成本\n\n---\n\n#### 4. Scikit-LLM教程：几行代码在scikit-learn流水线中集成LLM，搞定多语言分类\n\n> 📰 **KDnuggets**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://www.kdnuggets.com/integrating-llm-translation-into-your-scikit-learn-pipelines-with-scikit-llm)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 教程展示如何用Scikit-LLM构建两阶段scikit-learn流水线：LLM先完成多语言文本翻译，再通过零样本分类统一处理，数据科学团队无需训练模型即可处理多语言任务\n\n---\n\n#### 5. 1型糖尿病患者开源：用自身血糖数据训练15+个AI模型\n\n> 📰 **Reddit ML**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://www.reddit.com/r/MachineLearning/comments/1xsussb/i_have_trained_15_models_on_my_own_blood_sugar/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 开发者基于个人血糖及代谢网络（Metabonet）数据集训练15+个模型预测血糖变化，全部源代码已在GitHub开源，为糖尿病管理提供可复用的个性化AI方案\n\n---\n\n### 🦾 AI Agent (5条)\n\n#### 1. eBay封杀第三方AI Agent访问，Meta Muse被拒之门外\n\n> 📰 **The Verge AI (RSS)**  |  ⭐ **重要性**: 58/100  |  🔗 [原文](https://www.theverge.com/tech/1030838/ebay-ai-agents-meta-muse-agentic-shopping)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: eBay已屏蔽Meta Muse等第三方AI Agent浏览其平台，成为AI Agent竞赛的最新阻碍。据The Verge读者反馈，相关限制已持续数周时间\n\n---\n\n#### 2. Agent评估实战指南：Bedrock内置工具、DeepEval与AutoEval三大方案详解\n\n> 📰 **AWS ML Blog**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://aws.amazon.com/blogs/machine-learning/the-agent-evaluation-playbook-built-in-deepeval-and-autoeval-on-agentcore/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Agent部署后是否可靠需多维验证：任务是否完成、是否跑题、是否泄露数据、是否跳步。本文详解用Amazon Bedrock AgentCore评估Agent的实操方法\n\n---\n\n#### 3. Gemini 4 Carbon正式发布：多项跑分登顶，价格仅为Fable 5.2一半\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 55/100  |  🔗 [原文](https://the-decoder.com/gemini-4-carbon-arrives-just-in-time-to-feel-like-yesterdays-news-in-the-fastest-model-cycle-yet/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Google宣布Gemini 4 Carbon结束两周测试正式上线，多项基准测试排名第一，部分超越Anthropic新模型Fable 5.2，而价格不到其一半\n\n---\n\n#### 4. Copilot实测：Diff范围内8个Bug全抓，范围外2个全漏\n\n> 📰 **Towards Data Science**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://towardsdatascience.com/copilot-caught-8-of-8-diff-bugs-with-rules-0-of-2-outside-the-diff/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 实测显示Copilot按规则审查可抓出Diff范围内全部8个Bug，但范围外2个均漏检。一个看似正确的防护函数导致客户多付11天费用，不变性测试本可发现\n\n---\n\n#### 5. 自动驾驶落地关键：推理模型如何在车载算力和延迟限制内运行\n\n> 📰 **NVIDIA Blog**  |  ⭐ **重要性**: 53/100  |  🔗 [原文](https://developer.nvidia.com/blog/running-av-reasoning-models-within-onboard-compute-and-latency-limits/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 自动驾驶(AV)开发者需要能在车载算力和延迟约束内运行的推理模型。大模型能力更强但难以满足实时要求，如何在性能与资源间取舍成为落地关键\n\n---\n\n### 💼 企业应用 (5条)\n\n#### 1. 纽约AI安全法生效：OpenAI、Anthropic须注册披露安全实践，违者罚款\n\n> 📰 **TechCrunch AI**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 纽约州AI安全法正式执行，要求OpenAI、Anthropic等大型开发商注册登记、披露安全实践并上报重大事故，否则将面临罚款处罚，AI监管进入实操阶段\n\n---\n\n#### 2. OpenAI上线商家资料功能，ChatGPT加速对标Google变身商业发现引擎\n\n> 📰 **TechCrunch AI**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: OpenAI为ChatGPT推出商家资料等新功能，邀请企业入驻平台，助力其成为更强大的消费发现引擎，进一步蚕食Google搜索业务\n\n---\n\n#### 3. Anthropic IPO在即：7位联合创始人人均套现2.5亿美元\n\n> 📰 **TechCrunch AI**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://techcrunch.com/2026/11/10/all-7-anthropic-founders-will-each-cash-out-about-250m-in-ipo/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Anthropic七位联合创始人计划在IPO中出售数量完全相同的股份，按发行价区间中值计算，每人可套现约2.5亿美元现金\n\n---\n\n#### 4. Oura斥资6.25亿美元收购AI医疗初创Counsel Health\n\n> 📰 **TechCrunch AI**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://techcrunch.com/2026/11/10/oura-to-acquire-ai-native-primary-care-startup-counsel-health-for-625m/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 智能戒指厂商Oura将以6.25亿美元收购AI原生初级保健公司Counsel Health，数周前其高达22亿美元的IPO因市场不确定性被无限期推迟\n\n---\n\n#### 5. PSI押注AI科学发现：用未发布Anthropic模型破解量子计算20年难题\n\n> 📰 **TechCrunch AI**  |  ⭐ **重要性**: 56/100  |  🔗 [原文](https://techcrunch.com/2026/11/10/psi-is-trying-to-make-a-business-out-of-ai-driven-scientific-discovery/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 初创公司PSI使用Anthropic未发布模型解答科学家追寻近20年的量子计算基础问题，试图将AI驱动的科学发现打造成可盈利的商业模式\n\n---\n\n### 🌐 消费产品 (5条)\n\n#### 1. ChatGPT上线认证'商务Agent'，用户可与品牌官方AI直接比价购物\n\n> 📰 **The Verge AI (RSS)**  |  ⭐ **重要性**: 58/100  |  🔗 [原文](https://www.theverge.com/ai-artificial-intelligence/1030552/openai-chatgpt-business-agents-hub)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: OpenAI在ChatGPT中引入认证商务Agent，用户可与代表品牌的官方AI对话，完成比价购物等任务。该功能率先向符合条件的电商领域开放\n\n---\n\n#### 2. OpenAI把ChatGPT变成企业获客平台：品牌可认领主页，AI Agent自动应答客户\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 55/100  |  🔗 [原文](https://the-decoder.com/openai-turns-chatgpt-into-a-business-directory-with-ai-agents-that-handle-customer-questions/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: OpenAI推出Business Hub，企业可认领资料页、上传产品数据并追踪用户互动，商务Agent自动处理客户咨询，ChatGPT正成为企业直达用户的新渠道\n\n---\n\n#### 3. 一个会话启动Hook，让Claude Code技能触发率从15%提升至62%\n\n> 📰 **Towards Data Science**  |  ⭐ **重要性**: 54/100  |  🔗 [原文](https://towardsdatascience.com/a-session-start-hook-raised-claude-code-skill-firing-from-15-to-62/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 开发者实测Haiku、Sonnet、Opus六项测试技能发现：会话启动Hook可将技能触发率从15%提升至62%，强制描述仅增5个百分点，近似请求则完全不触发\n\n---\n\n#### 4. Gemini Robotics 2.5实测：人形机器人分拣奔驰产线零件，准确率达96%\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 53/100  |  🔗 [原文](https://the-decoder.com/google-deepminds-gemini-robotics-2-5-scores-96-percent-sorting-metal-parts-in-a-mercedes-benz-assembly-pilot/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Google DeepMind发布机器人控制模型Gemini Robotics 2.5，与Apptronik在奔驰匈牙利和德国产线试点，人形机器人Apollo金属零件分拣准确率达96%\n\n---\n\n#### 5. NVIDIA开源Snapshot：GPU工作负载实现秒级启动与恢复\n\n> 📰 **NVIDIA Blog**  |  ⭐ **重要性**: 53/100  |  🔗 [原文](https://developer.nvidia.com/blog/start-and-restore-gpu-workloads-in-seconds-with-nvidia-snapshot/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: NVIDIA Snapshot作为DSX AI Factory平台新开源组件，让已初始化的GPU工作负载跨推理场景复用，启动与恢复时间从数分钟压缩至数秒\n\n---\n\n### 📰 行业资讯 (5条)\n\n#### 1. 佩洛西继任者准备监管AI，数据中心遭遇电力危机\n\n> 📰 **MIT Technology Review**  |  ⭐ **重要性**: 60/100  |  🔗 [原文](https://www.technologyreview.com/2026/11/10/1148150/the-download-pelosi-successor-ai-regulation-data-center-backlash/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 佩洛西的继任者已准备好对AI行业出手监管；与此同时，AI数据中心因耗电激增面临供电不足，算力扩张与能源约束的矛盾正成为行业焦点\n\n---\n\n#### 2. 美国正赢得AI竞赛，但黄仁勋或成致命变数\n\n> 📰 **The Verge AI (RSS)**  |  ⭐ **重要性**: 57/100  |  🔗 [原文](https://www.theverge.com/ai-artificial-intelligence/1031063/jensen-huang-ai-race-us-china-spy)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 英伟达CEO黄仁勋掌控驱动AI革命的算力核心，是全球间谍活动聚焦目标；美国AI领先地位高度系于一人，其安全风险引发广泛担忧\n\n---\n\n#### 3. 5种低成本微调LLM技巧：从LoRA到Unsloth附完整代码\n\n> 📰 **KDnuggets**  |  ⭐ **重要性**: 55/100  |  🔗 [原文](https://www.kdnuggets.com/5-techniques-for-fine-tuning-llms-without-breaking-the-bank)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 详解LoRA、QLoRA、Unsloth、DPO及GPU选型五种省钱微调方案，每种均配可运行代码，帮助小团队低成本打造高性能定制模型\n\n---\n\n#### 4. Anthropic启动IPO路演：每股70-78美元，估值冲击万亿美元\n\n> 📰 **The Decoder**  |  ⭐ **重要性**: 53/100  |  🔗 [原文](https://the-decoder.com/anthropic-kicks-off-ipo-roadshow-offering-shares-at-70-to-78-and-targeting-a-trillion-dollar-valuation/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: Anthropic正式开启IPO路演，目标估值最高1.02万亿美元；公开募股规模达644亿美元，另有260亿美元私募融资同步推进\n\n---\n\n#### 5. 实测TimesFM 3.0等三大时序模型：金融预测不敌简单基线\n\n> 📰 **Reddit ML**  |  ⭐ **重要性**: 53/100  |  🔗 [原文](https://www.reddit.com/r/MachineLearning/comments/1xsqztt/i_benchmarked_timesfm_30_chronos2_and_toto_20_on/)\n\n> 🔑 **关键信息**: 🏷️ 新闻 | 🏷️ AI资讯\n\n**摘要**: 开发者将Google TimesFM 3.0、Chronos-2和Toto 2.0用于金融市场时序预测，实测发现这些时序基础模型均未跑赢简单基线方法\n\n---\n\n## 📚 数据来源\n\n- **TechCrunch AI**: 15条\n- **Hacker News**: 11条\n- **MIT Technology Review**: 10条\n- **OpenAI Blog**: 15条\n- **BAIR Blog**: 10条\n- **Microsoft Research**: 10条\n- **KDnuggets**: 10条\n- **AI Business**: 12条\n- **The Gradient**: 8条\n- **InfoQ**: 12条\n- **Hugging Face**: 10条\n- **The Decoder**: 10条\n- **量子位**: 10条\n- **Wired AI**: 10条\n- **Google AI Blog (RSS)**: 10条\n- **Google DeepMind**: 10条\n- **arXiv NLP**: 15条\n- **Reddit ML**: 15条\n- **Towards Data Science**: 15条\n- **NVIDIA Blog**: 15条\n- **AWS ML Blog**: 15条\n- **The Verge AI (RSS)**: 10条\n- **Ars Technica**: 15条\n- **Machine Learning Mastery**: 10条\n\n---\n\n*🤖 Generated by [ContentForge AI](https://github.com/devfoxaicn/content-forge-ai)*\n"
+}
